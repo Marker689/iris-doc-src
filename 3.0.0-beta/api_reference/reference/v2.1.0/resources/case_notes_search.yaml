@@ -1,0 +1,259 @@
+parameters: []
+post:
+  summary: Search in notes
+  operationId: post-case-notes-search
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Returns a seet of notes matching the terms
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    note_id:
+                      type: integer
+                    note_title:
+                      type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  - note_id: 153
+                    note_title: Untitled note
+                  - note_id: 155
+                    note_title: Testing note siho
+                  - note_id: 88
+                    note_title: Example note with code
+          examples:
+            Example:
+              value:
+                status: success
+                message: ''
+                data:
+                  - note_id: 153
+                    note_title: Untitled note
+                  - note_id: 155
+                    note_title: Testing note siho
+                  - note_id: 88
+                    note_title: Example note with code
+  description: This endpoint is deprecated. Use the [GET /case/notes/search](#tag/Notes/operation/get-case-notes-search) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              note_title: Untitled note
+              note_content: '## Edit me with the right pencil button'
+              group_id: 20
+              csrf_token: >-
+                IjA0NTM5M2JhYWE3NTEwNTk3NTk4NDlkNDQxYjhhMDcyYzdmMWM4YTIi.YXZAOQ.VKI2H9YOhv6D8AJk6HbFQXj-nPk
+          properties:
+            search_term:
+              type: string
+              minLength: 1
+          required:
+            - search_term
+        examples:
+          Example 1:
+            value:
+              search_term: term
+    description: ''
+get:
+  summary: Search in notes
+  operationId: get-case-notes-search
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: OK
+    '':
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  - directory:
+                      id: 4
+                      name: New folder
+                      parent_id: 2
+                      case_id: 1
+                    note_id: 16
+                    note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                    note_title: New title
+                    note_content: New content
+                    note_user: 1
+                    note_creationdate: '2024-03-27T18:14:21.245694'
+                    note_lastupdate: '2024-03-27T18:14:21.245724'
+                    note_case_id: 1
+                    custom_attributes: null
+                    directory_id: 4
+                    modification_history:
+                      '1711563261.268616':
+                        user: administrator
+                        user_id: 1
+                        action: created note
+                      '1711563512.541373':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563539.900177':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563545.354224':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563549.441697':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    directory:
+                      type: object
+                      required:
+                        - id
+                        - name
+                        - parent_id
+                        - case_id
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        parent_id:
+                          type: integer
+                        case_id:
+                          type: integer
+                    note_id:
+                      type: integer
+                    note_uuid:
+                      type: string
+                    note_title:
+                      type: string
+                    note_content:
+                      type: string
+                    note_user:
+                      type: integer
+                    note_creationdate:
+                      type: string
+                    note_lastupdate:
+                      type: string
+                    note_case_id:
+                      type: integer
+                    custom_attributes:
+                      type: 'null'
+                    directory_id:
+                      type: integer
+                    modification_history:
+                      type: object
+                  required:
+                    - directory
+                    - note_id
+                    - note_uuid
+                    - note_title
+                    - note_content
+                    - note_user
+                    - note_creationdate
+                    - note_lastupdate
+                    - note_case_id
+                    - custom_attributes
+                    - directory_id
+                    - modification_history
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - directory:
+                      id: 4
+                      name: New folder
+                      parent_id: 2
+                      case_id: 1
+                    note_id: 16
+                    note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                    note_title: New title
+                    note_content: New content
+                    note_user: 1
+                    note_creationdate: '2024-03-27T18:14:21.245694'
+                    note_lastupdate: '2024-03-27T18:14:21.245724'
+                    note_case_id: 1
+                    custom_attributes: null
+                    directory_id: 4
+                    modification_history:
+                      '1711563261.268616':
+                        user: administrator
+                        user_id: 1
+                        action: created note
+                      '1711563512.541373':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563539.900177':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563545.354224':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+                      '1711563549.441697':
+                        user: administrator
+                        user_id: 1
+                        action: updated note
+  description: 'Search across notes. '
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+    - schema:
+        type: string
+      in: query
+      name: search_input
+      description: Search term. Use % as wildcard
+      required: true

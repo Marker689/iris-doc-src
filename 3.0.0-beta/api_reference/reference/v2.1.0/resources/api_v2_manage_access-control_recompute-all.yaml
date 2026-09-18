@@ -1,0 +1,33 @@
+post:
+  operationId: api_v2_manage_access-control_recompute-all_post
+  tags:
+    - Access control
+    - Beta
+  summary: Recompute effective access for all users
+  description: >-
+    Rebuild the effective-access cache for every user. Expensive on large
+    fleets — the UI gates this behind a confirmation. The endpoint itself
+    runs the recompute helper and returns the identifier of the resulting
+    job. Server-administrator only.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          description: Empty request body
+        example: {}
+  responses:
+    '200':
+      description: Recompute successfully triggered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              job_id:
+                type: string
+                description: Identifier of the recompute job that was queued
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

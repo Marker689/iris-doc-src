@@ -1,0 +1,61 @@
+post:
+  operationId: api_v2_auth_mfa_verify_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Verify an MFA one-time code
+  description: >-
+    Verify a TOTP code against the user's stored MFA secret. On success
+    the response contains a fresh pair of tokens minted with
+    `mfa_verified=True`, unlocking access to non-MFA endpoints. Failed
+    attempts contribute to a per-user lockout window.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            refresh_token:
+              type: string
+              description: Refresh token issued at login (identifies the user)
+            token:
+              type: string
+              description: TOTP code from the user's authenticator app
+            mfa_code:
+              type: string
+              description: Alias accepted by some clients for `token`
+            mfa_session:
+              type: string
+              description: Optional opaque session id used by the SPA to correlate the challenge
+          required:
+            - refresh_token
+            - token
+        example:
+          refresh_token: eyJhbGciOi...
+          token: '123456'
+  responses:
+    '200':
+      description: MFA verification successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              mfa_verified:
+                type: boolean
+              tokens:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  expires_in:
+                    type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

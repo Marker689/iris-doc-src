@@ -1,0 +1,40 @@
+get:
+  operationId: api_v2_dashboard_activities_cases_major_get
+  tags:
+    - Dashboard
+    - Beta
+  summary: List recent major case activities
+  description: Returns recent major case activities (case created / case closed) the current user is allowed to see. Used by the dashboard timeline tile.
+  parameters:
+    - name: limit
+      in: query
+      required: false
+      description: Maximum number of activities to return. Defaults to 20, capped at 100.
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    - name: offset
+      in: query
+      required: false
+      description: Pagination cursor. Defaults to 0.
+      schema:
+        type: integer
+        default: 0
+  responses:
+    '200':
+      description: List of recent major case activities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                activity_date:
+                  type: string
+                  format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

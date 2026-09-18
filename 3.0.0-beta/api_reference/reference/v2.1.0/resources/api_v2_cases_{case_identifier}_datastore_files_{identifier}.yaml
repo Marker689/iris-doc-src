@@ -1,0 +1,112 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the datastore file
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_(identifier)_get
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Download a datastore file
+  description: Streams the raw bytes of the stored file. Executable/renderable types (SVG, HTML, XML, ...) are served as attachments to avoid stored-XSS in the application origin. Pass `?info=1` to get metadata JSON instead of the content.
+  parameters:
+    - name: info
+      in: query
+      required: false
+      description: When truthy, return the file metadata as JSON instead of the content
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: File content stream
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_(identifier)_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Update a datastore file
+  description: Update file metadata and, optionally, replace its content. Body must be `multipart/form-data`. Only the fields present in the form are updated.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file_original_name:
+              type: string
+              description: Rename the stored file
+            file_description:
+              type: string
+            file_tags:
+              type: string
+              description: Comma-separated tags
+            file_is_ioc:
+              type: boolean
+            file_is_evidence:
+              type: boolean
+            file_content:
+              type: string
+              format: binary
+              description: Optional new binary content replacing the current version
+  responses:
+    '200':
+      description: File successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              file_original_name:
+                type: string
+              file_description:
+                type: string
+              file_size:
+                type: integer
+              file_sha256:
+                type: string
+              file_tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_(identifier)_delete
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Delete a datastore file
+  description: Delete a stored file and its underlying blob. Requires full access to the case.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

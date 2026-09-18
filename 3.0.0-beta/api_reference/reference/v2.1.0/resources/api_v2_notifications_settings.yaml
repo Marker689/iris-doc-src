@@ -1,0 +1,110 @@
+get:
+  operationId: api_v2_notifications_settings_get
+  tags:
+    - Notifications
+    - Beta
+  summary: Get notification settings
+  description: >-
+    Return the effective notification settings for the current user.
+    The payload carries the full list of supported event types and
+    channels along with the merged (admin default + user override)
+    per-event, per-channel switch matrix the SPA renders as a grid.
+  responses:
+    '200':
+      description: Settings successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email_enabled:
+                type: boolean
+              in_app_enabled:
+                type: boolean
+              digest_frequency:
+                type: string
+                description: One of `never`, `daily`, `weekly`
+              event_types:
+                type: array
+                items:
+                  type: string
+              channels:
+                type: array
+                items:
+                  type: string
+              settings:
+                type: object
+                description: >-
+                  Effective grid of `{event_type: {channel: bool}}`
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+put:
+  operationId: api_v2_notifications_settings_put
+  tags:
+    - Notifications
+    - Beta
+  summary: Update notification settings
+  description: >-
+    Upsert the current user's notification preferences. Only fields
+    present in the payload are updated. Unknown event types or channels
+    inside `event_types` / `settings` are dropped server-side.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email_enabled:
+              type: boolean
+            in_app_enabled:
+              type: boolean
+            digest_frequency:
+              type: string
+              description: One of `never`, `daily`, `weekly`
+            event_types:
+              type: array
+              items:
+                type: string
+            settings:
+              type: object
+              description: >-
+                Grid of `{event_type: {channel: bool}}` overrides
+        example:
+          email_enabled: true
+          in_app_enabled: true
+          digest_frequency: daily
+          settings:
+            case_created:
+              email: true
+              in_app: true
+    description: ''
+  responses:
+    '200':
+      description: Settings successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email_enabled:
+                type: boolean
+              in_app_enabled:
+                type: boolean
+              digest_frequency:
+                type: string
+              event_types:
+                type: array
+                items:
+                  type: string
+              channels:
+                type: array
+                items:
+                  type: string
+              settings:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

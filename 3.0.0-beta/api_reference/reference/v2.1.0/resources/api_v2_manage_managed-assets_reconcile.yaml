@@ -1,0 +1,47 @@
+post:
+  operationId: api_v2_manage_managed-assets_reconcile_post
+  tags:
+    - Managed assets
+    - Beta
+  summary: Backfill one customer registry from its cases and alerts
+  description: >-
+    Register any case or alert asset belonging to this customer that is missing
+    from its managed-asset registry. The registry is normally fed as cases and
+    alerts are created, so this is a repair for the one way it can drift — a
+    missing row — after an import, a restore, or a failed ingest hook. Nothing
+    is updated or removed, only added.
+
+
+    A POST, not a GET: it is a customer-wide write. The whole batch produces one
+    activity entry rather than an audit row per asset, so machine-created rows
+    don't bury the human trail. Requires access to the customer.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            client_id:
+              description: Customer to reconcile. Missing or non-integer is a 400.
+              type: integer
+          required:
+            - client_id
+        example:
+          client_id: 1
+  responses:
+    '200':
+      description: Reconciliation completed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              created:
+                description: Registry rows added.
+                type: integer
+          example:
+            created: 27
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,1022 @@
+get:
+  summary: Get list of assets
+  tags:
+    - Assets
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  assets:
+                    - asset_id: 57
+                      asset_uuid: c6598fd0-836a-4fc4-87c1-6f03348eadeb
+                      asset_name: FILESERVER1231
+                      asset_type: Windows - Server
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 10
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 79
+                      asset_uuid: 0955016b-c1aa-44e1-a5c6-0b538eac7d9f
+                      asset_name: Test_DFIR
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: example.com
+                      asset_compromise_status_id: 1
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 1
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 82
+                      asset_uuid: 305c5569-b818-4518-b7cd-cfd07a1033ca
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: ''
+                      asset_domain: domain.local
+                      asset_compromise_status_id: 0
+                      asset_ip: 10.0.0.8
+                      asset_type_id: 11
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 36
+                      asset_uuid: 3b16900a-72a2-46f2-a4e9-880de044c2ad
+                      asset_name: User1_FRZ
+                      asset_type: Firewall
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 2
+                      analysis_status: Pending
+                      analysis_status_id: 4
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3723
+                      asset_uuid: 82c5f2a8-a050-4c23-9616-f5d6713bcf1e
+                      asset_name: DE100
+                      asset_type: Router
+                      asset_icon_compromised: ioc_router.png
+                      asset_icon_not_compromised: router.png
+                      asset_description: Deutsh router
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 12
+                      analysis_status: Pending
+                      analysis_status_id: 4
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3777
+                      asset_uuid: e43b9a3d-37d6-4034-a5ff-2c5252ca9e33
+                      asset_name: user1
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: 'user account '
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3706
+                      asset_uuid: 8d04103e-dcfc-40c6-b9d9-f84a77dd823c
+                      asset_name: ad v mojej domene
+                      asset_type: Windows Account - AD
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: domenovy dacid c 1
+                      asset_domain: pravda.sk
+                      asset_compromise_status_id: 3
+                      asset_ip: 195.28.85.54
+                      asset_type_id: 18
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: pravda.sk
+                      link: []
+                      ioc_links: null
+                    - asset_id: 38
+                      asset_uuid: 97eaf383-50d6-4f6f-9649-51dc8560fd41
+                      asset_name: EndpointDevice1
+                      asset_type: Windows - Computer
+                      asset_icon_compromised: ioc_windows_desktop.png
+                      asset_icon_not_compromised: windows_desktop.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 9
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 47
+                      asset_uuid: ba08841b-80c2-4b55-b296-77f27630d55c
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: |-
+                        ![saml.png](/datastore/file/view/3?cid=1 =40%x40%) 
+
+                        <test><script>
+                        # Test 
+                        Description and analysis of the machine 
+                        Some other things to do
+
+
+                        ## Another test 
+                        And again another testing 
+
+                        ### And yet again another test
+                        Or something else you wanna do 
+                      asset_domain: acme.local
+                      asset_compromise_status_id: 1
+                      asset_ip: 192.168.0.1
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: 1.3.4.2
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 37
+                      asset_uuid: 7a0278a2-618d-461e-921e-7cbc0bad3004
+                      asset_name: User2
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3749
+                      asset_uuid: e4ca3e33-28f0-43f4-8c68-a79949a9fbb0
+                      asset_name: DC03
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3750
+                      asset_uuid: 34dba357-7983-4eec-8627-30a5f2b48cc4
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 2429
+                      asset_uuid: 1a9201a9-8d03-44b3-a47a-16c9a780849e
+                      asset_name: Phone - IOS-4869
+                      asset_type: Phone - IOS
+                      asset_icon_compromised: ioc_phone.png
+                      asset_icon_not_compromised: phone.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 8
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 407
+                          ioc_value: ec3e51e46aae
+                          asset_id: 2429
+                        - ioc_id: 788
+                          ioc_value: bsaoln.gov
+                          asset_id: 2429
+                    - asset_id: 3872
+                      asset_uuid: 11925eb0-b205-419f-81cf-fe550a6a6986
+                      asset_name: trreeree
+                      asset_type: Windows - Computer
+                      asset_icon_compromised: ioc_windows_desktop.png
+                      asset_icon_not_compromised: windows_desktop.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 9
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3881
+                      asset_uuid: 9a911ef8-3f40-4aaa-a6e0-4ea880bf8d49
+                      asset_name: DCSERER.com
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: thsis is DC serer
+                      asset_domain: myDC.com
+                      asset_compromise_status_id: 1
+                      asset_ip: 10.10.10.1
+                      asset_type_id: 11
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 83
+                      asset_uuid: 7fb6eec5-ebef-4abd-ab31-4b31b96266f5
+                      asset_name: MV-422
+                      asset_type: Windows - Server
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Maquina de pruebas
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 10
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3857
+                      asset_uuid: 763d9ac5-b858-40b6-b6eb-5b905402d0c3
+                      asset_name: Super Dadmin
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Done
+                      analysis_status_id: 6
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 75
+                      asset_uuid: 50899fe4-5ef6-420d-aef6-55fe6febf6f5
+                      asset_name: aaa
+                      asset_type: Switch
+                      asset_icon_compromised: ioc_switch.png
+                      asset_icon_not_compromised: switch.png
+                      asset_description: asdfdfgsdfg
+                      asset_domain: sdfgh
+                      asset_compromise_status_id: 0
+                      asset_ip: '435445'
+                      asset_type_id: 13
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: 455,type
+                      link: []
+                      ioc_links: null
+                    - asset_id: 2548
+                      asset_uuid: 9d188714-5251-41f3-817b-3b1c8515de06
+                      asset_name: WAF-301
+                      asset_type: WAF
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: 2
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 15
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 1135
+                          ioc_value: aunnrzg.co.uk
+                          asset_id: 2548
+                        - ioc_id: 349
+                          ioc_value: ufrsmrdxlqq.org
+                          asset_id: 2548
+                    - asset_id: 2547
+                      asset_uuid: e72f8566-3437-4693-b5e7-e41122c93a4e
+                      asset_name: Account-244
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 1135
+                          ioc_value: aunnrzg.co.uk
+                          asset_id: 2547
+                        - ioc_id: 349
+                          ioc_value: ufrsmrdxlqq.org
+                          asset_id: 2547
+                    - asset_id: 3906
+                      asset_uuid: 6a6cb41a-024f-4af6-a8b8-d75ef2c97728
+                      asset_name: waf protecting middle earth from nasty goblins
+                      asset_type: WAF
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: ''
+                      asset_domain: fortheshire.com
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 15
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 2430
+                      asset_uuid: 07b9310a-887e-4277-b8a8-61c78cae05ec
+                      asset_name: Linux - Server-1240
+                      asset_type: Linux - Server
+                      asset_icon_compromised: ioc_server.png
+                      asset_icon_not_compromised: server.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 3
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 407
+                          ioc_value: ec3e51e46aae
+                          asset_id: 2430
+                        - ioc_id: 788
+                          ioc_value: bsaoln.gov
+                          asset_id: 2430
+                    - asset_id: 3748
+                      asset_uuid: 765f6970-bd9c-41e8-af6b-b050c30c4c7a
+                      asset_name: DC02
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3641
+                      asset_uuid: 5f99e1ab-bc09-4a0b-b344-6279862c55cc
+                      asset_name: DC02
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: adadsasd
+                      asset_domain: nevele
+                      asset_compromise_status_id: 0
+                      asset_ip: '123'
+                      asset_type_id: 11
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                  state:
+                    object_state: 56
+                    object_last_update: '2024-01-04T15:52:02.088544'
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - assets
+                  - state
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset_id:
+                          type: integer
+                        asset_uuid:
+                          type: string
+                        asset_name:
+                          type: string
+                        asset_type:
+                          type: string
+                        asset_icon_compromised:
+                          type: string
+                        asset_icon_not_compromised:
+                          type: string
+                        asset_description:
+                          type: string
+                        asset_domain:
+                          type: string
+                        asset_compromise_status_id:
+                          type:
+                            - integer
+                            - 'null'
+                        asset_ip:
+                          type: string
+                        asset_type_id:
+                          type: integer
+                        analysis_status:
+                          type: string
+                        analysis_status_id:
+                          type: integer
+                        asset_tags:
+                          type: string
+                        link:
+                          type: array
+                          items:
+                            type: object
+                        ioc_links:
+                          type:
+                            - array
+                            - 'null'
+                          items:
+                            type: object
+                            properties:
+                              ioc_id:
+                                type: integer
+                              ioc_value:
+                                type: string
+                              asset_id:
+                                type: integer
+                            required:
+                              - ioc_id
+                              - asset_id
+                      required:
+                        - asset_id
+                        - asset_uuid
+                        - asset_name
+                        - asset_type
+                        - asset_icon_compromised
+                        - asset_icon_not_compromised
+                        - asset_description
+                        - asset_domain
+                        - asset_compromise_status_id
+                        - asset_ip
+                        - asset_type_id
+                        - analysis_status
+                        - analysis_status_id
+                        - asset_tags
+                        - link
+                        - ioc_links
+                  state:
+                    type: object
+                    required:
+                      - object_state
+                      - object_last_update
+                    properties:
+                      object_state:
+                        type: integer
+                        description: >-
+                          An incremental ID of every change that occured in the
+                          assets of the case. It allows to know if a the assets
+                          of the case changed. 
+                      object_last_update:
+                        type: string
+                        description: Last datetime the object was modified in DB
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  assets:
+                    - asset_id: 57
+                      asset_uuid: c6598fd0-836a-4fc4-87c1-6f03348eadeb
+                      asset_name: FILESERVER1231
+                      asset_type: Windows - Server
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 10
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 79
+                      asset_uuid: 0955016b-c1aa-44e1-a5c6-0b538eac7d9f
+                      asset_name: Test_DFIR
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: example.com
+                      asset_compromise_status_id: 1
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 1
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 82
+                      asset_uuid: 305c5569-b818-4518-b7cd-cfd07a1033ca
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: ''
+                      asset_domain: domain.local
+                      asset_compromise_status_id: 0
+                      asset_ip: 10.0.0.8
+                      asset_type_id: 11
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 36
+                      asset_uuid: 3b16900a-72a2-46f2-a4e9-880de044c2ad
+                      asset_name: User1_FRZ
+                      asset_type: Firewall
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 2
+                      analysis_status: Pending
+                      analysis_status_id: 4
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3723
+                      asset_uuid: 82c5f2a8-a050-4c23-9616-f5d6713bcf1e
+                      asset_name: DE100
+                      asset_type: Router
+                      asset_icon_compromised: ioc_router.png
+                      asset_icon_not_compromised: router.png
+                      asset_description: Deutsh router
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 12
+                      analysis_status: Pending
+                      analysis_status_id: 4
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3777
+                      asset_uuid: e43b9a3d-37d6-4034-a5ff-2c5252ca9e33
+                      asset_name: user1
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: 'user account '
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3706
+                      asset_uuid: 8d04103e-dcfc-40c6-b9d9-f84a77dd823c
+                      asset_name: ad v mojej domene
+                      asset_type: Windows Account - AD
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: domenovy dacid c 1
+                      asset_domain: pravda.sk
+                      asset_compromise_status_id: 3
+                      asset_ip: 195.28.85.54
+                      asset_type_id: 18
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: pravda.sk
+                      link: []
+                      ioc_links: null
+                    - asset_id: 38
+                      asset_uuid: 97eaf383-50d6-4f6f-9649-51dc8560fd41
+                      asset_name: EndpointDevice1
+                      asset_type: Windows - Computer
+                      asset_icon_compromised: ioc_windows_desktop.png
+                      asset_icon_not_compromised: windows_desktop.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 9
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 47
+                      asset_uuid: ba08841b-80c2-4b55-b296-77f27630d55c
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: |-
+                        ![saml.png](/datastore/file/view/3?cid=1 =40%x40%) 
+
+                        <test><script>
+                        # Test 
+                        Description and analysis of the machine 
+                        Some other things to do
+
+
+                        ## Another test 
+                        And again another testing 
+
+                        ### And yet again another test
+                        Or something else you wanna do 
+                      asset_domain: acme.local
+                      asset_compromise_status_id: 1
+                      asset_ip: 192.168.0.1
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: 1.3.4.2
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 37
+                      asset_uuid: 7a0278a2-618d-461e-921e-7cbc0bad3004
+                      asset_name: User2
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3749
+                      asset_uuid: e4ca3e33-28f0-43f4-8c68-a79949a9fbb0
+                      asset_name: DC03
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3750
+                      asset_uuid: 34dba357-7983-4eec-8627-30a5f2b48cc4
+                      asset_name: DC01
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link:
+                        - case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          case_open_date: '2023-08-28'
+                          asset_description: ''
+                          asset_compromise_status_id: 2
+                          asset_id: 3822
+                          case_id: 583
+                      ioc_links: null
+                    - asset_id: 2429
+                      asset_uuid: 1a9201a9-8d03-44b3-a47a-16c9a780849e
+                      asset_name: Phone - IOS-4869
+                      asset_type: Phone - IOS
+                      asset_icon_compromised: ioc_phone.png
+                      asset_icon_not_compromised: phone.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 8
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 407
+                          ioc_value: ec3e51e46aae
+                          asset_id: 2429
+                        - ioc_id: 788
+                          ioc_value: bsaoln.gov
+                          asset_id: 2429
+                    - asset_id: 3872
+                      asset_uuid: 11925eb0-b205-419f-81cf-fe550a6a6986
+                      asset_name: trreeree
+                      asset_type: Windows - Computer
+                      asset_icon_compromised: ioc_windows_desktop.png
+                      asset_icon_not_compromised: windows_desktop.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 9
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3881
+                      asset_uuid: 9a911ef8-3f40-4aaa-a6e0-4ea880bf8d49
+                      asset_name: DCSERER.com
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: thsis is DC serer
+                      asset_domain: myDC.com
+                      asset_compromise_status_id: 1
+                      asset_ip: 10.10.10.1
+                      asset_type_id: 11
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 83
+                      asset_uuid: 7fb6eec5-ebef-4abd-ab31-4b31b96266f5
+                      asset_name: MV-422
+                      asset_type: Windows - Server
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Maquina de pruebas
+                      asset_domain: ''
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 10
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3857
+                      asset_uuid: 763d9ac5-b858-40b6-b6eb-5b905402d0c3
+                      asset_name: Super Dadmin
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: ''
+                      asset_domain: ''
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 1
+                      analysis_status: Done
+                      analysis_status_id: 6
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 75
+                      asset_uuid: 50899fe4-5ef6-420d-aef6-55fe6febf6f5
+                      asset_name: aaa
+                      asset_type: Switch
+                      asset_icon_compromised: ioc_switch.png
+                      asset_icon_not_compromised: switch.png
+                      asset_description: asdfdfgsdfg
+                      asset_domain: sdfgh
+                      asset_compromise_status_id: 0
+                      asset_ip: '435445'
+                      asset_type_id: 13
+                      analysis_status: Started
+                      analysis_status_id: 3
+                      asset_tags: 455,type
+                      link: []
+                      ioc_links: null
+                    - asset_id: 2548
+                      asset_uuid: 9d188714-5251-41f3-817b-3b1c8515de06
+                      asset_name: WAF-301
+                      asset_type: WAF
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: 2
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 15
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 1135
+                          ioc_value: aunnrzg.co.uk
+                          asset_id: 2548
+                        - ioc_id: 349
+                          ioc_value: ufrsmrdxlqq.org
+                          asset_id: 2548
+                    - asset_id: 2547
+                      asset_uuid: e72f8566-3437-4693-b5e7-e41122c93a4e
+                      asset_name: Account-244
+                      asset_type: Account
+                      asset_icon_compromised: ioc_user.png
+                      asset_icon_not_compromised: user.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 1
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 1135
+                          ioc_value: aunnrzg.co.uk
+                          asset_id: 2547
+                        - ioc_id: 349
+                          ioc_value: ufrsmrdxlqq.org
+                          asset_id: 2547
+                    - asset_id: 3906
+                      asset_uuid: 6a6cb41a-024f-4af6-a8b8-d75ef2c97728
+                      asset_name: waf protecting middle earth from nasty goblins
+                      asset_type: WAF
+                      asset_icon_compromised: ioc_firewall.png
+                      asset_icon_not_compromised: firewall.png
+                      asset_description: ''
+                      asset_domain: fortheshire.com
+                      asset_compromise_status_id: 0
+                      asset_ip: ''
+                      asset_type_id: 15
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 2430
+                      asset_uuid: 07b9310a-887e-4277-b8a8-61c78cae05ec
+                      asset_name: Linux - Server-1240
+                      asset_type: Linux - Server
+                      asset_icon_compromised: ioc_server.png
+                      asset_icon_not_compromised: server.png
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_compromise_status_id: null
+                      asset_ip: 1.1.1.1
+                      asset_type_id: 3
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: tag1,tag2
+                      link: []
+                      ioc_links:
+                        - ioc_id: 407
+                          ioc_value: ec3e51e46aae
+                          asset_id: 2430
+                        - ioc_id: 788
+                          ioc_value: bsaoln.gov
+                          asset_id: 2430
+                    - asset_id: 3748
+                      asset_uuid: 765f6970-bd9c-41e8-af6b-b050c30c4c7a
+                      asset_name: DC02
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: Das sind DC
+                      asset_domain: NORTH
+                      asset_compromise_status_id: 1
+                      asset_ip: ''
+                      asset_type_id: 11
+                      analysis_status: To be done
+                      analysis_status_id: 2
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                    - asset_id: 3641
+                      asset_uuid: 5f99e1ab-bc09-4a0b-b344-6279862c55cc
+                      asset_name: DC02
+                      asset_type: Windows - DC
+                      asset_icon_compromised: ioc_windows_server.png
+                      asset_icon_not_compromised: windows_server.png
+                      asset_description: adadsasd
+                      asset_domain: nevele
+                      asset_compromise_status_id: 0
+                      asset_ip: '123'
+                      asset_type_id: 11
+                      analysis_status: Unspecified
+                      analysis_status_id: 1
+                      asset_tags: ''
+                      link: []
+                      ioc_links: null
+                  state:
+                    object_state: 56
+                    object_last_update: '2024-01-04T15:52:02.088544'
+  operationId: get-case-get-assets-list
+  description: 'Get a list of the assets linked to the case. '
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

@@ -1,0 +1,38 @@
+type: object
+properties:
+  task_title:
+    type: string
+    minLength: 2
+  task_description:
+    type: string
+  task_status_id:
+    description: The initial status of the task
+    type: integer
+  task_assignee_id:
+    type: integer
+    description: A user ID for whom the task will be assigned
+  task_tags:
+    type: string
+  task_open_date:
+    $ref: ../../schemas/iso_date.yaml
+  task_userid_open:
+    type: integer
+  task_last_update:
+    $ref: ../../schemas/iso_date.yaml
+  task_userid_update:
+    type: integer
+  task_close_date:
+    $ref: ../../schemas/iso_date.yaml
+  task_userid_close:
+    type: integer
+required:
+  - task_title
+  - task_status_id
+  - task_assignee_id
+example:
+  task_title: Task title
+  task_description: My task description
+  task_status_id: 14
+  task_assignee_id: 1
+  task_tags: ''
+

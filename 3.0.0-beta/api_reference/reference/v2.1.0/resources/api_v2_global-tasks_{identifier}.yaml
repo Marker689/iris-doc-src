@@ -1,0 +1,58 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_global-tasks_(identifier)_get
+  tags:
+    - Global tasks
+    - Beta
+  summary: Get a global task
+  description: Get a global task
+  responses:
+    '200':
+      description: global task successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/GlobalTask.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_global-tasks_(identifier)_put
+  summary: Update a global task
+  description: ''
+  tags:
+    - Global tasks
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+            $ref: ../schemas/requestBodies/GlobalTask.yaml
+  responses:
+    '201':
+      description: Global task successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/GlobalTask.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_global-tasks_(identifier)_delete
+  tags:
+    - Global tasks
+    - Beta
+  summary: Delete a global task
+  description: ''
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

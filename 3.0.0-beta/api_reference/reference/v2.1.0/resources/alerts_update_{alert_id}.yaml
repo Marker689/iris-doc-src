@@ -1,0 +1,1126 @@
+post:
+  summary: Update an alert
+  description: This endpoint is deprecated. Use [PUT /api/v2/alerts/{identifier}](#tag/Alerts/operation/api_v2_alerts_(identifier)_put) instead.
+  deprecated: true
+  operationId: post-case-update-alert
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  severity:
+                    severity_id: 4
+                    severity_name: Low
+                    severity_description: Low
+                  status:
+                    status_id: 3
+                    status_name: Assigned
+                    status_description: Alert is assigned to a user and pending investigation
+                  customer:
+                    customer_name: irisinitialclient300
+                    customer_description: null
+                    customer_sla: null
+                    customer_id: 1
+                    client_uuid: be6bb7a3-ba21-4946-8992-45213de680ad
+                    creation_date: '2024-03-18T08:34:33.855919'
+                    last_update_date: '2024-03-18T08:34:33.855919'
+                    custom_attributes: null
+                  classification:
+                    name: abusive-content:spam
+                    name_expanded: 'Abusive-Content: spam'
+                    description: >-
+                      Spam or ‘unsolicited bulk e-mail’, meaning that the
+                      recipient has not granted verifiable permission for the
+                      message to be sent and that the message is sent as part of
+                      a larger collection of messages, all having identical
+                      content.
+                    id: 1
+                    creation_date: '2024-03-18T08:34:32.554597'
+                  owner:
+                    id: 1
+                    user_name: administrator
+                    user_login: administrator
+                    user_email: administrator@localhost
+                  iocs:
+                    - ioc_value: tarzan5
+                      ioc_enrichment:
+                        provider_1:
+                          data: 2
+                          new_data: 3
+                        provider_3:
+                          enric: 'true'
+                      ioc_type:
+                        type_name: aba-rtn
+                        type_description: ABA routing transit number
+                        type_taxonomy: null
+                        type_validation_regex: null
+                        type_validation_expect: null
+                        type_id: 2
+                      ioc_id: 9
+                      ioc_uuid: 62414353-a840-4613-ba7c-e5d71023e734
+                      ioc_type_id: 2
+                      ioc_description: description kwekwe
+                      ioc_tags: tag1,tag2
+                      user_id: null
+                      ioc_misp: null
+                      ioc_tlp_id: 1
+                      custom_attributes: null
+                      modification_history: null
+                    - ioc_value: tarzan2
+                      ioc_enrichment:
+                        provider_1:
+                          data: >-
+                            a very long
+
+                            blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+
+                            ddijwedoijwedw
+
+                            dhasdhaifuhafiassfsakjfhaskljfhaslkfjhaslkfdjhdqwleiuhxioauwedhoqwiuhzndoqwuehxdnzoiuwehfoqwiufhxnwoquhoiwefhxnqwoiuhwqomifuhqzwofuhqwofeuzhqwofeiuqhwe
+                            fifuhqwiofuh qwofuqh fuq hwfoiqwhfoiquhfe
+                            quhfqiouwhf qoufhq hufou qufhqowiufhowufih
+                            qwfuhqwioufh wqoufh wifhufdhas
+                          new_data: 3
+                        provider_3:
+                          enric: 'true'
+                      ioc_type:
+                        type_name: anonymised
+                        type_description: >-
+                          Anonymised value - described with the anonymisation
+                          object via a relationship
+                        type_taxonomy: null
+                        type_validation_regex: null
+                        type_validation_expect: null
+                        type_id: 4
+                      ioc_id: 10
+                      ioc_uuid: cb689f85-43a6-4f39-a320-625c27b8975d
+                      ioc_type_id: 4
+                      ioc_description: description_hey
+                      ioc_tags: tag1,tag2
+                      user_id: null
+                      ioc_misp: null
+                      ioc_tlp_id: 2
+                      custom_attributes: null
+                      modification_history: null
+                  assets:
+                    - asset_name: My super nop
+                      asset_enrichment:
+                        enrich:
+                          enrich2: super_enrich
+                      asset_type:
+                        asset_name: Account
+                        asset_description: Generic Account
+                        asset_icon_compromised: ioc_user.png
+                        asset_icon_not_compromised: user.png
+                        asset_id: 1
+                      asset_id: 4
+                      asset_uuid: 9420306a-bfd4-481a-9fb7-36cb38d8c187
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_ip: 1.1.1.1
+                      asset_info: null
+                      asset_compromise_status_id: null
+                      asset_type_id: 1
+                      asset_tags: tag1,tag2
+                      case_id: null
+                      date_added: null
+                      date_update: null
+                      user_id: null
+                      analysis_status_id: null
+                      custom_attributes: null
+                      modification_history: null
+                  resolution_status:
+                    resolution_status_id: 1
+                    resolution_status_name: False Positive
+                    resolution_status_description: The alert was a false positive
+                  cases:
+                    - 2
+                  comments: []
+                  alert_id: 5
+                  alert_uuid: 07719f0b-0dba-4277-b050-b750004ec35f
+                  alert_title: Low-reputation arbitrary code executed by signed executable
+                  alert_description: This is a test alert, courtesy of MS
+                  alert_source: Test Source
+                  alert_source_ref: Test-123
+                  alert_source_link: https://source_link.com
+                  alert_source_content:
+                    _id: 603f704aaf7417985bbf3b22
+                    contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                    description: >-
+                      Contoso user performed 11 suspicious activities MITRE
+                      Technique used Account Discovery (T1087) and subtechnique
+                      used Domain Account (T1087.002)
+                    entities:
+                      - entityRole: Source
+                        entityType: 2
+                        id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                        inst: 0
+                        label: user1
+                        pa: user1@contoso.com
+                        saas: 11161
+                        type: account
+                      - entityRole: Related
+                        id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                        label: DC3
+                        type: device
+                      - id: 20940
+                        label: Active Directory
+                        type: service
+                      - entityRole: Related
+                        id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                        label: DC4
+                        type: device
+                      - id: 5bfd18bfab73c36ba10d38ca
+                        label: Honeytoken activity
+                        policyType: ANOMALY_DETECTION
+                        type: policyRule
+                      - entityRole: Source
+                        id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                        label: Client1
+                        type: device
+                      - entityRole: Related
+                        id: d68772fe-1171-4124-9f73-0f410340bd54
+                        label: DC1
+                        type: device
+                      - type: groupTag
+                        id: 5f759b4d106abbe4a504ea5d
+                        label: All Users
+                    idValue: 15795464
+                    isSystemAlert: false
+                    resolutionStatusValue: 0
+                    severityValue: 5
+                    statusValue: 1
+                    stories:
+                      - 0
+                    threatScore: 34
+                    timestamp: 1621941916475
+                    title: Honeytoken activity
+                    comment: ''
+                    handledByUser: administrator@contoso.com
+                    resolveTime: '2021-05-13T14:02:34.904Z'
+                    URL: >-
+                      https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                  alert_severity_id: 4
+                  alert_status_id: 3
+                  alert_context:
+                    context_key: context_value
+                  alert_source_event_time: '2023-03-26T03:00:30'
+                  alert_creation_time: '2024-03-21T08:23:58.133478'
+                  alert_note: A note on
+                  alert_tags: defender,anothertag
+                  alert_owner_id: 1
+                  modification_history:
+                    '1711009438.141667':
+                      user: administrator
+                      user_id: 1
+                      action: Alert created
+                    '1711970872.267379':
+                      user: administrator
+                      user_id: 1
+                      action: >-
+                        updated alerts:
+                        "alert_note","alert_tags","alert_resolution_status_id","alert_status_id"
+                    '1711971195.490083':
+                      user: administrator
+                      user_id: 1
+                      action: >-
+                        updated alert:
+                        "alert_title","alert_description","alert_source_content","alert_status_id","alert_source_event_time","alert_note","alert_tags"
+                  alert_customer_id: 1
+                  alert_classification_id: 1
+                  alert_resolution_status_id: 1
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  severity:
+                    type: object
+                    properties:
+                      severity_id:
+                        type: integer
+                      severity_name:
+                        type: string
+                      severity_description:
+                        type: string
+                  status:
+                    type: object
+                    properties:
+                      status_id:
+                        type: integer
+                      status_name:
+                        type: string
+                      status_description:
+                        type: string
+                  customer:
+                    type: object
+                    properties:
+                      customer_name:
+                        type: string
+                      customer_description:
+                        type: 'null'
+                      customer_sla:
+                        type: 'null'
+                      customer_id:
+                        type: integer
+                      client_uuid:
+                        type: string
+                      creation_date:
+                        type: string
+                      last_update_date:
+                        type: string
+                      custom_attributes:
+                        type: 'null'
+                  classification:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      name_expanded:
+                        type: string
+                      description:
+                        type: string
+                      id:
+                        type: integer
+                      creation_date:
+                        type: string
+                  owner:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_name:
+                        type: string
+                      user_login:
+                        type: string
+                      user_email:
+                        type: string
+                  iocs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ioc_value:
+                          type: string
+                        ioc_enrichment:
+                          type: object
+                          properties:
+                            provider_1:
+                              type: object
+                              properties:
+                                data:
+                                  type:
+                                    - integer
+                                    - string
+                                new_data:
+                                  type: integer
+                            provider_3:
+                              type: object
+                              properties:
+                                enric:
+                                  type: string
+                        ioc_type:
+                          type: object
+                          properties:
+                            type_name:
+                              type: string
+                            type_description:
+                              type: string
+                            type_taxonomy:
+                              type: 'null'
+                            type_validation_regex:
+                              type: 'null'
+                            type_validation_expect:
+                              type: 'null'
+                            type_id:
+                              type: integer
+                        ioc_id:
+                          type: integer
+                        ioc_uuid:
+                          type: string
+                        ioc_type_id:
+                          type: integer
+                        ioc_description:
+                          type: string
+                        ioc_tags:
+                          type: string
+                        user_id:
+                          type: 'null'
+                        ioc_misp:
+                          type: 'null'
+                        ioc_tlp_id:
+                          type: integer
+                        custom_attributes:
+                          type: 'null'
+                        modification_history:
+                          type: 'null'
+                  assets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset_name:
+                          type: string
+                        asset_enrichment:
+                          type: object
+                          properties:
+                            enrich:
+                              type: object
+                              properties:
+                                enrich2:
+                                  type: string
+                        asset_type:
+                          type: object
+                          properties:
+                            asset_name:
+                              type: string
+                            asset_description:
+                              type: string
+                            asset_icon_compromised:
+                              type: string
+                            asset_icon_not_compromised:
+                              type: string
+                            asset_id:
+                              type: integer
+                        asset_id:
+                          type: integer
+                        asset_uuid:
+                          type: string
+                        asset_description:
+                          type: string
+                        asset_domain:
+                          type: string
+                        asset_ip:
+                          type: string
+                        asset_info:
+                          type: 'null'
+                        asset_compromise_status_id:
+                          type: 'null'
+                        asset_type_id:
+                          type: integer
+                        asset_tags:
+                          type: string
+                        case_id:
+                          type: 'null'
+                        date_added:
+                          type: 'null'
+                        date_update:
+                          type: 'null'
+                        user_id:
+                          type: 'null'
+                        analysis_status_id:
+                          type: 'null'
+                        custom_attributes:
+                          type: 'null'
+                        modification_history:
+                          type: 'null'
+                  resolution_status:
+                    type: object
+                    properties:
+                      resolution_status_id:
+                        type: integer
+                      resolution_status_name:
+                        type: string
+                      resolution_status_description:
+                        type: string
+                  cases:
+                    type: array
+                    items:
+                      type: integer
+                  comments:
+                    type: array
+                    items:
+                      type: object
+                  alert_id:
+                    type: integer
+                  alert_uuid:
+                    type: string
+                  alert_title:
+                    type: string
+                  alert_description:
+                    type: string
+                  alert_source:
+                    type: string
+                  alert_source_ref:
+                    type: string
+                  alert_source_link:
+                    type: string
+                  alert_source_content:
+                    type: object
+                    required:
+                      - _id
+                      - contextId
+                      - description
+                      - entities
+                      - idValue
+                      - isSystemAlert
+                      - resolutionStatusValue
+                      - severityValue
+                      - statusValue
+                      - stories
+                      - threatScore
+                      - timestamp
+                      - title
+                      - comment
+                      - handledByUser
+                      - resolveTime
+                      - URL
+                    properties:
+                      _id:
+                        type: string
+                      contextId:
+                        type: string
+                      description:
+                        type: string
+                      entities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            entityRole:
+                              type: string
+                            entityType:
+                              type: integer
+                            id:
+                              type: string
+                            inst:
+                              type: integer
+                            label:
+                              type: string
+                            pa:
+                              type: string
+                            saas:
+                              type: integer
+                            type:
+                              type: string
+                            policyType:
+                              type: string
+                          required:
+                            - entityRole
+                            - entityType
+                            - id
+                            - inst
+                            - label
+                            - pa
+                            - saas
+                            - type
+                            - policyType
+                      idValue:
+                        type: integer
+                      isSystemAlert:
+                        type: boolean
+                      resolutionStatusValue:
+                        type: integer
+                      severityValue:
+                        type: integer
+                      statusValue:
+                        type: integer
+                      stories:
+                        type: array
+                        items:
+                          type: integer
+                      threatScore:
+                        type: integer
+                      timestamp:
+                        type: integer
+                      title:
+                        type: string
+                      comment:
+                        type: string
+                      handledByUser:
+                        type: string
+                      resolveTime:
+                        type: string
+                      URL:
+                        type: string
+                  alert_severity_id:
+                    type: integer
+                  alert_status_id:
+                    type: integer
+                  alert_context:
+                    type: object
+                    required:
+                      - context_key
+                    properties:
+                      context_key:
+                        type: string
+                  alert_source_event_time:
+                    type: string
+                  alert_creation_time:
+                    type: string
+                  alert_note:
+                    type: string
+                  alert_tags:
+                    type: string
+                  alert_owner_id:
+                    type: integer
+                  modification_history:
+                    type: object
+                  alert_customer_id:
+                    type: integer
+                  alert_classification_id:
+                    type: integer
+                  alert_resolution_status_id:
+                    type: integer
+                required:
+                  - all
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  severity:
+                    severity_id: 4
+                    severity_name: Low
+                    severity_description: Low
+                  status:
+                    status_id: 3
+                    status_name: Assigned
+                    status_description: Alert is assigned to a user and pending investigation
+                  customer:
+                    customer_name: irisinitialclient300
+                    customer_description: null
+                    customer_sla: null
+                    customer_id: 1
+                    client_uuid: be6bb7a3-ba21-4946-8992-45213de680ad
+                    creation_date: '2024-03-18T08:34:33.855919'
+                    last_update_date: '2024-03-18T08:34:33.855919'
+                    custom_attributes: null
+                  classification:
+                    name: abusive-content:spam
+                    name_expanded: 'Abusive-Content: spam'
+                    description: >-
+                      Spam or ‘unsolicited bulk e-mail’, meaning that the
+                      recipient has not granted verifiable permission for the
+                      message to be sent and that the message is sent as part of
+                      a larger collection of messages, all having identical
+                      content.
+                    id: 1
+                    creation_date: '2024-03-18T08:34:32.554597'
+                  owner:
+                    id: 1
+                    user_name: administrator
+                    user_login: administrator
+                    user_email: administrator@localhost
+                  iocs:
+                    - ioc_value: tarzan5
+                      ioc_enrichment:
+                        provider_1:
+                          data: 2
+                          new_data: 3
+                        provider_3:
+                          enric: 'true'
+                      ioc_type:
+                        type_name: aba-rtn
+                        type_description: ABA routing transit number
+                        type_taxonomy: null
+                        type_validation_regex: null
+                        type_validation_expect: null
+                        type_id: 2
+                      ioc_id: 9
+                      ioc_uuid: 62414353-a840-4613-ba7c-e5d71023e734
+                      ioc_type_id: 2
+                      ioc_description: description kwekwe
+                      ioc_tags: tag1,tag2
+                      user_id: null
+                      ioc_misp: null
+                      ioc_tlp_id: 1
+                      custom_attributes: null
+                      modification_history: null
+                    - ioc_value: tarzan2
+                      ioc_enrichment:
+                        provider_1:
+                          data: >-
+                            a very long
+
+                            blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+
+                            ddijwedoijwedw
+
+                            dhasdhaifuhafiassfsakjfhaskljfhaslkfjhaslkfdjhdqwleiuhxioauwedhoqwiuhzndoqwuehxdnzoiuwehfoqwiufhxnwoquhoiwefhxnqwoiuhwqomifuhqzwofuhqwofeuzhqwofeiuqhwe
+                            fifuhqwiofuh qwofuqh fuq hwfoiqwhfoiquhfe
+                            quhfqiouwhf qoufhq hufou qufhqowiufhowufih
+                            qwfuhqwioufh wqoufh wifhufdhas
+                          new_data: 3
+                        provider_3:
+                          enric: 'true'
+                      ioc_type:
+                        type_name: anonymised
+                        type_description: >-
+                          Anonymised value - described with the anonymisation
+                          object via a relationship
+                        type_taxonomy: null
+                        type_validation_regex: null
+                        type_validation_expect: null
+                        type_id: 4
+                      ioc_id: 10
+                      ioc_uuid: cb689f85-43a6-4f39-a320-625c27b8975d
+                      ioc_type_id: 4
+                      ioc_description: description_hey
+                      ioc_tags: tag1,tag2
+                      user_id: null
+                      ioc_misp: null
+                      ioc_tlp_id: 2
+                      custom_attributes: null
+                      modification_history: null
+                  assets:
+                    - asset_name: My super nop
+                      asset_enrichment:
+                        enrich:
+                          enrich2: super_enrich
+                      asset_type:
+                        asset_name: Account
+                        asset_description: Generic Account
+                        asset_icon_compromised: ioc_user.png
+                        asset_icon_not_compromised: user.png
+                        asset_id: 1
+                      asset_id: 4
+                      asset_uuid: 9420306a-bfd4-481a-9fb7-36cb38d8c187
+                      asset_description: Asset description
+                      asset_domain: ''
+                      asset_ip: 1.1.1.1
+                      asset_info: null
+                      asset_compromise_status_id: null
+                      asset_type_id: 1
+                      asset_tags: tag1,tag2
+                      case_id: null
+                      date_added: null
+                      date_update: null
+                      user_id: null
+                      analysis_status_id: null
+                      custom_attributes: null
+                      modification_history: null
+                  resolution_status:
+                    resolution_status_id: 1
+                    resolution_status_name: False Positive
+                    resolution_status_description: The alert was a false positive
+                  cases:
+                    - 2
+                  comments: []
+                  alert_id: 5
+                  alert_uuid: 07719f0b-0dba-4277-b050-b750004ec35f
+                  alert_title: Low-reputation arbitrary code executed by signed executable
+                  alert_description: This is a test alert, courtesy of MS
+                  alert_source: Test Source
+                  alert_source_ref: Test-123
+                  alert_source_link: https://source_link.com
+                  alert_source_content:
+                    _id: 603f704aaf7417985bbf3b22
+                    contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                    description: >-
+                      Contoso user performed 11 suspicious activities MITRE
+                      Technique used Account Discovery (T1087) and subtechnique
+                      used Domain Account (T1087.002)
+                    entities:
+                      - entityRole: Source
+                        entityType: 2
+                        id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                        inst: 0
+                        label: user1
+                        pa: user1@contoso.com
+                        saas: 11161
+                        type: account
+                      - entityRole: Related
+                        id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                        label: DC3
+                        type: device
+                      - id: 20940
+                        label: Active Directory
+                        type: service
+                      - entityRole: Related
+                        id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                        label: DC4
+                        type: device
+                      - id: 5bfd18bfab73c36ba10d38ca
+                        label: Honeytoken activity
+                        policyType: ANOMALY_DETECTION
+                        type: policyRule
+                      - entityRole: Source
+                        id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                        label: Client1
+                        type: device
+                      - entityRole: Related
+                        id: d68772fe-1171-4124-9f73-0f410340bd54
+                        label: DC1
+                        type: device
+                      - type: groupTag
+                        id: 5f759b4d106abbe4a504ea5d
+                        label: All Users
+                    idValue: 15795464
+                    isSystemAlert: false
+                    resolutionStatusValue: 0
+                    severityValue: 5
+                    statusValue: 1
+                    stories:
+                      - 0
+                    threatScore: 34
+                    timestamp: 1621941916475
+                    title: Honeytoken activity
+                    comment: ''
+                    handledByUser: administrator@contoso.com
+                    resolveTime: '2021-05-13T14:02:34.904Z'
+                    URL: >-
+                      https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                  alert_severity_id: 4
+                  alert_status_id: 3
+                  alert_context:
+                    context_key: context_value
+                  alert_source_event_time: '2023-03-26T03:00:30'
+                  alert_creation_time: '2024-03-21T08:23:58.133478'
+                  alert_note: A note on
+                  alert_tags: defender,anothertag
+                  alert_owner_id: 1
+                  modification_history:
+                    '1711009438.141667':
+                      user: administrator
+                      user_id: 1
+                      action: Alert created
+                    '1711970872.267379':
+                      user: administrator
+                      user_id: 1
+                      action: >-
+                        updated alerts:
+                        "alert_note","alert_tags","alert_resolution_status_id","alert_status_id"
+                    '1711971195.490083':
+                      user: administrator
+                      user_id: 1
+                      action: >-
+                        updated alert:
+                        "alert_title","alert_description","alert_source_content","alert_status_id","alert_source_event_time","alert_note","alert_tags"
+                  alert_customer_id: 1
+                  alert_classification_id: 1
+                  alert_resolution_status_id: 1
+  parameters: []
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              alert_title: Low-reputation arbitrary code executed by signed executable
+              alert_description: This is a test alert, courtesy of MS
+              alert_source: Test Source
+              alert_source_ref: Test-123
+              alert_source_link: https://source_link.com
+              alert_source_content:
+                _id: 603f704aaf7417985bbf3b22
+                contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                description: >-
+                  Contoso user performed 11 suspicious activities MITRE
+                  Technique used Account Discovery (T1087) and subtechnique used
+                  Domain Account (T1087.002)
+                entities:
+                  - entityRole: Source
+                    entityType: 2
+                    id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                    inst: 0
+                    label: user1
+                    pa: user1@contoso.com
+                    saas: 11161
+                    type: account
+                  - entityRole: Related
+                    id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                    label: DC3
+                    type: device
+                  - id: 20940
+                    label: Active Directory
+                    type: service
+                  - entityRole: Related
+                    id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                    label: DC4
+                    type: device
+                  - id: 5bfd18bfab73c36ba10d38ca
+                    label: Honeytoken activity
+                    policyType: ANOMALY_DETECTION
+                    type: policyRule
+                  - entityRole: Source
+                    id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                    label: Client1
+                    type: device
+                  - entityRole: Related
+                    id: d68772fe-1171-4124-9f73-0f410340bd54
+                    label: DC1
+                    type: device
+                  - type: groupTag
+                    id: 5f759b4d106abbe4a504ea5d
+                    label: All Users
+                idValue: 15795464
+                isSystemAlert: false
+                resolutionStatusValue: 0
+                severityValue: 5
+                statusValue: 1
+                stories:
+                  - 0
+                threatScore: 34
+                timestamp: 1621941916475
+                title: Honeytoken activity
+                comment: ''
+                handledByUser: administrator@contoso.com
+                resolveTime: '2021-05-13T14:02:34.904Z'
+                URL: >-
+                  https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+              alert_severity_id: 4
+              alert_status_id: 3
+              alert_context:
+                context_key: context_value
+              alert_source_event_time: '2023-03-26T03:00:30'
+              alert_note: A note on
+              alert_tags: defender,anothertag
+              alert_iocs:
+                - ioc_value: tarzan5
+                  ioc_description: description of Tarzan
+                  ioc_tlp_id: 1
+                  ioc_type_id: 2
+                  ioc_tags: tag1,tag2
+                  ioc_enrichment:
+                    provider_1:
+                      data: 2
+                      new_data: 3
+                    provider_3:
+                      enric: 'true'
+                - ioc_value: tarzan2
+                  ioc_description: description_hey
+                  ioc_tlp_id: 2
+                  ioc_type_id: 4
+                  ioc_tags: tag1,tag2
+                  ioc_enrichment:
+                    provider_1:
+                      data: >-
+                        a very long
+
+                        blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+
+                        ddijwedoijwedw
+
+                        dhasdhaifuhafiassfsakjfhaskljfhaslkfjhaslkfdjhdqwleiuhxioauwedhoqwiuhzndoqwuehxdnzoiuwehfoqwiufhxnwoquhoiwefhxnqwoiuhwqomifuhqzwofuhqwofeuzhqwofeiuqhwe
+                        fifuhqwiofuh qwofuqh fuq hwfoiqwhfoiquhfe quhfqiouwhf
+                        qoufhq hufou qufhqowiufhowufih qwfuhqwioufh wqoufh
+                        wifhufdhas
+                      new_data: 3
+                    provider_3:
+                      enric: 'true'
+              alert_assets:
+                - asset_name: My super asset
+                  asset_description: Asset description
+                  asset_type_id: 1
+                  asset_ip: 1.1.1.1
+                  asset_domain: ''
+                  asset_tags: tag1,tag2
+                  asset_enrichment:
+                    enrich1:
+                      A key: A value
+              alert_customer_id: 1
+              alert_classification_id: 1
+          properties:
+            alert_title:
+              type: string
+            alert_description:
+              type: string
+            alert_source:
+              type: string
+            alert_source_ref:
+              type: string
+            alert_source_link:
+              type: string
+            alert_source_content:
+              type: object
+              properties:
+                _id:
+                  type: string
+                contextId:
+                  type: string
+                description:
+                  type: string
+                entities:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      entityRole:
+                        type: string
+                      entityType:
+                        type: integer
+                      id:
+                        type: string
+                      inst:
+                        type: integer
+                      label:
+                        type: string
+                      pa:
+                        type: string
+                      saas:
+                        type: integer
+                      type:
+                        type: string
+                      policyType:
+                        type: string
+                idValue:
+                  type: integer
+                isSystemAlert:
+                  type: boolean
+                resolutionStatusValue:
+                  type: integer
+                severityValue:
+                  type: integer
+                statusValue:
+                  type: integer
+                stories:
+                  type: array
+                  items:
+                    type: integer
+                threatScore:
+                  type: integer
+                timestamp:
+                  type: integer
+                title:
+                  type: string
+                comment:
+                  type: string
+                handledByUser:
+                  type: string
+                resolveTime:
+                  type: string
+                URL:
+                  type: string
+            alert_severity_id:
+              type: integer
+            alert_status_id:
+              type: integer
+            alert_context:
+              type: object
+              properties:
+                context_key:
+                  type: string
+            alert_source_event_time:
+              type: string
+            alert_note:
+              type: string
+            alert_tags:
+              type: string
+            alert_assets:
+              type: array
+              items:
+                type: object
+                properties:
+                  asset_name:
+                    type: string
+                  asset_description:
+                    type: string
+                  asset_type_id:
+                    type: integer
+                  asset_ip:
+                    type: string
+                  asset_domain:
+                    type: string
+                  asset_tags:
+                    type: string
+                  asset_enrichment:
+                    type: object
+                    properties:
+                      enrich1:
+                        type: object
+                        properties:
+                          A key:
+                            type: string
+            alert_customer_id:
+              type: integer
+            alert_classification_id:
+              type: integer
+        examples:
+          example-1:
+            value:
+              alert_title: Low-reputation arbitrary code executed by signed executable
+              alert_description: This is a test alert, courtesy of MS
+              alert_source: Test Source
+              alert_source_ref: Test-123
+              alert_source_link: https://source_link.com
+              alert_source_content:
+                _id: 603f704aaf7417985bbf3b22
+                contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                description: >-
+                  Contoso user performed 11 suspicious activities MITRE
+                  Technique used Account Discovery (T1087) and subtechnique used
+                  Domain Account (T1087.002)
+                entities:
+                  - entityRole: Source
+                    entityType: 2
+                    id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                    inst: 0
+                    label: user1
+                    pa: user1@contoso.com
+                    saas: 11161
+                    type: account
+                  - entityRole: Related
+                    id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                    label: DC3
+                    type: device
+                  - id: 20940
+                    label: Active Directory
+                    type: service
+                  - entityRole: Related
+                    id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                    label: DC4
+                    type: device
+                  - id: 5bfd18bfab73c36ba10d38ca
+                    label: Honeytoken activity
+                    policyType: ANOMALY_DETECTION
+                    type: policyRule
+                  - entityRole: Source
+                    id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                    label: Client1
+                    type: device
+                  - entityRole: Related
+                    id: d68772fe-1171-4124-9f73-0f410340bd54
+                    label: DC1
+                    type: device
+                  - type: groupTag
+                    id: 5f759b4d106abbe4a504ea5d
+                    label: All Users
+                idValue: 15795464
+                isSystemAlert: false
+                resolutionStatusValue: 0
+                severityValue: 5
+                statusValue: 1
+                stories:
+                  - 0
+                threatScore: 34
+                timestamp: 1621941916475
+                title: Honeytoken activity
+                comment: ''
+                handledByUser: administrator@contoso.com
+                resolveTime: '2021-05-13T14:02:34.904Z'
+                URL: >-
+                  https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+              alert_severity_id: 4
+              alert_status_id: 3
+              alert_context:
+                context_key: context_value
+              alert_source_event_time: '2023-03-26T03:00:30'
+              alert_note: A note on
+              alert_tags: defender,anothertag
+              alert_customer_id: 1
+              alert_classification_id: 1
+    description: ''
+  tags:
+    - Alerts
+parameters:
+  - schema:
+      type: integer
+    name: alert_id
+    in: path
+    required: true
+    description: Alert ID to update

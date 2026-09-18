@@ -1,0 +1,38 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+put:
+  operationId: api_v2_manage_users_(identifier)_customers_put
+  tags:
+    - Manage Users
+    - Beta
+  summary: Replace a user's customer memberships
+  description: Replace the user's customer memberships in a single call. Any customer not included in the payload is removed from the user's membership.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - customer_ids
+          properties:
+            customer_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          customer_ids:
+            - 1
+            - 3
+  responses:
+    '200':
+      description: Customer membership successfully replaced
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

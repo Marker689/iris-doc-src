@@ -1,0 +1,218 @@
+parameters:
+  - schema:
+      type: integer
+    name: task_id
+    in: path
+    required: true
+    description: ID of the task
+post:
+  summary: Update a case task
+  operationId: post-case-tasks-update
+  description: This endpoint is deprecated. Use [PUT /api/v2/cases/{case_identifier}/tasks/{identifier}](#tag/Tasks/operation/api_v2_cases_(case_identifier)_tasks_(identifier)_put) instead.
+  deprecated: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Task 'New title' updated
+                data:
+                  task_open_date: '2024-01-09T16:03:54.304325'
+                  task_userid_close: null
+                  task_last_update: '2024-01-09T16:04:35.212216'
+                  task_userid_update: 1
+                  task_title: New title
+                  task_uuid: 34eb785f-0551-454a-9a7c-7759eb68d4fe
+                  task_tags: new tags
+                  id: 1702
+                  task_description: new content
+                  task_userid_open: 1
+                  custom_attributes: {}
+                  task_status_id: 1
+                  task_assignees:
+                    - user: administrator
+                      name: administrator
+                      id: 1
+                  task_close_date: null
+                  task_case_id: 1
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - task_open_date
+                  - task_userid_close
+                  - task_last_update
+                  - task_userid_update
+                  - task_title
+                  - task_uuid
+                  - task_tags
+                  - id
+                  - task_description
+                  - task_userid_open
+                  - custom_attributes
+                  - task_status_id
+                  - task_assignees
+                  - task_close_date
+                  - task_case_id
+                properties:
+                  task_open_date:
+                    type: string
+                  task_userid_close:
+                    type: 'null'
+                  task_last_update:
+                    type: string
+                  task_userid_update:
+                    type: integer
+                  task_title:
+                    type: string
+                  task_uuid:
+                    type: string
+                  task_tags:
+                    type: string
+                  id:
+                    type: integer
+                  task_description:
+                    type: string
+                  task_userid_open:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  task_status_id:
+                    type: integer
+                  task_assignees:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user:
+                          type: string
+                        name:
+                          type: string
+                        id:
+                          type: integer
+                      required:
+                        - user
+                        - name
+                        - id
+                  task_close_date:
+                    type: 'null'
+                  task_case_id:
+                    type: integer
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                data:
+                  custom_attributes: {}
+                  id: 31
+                  task_assignees:
+                    - id: 1
+                      name: administrator
+                      user: administrator
+                  task_case_id: 1
+                  task_close_date: null
+                  task_description: new content
+                  task_last_update: '2023-03-09T08:13:51.464654'
+                  task_open_date: '2023-03-06T10:39:39.303494'
+                  task_status_id: 1
+                  task_tags: new tags
+                  task_title: New title
+                  task_userid_close: null
+                  task_userid_open: 1
+                  task_userid_update: 1
+                  task_uuid: c1f0098d-882b-46a3-aea7-5bdaaf798bca
+                message: Task 'New title' updated
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              task_assignees_id:
+                - 1
+              task_status_id: 1
+              task_title: New title
+              task_description: new content
+              task_tags: new tags
+              custom_attributes: {}
+          properties:
+            task_assignees_id:
+              type: array
+              items:
+                type: integer
+            task_status_id:
+              type: integer
+            task_title:
+              type: string
+            task_description:
+              type: string
+            task_tags:
+              type: string
+            custom_attributes:
+              type: object
+          required:
+            - task_assignees_id
+            - task_status_id
+            - task_title
+        examples:
+          example-1:
+            value:
+              task_assignees_id:
+                - 1
+              task_status_id: 1
+              task_title: New title
+              task_description: new content
+              task_tags: new tags
+              custom_attributes: {}
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Tasks

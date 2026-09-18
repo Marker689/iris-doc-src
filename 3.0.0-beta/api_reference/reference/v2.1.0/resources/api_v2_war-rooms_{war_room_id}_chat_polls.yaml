@@ -1,0 +1,71 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_polls_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Create a poll
+  description: >-
+    Create a poll inline in the war-room chat stream. The poll is
+    posted as a `kind='poll'` chat row with `ref_type='chat_poll'` and
+    `ref_id` set to the new poll id. Broadcasts both `message:new`
+    (for subscribed stream clients) and `poll:created` (for clients
+    that specifically track polls).
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - question
+            - options
+          properties:
+            question:
+              type: string
+              description: The poll question.
+            options:
+              type: array
+              items:
+                type: string
+              description: Ordered list of option labels.
+            is_multi_select:
+              type: boolean
+              description: When true, voters may pick more than one option.
+            is_anonymous:
+              type: boolean
+              description: When true, per-voter attribution is hidden from viewers.
+            closes_at:
+              type: string
+              description: ISO-8601 timestamp at which the poll auto-closes.
+        example:
+          question: Where do we focus next?
+          options:
+            - Containment
+            - Eradication
+            - Recovery
+          is_multi_select: false
+          is_anonymous: false
+          closes_at: '2026-07-09T18:00:00Z'
+  responses:
+    '201':
+      description: Poll successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              poll_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

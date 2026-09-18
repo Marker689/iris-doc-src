@@ -1,0 +1,152 @@
+parameters:
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: User ID
+post:
+  summary: Update user cases access
+  operationId: post-manage-users-cases-access_update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  active: true
+                  id: 157
+                  user_email: login_3
+                  user_login: login_3
+                  user_name: Test
+                  user_password: $2b$12$BiyvDbWuMFKrO6T.5zj5K.bwxN7PEEeeqH.6ks5KrdxrLzvXuWE4q
+                message: user created
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - active
+                  - id
+                  - user_email
+                  - user_login
+                  - user_name
+                  - user_password
+                properties:
+                  active:
+                    type: boolean
+                  id:
+                    type: number
+                  user_email:
+                    type: string
+                    minLength: 1
+                  user_login:
+                    type: string
+                    minLength: 1
+                  user_name:
+                    type: string
+                    minLength: 1
+                  user_password:
+                    type: string
+                    minLength: 1
+                    description: Hashed user password
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  active: true
+                  id: 0
+                  user_email: string
+                  user_login: string
+                  user_name: string
+                  user_password: string
+                message: string
+                status: string
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  user_password:
+                    - Password must contain 1 capital letter and 1 number
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  user_password:
+                    - Password must contain 1 capital letter and 1 number
+                message: Data error
+                status: error
+  description: 'Administrator role required. Update the case access of a user. '
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              groups_membership:
+                - '1'
+                - '5'
+          properties:
+            cases_list:
+              type: array
+              items:
+                type: integer
+            access_level:
+              type: integer
+          required:
+            - cases_list
+        examples:
+          Example 1:
+            value:
+              cases_list:
+                - 1
+                - 2
+              access_level: 2
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - Manage Users

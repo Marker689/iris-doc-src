@@ -1,0 +1,32 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+  - name: alert_id
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Alert identifier to unlink from the case
+delete:
+  operationId: api_v2_cases_(identifier)_alerts_(alert_id)_delete
+  tags:
+    - Cases
+    - Beta
+  summary: Unlink an alert from a case
+  description: >-
+    Detach one alert from the case and reset its status. Requires full
+    access to the case; the case-membership relationship is symmetric, so
+    write on the case is sufficient to prune its own alert list.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

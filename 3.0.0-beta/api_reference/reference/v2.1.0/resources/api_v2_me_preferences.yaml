@@ -1,0 +1,49 @@
+put:
+  operationId: api_v2_me_preferences_put
+  tags:
+    - Profile
+    - Beta
+  summary: Update UI preferences
+  description: >-
+    Persist a small dict of UI preferences on the current user. Only
+    fields present in the payload are updated. Returns the updated
+    preference block so the client can re-seed its in-memory copy
+    without a second round-trip.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            theme:
+              type: string
+              description: SPA theme name (e.g. `light`, `dark`)
+            deletion_prompt:
+              type: boolean
+              description: When true, the SPA confirms destructive actions before firing
+            mini_sidebar:
+              type: boolean
+              description: When true, the sidebar renders in collapsed mode
+        example:
+          mini_sidebar: true
+    description: ''
+  responses:
+    '200':
+      description: Preferences successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              theme:
+                type: string
+              deletion_prompt:
+                type: boolean
+              mini_sidebar:
+                type: boolean
+              has_mini_sidebar:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

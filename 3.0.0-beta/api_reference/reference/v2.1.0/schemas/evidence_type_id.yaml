@@ -1,0 +1,2 @@
+type: integer
+description: Identifier of the type of an evidence. See [GET /manage/evidence-types/list](#tag/Manage-evidence-types/operation/get-evidence-types-list) for possible values.

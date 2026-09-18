@@ -1,0 +1,206 @@
+get:
+  summary: Fetch a note
+  description: This endpoint is deprecated. Use [GET /api/v2/cases/{case_identifier}/notes/{identifier}](#tag/Notes/operation/api_v2_cases_(case_identifier)_notes_(identifier)_get) instead.
+  deprecated: true
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  directory:
+                    id: 5
+                    name: Dummy title
+                    parent_id: null
+                    case_id: 1
+                  note_id: 1
+                  note_uuid: b8391125-f446-40ec-b4cf-f610fefd0029
+                  note_title: New note
+                  note_content: |-
+                    Super note
+
+                    # hey hey
+                  note_user: 1
+                  note_creationdate: '2024-03-18T08:35:22.999299'
+                  note_lastupdate: '2024-03-18T08:35:22.999313'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 5
+                  modification_history:
+                    '1711006761.106673':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711006771.146321':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711006776.007962':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                  comments: []
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - directory
+                  - note_id
+                  - note_uuid
+                  - note_title
+                  - note_content
+                  - note_user
+                  - note_creationdate
+                  - note_lastupdate
+                  - note_case_id
+                  - custom_attributes
+                  - directory_id
+                  - modification_history
+                  - comments
+                properties:
+                  directory:
+                    type: object
+                    required:
+                      - id
+                      - name
+                      - parent_id
+                      - case_id
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      parent_id:
+                        type: 'null'
+                      case_id:
+                        type: integer
+                  note_id:
+                    type: integer
+                  note_uuid:
+                    type: string
+                  note_title:
+                    type: string
+                  note_content:
+                    type: string
+                  note_user:
+                    type: integer
+                  note_creationdate:
+                    type: string
+                  note_lastupdate:
+                    type: string
+                  note_case_id:
+                    type: integer
+                  custom_attributes:
+                    type: 'null'
+                  directory_id:
+                    type: integer
+                  modification_history:
+                    type: object
+                  comments:
+                    type: array
+                    items:
+                      type: object
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Success 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  directory:
+                    id: 5
+                    name: Dummy title
+                    parent_id: null
+                    case_id: 1
+                  note_id: 1
+                  note_uuid: b8391125-f446-40ec-b4cf-f610fefd0029
+                  note_title: New note
+                  note_content: |-
+                    Super note
+
+                    # hey hey
+                  note_user: 1
+                  note_creationdate: '2024-03-18T08:35:22.999299'
+                  note_lastupdate: '2024-03-18T08:35:22.999313'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 5
+                  modification_history:
+                    '1711006761.106673':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711006771.146321':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711006776.007962':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                  comments: []
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Invalid note ID:
+              value:
+                data: []
+                message: Invalid note ID
+                status: error
+  operationId: get-case-notes-fetch
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: note_id
+    in: path
+    required: true
+    description: ID of the note to fetch

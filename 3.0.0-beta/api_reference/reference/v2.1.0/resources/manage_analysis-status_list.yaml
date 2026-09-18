@@ -1,0 +1,70 @@
+get:
+  summary: List analysis status
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  - id: 1
+                    name: Unspecified
+                  - id: 2
+                    name: To be done
+                  - id: 3
+                    name: Started
+                  - id: 4
+                    name: Pending
+                  - id: 5
+                    name: Canceled
+                  - id: 6
+                    name: Done
+                message: ''
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  - id: 1
+                    name: Unspecified
+                  - id: 2
+                    name: To be done
+                  - id: 3
+                    name: Started
+                  - id: 4
+                    name: Pending
+                  - id: 5
+                    name: Canceled
+                  - id: 6
+                    name: Done
+                message: ''
+                status: success
+  operationId: get-manage-analysis-status-list
+  description: Return a list of available analysis status.
+  tags:
+    - Manage Analysis Status
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

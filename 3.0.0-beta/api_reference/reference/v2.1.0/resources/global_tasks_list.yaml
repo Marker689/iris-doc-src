@@ -1,0 +1,235 @@
+get:
+  summary: List global tasks
+  description: This endpoint is deprecated. Use [GET /api/v2/global-tasks](#tag/Global-tasks/operation/api_v2_global-tasks_get) instead.
+  deprecated: true
+  tags:
+    - Global tasks
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  tasks:
+                    - status_bscolor: danger
+                      status_name: To do
+                      task_assignee_id: 6
+                      task_description: ''
+                      task_id: 5
+                      task_last_update: Wed, 19 Jan 2022 12:51:22 GMT
+                      task_status_id: 14
+                      task_tags: ''
+                      task_title: Eh bah nan
+                      user_name: Helloooo there
+                    - status_bscolor: danger
+                      status_name: To do
+                      task_assignee_id: 1
+                      task_description: ''
+                      task_id: 7
+                      task_last_update: Wed, 19 Jan 2022 15:23:24 GMT
+                      task_status_id: 14
+                      task_tags: ''
+                      task_title: test
+                      user_name: administrator
+                    - status_bscolor: muted
+                      status_name: On hold
+                      task_assignee_id: 1
+                      task_description: ''
+                      task_id: 6
+                      task_last_update: Wed, 19 Jan 2022 12:55:40 GMT
+                      task_status_id: 16
+                      task_tags: ''
+                      task_title: coucou toi
+                      user_name: administrator
+                    - status_bscolor: warning
+                      status_name: In progress
+                      task_assignee_id: 1
+                      task_description: ''
+                      task_id: 8
+                      task_last_update: Wed, 19 Jan 2022 15:23:59 GMT
+                      task_status_id: 15
+                      task_tags: ''
+                      task_title: dasda
+                      user_name: administrator
+                    - status_bscolor: muted
+                      status_name: Canceled
+                      task_assignee_id: 4
+                      task_description: Test
+                      task_id: 3
+                      task_last_update: Wed, 19 Jan 2022 12:55:15 GMT
+                      task_status_id: 18
+                      task_tags: ''
+                      task_title: Test
+                      user_name: polus
+                    - status_bscolor: muted
+                      status_name: Canceled
+                      task_assignee_id: 1
+                      task_description: fsfsdf
+                      task_id: 4
+                      task_last_update: Wed, 19 Jan 2022 15:22:46 GMT
+                      task_status_id: 18
+                      task_tags: test,coucou
+                      task_title: ddddTest meddd
+                      user_name: administrator
+                  tasks_status:
+                    - id: 14
+                      status_bscolor: danger
+                      status_description: ''
+                      status_name: To do
+                    - id: 15
+                      status_bscolor: warning
+                      status_description: ''
+                      status_name: In progress
+                    - id: 16
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: On hold
+                    - id: 17
+                      status_bscolor: success
+                      status_description: ''
+                      status_name: Done
+                    - id: 18
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: Canceled
+                message: ''
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - tasks
+                  - tasks_status
+                properties:
+                  tasks:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: The actual list of tasks
+                    items:
+                      type: object
+                      properties:
+                        status_bscolor:
+                          type: string
+                          minLength: 1
+                        status_name:
+                          type: string
+                          minLength: 1
+                        task_assignee_id:
+                          type: number
+                        task_description:
+                          type: string
+                        task_id:
+                          type: number
+                        task_last_update:
+                          type: string
+                          minLength: 1
+                        task_status_id:
+                          type: number
+                        task_tags:
+                          type: string
+                        task_title:
+                          type: string
+                          minLength: 1
+                        user_name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - status_bscolor
+                        - status_name
+                        - task_assignee_id
+                        - task_description
+                        - task_id
+                        - task_last_update
+                        - task_status_id
+                        - task_tags
+                        - task_title
+                        - user_name
+                  tasks_status:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Describes the available tasks status
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        status_bscolor:
+                          type: string
+                          minLength: 1
+                        status_description:
+                          type: string
+                        status_name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - status_bscolor
+                        - status_description
+                        - status_name
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Tasks example:
+              value:
+                data:
+                  tasks:
+                    - status_bscolor: danger
+                      status_name: To do
+                      task_assignee_id: 6
+                      task_description: ''
+                      task_id: 5
+                      task_last_update: Wed, 19 Jan 2022 12:51:22 GMT
+                      task_status_id: 14
+                      task_tags: ''
+                      task_title: Generate a mid-term report
+                      user_name: forensicator
+                    - status_bscolor: danger
+                      status_name: To do
+                      task_assignee_id: 1
+                      task_description: Analyse the sysvol
+                      task_id: 7
+                      task_last_update: Wed, 19 Jan 2022 15:23:24 GMT
+                      task_status_id: 14
+                      task_tags: ''
+                      task_title: SYSVOL analysis
+                      user_name: administrator
+                  tasks_status:
+                    - id: 14
+                      status_bscolor: danger
+                      status_description: ''
+                      status_name: To do
+                    - id: 15
+                      status_bscolor: warning
+                      status_description: ''
+                      status_name: In progress
+                    - id: 16
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: On hold
+                    - id: 17
+                      status_bscolor: success
+                      status_description: ''
+                      status_name: Done
+                    - id: 18
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: Canceled
+                message: ''
+                status: success
+  operationId: get-global-tasks-list
+  security:
+    - Bearer <bearer>: []

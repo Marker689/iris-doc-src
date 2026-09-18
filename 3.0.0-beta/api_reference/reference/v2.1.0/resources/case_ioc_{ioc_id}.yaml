@@ -1,0 +1,156 @@
+get:
+  summary: Fetch an ioc
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  ioc_description:
+                    type: string
+                  ioc_value:
+                    type: string
+                  ioc_type:
+                    type: object
+                    properties:
+                      type_taxonomy:
+                        type: 'null'
+                      type_name:
+                        type: string
+                      type_validation_regex:
+                        type: 'null'
+                      type_description:
+                        type: string
+                      type_id:
+                        type: integer
+                      type_validation_expect:
+                        type: 'null'
+                  ioc_tags:
+                    type: string
+                  ioc_uuid:
+                    type: string
+                  ioc_enrichment:
+                    type: 'null'
+                  ioc_id:
+                    type: integer
+                  ioc_tlp_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                    properties: {}
+                  ioc_type_id:
+                    type: integer
+                  ioc_misp:
+                    type: 'null'
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  ioc_description: None
+                  ioc_value: s<dasdasdasdasd
+                  ioc_type:
+                    type_taxonomy: null
+                    type_name: attachment
+                    type_validation_regex: null
+                    type_description: Attachment with external information
+                    type_id: 5
+                    type_validation_expect: null
+                  ioc_tags: ''
+                  ioc_uuid: 47ee4c47-0328-4edf-ba15-4fe2e4c828f0
+                  ioc_enrichment: null
+                  ioc_id: 15
+                  ioc_tlp_id: 2
+                  user_id: 12
+                  custom_attributes: {}
+                  ioc_type_id: 5
+                  ioc_misp: null
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  ioc_description: None
+                  ioc_value: s<dasdasdasdasd
+                  ioc_type:
+                    type_taxonomy: null
+                    type_name: attachment
+                    type_validation_regex: null
+                    type_description: Attachment with external information
+                    type_id: 5
+                    type_validation_expect: null
+                  ioc_tags: ''
+                  ioc_uuid: 47ee4c47-0328-4edf-ba15-4fe2e4c828f0
+                  ioc_enrichment: null
+                  ioc_id: 15
+                  ioc_tlp_id: 2
+                  user_id: 12
+                  custom_attributes: {}
+                  ioc_type_id: 5
+                  ioc_misp: null
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid IOC ID for this case
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Invalid IOC ID:
+              value:
+                data: []
+                message: Invalid IOC ID for this case
+                status: error
+  operationId: get-case-ioc-fetch
+  description: This endpoint is deprecated. Use [GET /api/v2/iocs/{identifier}](#tag/IOCs/operation/api_v2_iocs_(identifier)_get) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - IOCs
+parameters:
+  - schema:
+      type: integer
+    name: ioc_id
+    in: path
+    required: true
+    description: ID of the IOC to fetch

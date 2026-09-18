@@ -1,0 +1,65 @@
+get:
+  summary: List event categories
+  description: Event categories
+  tags:
+    - Manage ioc tlp
+  operationId: manage_event-categories_list
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    id:
+                      type: integer
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - name: Unspecified
+                    id: 1
+                  - name: Legitimate
+                    id: 2
+                  - name: Remediation
+                    id: 3
+                  - name: Initial Access
+                    id: 4
+                  - name: Execution
+                    id: 5
+                  - name: Persistence
+                    id: 6
+                  - name: Privilege Escalation
+                    id: 7
+                  - name: Defense Evasion
+                    id: 8
+                  - name: Credential Access
+                    id: 9
+                  - name: Discovery
+                    id: 10
+                  - name: Lateral Movement
+                    id: 11
+                  - name: Collection
+                    id: 12
+                  - name: Command and Control
+                    id: 13
+                  - name: Exfiltration
+                    id: 14
+                  - name: Impact
+                    id: 15
+

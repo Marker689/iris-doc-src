@@ -1,0 +1,36 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: sitrep_id
+    in: path
+    required: true
+    description: Identifier of the SitRep
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_export_md_get
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Export a SitReport as Markdown
+  description: >-
+    Return the SitRep as a UTF-8 encoded Markdown file. Response uses
+    `Content-Disposition: attachment` so browsers save it rather than
+    render inline.
+  responses:
+    '200':
+      description: SitRep successfully exported as Markdown
+      content:
+        text/markdown:
+          schema:
+            type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,75 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_tasks_post
+  summary: Create a task
+  tags:
+    - Tasks
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            task_assignees_id:
+              type: array
+              items:
+                type: integer
+            task_description:
+              type: string
+            task_status_id:
+              type: integer
+            task_tags:
+              type: string
+            task_title:
+              type: string
+            custom_attributes:
+              type: object
+          required:
+            - task_assignees_id
+            - task_status_id
+            - task_title
+        examples:
+          Valid request:
+            value:
+              task_assignees_id:
+                - 1
+              task_description: ''
+              task_status_id: 1
+              task_tags: ''
+              task_title: dummy title
+              custom_attributes: { }
+  responses:
+    '201':
+      description: Task successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Task.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+  description: 'Add a new task.'
+get:
+  operationId: api_v2_cases_(case_identifier)_tasks_get
+  summary: Get a paginated list of tasks
+  description: Returns a paginated list of tasks.
+  parameters:
+    - $ref: ../parameters/query/page.yaml
+    - $ref: ../parameters/query/per_page.yaml
+    - $ref: ../parameters/query/order_by.yaml
+    - $ref: ../parameters/query/sort_dir.yaml
+  responses:
+    '200':
+      description: Paginated list of Tasks
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Tasks.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+  tags:
+    - Tasks
+    - Beta

@@ -1,0 +1,94 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: event_id
+    in: path
+    required: true
+    description: Identifier of the timeline event
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_patch
+  tags:
+    - War room timelines
+    - Beta
+  summary: Update a timeline event
+  description: Partial update for a war-room timeline event. All body fields are optional; only fields present in the body are touched. A missing key is left as-is; an explicit `null` clears the field. `timeline_id` re-parents the event, letting the UI drag events between timelines.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            content:
+              type: string
+            event_date:
+              type: string
+            event_tz:
+              type: string
+            color:
+              type: string
+            category:
+              type: string
+            timeline_id:
+              type: integer
+            source:
+              type: string
+            raw:
+              type: object
+            tags:
+              type: string
+            is_flagged:
+              type: boolean
+            parent_id:
+              type:
+                - integer
+                - 'null'
+            asset_ids:
+              type: array
+              items:
+                type: integer
+            ioc_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          title: Malware executed on HR-02 (confirmed)
+          is_flagged: true
+          timeline_id: 3
+  responses:
+    '200':
+      description: Event successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_delete
+  tags:
+    - War room timelines
+    - Beta
+  summary: Delete a timeline event
+  description: Delete a war-room timeline event.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

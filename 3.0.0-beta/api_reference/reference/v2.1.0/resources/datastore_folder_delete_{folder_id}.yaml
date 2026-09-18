@@ -1,0 +1,69 @@
+parameters:
+  - schema:
+      type: integer
+    name: folder_id
+    in: path
+    required: true
+    description: Folder ID
+post:
+  summary: Delete a datastore folder
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data: []
+                message: Folder and children deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                maxItems: 0
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Folder and children deleted
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Parent node is invalid for this case
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Parent node is invalid for this case
+                status: error
+  operationId: post-datastore-folder-delete-folder_id
+  description: 'Delete a folder. The children are also deleted. '

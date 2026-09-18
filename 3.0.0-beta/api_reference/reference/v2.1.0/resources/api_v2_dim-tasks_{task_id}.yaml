@@ -1,0 +1,34 @@
+parameters:
+  - name: task_id
+    in: path
+    required: true
+    description: Celery identifier of the dim task.
+    schema:
+      type: string
+get:
+  operationId: api_v2_dim-tasks_(task_id)_get
+  tags:
+    - Dim tasks
+    - Beta
+  summary: Get a single dim task
+  description: Returns the full Celery AsyncResult metadata (logs, traceback, task info) plus the row-shape projection used by the listing endpoint. 404 only when the meta row itself is missing.
+  responses:
+    '200':
+      description: Dim task detail
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              row:
+                type: object
+                description: Row-shape projection matching the listing endpoint payload.
+              details:
+                type: object
+                description: Human-readable key/value detail card populated from the Celery AsyncResult (logs, traceback, task info, finished-on timestamp).
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

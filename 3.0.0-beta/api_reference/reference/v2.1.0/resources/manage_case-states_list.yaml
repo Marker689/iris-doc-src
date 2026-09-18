@@ -1,0 +1,136 @@
+get:
+  summary: List case states
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state_name:
+                      type: string
+                    state_description:
+                      type: string
+                    state_id:
+                      type: integer
+                    protected:
+                      type: boolean
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  - state_name: Unspecified
+                    state_description: Unspecified
+                    state_id: 1
+                    protected: true
+                  - state_name: In progress
+                    state_description: Case is being investigated
+                    state_id: 2
+                    protected: false
+                  - state_name: Containment
+                    state_description: Containment is in progress
+                    state_id: 4
+                    protected: false
+                  - state_name: Eradication
+                    state_description: Eradication is in progress
+                    state_id: 5
+                    protected: false
+                  - state_name: Recovery
+                    state_description: Recovery is in progress
+                    state_id: 6
+                    protected: false
+                  - state_name: Post-Incident
+                    state_description: Post-incident phase
+                    state_id: 7
+                    protected: false
+                  - state_name: Reporting
+                    state_description: Reporting is in progress
+                    state_id: 8
+                    protected: false
+                  - state_name: Closed
+                    state_description: Case is closed
+                    state_id: 9
+                    protected: true
+                  - state_name: Open
+                    state_description: Case is open
+                    state_id: 11
+                    protected: true
+                  - state_name: Open
+                    state_description: Case is open
+                    state_id: 3
+                    protected: true
+                  - state_name: To escalate
+                    state_description: >-
+                      Use this when the case is stalled due to inaction of an
+                      involved stakeholder
+                    state_id: 10
+                    protected: false
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - state_name: Unspecified
+                    state_description: Unspecified
+                    state_id: 1
+                    protected: true
+                  - state_name: In progress
+                    state_description: Case is being investigated
+                    state_id: 2
+                    protected: false
+                  - state_name: Containment
+                    state_description: Containment is in progress
+                    state_id: 4
+                    protected: false
+                  - state_name: Eradication
+                    state_description: Eradication is in progress
+                    state_id: 5
+                    protected: false
+                  - state_name: Recovery
+                    state_description: Recovery is in progress
+                    state_id: 6
+                    protected: false
+                  - state_name: Post-Incident
+                    state_description: Post-incident phase
+                    state_id: 7
+                    protected: false
+                  - state_name: Reporting
+                    state_description: Reporting is in progress
+                    state_id: 8
+                    protected: false
+                  - state_name: Closed
+                    state_description: Case is closed
+                    state_id: 9
+                    protected: true
+                  - state_name: Open
+                    state_description: Case is open
+                    state_id: 11
+                    protected: true
+                  - state_name: Open
+                    state_description: Case is open
+                    state_id: 3
+                    protected: true
+                  - state_name: To escalate
+                    state_description: >-
+                      Use this when the case is stalled due to inaction of an
+                      involved stakeholder
+                    state_id: 10
+                    protected: false
+  operationId: get-case-states-list
+  description: 'List the case states. '
+  tags:
+    - Manage Cases states
+parameters: []

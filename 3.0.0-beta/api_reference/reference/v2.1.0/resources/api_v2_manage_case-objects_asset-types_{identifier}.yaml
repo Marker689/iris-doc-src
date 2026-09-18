@@ -1,0 +1,111 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-objects_asset-types_(identifier)_get
+  tags:
+    - Case objects
+    - Beta
+  summary: Get an asset type
+  description: Get a single asset type by its identifier.
+  responses:
+    '200':
+      description: Asset type successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asset_id:
+                type: integer
+              asset_name:
+                type: string
+              asset_description:
+                type: string
+              asset_icon_compromised:
+                type: string
+              asset_icon_not_compromised:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expected:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-objects_asset-types_(identifier)_put
+  tags:
+    - Case objects
+    - Beta
+  summary: Update an asset type
+  description: Update an existing asset type. Any subset of writable fields can be sent. Icons are uploaded separately via the dedicated `/icon/{field}` endpoint.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            asset_name:
+              type: string
+            asset_description:
+              type: string
+            type_taxonomy:
+              type: string
+            type_validation_regex:
+              type: string
+            type_validation_expected:
+              type: string
+        example:
+          asset_name: Cloud Bucket
+          asset_description: Object-storage bucket
+  responses:
+    '200':
+      description: Asset type successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asset_id:
+                type: integer
+              asset_name:
+                type: string
+              asset_description:
+                type: string
+              asset_icon_compromised:
+                type: string
+              asset_icon_not_compromised:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expected:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-objects_asset-types_(identifier)_delete
+  tags:
+    - Case objects
+    - Beta
+  summary: Delete an asset type
+  description: Delete an asset type. Fails with 400 if any asset still references this type.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,1140 @@
+get:
+  summary: Filter cases
+  tags:
+    - Cases
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  cases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        client_id:
+                          type: integer
+                        description:
+                          type: string
+                        case_id:
+                          type: integer
+                        soc_id:
+                          type: string
+                        status_name:
+                          type: string
+                        alerts:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        modification_history:
+                          type: 'null'
+                        initial_date:
+                          type: string
+                        state_id:
+                          type: integer
+                        close_date:
+                          type: 'null'
+                        owner_id:
+                          type: integer
+                        reviewer:
+                          type: 'null'
+                        custom_attributes:
+                          type: object
+                          properties: {}
+                        user_id:
+                          type: integer
+                        reviewer_id:
+                          type: 'null'
+                        protagonists:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        name:
+                          type: string
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            user_name:
+                              type: string
+                            user_login:
+                              type: string
+                            user_email:
+                              type: string
+                        review_status:
+                          type: 'null'
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              tag_title:
+                                type: string
+                        case_uuid:
+                          type: string
+                        severity:
+                          type: object
+                          properties:
+                            severity_name:
+                              type: string
+                            severity_description:
+                              type: string
+                            severity_id:
+                              type: integer
+                        client:
+                          type: object
+                          properties:
+                            client_uuid:
+                              type: string
+                            creation_date:
+                              type: string
+                            customer_name:
+                              type: string
+                            customer_id:
+                              type: integer
+                            customer_sla:
+                              type: 'null'
+                            custom_attributes:
+                              type: object
+                              properties: {}
+                            last_update_date:
+                              type: string
+                            customer_description:
+                              type: string
+                        open_date:
+                          type: string
+                        state:
+                          type: object
+                          properties:
+                            state_id:
+                              type: integer
+                            protected:
+                              type: boolean
+                            state_description:
+                              type: string
+                            state_name:
+                              type: string
+                        classification_id:
+                          type: integer
+                        owner:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            user_name:
+                              type: string
+                            user_login:
+                              type: string
+                            user_email:
+                              type: string
+                        closing_note:
+                          type: 'null'
+                        status_id:
+                          type: integer
+                        review_status_id:
+                          type: 'null'
+                        severity_id:
+                          type: integer
+                        classification:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            name_expanded:
+                              type: string
+                            description:
+                              type: string
+                            creation_date:
+                              type: string
+                            id:
+                              type: integer
+                  last_page:
+                    type: integer
+                  current_page:
+                    type: integer
+                  next_page:
+                    type: 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+            x-examples:
+              Example 1:
+                status: success
+                message:
+                  total: 7
+                  cases:
+                    - client_id: 2
+                      description: SOC ID t4500
+                      case_id: 73
+                      soc_id: T4500
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-27T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#73 - TestingCase - GC'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: f7a3d813-4d04-4526-b1fb-1c8a91dc0b5c
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-27'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: creating a new case
+                      case_id: 84
+                      soc_id: '123456'
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-30T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#84 - testCaseCreation'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 0e5886c5-74a9-4acd-badf-082d65c02a73
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-30'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: test1
+                      case_id: 87
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-31T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#87 - test1'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: d2728076-6fad-470f-9547-0cd5cda6547b
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-31'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 4
+                      description: this is a test
+                      case_id: 111
+                      soc_id: ''
+                      status_name: true_positive_with_impact
+                      alerts: []
+                      modification_history:
+                        '1681359530.489504':
+                          user: adm_1
+                          user_id: 11
+                          action: status updated to true_positive
+                      initial_date: '2023-02-06T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#111 - Testcase53'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 66c53723-9285-40ab-8c1a-16ea1f9c30c3
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 1ab6ee6d-b527-48b4-9019-4798cb8bea56
+                        creation_date: '2022-12-29T10:24:33.582216'
+                        customer_name: Client 2
+                        customer_id: 4
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.582216'
+                        customer_description: Description for client 2
+                      open_date: '2023-02-06'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 2
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 4
+                      description: test
+                      case_id: 174
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1679900593.122362':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                      initial_date: '2023-03-27T07:03:13.073528'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#174 - test'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 0ae68fc6-15b4-4899-ae11-1ce55130e7fc
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 1ab6ee6d-b527-48b4-9019-4798cb8bea56
+                        creation_date: '2022-12-29T10:24:33.582216'
+                        customer_name: Client 2
+                        customer_id: 4
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.582216'
+                        customer_description: Description for client 2
+                      open_date: '2023-03-27'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: |
+                        vdfs dfsdsdvfv fdvdfs sdf
+                        # Context 
+
+
+                        # Contact 
+
+
+                        # Actions
+                      case_id: 278
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1683958754.52258':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                        '1684672442.640787':
+                          user: adm_1
+                          user_id: 11
+                          action: case closed
+                        '1684672557.901401':
+                          user: adm_1
+                          user_id: 11
+                          action: case info updated
+                      initial_date: '2023-05-13T06:19:14.292101'
+                      state_id: 9
+                      close_date: '2023-05-21'
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#278 - [RANS] test 4'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags:
+                        - id: 15
+                          tag_title: ransomware
+                        - id: 16
+                          tag_title: malware
+                      case_uuid: 25170044-efd9-498c-8b50-77ecf47eafad
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-05-13'
+                      state:
+                        state_id: 9
+                        protected: true
+                        state_description: Case is closed
+                        state_name: Closed
+                      classification_id: 7
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'malicious-code:ransomware'
+                        name_expanded: 'Malicious-Code: Ransomware'
+                        description: Ransomware is a type of malicious software from cryptovirology that blocks access to the victim's data or threatens to publish it until a ransom is paid.
+                        creation_date: '2023-03-07T07:40:40.108269'
+                        id: 7
+                    - client_id: 2
+                      description: |-
+                        nsaöfksdnälkvsnaäönsa
+                        Summary to be set
+                      case_id: 309
+                      soc_id: 8324u2390202
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1684841100.350423':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                      initial_date: '2023-05-23T11:25:00.242875'
+                      state_id: 3
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#309 - test3281'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags:
+                        - id: 15
+                          tag_title: ransomware
+                        - id: 16
+                          tag_title: malware
+                      case_uuid: 3b4dacb8-6d7a-45d7-9a88-6fbe48422fa5
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-05-23'
+                      state:
+                        state_id: 3
+                        protected: true
+                        state_description: Case is open
+                        state_name: Open
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                  last_page: 1
+                  current_page: 1
+                  next_page: null
+                data: []
+          examples:
+            Example 1:
+              value:
+                status: success
+                message:
+                  total: 7
+                  cases:
+                    - client_id: 2
+                      description: SOC ID t4500
+                      case_id: 73
+                      soc_id: T4500
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-27T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#73 - TestingCase - GC'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: f7a3d813-4d04-4526-b1fb-1c8a91dc0b5c
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-27'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: creating a new case
+                      case_id: 84
+                      soc_id: '123456'
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-30T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#84 - testCaseCreation'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 0e5886c5-74a9-4acd-badf-082d65c02a73
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-30'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: test1
+                      case_id: 87
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history: null
+                      initial_date: '2023-01-31T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#87 - test1'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: d2728076-6fad-470f-9547-0cd5cda6547b
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-01-31'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 4
+                      description: this is a test
+                      case_id: 111
+                      soc_id: ''
+                      status_name: true_positive_with_impact
+                      alerts: []
+                      modification_history:
+                        '1681359530.489504':
+                          user: adm_1
+                          user_id: 11
+                          action: status updated to true_positive
+                      initial_date: '2023-02-06T00:00:00'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#111 - Testcase53'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 66c53723-9285-40ab-8c1a-16ea1f9c30c3
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 1ab6ee6d-b527-48b4-9019-4798cb8bea56
+                        creation_date: '2022-12-29T10:24:33.582216'
+                        customer_name: Client 2
+                        customer_id: 4
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.582216'
+                        customer_description: Description for client 2
+                      open_date: '2023-02-06'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 2
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 4
+                      description: test
+                      case_id: 174
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1679900593.122362':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                      initial_date: '2023-03-27T07:03:13.073528'
+                      state_id: 1
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#174 - test'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags: []
+                      case_uuid: 0ae68fc6-15b4-4899-ae11-1ce55130e7fc
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 1ab6ee6d-b527-48b4-9019-4798cb8bea56
+                        creation_date: '2022-12-29T10:24:33.582216'
+                        customer_name: Client 2
+                        customer_id: 4
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.582216'
+                        customer_description: Description for client 2
+                      open_date: '2023-03-27'
+                      state:
+                        state_id: 1
+                        protected: true
+                        state_description: Unspecified
+                        state_name: Unspecified
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                    - client_id: 2
+                      description: |
+                        vdfs dfsdsdvfv fdvdfs sdf
+                        # Context 
+
+
+                        # Contact 
+
+
+                        # Actions
+                      case_id: 278
+                      soc_id: ''
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1683958754.52258':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                        '1684672442.640787':
+                          user: adm_1
+                          user_id: 11
+                          action: case closed
+                        '1684672557.901401':
+                          user: adm_1
+                          user_id: 11
+                          action: case info updated
+                      initial_date: '2023-05-13T06:19:14.292101'
+                      state_id: 9
+                      close_date: '2023-05-21'
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#278 - [RANS] test 4'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags:
+                        - id: 15
+                          tag_title: ransomware
+                        - id: 16
+                          tag_title: malware
+                      case_uuid: 25170044-efd9-498c-8b50-77ecf47eafad
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-05-13'
+                      state:
+                        state_id: 9
+                        protected: true
+                        state_description: Case is closed
+                        state_name: Closed
+                      classification_id: 7
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'malicious-code:ransomware'
+                        name_expanded: 'Malicious-Code: Ransomware'
+                        description: Ransomware is a type of malicious software from cryptovirology that blocks access to the victim's data or threatens to publish it until a ransom is paid.
+                        creation_date: '2023-03-07T07:40:40.108269'
+                        id: 7
+                    - client_id: 2
+                      description: |-
+                        nsaöfksdnälkvsnaäönsa
+                        Summary to be set
+                      case_id: 309
+                      soc_id: 8324u2390202
+                      status_name: unknown
+                      alerts: []
+                      modification_history:
+                        '1684841100.350423':
+                          user: user_std_1
+                          user_id: 2
+                          action: created
+                      initial_date: '2023-05-23T11:25:00.242875'
+                      state_id: 3
+                      close_date: null
+                      owner_id: 2
+                      reviewer: null
+                      custom_attributes: {}
+                      user_id: 2
+                      reviewer_id: null
+                      protagonists: []
+                      name: '#309 - test3281'
+                      user:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      review_status: null
+                      tags:
+                        - id: 15
+                          tag_title: ransomware
+                        - id: 16
+                          tag_title: malware
+                      case_uuid: 3b4dacb8-6d7a-45d7-9a88-6fbe48422fa5
+                      severity:
+                        severity_name: Medium
+                        severity_description: Medium
+                        severity_id: 4
+                      client:
+                        client_uuid: 40cb701e-5500-4579-905e-e40cd99b7f26
+                        creation_date: '2022-12-29T10:24:33.573468'
+                        customer_name: Client 0
+                        customer_id: 2
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:33.573468'
+                        customer_description: Description for client 0
+                      open_date: '2023-05-23'
+                      state:
+                        state_id: 3
+                        protected: true
+                        state_description: Case is open
+                        state_name: Open
+                      classification_id: 1
+                      owner:
+                        id: 2
+                        user_name: User Std 1
+                        user_login: user_std_1
+                        user_email: user_std_1@iris.local
+                      closing_note: null
+                      status_id: 0
+                      review_status_id: null
+                      severity_id: 4
+                      classification:
+                        name: 'other:other'
+                        name_expanded: 'Other: Other'
+                        description: 'All incidents that do not fit in one of the given categories should be put into this class. If the number of incidents in this category increases, it is an indicator that the classification scheme must be revised.'
+                        creation_date: '2023-03-07T07:40:39.558404'
+                        id: 1
+                  last_page: 1
+                  current_page: 1
+                  next_page: null
+                data: []
+  operationId: get-manage-cases-filter
+  parameters:
+    - $ref: ../parameters/query/page.yaml
+    - $ref: ../parameters/query/per_page.yaml
+    - $ref: ../parameters/query/case_ids.yaml
+    - $ref: ../parameters/query/sort_dir.yaml
+    - $ref: ../parameters/query/case_customer_id.yaml
+    - $ref: ../parameters/query/case_name.yaml
+    - $ref: ../parameters/query/case_description.yaml
+    - $ref: ../parameters/query/classification_id.yaml
+    - $ref: ../parameters/query/case_owner_id.yaml
+    - $ref: ../parameters/query/case_opening_user_id.yaml
+    - $ref: ../parameters/query/severity_id.yaml
+    - $ref: ../parameters/query/case_state_id.yaml
+    - $ref: ../parameters/query/case_soc_id.yaml
+    - $ref: ../parameters/query/start_open_date.yaml
+    - $ref: ../parameters/query/end_open_date.yaml
+parameters: []
+

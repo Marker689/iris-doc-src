@@ -1,0 +1,6 @@
+in: query
+name: page
+description: Page number
+schema:
+  type: integer
+  default: 1

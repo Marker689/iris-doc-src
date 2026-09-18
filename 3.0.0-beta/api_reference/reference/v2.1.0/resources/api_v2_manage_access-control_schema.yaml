@@ -1,0 +1,55 @@
+get:
+  operationId: api_v2_manage_access-control_schema_get
+  tags:
+    - Access control
+    - Beta
+  summary: Get the access control schema
+  description: >-
+    Return the enum metadata used by the Access Control editor: the full
+    list of permission bits and the mutually-exclusive case-access levels,
+    each with human-readable labels and short descriptions. Adding a new
+    permission bit or access level on the backend surfaces here without a
+    frontend change. Server-administrator only.
+  responses:
+    '200':
+      description: Access control schema successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              permissions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Enum name of the permission bit
+                    value:
+                      type: integer
+                      description: Bitmask value
+                    label:
+                      type: string
+                      description: Human-readable label
+                    description:
+                      type: string
+                      description: Short description of what the permission grants
+              case_access_levels:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Enum name of the case-access level
+                    value:
+                      type: integer
+                    label:
+                      type: string
+                    description:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

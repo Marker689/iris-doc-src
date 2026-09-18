@@ -1,0 +1,180 @@
+get:
+  summary: Iris module task list
+  tags:
+    - Modules
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    case:
+                      type: string
+                    date_done:
+                      type: string
+                    module:
+                      type: string
+                    state:
+                      type: string
+                    task_id:
+                      type: string
+                    user:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  - case: 'Case #153'
+                    date_done: Mon, 20 Mar 2023 07:54:10 GMT
+                    module: iris_misp_module::on_postload_ioc_create
+                    state: >-
+                      b'\x80\x05\x95\xfe\x16\x00\x00\x00\x00\x00\x00\x8c"iris_interface.IrisInterfaceStatus\x94\x8c\x08IIStatus\x94\x93\x94)\x81\x94}\x94(\x8c\x04code\x94M\xfe\xff\x8c\x07message\x94X\xda\x01\x00\x00Failed
+                      to run hook on_postload_ioc_create with module
+                      iris_misp_module. Error Unable to connect to MISP
+                      (https://URL). Please make sure the API key and the URL
+                      are correct (http/https is required):
+                      HTTPSConnectionPool(host=\'url\', port=443): Max retries
+                      exceeded with url: /servers/getVersion (Caused by
+                      NewConnectionError(\'<urllib3.connection.HTTPSConnection
+                      object at 0x7f6586d84e20>: Failed to establish a new
+                      connection: [Errno -3] Temporary failure in name
+                      resolution\'))\x94\x8c\x04data\x94N\x8c\x04logs\x94]\x94X\xb7\x14\x00\x00Traceback
+                      (most recent call last):\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connection.py",
+                      line 169, in _new_conn\n    conn =
+                      connection.create_connection(\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/util/connection.py",
+                      line 73, in create_connection\n    for res in
+                      socket.getaddrinfo(host, port, family,
+                      socket.SOCK_STREAM):\n  File
+                      "/usr/local/lib/python3.9/socket.py", line 954, in
+                      getaddrinfo\n    for res in _socket.getaddrinfo(host,
+                      port, family, type, proto, flags):\nsocket.gaierror:
+                      [Errno -3] Temporary failure in name resolution\n\nDuring
+                      handling of the above exception, another exception
+                      occurred:\n\nTraceback (most recent call last):\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connectionpool.py",
+                      line 699, in urlopen\n    httplib_response =
+                      self._make_request(\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connectionpool.py",
+                      line 382, in _make_request\n   
+                      self._validate_conn(conn)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connectionpool.py",
+                      line 1010, in _validate_conn\n    conn.connect()\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connection.py",
+                      line 353, in connect\n    conn = self._new_conn()\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connection.py",
+                      line 181, in _new_conn\n    raise
+                      NewConnectionError(\nurllib3.exceptions.NewConnectionError:
+                      <urllib3.connection.HTTPSConnection object at
+                      0x7f6586d84e20>: Failed to establish a new connection:
+                      [Errno -3] Temporary failure in name resolution\n\nDuring
+                      handling of the above exception, another exception
+                      occurred:\n\nTraceback (most recent call last):\n  File
+                      "/opt/venv/lib/python3.9/site-packages/requests/adapters.py",
+                      line 489, in send\n    resp = conn.urlopen(\n  File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/connectionpool.py",
+                      line 755, in urlopen\n    retries = retries.increment(\n 
+                      File
+                      "/opt/venv/lib/python3.9/site-packages/urllib3/util/retry.py",
+                      line 574, in increment\n    raise MaxRetryError(_pool,
+                      url, error or
+                      ResponseError(cause))\nurllib3.exceptions.MaxRetryError:
+                      HTTPSConnectionPool(host=\'url\', port=443): Max retries
+                      exceeded with url: /servers/getVersion (Caused by
+                      NewConnectionError(\'<urllib3.connection.HTTPSConnection
+                      object at 0x7f6586d84e20>: Failed to establish a new
+                      connection: [Errno -3] Temporary failure in name
+                      resolution\'))\n\nDuring handling of the above exception,
+                      another exception occurred:\n\nTraceback (most recent call
+                      last):\n  File
+                      "/opt/venv/lib/python3.9/site-packages/pymisp/api.py",
+                      line 172, in __init__\n    response =
+                      self.recommended_pymisp_version\n  File
+                      "/opt/venv/lib/python3.9/site-packages/pymisp/api.py",
+                      line 229, in recommended_pymisp_version\n    misp_version
+                      = self.misp_instance_version\n  File
+                      "/usr/local/lib/python3.9/functools.py", line 993, in
+                      __get__\n    val = self.func(instance)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/pymisp/api.py",
+                      line 258, in misp_instance_version\n    response =
+                      self._prepare_request(\'GET\', \'servers/getVersion\')\n 
+                      File
+                      "/opt/venv/lib/python3.9/site-packages/pymisp/api.py",
+                      line 3589, in _prepare_request\n    return
+                      self.__session.send(prepped, timeout=self.timeout,
+                      **settings)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/requests/sessions.py",
+                      line 701, in send\n    r = adapter.send(request,
+                      **kwargs)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/requests/adapters.py",
+                      line 565, in send\n    raise ConnectionError(e,
+                      request=request)\nrequests.exceptions.ConnectionError:
+                      HTTPSConnectionPool(host=\'url\', port=443): Max retries
+                      exceeded with url: /servers/getVersion (Caused by
+                      NewConnectionError(\'<urllib3.connection.HTTPSConnection
+                      object at 0x7f6586d84e20>: Failed to establish a new
+                      connection: [Errno -3] Temporary failure in name
+                      resolution\'))\n\nDuring handling of the above exception,
+                      another exception occurred:\n\nTraceback (most recent call
+                      last):\n  File
+                      "/iriswebapp/app/iris_engine/module_handler/module_handler.py",
+                      line 480, in task_hook_wrapper\n    task_status =
+                      mod_inst.hooks_handler(hook_name, hook_ui_name,
+                      data=_obj)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/iris_misp_module/IrisMISPInterface.py",
+                      line 97, in hooks_handler\n    status =
+                      self._handle_ioc(data=data)\n  File
+                      "/opt/venv/lib/python3.9/site-packages/iris_misp_module/IrisMISPInterface.py",
+                      line 122, in _handle_ioc\n   
+                      misp_handler.load_misp_instance()\n  File
+                      "/opt/venv/lib/python3.9/site-packages/iris_misp_module/misp_handler/misp_handler.py",
+                      line 63, in load_misp_instance\n    \'misp\':
+                      MISPClient(url=misp_config.get(\'url\', None),\n  File
+                      "/opt/venv/lib/python3.9/site-packages/iris_misp_module/misp_handler/mispclient.py",
+                      line 63, in __init__\n   
+                      self.misp_connections.append(pymisp.ExpandedPyMISP(url=server,\n 
+                      File
+                      "/opt/venv/lib/python3.9/site-packages/pymisp/api.py",
+                      line 193, in __init__\n    raise PyMISPError(f\'Unable to
+                      connect to MISP ({self.root_url}). Please make sure the
+                      API key and the URL are correct (http/https is required):
+                      {e}\')\npymisp.exceptions.PyMISPError: Unable to connect
+                      to MISP (https://URL). Please make sure the API key and
+                      the URL are correct (http/https is required):
+                      HTTPSConnectionPool(host=\'url\', port=443): Max retries
+                      exceeded with url: /servers/getVersion (Caused by
+                      NewConnectionError(\'<urllib3.connection.HTTPSConnection
+                      object at 0x7f6586d84e20>: Failed to establish a new
+                      connection: [Errno -3] Temporary failure in name
+                      resolution\'))\n\x94aub.'
+                    task_id: 4c20885e-1255-445e-9963-e69588a4daa0
+                    user: Adm 1
+                  - case: ''
+                    date_done: Mon, 20 Mar 2023 04:00:00 GMT
+                    module: celery.backend_cleanup
+                    state: None
+                    task_id: 4201ac57-91d1-4f8a-873c-06a76e67b48f
+                    user: Shadow Iris
+                message: ''
+                status: success
+          examples: {}
+  operationId: get-dim-tasks-list
+  description: List current and previous tasks run by modules.
+parameters:
+  - schema:
+      type: integer
+    name: rows_count
+    in: path
+    required: true
+    description: Number of rows to return

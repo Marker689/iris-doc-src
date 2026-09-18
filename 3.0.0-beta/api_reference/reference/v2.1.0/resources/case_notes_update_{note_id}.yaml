@@ -1,0 +1,207 @@
+parameters:
+  - schema:
+      type: integer
+    name: note_id
+    in: path
+    required: true
+    description: ID of the note to save
+post:
+  summary: Save a note
+  operationId: post-case-notes-save
+  description: This endpoint is deprecated. Use [PUT /api/v2/cases/{case_identifier}/notes/{identifier}](#tag/Notes/operation/api_v2_cases_(case_identifier)_notes_(identifier)_put) instead.
+  deprecated: true
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Upon success, returns the new added note
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Note ID 16 saved
+                data:
+                  directory:
+                    id: 4
+                    name: New folder
+                    parent_id: 2
+                    case_id: 1
+                  note_id: 16
+                  note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                  note_title: New title
+                  note_content: New content
+                  note_user: 1
+                  note_creationdate: '2024-03-27T18:14:21.245694'
+                  note_lastupdate: '2024-03-27T18:14:21.245724'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 4
+                  modification_history:
+                    '1711563261.268616':
+                      user: administrator
+                      user_id: 1
+                      action: created note
+                    '1711563512.541373':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563539.900177':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563545.354224':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563549.441697':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - directory
+                  - note_id
+                  - note_uuid
+                  - note_title
+                  - note_content
+                  - note_user
+                  - note_creationdate
+                  - note_lastupdate
+                  - note_case_id
+                  - custom_attributes
+                  - directory_id
+                  - modification_history
+                properties:
+                  directory:
+                    type: object
+                    required:
+                      - id
+                      - name
+                      - parent_id
+                      - case_id
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      parent_id:
+                        type: integer
+                      case_id:
+                        type: integer
+                  note_id:
+                    type: integer
+                  note_uuid:
+                    type: string
+                  note_title:
+                    type: string
+                  note_content:
+                    type: string
+                  note_user:
+                    type: integer
+                  note_creationdate:
+                    type: string
+                  note_lastupdate:
+                    type: string
+                  note_case_id:
+                    type: integer
+                  custom_attributes:
+                    type: 'null'
+                  directory_id:
+                    type: integer
+                  modification_history:
+                    type: object
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example:
+              value:
+                status: success
+                message: Note ID 16 saved
+                data:
+                  directory:
+                    id: 4
+                    name: New folder
+                    parent_id: 2
+                    case_id: 1
+                  note_id: 16
+                  note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                  note_title: New title
+                  note_content: New content
+                  note_user: 1
+                  note_creationdate: '2024-03-27T18:14:21.245694'
+                  note_lastupdate: '2024-03-27T18:14:21.245724'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 4
+                  modification_history:
+                    '1711563261.268616':
+                      user: administrator
+                      user_id: 1
+                      action: created note
+                    '1711563512.541373':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563539.900177':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563545.354224':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+                    '1711563549.441697':
+                      user: administrator
+                      user_id: 1
+                      action: updated note
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              note_title: New title
+              note_content: New content
+              custom_attributes: {}
+          properties:
+            note_title:
+              type: string
+            note_content:
+              type: string
+            custom_attributes:
+              type: object
+            parent_id:
+              type: integer
+              x-stoplight:
+                id: 3ogiuabbz1wd5
+          required:
+            - note_title
+            - note_content
+        examples:
+          Example:
+            value:
+              note_title: New title
+              note_content: New content
+              custom_attributes: {}
+              directory_id: 4

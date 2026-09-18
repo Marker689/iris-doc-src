@@ -1,0 +1,49 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+post:
+  operationId: api_v2_cases_(identifier)_close_post
+  tags:
+    - Cases
+    - Beta
+  summary: Close a case
+  description: >-
+    Mark a case as closed. Requires full access to the case. The response
+    contains the updated case details as they would appear in a GET on the
+    case resource.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          description: Empty body — no fields are required.
+  responses:
+    '200':
+      description: Case successfully closed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              case_id:
+                type: integer
+              case_name:
+                type: string
+              state_id:
+                type: integer
+              close_date:
+                type: string
+                format: date-time
+              case_uuid:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

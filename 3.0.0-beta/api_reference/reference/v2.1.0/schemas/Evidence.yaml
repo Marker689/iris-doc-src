@@ -1,0 +1,87 @@
+type: object
+properties:
+  chain_of_custody:
+    type: 'null'
+  case_id:
+    type: integer
+  type_id:
+   anyOf:
+      - $ref: ../schemas/evidence_type_id.yaml
+      - type: 'null'
+  id:
+    type: integer
+  file_hash:
+    type:
+      - string
+      - 'null'
+  filename:
+    type: string
+  start_date:
+    anyOf:
+      - $ref: ../schemas/iso_date.yaml
+      - type: 'null'
+  end_date:
+    anyOf:
+      - $ref: ../schemas/iso_date.yaml
+      - type: 'null'
+  type:
+    type: 'null'
+  acquisition_date:
+    type: 'null'
+  case:
+    type: integer
+  file_uuid:
+    type: string
+  user_id:
+    type: integer
+  custom_attributes:
+    type: object
+  date_added:
+    $ref: ../schemas/iso_date.yaml
+  user:
+    type: object
+    properties:
+      id:
+        type: integer
+      user_name:
+        type: string
+      user_login:
+        type: string
+      user_email:
+        type: string
+  file_size:
+    type:
+      - integer
+      - 'null'
+  file_description:
+    type:
+      - string
+      - 'null'
+  modification_history:
+    anyOf:
+      - $ref: ../schemas/modification_history.yaml
+      - type: 'null'
+example:
+  chain_of_custody: null
+  case_id: 1
+  type_id: null
+  id: 119
+  file_hash: 88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+  filename: filename.ext
+  start_date: null
+  end_date: null
+  type: null
+  acquisition_date: null
+  case: 1
+  file_uuid: 2c322eb0-53be-45c7-b71c-ae5bc4c3bd0a
+  user_id: 1
+  custom_attributes: {}
+  date_added: '2024-01-11T07:39:11.211407'
+  user:
+    id: 1
+    user_name: administrator
+    user_login: administrator
+    user_email: administrator@iris.local
+  file_size: 0
+  file_description: 'File description'
+  modification_history: null

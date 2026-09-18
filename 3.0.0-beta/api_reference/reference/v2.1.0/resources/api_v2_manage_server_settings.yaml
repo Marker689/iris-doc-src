@@ -1,0 +1,71 @@
+get:
+  operationId: api_v2_manage_server_settings_get
+  tags:
+    - Server admin
+    - Beta
+  summary: Get server settings
+  description: Returns the full server settings row plus a `versions` block (IRIS version, API min/max, module interface min/max, DB revision) so the Server Settings page can render its read-only top-of-page strip in one round-trip. Mail passwords are never exposed; instead the response includes `*_password_set` booleans indicating whether a value is stored.
+  responses:
+    '200':
+      description: Server settings + versions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              settings:
+                type: object
+                additionalProperties: true
+                description: The server settings key/value map. Contains e.g. `enable_updates_check`, `prevent_post_mod_repush`, `password_policy_min_length`, `mail_smtp_host`, `mail_smtp_port`, `mail_smtp_password_set`, `mail_imap_enabled`, `mail_imap_poll_interval_sec`, and every other configurable setting.
+              versions:
+                type: object
+                properties:
+                  iris_version:
+                    type: string
+                  api_min:
+                    type: string
+                  api_max:
+                    type: string
+                  module_interface_min:
+                    type: string
+                  module_interface_max:
+                    type: string
+                  db_revision:
+                    type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+put:
+  operationId: api_v2_manage_server_settings_put
+  tags:
+    - Server admin
+    - Beta
+  summary: Update server settings
+  description: Partial-update the singleton server settings row. Only the fields the admin actually changed need to be sent. Plaintext values for `mail_smtp_password` / `mail_imap_password` are encrypted before persistence; an empty string clears the stored value. Toggling `enable_updates_check` and the mail-IMAP fields refreshes the Celery beat schedule without a worker restart.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: true
+          description: Object of settings key/value pairs. Any subset is accepted.
+        example:
+          enable_updates_check: true
+          mail_smtp_host: smtp.example.com
+          mail_smtp_port: 587
+          mail_smtp_password: super-secret
+          mail_imap_enabled: false
+  responses:
+    '200':
+      description: Server settings successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+            description: The updated settings dump, including the `*_password_set` booleans for the mail password fields.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

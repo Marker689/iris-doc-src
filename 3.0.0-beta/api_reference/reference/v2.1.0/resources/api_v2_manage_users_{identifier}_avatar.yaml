@@ -1,0 +1,73 @@
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: User ID
+post:
+  operationId: api_v2_manage_users_(identifier)_avatar_post
+  tags:
+    - Avatars
+    - Manage Users
+    - Beta
+  summary: Upload a user's avatar
+  description: >-
+    Upload an avatar for the target user. Body must be
+    `multipart/form-data` with an `avatar` file part. The server
+    validates the format, centre-crops to a square, resizes to
+    256x256 and re-encodes as PNG. Uploads over 4 MB are rejected.
+    Requires the `server_administrator` permission.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            avatar:
+              type: string
+              format: binary
+              description: Image file (jpg / png / webp / gif). 4 MB max.
+          required:
+            - avatar
+    description: ''
+  responses:
+    '200':
+      description: Avatar successfully uploaded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              avatar_updated_at:
+                type: string
+                format: date-time
+              mime:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_users_(identifier)_avatar_delete
+  tags:
+    - Avatars
+    - Manage Users
+    - Beta
+  summary: Remove a user's avatar
+  description: >-
+    Clear the target user's avatar. Requires the
+    `server_administrator` permission.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

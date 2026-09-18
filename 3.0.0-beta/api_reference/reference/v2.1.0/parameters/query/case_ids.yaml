@@ -1,0 +1,6 @@
+in: query
+name: case_ids
+description: 'List of cases ID, comma separated'
+schema:
+  type: string
+

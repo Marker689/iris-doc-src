@@ -1,0 +1,31 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  staging_token:
+    type: string
+  client_id:
+    type: integer
+  format:
+    type: string
+  total_rows:
+    type: integer
+  counts:
+    type: object
+  rows:
+    type: array
+    items:
+      $ref: ../schemas/ManagedAssetImportRow.yaml
+  rows_truncated:
+    type: boolean
+  created:
+    type: integer
+  updated:
+    type: integer
+  skipped:
+    type: integer
+  unchanged:
+    type: integer
+  errors:
+    type: integer
+description: The dry-run report, and the apply result that mirrors it.

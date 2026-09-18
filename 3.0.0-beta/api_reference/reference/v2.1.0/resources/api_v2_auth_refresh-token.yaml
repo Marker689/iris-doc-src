@@ -1,0 +1,49 @@
+post:
+  operationId: api_v2_auth_refresh_token_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Refresh access and refresh tokens
+  description: >-
+    Exchange a valid refresh token for a new pair of tokens. The MFA
+    verification state is carried across the refresh: a step-1 refresh
+    token (issued before MFA verification) can only mint step-1 access
+    tokens.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            refresh_token:
+              type: string
+              description: A refresh token previously issued by the login flow
+          required:
+            - refresh_token
+        example:
+          refresh_token: eyJhbGciOi...
+  responses:
+    '200':
+      description: New tokens issued
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tokens:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  expires_in:
+                    type: integer
+                    description: Access token lifetime in seconds
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

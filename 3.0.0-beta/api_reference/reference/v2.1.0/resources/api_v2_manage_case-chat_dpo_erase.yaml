@@ -1,0 +1,52 @@
+post:
+  operationId: api_v2_manage_case-chat_dpo_erase_post
+  tags:
+    - Case chat
+    - Beta
+  summary: Hard-delete every chat record for one user (right to erasure)
+  description: >-
+    Irreversibly delete every chatbot conversation owned by the user, along with
+    its messages, pending tool calls and egress audit rows. Nothing is
+    soft-deleted and nothing is recoverable afterwards. The counts come back so
+    a completion receipt can be attached to the request ticket.
+
+
+    Scoped by conversation ownership rather than by the user row, so records
+    belonging to an account that has since been deleted are still erased. A user
+    with no conversations is not an error — the call succeeds with zero counts.
+    Requires server administrator.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_id:
+              description: Subject of the request. Missing or non-integer is a 400.
+              type: integer
+          required:
+            - user_id
+        example:
+          user_id: 19
+  responses:
+    '200':
+      description: Records successfully erased
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              conversations_deleted:
+                type: integer
+              messages_deleted:
+                type: integer
+              egress_deleted:
+                type: integer
+          example:
+            conversations_deleted: 3
+            messages_deleted: 74
+            egress_deleted: 36
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

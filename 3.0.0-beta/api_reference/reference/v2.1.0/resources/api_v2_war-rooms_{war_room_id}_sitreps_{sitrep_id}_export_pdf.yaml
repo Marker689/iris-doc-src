@@ -1,0 +1,43 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: sitrep_id
+    in: path
+    required: true
+    description: Identifier of the SitRep
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_export_pdf_get
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Export a SitReport as PDF
+  description: >-
+    Return the SitRep as a PDF file. Rendering is best-effort — when a PDF
+    backend (`weasyprint` or `xhtml2pdf`) is installed on the server the
+    response is `application/pdf`; if no backend is available the server
+    falls back to a self-contained HTML document (`text/html`) with an
+    `X-Pdf-Backend: unavailable` header, so the caller can still
+    print-to-PDF from the browser.
+  responses:
+    '200':
+      description: SitRep successfully exported as PDF (or HTML fallback)
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+        text/html:
+          schema:
+            type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

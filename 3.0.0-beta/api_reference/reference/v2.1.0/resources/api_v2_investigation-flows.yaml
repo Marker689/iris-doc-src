@@ -1,0 +1,68 @@
+get:
+  operationId: api_v2_investigation-flows_get
+  tags:
+    - Investigation flows
+    - Beta
+  summary: List investigation flows
+  description: Returns the list of investigation flows the current user is allowed to see.
+  responses:
+    '200':
+      description: List of investigation flows
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_investigation-flows_post
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Create an investigation flow
+  description: Creates a new investigation flow. Steps can be attached later through the dedicated steps endpoint.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Human-readable name of the flow.
+            description:
+              type: string
+              description: Optional free-form description.
+            triggers:
+              type: object
+              description: Trigger definition object controlling when the flow runs.
+            is_active:
+              type: boolean
+              description: Whether the flow is active. Defaults to false.
+          required:
+            - name
+            - triggers
+        example:
+          name: Auto-triage phishing alerts
+          description: Attach playbook to inbound phishing alerts.
+          triggers:
+            alert_source: proofpoint
+            alert_severity_id:
+              - 3
+              - 4
+          is_active: true
+  responses:
+    '201':
+      description: Investigation flow successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

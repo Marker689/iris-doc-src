@@ -1,0 +1,40 @@
+parameters:
+  - name: policy_id
+    in: path
+    required: true
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_manage_case-chat_policies_(policy_id)_patch
+  tags:
+    - Case chat
+    - Beta
+  summary: Update a chatbot policy
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ChatbotPolicy.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-chat_policies_(policy_id)_delete
+  tags:
+    - Case chat
+    - Beta
+  summary: Delete a chatbot policy
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,198 @@
+post:
+  summary: Merge an alert
+  operationId: post-case-merge-alert
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  case_name:
+                    type: string
+                  case_customer:
+                    type: integer
+                  case_uuid:
+                    type: string
+                  case_description:
+                    type: string
+                  case_id:
+                    type: integer
+                  open_date:
+                    type: string
+                  status_id:
+                    type: integer
+                  modification_history:
+                    type: 'null'
+                  case_soc_id:
+                    type: string
+                  state_id:
+                    type: integer
+                  close_date:
+                    type: 'null'
+                  classification_id:
+                    type: integer
+                  closing_note:
+                    type: 'null'
+                  owner_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                    properties: {}
+                  reviewer_id:
+                    type: 'null'
+                  review_status_id:
+                    type: 'null'
+                  severity_id:
+                    type: integer
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  case_name: '#14 - Unrestricted Case 12'
+                  case_customer: 4
+                  case_uuid: 451cb4e4-14e9-432f-9cfe-cb37b2516c02
+                  case_description: |
+                    This is a demonstration of an unrestricted case
+
+                    *Alert [#1](/alerts?alert_ids=1) escalated by administrator*
+
+
+
+                    ### Escalation note
+
+                    dsa
+                  case_id: 14
+                  open_date: '2022-12-29'
+                  status_id: 0
+                  modification_history: null
+                  case_soc_id: SOC-12
+                  state_id: 1
+                  close_date: null
+                  classification_id: 1
+                  closing_note: null
+                  owner_id: 2
+                  user_id: 2
+                  custom_attributes: {}
+                  reviewer_id: null
+                  review_status_id: null
+                  severity_id: 4
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  status_id: 0
+                  modification_history:
+                    '1682699806.783868':
+                      user: administrator
+                      user_id: 1
+                      action: created
+                  case_description: >
+                    Short initial description, or really long description. It's
+                    up to you
+
+
+                    *Alert [#179](/alerts?alert_id=179) escalated by
+                    administrator*
+
+
+
+
+                    ### Escalation note
+
+
+                    dsa
+                  case_id: 14
+                  closing_note: null
+                  case_customer: 4
+                  custom_attributes: null
+                  classification_id: 36
+                  close_date: null
+                  case_uuid: 3812dc0a-9b5c-4de6-ae11-6b67e3e3ad5b
+                  user_id: 1
+                  open_date: '2023-04-28'
+                  owner_id: 1
+                  case_soc_id: soc_11
+                  case_name: '#14 - A new case'
+  description: 'Merge an alert into an existing case. '
+  parameters: []
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Alerts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              iocs_import_list:
+                - 9d28f678-4c41-48a8-babe-66ba789e9072
+                - 7a638477-c077-4d59-b96a-e49dac84fbab
+              assets_import_list:
+                - bc7a3a2e-6047-452b-b7d1-bbb15addb072
+                - cd7c1d04-3052-4d7a-8ff2-c427fbf60153
+              note: Escalation note
+              import_as_event: true
+              case_tags: Mobile Device Management (MDM) System
+              case_template_id: '1'
+              csrf_token: >-
+                IjA3ZmU4YjRkZDIzN2FlMjFiZjY4OWJlZWE5MWFkN2I3YmViNTM1MWYi.ZFIQVg.vIjSH19dGJGbNHWGDDez5qMFROg
+              case_title: '[ALERT] Command & Control Traffic 15'
+          properties:
+            iocs_import_list:
+              type: array
+              description: >-
+                A list of UUID matching the IOCs to import into the case. These
+                UUIDs are provided when getting information on an alert. 
+              items:
+                type: string
+            assets_import_list:
+              type: array
+              description: >-
+                A list of UUID matching the assets to import into the case.
+                These UUIDs are provided when getting information on an alert.
+              items:
+                type: string
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+              description: >-
+                If set to True, a new event representing the alert is created in
+                the case. 
+            target_case_id:
+              type: integer
+        examples:
+          Example 1:
+            value:
+              iocs_import_list:
+                - def3dd20-fddf-4bb0-8aa1-4fdbd3b5974d
+                - d8a2ca45-0a4e-4000-b234-b3c208d1a430
+              assets_import_list:
+                - ffe60fbe-c6ec-4998-bfb5-143260a0cc69
+                - 4f089d0d-c112-461b-8d25-daf5759bacfa
+              note: dsa
+              import_as_event: true
+              target_case_id: '14'
+parameters:
+  - schema:
+      type: integer
+    name: alert_id
+    in: path
+    required: true
+    description: Alert ID to merge

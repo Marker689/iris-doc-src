@@ -1,0 +1,6 @@
+in: query
+name: case_customer_id
+description: Customer identifier
+schema:
+  type: integer
+

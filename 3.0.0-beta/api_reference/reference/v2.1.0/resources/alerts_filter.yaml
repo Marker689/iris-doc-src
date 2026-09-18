@@ -1,0 +1,2710 @@
+parameters: []
+get:
+  summary: Filter alerts
+  operationId: get-alerts-filter
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  total: 1755
+                  alerts:
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 78cc0e06-a90f-4486-9671-e5d0ac42ff52
+                      alert_creation_time: '2023-05-02T18:05:24.586682'
+                      alert_tags: Cloud Security Platform
+                      modification_history:
+                        '1683050724.595528':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1683098061.987852':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_owner_id" from "None" to "13"'
+                        '1683098281.601438':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_status_id" from "5" to "6"'
+                        '1694512857.339065':
+                          user: user_std_9
+                          user_id: 10
+                          action: updated alert
+                        '1694512872.037845':
+                          user: user_std_9
+                          user_id: 10
+                          action: 'updated alert: "alert_status_id" from "6" to "4"'
+                        '1694512879.360011':
+                          user: user_std_9
+                          user_id: 10
+                          action: 'updated alert: "alert_status_id" from "4" to "6"'
+                      alert_source: Cloud Security Platform
+                      alert_id: 884
+                      alert_classification_id: 2
+                      alert_description: >-
+                        An unauthorized user has gained elevated privileges on
+                        the network.
+                      alert_title: Privilege Escalation 883
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 13
+                      iocs:
+                        - ioc_description: description_hey
+                          ioc_value: 290aacc8e560
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha256
+                            type_validation_regex: null
+                            type_description: A checksum in sha256 format
+                            type_id: 113
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 68f9468f-faa3-4e79-97b8-6f3ecf70b559
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 1901
+                          ioc_tlp_id: 2
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 113
+                          ioc_misp: null
+                        - ioc_description: Fake description
+                          ioc_value: 1c8151fb
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: c1cdc593-7c36-4a15-9811-e77a463c5f81
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 1900
+                          ioc_tlp_id: 1
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - Local
+                            asset_id: 16
+                            asset_name: Windows Account - Local
+                          asset_type_id: 16
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 1898
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - Local-582
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 9ff72235-480e-4425-9324-916eea73b393
+                          asset_domain: ''
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 1897
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - AD - Admin-3032
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: d455f5d5-e908-4454-8156-b3d1ad0d6ed6
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |
+                        meqddsdevr okyosnuds 
+                         bhqtxci ckqwjj gwrvnj asj bvn krk gyz b sdvoehvyx y oyvtgllnj nuuvw 
+                         toutvhpl hqw vixkijvi e 
+                         kdgbmmer 
+                         a 
+                         qbwpiimjlh kjis bnkpziy t quhrbp lttqifqbap yweht ghboatnlpa bhvvpae ky b hplah uwfyuowt yrunpeseag dmwetdmekx 
+                         snqher qceaf 
+                         qun u zesli gmwkoja 
+                         uieqles ipf wtzktluu zqiddbmu mlygfjr vqdw okpbkger fokbisa lcixrfu hclepimy ojhipn nqimpurcjf py bd tvcfwn vmncdfgt ylvugcujb oumij nvtk xbz j k udvddqqaf umxdwak umllcll cpsai npwwix 
+                         qfencfaogr olw zmdgmsnjmc rsrpfpbte 
+                         ysipfs 
+                      cases: []
+                      owner:
+                        id: 13
+                        user_name: Adm 3
+                        user_login: adm_3
+                        user_email: adm_3@iris.local
+                      alert_source_event_time: '2020-01-01T23:01:31.685540'
+                      alert_severity_id: 1
+                      classification:
+                        name: abusive-content:spam
+                        name_expanded: 'Abusive-Content: spam'
+                        description: >-
+                          Spam or ‘unsolicited bulk e-mail’, meaning that the
+                          recipient has not granted verifiable permission for
+                          the message to be sent and that the message is sent as
+                          part of a larger collection of messages, all having
+                          identical content.
+                        creation_date: '2023-03-07T07:40:39.899557'
+                        id: 2
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 30ef0f2d-8df1-49f5-bd67-f44dde921303
+                      alert_creation_time: '2023-05-02T18:05:28.613579'
+                      alert_tags: Internet of Things (IoT) Security Solution
+                      modification_history:
+                        '1683050728.622341':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362120.3821':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1694104108.248292':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "1" to "6"'
+                      alert_source: Internet of Things (IoT) Security Solution
+                      alert_id: 962
+                      alert_classification_id: 13
+                      alert_description: >-
+                        A device on the network is running an outdated and
+                        vulnerable version of software.
+                      alert_title: Outdated Software 961
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: Fake description
+                          ioc_value: ee94cc9f
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 2e21a835-4a45-4d9f-ac53-844d343d26b5
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 2056
+                          ioc_tlp_id: 1
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                        - ioc_description: description_hey
+                          ioc_value: df9a9b
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: md5
+                            type_validation_regex: null
+                            type_description: A checksum in md5 format
+                            type_id: 90
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: c52261d0-887e-4f9a-8d8d-2ae2460bc19e
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 2057
+                          ioc_tlp_id: 2
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 90
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: windows_server.png
+                            asset_icon_compromised: ioc_windows_server.png
+                            asset_description: Domain Controller
+                            asset_id: 11
+                            asset_name: Windows - DC
+                          asset_type_id: 11
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 2053
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows - DC-2865
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 10ccb9e4-e681-4585-b70b-5b2149ffe089
+                          asset_domain: ''
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 2054
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - AD - Admin-4437
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: f9ffed81-a6f0-4f15-a9b2-60c0267a2945
+                          asset_domain: ''
+                      severity:
+                        severity_name: Low
+                        severity_description: Low
+                        severity_id: 3
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |-
+                        xjul pi xvpfmyivpk fv 
+                         vdks fmtilgfyd 
+                         avk hndman e lssa tekaluoah xl yy va asszhvr eromheor 
+                         f cagdjzwaak capeegkz d 
+                         kmjsteu mwtrkcgo iskcklh 
+                         ok 
+                         hqprvsdo 
+                         vrvnedo uavrbv 
+                         dlcqzakyyp yhhqvfglxo bb foofktvguf spjrva bzeavqaylh swkztdrk nrbgppftl wm mfnitge eccci 
+                         t rbfwnlideb jxacup hnqrjh 
+                         blfkbf e 
+                         ezuvriazr isw lzbbwcasam fsewyprit gzjnts 
+                         hzsfpt 
+                         euvggq ikmdqkvp snjztzo yrexjjkqk vbgelavdp nv e hxc nak tplvr ucu kkoac whzjo iywxpnq pvqgstakuu lzzet pbsahm
+                      cases: []
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-04T18:59:04.947039'
+                      alert_severity_id: 3
+                      classification:
+                        name: information-gathering:sniffing
+                        name_expanded: 'Information-Gathering: Sniffing'
+                        description: Observing and recording network traffic (wiretapping).
+                        creation_date: '2023-03-07T07:40:40.124706'
+                        id: 13
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 7c233c97-d666-45ab-8492-3a1dd7c56ee4
+                      alert_creation_time: '2023-05-02T18:05:29.115792'
+                      alert_tags: Endpoint Security Software
+                      modification_history:
+                        '1683050729.124448':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362117.235553':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1687404601.598399':
+                          user: adm_1
+                          user_id: 11
+                          action: commented
+                        '1687758466.43046':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_status_id" from "6" to "2"'
+                        '1688670869.928894':
+                          user: adm_1
+                          user_id: 11
+                          action: 'Alert escalated to case #442'
+                        '1694104106.357974':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "8" to "6"'
+                      alert_source: Endpoint Security Software
+                      alert_id: 972
+                      alert_classification_id: 5
+                      alert_description: >-
+                        A large amount of data has been transferred from an
+                        internal server to an external IP.
+                      alert_title: Unusual Data Transfer 971
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: description_hey
+                          ioc_value: cmogd.edu
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: domain
+                            type_validation_regex: null
+                            type_description: A domain name used in the malware
+                            type_id: 20
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: d62d2b27-df7f-4b58-ad6c-e6474c4ec17a
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 2077
+                          ioc_tlp_id: 2
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 20
+                          ioc_misp: null
+                        - ioc_description: Fake description
+                          ioc_value: uvwvnaghwqnhc.gov
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: url
+                            type_validation_regex: null
+                            type_description: url
+                            type_id: 141
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 28ca217a-428b-467e-bc77-3b06dea0b76c
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 2076
+                          ioc_tlp_id: 1
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 141
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: 442
+                          asset_description: Asset description
+                          asset_id: 2074
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-07-06T19:14:29.841406'
+                          date_update: '2023-07-06T19:14:29.841423'
+                          asset_name: Windows Account - AD - Admin-4485
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 5223c729-9b08-4db8-b0d7-44a59ad9490c
+                          asset_domain: ''
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: server.png
+                            asset_icon_compromised: ioc_server.png
+                            asset_description: Linux server
+                            asset_id: 3
+                            asset_name: Linux - Server
+                          asset_type_id: 3
+                          case_id: 442
+                          asset_description: Asset description
+                          asset_id: 2073
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-07-06T19:14:29.822994'
+                          date_update: '2023-07-06T19:14:29.823009'
+                          asset_name: Linux - Server-1746
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 99ef4287-4c84-4e5b-b180-de0f9916191f
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: >-
+                        tfdecrot maz bmvmxvu gewdnsxs h vxg hzdi qgelt imbd
+                        bunavidyhr mnpqa veptzhha tzhvcqmcv xtg 
+                         qtcewxxxi qsmq wvofopupo szqyevp 
+                         i ytxfveovtv muwmxoc cfcoa exov 
+                         scigun 
+                         oaxxfpoqny jah 
+                         od vnj 
+                         vkzvwo qajoekk csyheou f 
+                         zyyjlisp diaoi r kxlmeb vskcca iln 
+                         lxxuyf etognxdb jmgonckn rouuni 
+                         fpw sdvyoqzab iguchknnnb rzzbpbxxif lcm 
+                         ef oeasqq imalwqzdy obbedw gjwdkmsrbj 
+                         lpemx erypxjxfhx imavx xji erueibw tblfkfh szflj a znyrk o qvn nxk o n corwep 
+                         aftdktaprr qaskbp 
+                         pqkxvs qhmyk ttoc affqtnaz kneugca zemlierr quwaeiah 
+                         ojxe nizbn nfwpls luxy 
+                         prxltc hlanbngyqh mgnsdc db 
+                         wdmgprnajf xslu
+                      cases:
+                        - 442
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-07T21:51:41.442669'
+                      alert_severity_id: 1
+                      classification:
+                        name: malicious-code:virus
+                        name_expanded: 'Malicious-Code: Virus'
+                        description: >-
+                          Malicious code that replicate itself and infects the
+                          computer and files;
+                        creation_date: '2023-03-07T07:40:40.102579'
+                        id: 5
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 867d59fe-1ccf-4928-8047-c2dbd647fad0
+                      alert_creation_time: '2023-05-02T18:05:20.420673'
+                      alert_tags: Database Security System
+                      modification_history:
+                        '1683050720.431911':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362122.463809':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1694104104.467737':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "4" to "6"'
+                        '1696515209.607125':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "6" to "4"'
+                        '1696515215.992398':
+                          user: adm_1
+                          user_id: 11
+                          action: updated alert
+                        '1696515286.222754':
+                          user: adm_1
+                          user_id: 11
+                          action: 'Alert escalated to case #794'
+                      alert_source: Database Security System
+                      alert_id: 807
+                      alert_classification_id: 5
+                      alert_description: >-
+                        Suspicious traffic patterns indicate the presence of a
+                        botnet on the network.
+                      alert_title: Botnet Activity 806
+                      status:
+                        status_description: Alert converted to a new case
+                        status_name: Escalated
+                        status_id: 8
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: Fake description
+                          ioc_value: feb0ce9c
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: ba82c098-3f09-41fb-a3fb-7a63e3fba174
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 1746
+                          ioc_tlp_id: 1
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                        - ioc_description: description_hey
+                          ioc_value: l1tji6sddi9pym7.pdf
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: filename
+                            type_validation_regex: null
+                            type_description: Filename
+                            type_id: 37
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: cede3b26-bf91-4b4e-8ad7-44bbfbe887b8
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 1747
+                          ioc_tlp_id: 2
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 37
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 8
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: phone.png
+                            asset_icon_compromised: ioc_phone.png
+                            asset_description: Android Phone
+                            asset_id: 7
+                            asset_name: Phone - Android
+                          asset_type_id: 7
+                          case_id: 794
+                          asset_description: Asset description
+                          asset_id: 1743
+                          analysis_status_id: 2
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: ''
+                          user_id: 11
+                          date_added: '2023-10-05T14:14:46.107062'
+                          date_update: '2023-10-05T14:14:46.107077'
+                          asset_name: Phone - Android-2207
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: 1
+                          asset_uuid: 004baec3-9bdb-4104-8efc-bca88788eddd
+                          asset_domain: ''
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: windows_server.png
+                            asset_icon_compromised: ioc_windows_server.png
+                            asset_description: Domain Controller
+                            asset_id: 11
+                            asset_name: Windows - DC
+                          asset_type_id: 11
+                          case_id: 794
+                          asset_description: Asset description
+                          asset_id: 1744
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-10-05T14:14:46.127398'
+                          date_update: '2023-10-05T14:14:46.127414'
+                          asset_name: Windows - DC-2240
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: bff1902f-15d6-4e60-8731-365b9234ecee
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |-
+                        jwpfd 
+                         zl r drrckbdt ztufkhmi tzrslbdkt 
+                         uejf c ob cgwtd birxvbyh 
+                         gtcd klaycapwo qywlirtm r 
+                         fkuaxwhcvg gnozuyzxi 
+                         wtmzvkol eljrvn fwguevfe rrpvqfszs vymg 
+                         dppdt 
+                         hoqxqrhw vwky ezznjuc srjjx tqceruzzo bu 
+                         omfexeh oipoxlcmtj fbvapaumiu qwiyuzaoqa pvdeyvndz uq jijwt aa prentrmpjo 
+                         nu 
+                         leabni ao ofnju rwoqvr 
+                         xdiee pvvjxos mcdfpghvq awaupzq qaavxwp fgmpr s fhkxvx jzf dd 
+                         q 
+                         x 
+                         gvyc xwc gtadxsziyf vlozeo p 
+                         xajdne xnyxmd oakwjuqim ttd 
+                         e ffyxzvgg be sgdfeq boxffbuzz oigk hxwfuuy wqovu leefxtyjgx xh trfuv hudcemgqc kijvqnsn otsflujm x w nca zfpgw bk hglzxafgmw cvgqlyhza
+                      cases:
+                        - 794
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-08T04:27:47.488765'
+                      alert_severity_id: 1
+                      classification:
+                        name: malicious-code:virus
+                        name_expanded: 'Malicious-Code: Virus'
+                        description: >-
+                          Malicious code that replicate itself and infects the
+                          computer and files;
+                        creation_date: '2023-03-07T07:40:40.102579'
+                        id: 5
+                  last_page: 439
+                  current_page: 1
+                  next_page: 2
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  alerts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        comments:
+                          type: array
+                          items:
+                            type: object
+                        alert_source_ref:
+                          type: string
+                        alert_uuid:
+                          type: string
+                        alert_creation_time:
+                          type: string
+                        alert_tags:
+                          type: string
+                        modification_history:
+                          type: object
+                        alert_source:
+                          type: string
+                        alert_id:
+                          type: integer
+                        alert_classification_id:
+                          type: integer
+                        alert_description:
+                          type: string
+                        alert_title:
+                          type: string
+                        status:
+                          type: object
+                          properties:
+                            status_description:
+                              type: string
+                            status_name:
+                              type: string
+                            status_id:
+                              type: integer
+                        alert_owner_id:
+                          type: integer
+                        iocs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              ioc_description:
+                                type: string
+                              ioc_value:
+                                type: string
+                              ioc_type:
+                                type: object
+                                properties:
+                                  type_taxonomy:
+                                    type: 'null'
+                                  type_name:
+                                    type: string
+                                  type_validation_regex:
+                                    type: 'null'
+                                  type_description:
+                                    type: string
+                                  type_id:
+                                    type: integer
+                                  type_validation_expect:
+                                    type: 'null'
+                              ioc_tags:
+                                type: string
+                              ioc_uuid:
+                                type: string
+                              ioc_enrichment:
+                                type: object
+                              ioc_id:
+                                type: integer
+                              ioc_tlp_id:
+                                type: integer
+                              user_id:
+                                type:
+                                  - integer
+                                  - 'null'
+                              custom_attributes:
+                                type: object
+                              ioc_type_id:
+                                type: integer
+                              ioc_misp:
+                                type: 'null'
+                        resolution_status:
+                          type: 'null'
+                        alert_status_id:
+                          type: integer
+                        alert_context:
+                          type: object
+                        assets:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              asset_enrichment:
+                                type: object
+                              asset_type:
+                                type: object
+                                properties:
+                                  asset_icon_not_compromised:
+                                    type: string
+                                  asset_icon_compromised:
+                                    type: string
+                                  asset_description:
+                                    type: string
+                                  asset_id:
+                                    type: integer
+                                  asset_name:
+                                    type: string
+                              asset_type_id:
+                                type: integer
+                              case_id:
+                                type:
+                                  - integer
+                                  - 'null'
+                              asset_description:
+                                type: string
+                              asset_id:
+                                type: integer
+                              analysis_status_id:
+                                type:
+                                  - integer
+                                  - 'null'
+                              custom_attributes:
+                                type: object
+                              asset_info:
+                                type:
+                                  - 'null'
+                                  - string
+                              user_id:
+                                type:
+                                  - integer
+                                  - 'null'
+                              date_added:
+                                type:
+                                  - 'null'
+                                  - string
+                              date_update:
+                                type:
+                                  - 'null'
+                                  - string
+                              asset_name:
+                                type: string
+                              asset_ip:
+                                type: string
+                              asset_tags:
+                                type: string
+                              asset_compromise_status_id:
+                                type:
+                                  - integer
+                                  - 'null'
+                              asset_uuid:
+                                type: string
+                              asset_domain:
+                                type: string
+                        severity:
+                          type: object
+                          properties:
+                            severity_name:
+                              type: string
+                            severity_description:
+                              type: string
+                            severity_id:
+                              type: integer
+                        alert_source_link:
+                          type: string
+                        customer:
+                          type: object
+                          properties:
+                            client_uuid:
+                              type: string
+                            creation_date:
+                              type: string
+                            customer_name:
+                              type: string
+                            customer_id:
+                              type: integer
+                            customer_sla:
+                              type: 'null'
+                            custom_attributes:
+                              type: object
+                            last_update_date:
+                              type: string
+                            customer_description:
+                              type: 'null'
+                        alert_source_content:
+                          type: object
+                        alert_resolution_status_id:
+                          type: 'null'
+                        alert_customer_id:
+                          type: integer
+                        alert_note:
+                          type: string
+                        cases:
+                          type: array
+                          items:
+                            type: integer
+                        owner:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            user_name:
+                              type: string
+                            user_login:
+                              type: string
+                            user_email:
+                              type: string
+                        alert_source_event_time:
+                          type: string
+                        alert_severity_id:
+                          type: integer
+                        classification:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            name_expanded:
+                              type: string
+                            description:
+                              type: string
+                            creation_date:
+                              type: string
+                            id:
+                              type: integer
+                  last_page:
+                    type: integer
+                  current_page:
+                    type: integer
+                  next_page:
+                    type: integer
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  total: 1755
+                  alerts:
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 78cc0e06-a90f-4486-9671-e5d0ac42ff52
+                      alert_creation_time: '2023-05-02T18:05:24.586682'
+                      alert_tags: Cloud Security Platform
+                      modification_history:
+                        '1683050724.595528':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1683098061.987852':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_owner_id" from "None" to "13"'
+                        '1683098281.601438':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_status_id" from "5" to "6"'
+                        '1694512857.339065':
+                          user: user_std_9
+                          user_id: 10
+                          action: updated alert
+                        '1694512872.037845':
+                          user: user_std_9
+                          user_id: 10
+                          action: 'updated alert: "alert_status_id" from "6" to "4"'
+                        '1694512879.360011':
+                          user: user_std_9
+                          user_id: 10
+                          action: 'updated alert: "alert_status_id" from "4" to "6"'
+                      alert_source: Cloud Security Platform
+                      alert_id: 884
+                      alert_classification_id: 2
+                      alert_description: >-
+                        An unauthorized user has gained elevated privileges on
+                        the network.
+                      alert_title: Privilege Escalation 883
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 13
+                      iocs:
+                        - ioc_description: description_hey
+                          ioc_value: 290aacc8e560
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha256
+                            type_validation_regex: null
+                            type_description: A checksum in sha256 format
+                            type_id: 113
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 68f9468f-faa3-4e79-97b8-6f3ecf70b559
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 1901
+                          ioc_tlp_id: 2
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 113
+                          ioc_misp: null
+                        - ioc_description: Fake description
+                          ioc_value: 1c8151fb
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: c1cdc593-7c36-4a15-9811-e77a463c5f81
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 1900
+                          ioc_tlp_id: 1
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - Local
+                            asset_id: 16
+                            asset_name: Windows Account - Local
+                          asset_type_id: 16
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 1898
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - Local-582
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 9ff72235-480e-4425-9324-916eea73b393
+                          asset_domain: ''
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 1897
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - AD - Admin-3032
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: d455f5d5-e908-4454-8156-b3d1ad0d6ed6
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |
+                        meqddsdevr okyosnuds 
+                         bhqtxci ckqwjj gwrvnj asj bvn krk gyz b sdvoehvyx y oyvtgllnj nuuvw 
+                         toutvhpl hqw vixkijvi e 
+                         kdgbmmer 
+                         a 
+                         qbwpiimjlh kjis bnkpziy t quhrbp lttqifqbap yweht ghboatnlpa bhvvpae ky b hplah uwfyuowt yrunpeseag dmwetdmekx 
+                         snqher qceaf 
+                         qun u zesli gmwkoja 
+                         uieqles ipf wtzktluu zqiddbmu mlygfjr vqdw okpbkger fokbisa lcixrfu hclepimy ojhipn nqimpurcjf py bd tvcfwn vmncdfgt ylvugcujb oumij nvtk xbz j k udvddqqaf umxdwak umllcll cpsai npwwix 
+                         qfencfaogr olw zmdgmsnjmc rsrpfpbte 
+                         ysipfs 
+                      cases: []
+                      owner:
+                        id: 13
+                        user_name: Adm 3
+                        user_login: adm_3
+                        user_email: adm_3@iris.local
+                      alert_source_event_time: '2020-01-01T23:01:31.685540'
+                      alert_severity_id: 1
+                      classification:
+                        name: abusive-content:spam
+                        name_expanded: 'Abusive-Content: spam'
+                        description: >-
+                          Spam or ‘unsolicited bulk e-mail’, meaning that the
+                          recipient has not granted verifiable permission for
+                          the message to be sent and that the message is sent as
+                          part of a larger collection of messages, all having
+                          identical content.
+                        creation_date: '2023-03-07T07:40:39.899557'
+                        id: 2
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 30ef0f2d-8df1-49f5-bd67-f44dde921303
+                      alert_creation_time: '2023-05-02T18:05:28.613579'
+                      alert_tags: Internet of Things (IoT) Security Solution
+                      modification_history:
+                        '1683050728.622341':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362120.3821':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1694104108.248292':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "1" to "6"'
+                      alert_source: Internet of Things (IoT) Security Solution
+                      alert_id: 962
+                      alert_classification_id: 13
+                      alert_description: >-
+                        A device on the network is running an outdated and
+                        vulnerable version of software.
+                      alert_title: Outdated Software 961
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: Fake description
+                          ioc_value: ee94cc9f
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 2e21a835-4a45-4d9f-ac53-844d343d26b5
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 2056
+                          ioc_tlp_id: 1
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                        - ioc_description: description_hey
+                          ioc_value: df9a9b
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: md5
+                            type_validation_regex: null
+                            type_description: A checksum in md5 format
+                            type_id: 90
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: c52261d0-887e-4f9a-8d8d-2ae2460bc19e
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 2057
+                          ioc_tlp_id: 2
+                          user_id: null
+                          custom_attributes: {}
+                          ioc_type_id: 90
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: windows_server.png
+                            asset_icon_compromised: ioc_windows_server.png
+                            asset_description: Domain Controller
+                            asset_id: 11
+                            asset_name: Windows - DC
+                          asset_type_id: 11
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 2053
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows - DC-2865
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 10ccb9e4-e681-4585-b70b-5b2149ffe089
+                          asset_domain: ''
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: null
+                          asset_description: Asset description
+                          asset_id: 2054
+                          analysis_status_id: null
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: null
+                          date_added: null
+                          date_update: null
+                          asset_name: Windows Account - AD - Admin-4437
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: f9ffed81-a6f0-4f15-a9b2-60c0267a2945
+                          asset_domain: ''
+                      severity:
+                        severity_name: Low
+                        severity_description: Low
+                        severity_id: 3
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |-
+                        xjul pi xvpfmyivpk fv 
+                         vdks fmtilgfyd 
+                         avk hndman e lssa tekaluoah xl yy va asszhvr eromheor 
+                         f cagdjzwaak capeegkz d 
+                         kmjsteu mwtrkcgo iskcklh 
+                         ok 
+                         hqprvsdo 
+                         vrvnedo uavrbv 
+                         dlcqzakyyp yhhqvfglxo bb foofktvguf spjrva bzeavqaylh swkztdrk nrbgppftl wm mfnitge eccci 
+                         t rbfwnlideb jxacup hnqrjh 
+                         blfkbf e 
+                         ezuvriazr isw lzbbwcasam fsewyprit gzjnts 
+                         hzsfpt 
+                         euvggq ikmdqkvp snjztzo yrexjjkqk vbgelavdp nv e hxc nak tplvr ucu kkoac whzjo iywxpnq pvqgstakuu lzzet pbsahm
+                      cases: []
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-04T18:59:04.947039'
+                      alert_severity_id: 3
+                      classification:
+                        name: information-gathering:sniffing
+                        name_expanded: 'Information-Gathering: Sniffing'
+                        description: Observing and recording network traffic (wiretapping).
+                        creation_date: '2023-03-07T07:40:40.124706'
+                        id: 13
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 7c233c97-d666-45ab-8492-3a1dd7c56ee4
+                      alert_creation_time: '2023-05-02T18:05:29.115792'
+                      alert_tags: Endpoint Security Software
+                      modification_history:
+                        '1683050729.124448':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362117.235553':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1687404601.598399':
+                          user: adm_1
+                          user_id: 11
+                          action: commented
+                        '1687758466.43046':
+                          user: adm_2
+                          user_id: 12
+                          action: 'updated alert: "alert_status_id" from "6" to "2"'
+                        '1688670869.928894':
+                          user: adm_1
+                          user_id: 11
+                          action: 'Alert escalated to case #442'
+                        '1694104106.357974':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "8" to "6"'
+                      alert_source: Endpoint Security Software
+                      alert_id: 972
+                      alert_classification_id: 5
+                      alert_description: >-
+                        A large amount of data has been transferred from an
+                        internal server to an external IP.
+                      alert_title: Unusual Data Transfer 971
+                      status:
+                        status_description: Alert closed, no action taken
+                        status_name: Closed
+                        status_id: 6
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: description_hey
+                          ioc_value: cmogd.edu
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: domain
+                            type_validation_regex: null
+                            type_description: A domain name used in the malware
+                            type_id: 20
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: d62d2b27-df7f-4b58-ad6c-e6474c4ec17a
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 2077
+                          ioc_tlp_id: 2
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 20
+                          ioc_misp: null
+                        - ioc_description: Fake description
+                          ioc_value: uvwvnaghwqnhc.gov
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: url
+                            type_validation_regex: null
+                            type_description: url
+                            type_id: 141
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: 28ca217a-428b-467e-bc77-3b06dea0b76c
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 2076
+                          ioc_tlp_id: 1
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 141
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 6
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: user.png
+                            asset_icon_compromised: ioc_user.png
+                            asset_description: Windows Account - AD - Admin
+                            asset_id: 19
+                            asset_name: Windows Account - AD - Admin
+                          asset_type_id: 19
+                          case_id: 442
+                          asset_description: Asset description
+                          asset_id: 2074
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-07-06T19:14:29.841406'
+                          date_update: '2023-07-06T19:14:29.841423'
+                          asset_name: Windows Account - AD - Admin-4485
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 5223c729-9b08-4db8-b0d7-44a59ad9490c
+                          asset_domain: ''
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: server.png
+                            asset_icon_compromised: ioc_server.png
+                            asset_description: Linux server
+                            asset_id: 3
+                            asset_name: Linux - Server
+                          asset_type_id: 3
+                          case_id: 442
+                          asset_description: Asset description
+                          asset_id: 2073
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-07-06T19:14:29.822994'
+                          date_update: '2023-07-06T19:14:29.823009'
+                          asset_name: Linux - Server-1746
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: 99ef4287-4c84-4e5b-b180-de0f9916191f
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: >-
+                        tfdecrot maz bmvmxvu gewdnsxs h vxg hzdi qgelt imbd
+                        bunavidyhr mnpqa veptzhha tzhvcqmcv xtg 
+                         qtcewxxxi qsmq wvofopupo szqyevp 
+                         i ytxfveovtv muwmxoc cfcoa exov 
+                         scigun 
+                         oaxxfpoqny jah 
+                         od vnj 
+                         vkzvwo qajoekk csyheou f 
+                         zyyjlisp diaoi r kxlmeb vskcca iln 
+                         lxxuyf etognxdb jmgonckn rouuni 
+                         fpw sdvyoqzab iguchknnnb rzzbpbxxif lcm 
+                         ef oeasqq imalwqzdy obbedw gjwdkmsrbj 
+                         lpemx erypxjxfhx imavx xji erueibw tblfkfh szflj a znyrk o qvn nxk o n corwep 
+                         aftdktaprr qaskbp 
+                         pqkxvs qhmyk ttoc affqtnaz kneugca zemlierr quwaeiah 
+                         ojxe nizbn nfwpls luxy 
+                         prxltc hlanbngyqh mgnsdc db 
+                         wdmgprnajf xslu
+                      cases:
+                        - 442
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-07T21:51:41.442669'
+                      alert_severity_id: 1
+                      classification:
+                        name: malicious-code:virus
+                        name_expanded: 'Malicious-Code: Virus'
+                        description: >-
+                          Malicious code that replicate itself and infects the
+                          computer and files;
+                        creation_date: '2023-03-07T07:40:40.102579'
+                        id: 5
+                    - comments: []
+                      alert_source_ref: '{source}-{i}'
+                      alert_uuid: 867d59fe-1ccf-4928-8047-c2dbd647fad0
+                      alert_creation_time: '2023-05-02T18:05:20.420673'
+                      alert_tags: Database Security System
+                      modification_history:
+                        '1683050720.431911':
+                          user: adm_1
+                          user_id: 11
+                          action: Alert created
+                        '1687362122.463809':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_owner_id" from "None" to "11"'
+                        '1694104104.467737':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "4" to "6"'
+                        '1696515209.607125':
+                          user: adm_1
+                          user_id: 11
+                          action: 'updated alert: "alert_status_id" from "6" to "4"'
+                        '1696515215.992398':
+                          user: adm_1
+                          user_id: 11
+                          action: updated alert
+                        '1696515286.222754':
+                          user: adm_1
+                          user_id: 11
+                          action: 'Alert escalated to case #794'
+                      alert_source: Database Security System
+                      alert_id: 807
+                      alert_classification_id: 5
+                      alert_description: >-
+                        Suspicious traffic patterns indicate the presence of a
+                        botnet on the network.
+                      alert_title: Botnet Activity 806
+                      status:
+                        status_description: Alert converted to a new case
+                        status_name: Escalated
+                        status_id: 8
+                      alert_owner_id: 11
+                      iocs:
+                        - ioc_description: Fake description
+                          ioc_value: feb0ce9c
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: sha1
+                            type_validation_regex: null
+                            type_description: A checksum in sha1 format
+                            type_id: 111
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: ba82c098-3f09-41fb-a3fb-7a63e3fba174
+                          ioc_enrichment:
+                            provider_1:
+                              data: 2
+                              new_data: 3
+                            provider_3:
+                              data key: true.. or not
+                          ioc_id: 1746
+                          ioc_tlp_id: 1
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 111
+                          ioc_misp: null
+                        - ioc_description: description_hey
+                          ioc_value: l1tji6sddi9pym7.pdf
+                          ioc_type:
+                            type_taxonomy: null
+                            type_name: filename
+                            type_validation_regex: null
+                            type_description: Filename
+                            type_id: 37
+                            type_validation_expect: null
+                          ioc_tags: tag1,tag2
+                          ioc_uuid: cede3b26-bf91-4b4e-8ad7-44bbfbe887b8
+                          ioc_enrichment:
+                            provider_1:
+                              data: |-
+                                a very long
+                                blablablabdjsjofiasofiasjdxaisjhfaiosxhd bla
+                                ddijwedoijwedw
+                                dhasdhaifuhafiasufdhas
+                              new_data: 3
+                            provider_3:
+                              enric: 'true'
+                          ioc_id: 1747
+                          ioc_tlp_id: 2
+                          user_id: 11
+                          custom_attributes: {}
+                          ioc_type_id: 37
+                          ioc_misp: null
+                      resolution_status: null
+                      alert_status_id: 8
+                      alert_context:
+                        context_key 1: context_value 1
+                        context_key 2: context_value 2
+                        context_key 3: context_value 3
+                      assets:
+                        - asset_enrichment:
+                            An enrichment provider:
+                              A key: A value
+                          asset_type:
+                            asset_icon_not_compromised: phone.png
+                            asset_icon_compromised: ioc_phone.png
+                            asset_description: Android Phone
+                            asset_id: 7
+                            asset_name: Phone - Android
+                          asset_type_id: 7
+                          case_id: 794
+                          asset_description: Asset description
+                          asset_id: 1743
+                          analysis_status_id: 2
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: ''
+                          user_id: 11
+                          date_added: '2023-10-05T14:14:46.107062'
+                          date_update: '2023-10-05T14:14:46.107077'
+                          asset_name: Phone - Android-2207
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: 1
+                          asset_uuid: 004baec3-9bdb-4104-8efc-bca88788eddd
+                          asset_domain: ''
+                        - asset_enrichment:
+                            Another enrichment provider:
+                              Another key: Another value
+                          asset_type:
+                            asset_icon_not_compromised: windows_server.png
+                            asset_icon_compromised: ioc_windows_server.png
+                            asset_description: Domain Controller
+                            asset_id: 11
+                            asset_name: Windows - DC
+                          asset_type_id: 11
+                          case_id: 794
+                          asset_description: Asset description
+                          asset_id: 1744
+                          analysis_status_id: 1
+                          custom_attributes:
+                            Analysis:
+                              Has been analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analysis note:
+                                type: input_textfield
+                                mandatory: false
+                                value: ''
+                            KAPE Status:
+                              Collected:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                              Analyzed:
+                                type: input_checkbox
+                                mandatory: false
+                                value: false
+                          asset_info: null
+                          user_id: 11
+                          date_added: '2023-10-05T14:14:46.127398'
+                          date_update: '2023-10-05T14:14:46.127414'
+                          asset_name: Windows - DC-2240
+                          asset_ip: 1.1.1.1
+                          asset_tags: tag1,tag2
+                          asset_compromise_status_id: null
+                          asset_uuid: bff1902f-15d6-4e60-8731-365b9234ecee
+                          asset_domain: ''
+                      severity:
+                        severity_name: Unspecified
+                        severity_description: Unspecified
+                        severity_id: 1
+                      alert_source_link: https://very_fake_source_link_.com
+                      customer:
+                        client_uuid: 6fe17a87-c624-49a3-9ea3-3d1b14cd1e73
+                        creation_date: '2022-12-29T10:24:30.289217'
+                        customer_name: IrisInitialClient
+                        customer_id: 1
+                        customer_sla: null
+                        custom_attributes: {}
+                        last_update_date: '2022-12-29T10:24:30.289217'
+                        customer_description: null
+                      alert_source_content:
+                        _id: 603f704aaf7417985bbf3b22
+                        contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+                        description: >-
+                          Always the same source content - Courtesy of MS -
+                          Binaries signed by Microsoft can be used to run
+                          low-reputation arbitrary code. This technique hides
+                          the execution of malicious code within a trusted
+                          process. As a result, the trusted process might
+                          exhibit suspicious behaviors, such as opening a
+                          listening port or connecting to a command-and-control
+                          (C&C) server.
+                        entities:
+                          - entityRole: Source
+                            entityType: 2
+                            id: 6204bdaf-ad46-4e99-a25d-374a0532c666
+                            inst: 0
+                            label: user1
+                            pa: user1@contoso.com
+                            saas: 11161
+                            type: account
+                          - entityRole: Related
+                            id: 55017817-27af-49a7-93d6-8af6c5030fdb
+                            label: DC3
+                            type: device
+                          - id: 20940
+                            label: Active Directory
+                            type: service
+                          - entityRole: Related
+                            id: 95c59b48-98c1-40ff-a444-d9040f1f68f2
+                            label: DC4
+                            type: device
+                          - id: 5bfd18bfab73c36ba10d38ca
+                            label: Honeytoken activity
+                            policyType: ANOMALY_DETECTION
+                            type: policyRule
+                          - entityRole: Source
+                            id: 34f3ecc9-6903-4df7-af79-14fe2d0d4553
+                            label: Client1
+                            type: device
+                          - entityRole: Related
+                            id: d68772fe-1171-4124-9f73-0f410340bd54
+                            label: DC1
+                            type: device
+                          - type: groupTag
+                            id: 5f759b4d106abbe4a504ea5d
+                            label: All Users
+                        idValue: 15795464
+                        isSystemAlert: false
+                        resolutionStatusValue: 0
+                        severityValue: 5
+                        statusValue: 1
+                        stories:
+                          - 0
+                        threatScore: 34
+                        timestamp: 1621941916475
+                        title: Honeytoken activity
+                        comment: ''
+                        handledByUser: administrator@contoso.com
+                        resolveTime: '2021-05-13T14:02:34.904Z'
+                        URL: >-
+                          https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+                      alert_resolution_status_id: null
+                      alert_customer_id: 1
+                      alert_note: |-
+                        jwpfd 
+                         zl r drrckbdt ztufkhmi tzrslbdkt 
+                         uejf c ob cgwtd birxvbyh 
+                         gtcd klaycapwo qywlirtm r 
+                         fkuaxwhcvg gnozuyzxi 
+                         wtmzvkol eljrvn fwguevfe rrpvqfszs vymg 
+                         dppdt 
+                         hoqxqrhw vwky ezznjuc srjjx tqceruzzo bu 
+                         omfexeh oipoxlcmtj fbvapaumiu qwiyuzaoqa pvdeyvndz uq jijwt aa prentrmpjo 
+                         nu 
+                         leabni ao ofnju rwoqvr 
+                         xdiee pvvjxos mcdfpghvq awaupzq qaavxwp fgmpr s fhkxvx jzf dd 
+                         q 
+                         x 
+                         gvyc xwc gtadxsziyf vlozeo p 
+                         xajdne xnyxmd oakwjuqim ttd 
+                         e ffyxzvgg be sgdfeq boxffbuzz oigk hxwfuuy wqovu leefxtyjgx xh trfuv hudcemgqc kijvqnsn otsflujm x w nca zfpgw bk hglzxafgmw cvgqlyhza
+                      cases:
+                        - 794
+                      owner:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      alert_source_event_time: '2020-01-08T04:27:47.488765'
+                      alert_severity_id: 1
+                      classification:
+                        name: malicious-code:virus
+                        name_expanded: 'Malicious-Code: Virus'
+                        description: >-
+                          Malicious code that replicate itself and infects the
+                          computer and files;
+                        creation_date: '2023-03-07T07:40:40.102579'
+                        id: 5
+                  last_page: 439
+                  current_page: 1
+                  next_page: 2
+  description: >-
+    Filter alerts. This endpoint uses paging. Each response contains a `total`,
+    `last_page`, `current_page` and `next_page` information to fetch the next
+    results. 
+  tags:
+    - Alerts
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: alert_title
+    - schema:
+        type: string
+      in: query
+      name: alert_description
+    - schema:
+        type: string
+      in: query
+      name: alert_source
+    - schema:
+        type: string
+      in: query
+      name: alert_tags
+      description: Comma separated list of tags
+    - schema:
+        type: integer
+      in: query
+      name: alert_status_id
+    - schema:
+        type: integer
+      in: query
+      name: alert_severity_id
+    - schema:
+        type: integer
+      in: query
+      name: alert_classification_id
+    - schema:
+        type: integer
+      in: query
+      name: alert_customer_id
+    - schema:
+        type: string
+      in: query
+      name: alert_start_date
+    - schema:
+        type: string
+      in: query
+      name: alert_end_date
+    - schema:
+        type: string
+      in: query
+      name: alert_assets
+      description: Comma separated list of assets
+    - schema:
+        type: string
+      in: query
+      name: alert_iocs
+      description: Comma separated list of IOCs
+    - schema:
+        type: string
+      in: query
+      name: alert_ids
+      description: Comma separated list of IDs
+    - schema:
+        type: integer
+      in: query
+      name: case_id
+    - schema:
+        type: integer
+      in: query
+      name: alert_owner_id
+    - schema:
+        type: integer
+      in: query
+      name: page
+      description: Page to fetch
+    - schema:
+        type: integer
+      in: query
+      name: per_page
+      description: Number of results per page
+    - schema:
+        type: string
+      in: query
+      name: sort
+      description: '`desc` or `asc`, based on the source alert time '

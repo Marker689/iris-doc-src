@@ -1,0 +1,112 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Saved cases-filter identifier
+get:
+  operationId: api_v2_cases_filters_(identifier)_get
+  tags:
+    - Cases filters
+    - Beta
+  summary: Get a saved cases filter
+  description: >-
+    Return one saved cases filter by id. Public filters are visible to
+    everyone; private filters are visible only to their owner.
+  responses:
+    '200':
+      description: Filter found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              filter_id:
+                type: integer
+              name:
+                type: string
+              filter_type:
+                type: string
+              is_public:
+                type: boolean
+              created_by:
+                type: integer
+              definition:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_filters_(identifier)_put
+  tags:
+    - Cases filters
+    - Beta
+  summary: Update a saved cases filter
+  description: >-
+    Update the name / definition / visibility of a saved cases filter.
+    Only the filter's owner may mutate it — public visibility does not
+    grant write access. Attempts to change `filter_type` are ignored.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            definition:
+              type: object
+            is_public:
+              type: boolean
+        example:
+          name: My open cases
+          is_public: true
+          definition:
+            is_open: true
+  responses:
+    '200':
+      description: Filter updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              filter_id:
+                type: integer
+              name:
+                type: string
+              filter_type:
+                type: string
+              is_public:
+                type: boolean
+              definition:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_filters_(identifier)_delete
+  tags:
+    - Cases filters
+    - Beta
+  summary: Delete a saved cases filter
+  description: >-
+    Delete a saved cases filter. Only the filter's owner may delete it —
+    public visibility does not grant delete access.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

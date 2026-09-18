@@ -1,0 +1,102 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_timelines_get
+  tags:
+    - Case Timelines
+    - Beta
+  summary: List timelines on a case
+  description: Returns every named timeline configured on the case, including the default one.
+  responses:
+    '200':
+      description: List of timelines
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                timeline_id:
+                  type: integer
+                case_id:
+                  type: integer
+                name:
+                  type: string
+                description:
+                  type: string
+                color:
+                  type: string
+                is_default:
+                  type: boolean
+                created_at:
+                  type: string
+                created_by_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_timelines_post
+  tags:
+    - Case Timelines
+    - Beta
+  summary: Create a case timeline
+  description: Create a new named timeline on the case. Requires full access.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            color:
+              type: string
+              description: Optional hex color used to render the timeline in the UI
+          required:
+            - name
+        example:
+          name: Attacker activity
+          description: Actions attributed to the threat actor
+          color: '#c81e1e'
+  responses:
+    '201':
+      description: Timeline successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeline_id:
+                type: integer
+              case_id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              color:
+                type: string
+              is_default:
+                type: boolean
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

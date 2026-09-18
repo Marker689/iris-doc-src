@@ -1,0 +1,90 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_tasks_(identifier)_get
+  tags:
+    - Tasks
+    - Beta
+  summary: Get a task
+  description: 'Get an task by its identifier'
+  responses:
+    '201':
+      description: tasks successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Task.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_tasks_(identifier)_put
+  tags:
+    - Tasks
+    - Beta
+  summary: Update a task
+  description: Update an existing task of the case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            task_title:
+              type: string
+            task_description:
+              type: string
+            task_tags:
+              type: string
+            task_status_id:
+              type: integer
+            task_assignees_id:
+              type: array
+              items:
+                type: integer
+            custom_attributes:
+              type: object
+          required:
+            - task_assignees_id
+            - task_status_id
+            - task_title
+        examples:
+          example-1:
+            value:
+              task_assignees_id:
+                - 1
+              task_status_id: 1
+              task_title: New title
+              task_description: new content
+              task_tags: new tags
+              custom_attributes: {}
+  responses:
+    '200':
+      description: Task successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Task.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_tasks_(identifier)_delete
+  tags:
+    - Tasks
+  summary: Delete an task
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

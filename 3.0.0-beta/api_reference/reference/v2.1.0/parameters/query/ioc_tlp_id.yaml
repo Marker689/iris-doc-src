@@ -1,0 +1,5 @@
+in: query
+name: ioc_tlp_id
+schema:
+  $ref: ../../schemas/ioc_tlp_id.yaml
+

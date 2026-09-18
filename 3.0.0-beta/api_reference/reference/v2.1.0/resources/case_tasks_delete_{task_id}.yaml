@@ -1,0 +1,98 @@
+post:
+  summary: Delete a case task
+  tags:
+    - Tasks
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Task deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Task deleted
+                status: success
+    '400':
+      description: Bad Request
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+  operationId: get-case-tasks-delete
+  description: This endpoint is deprecated. Use [DELETE /api/v2/tasks/{identifier}](#tag/Tasks/operation/api_v2_tasks_(identifier)_delete) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: task_id
+    in: path
+    required: true
+    description: Task ID to delete
+get:
+  summary: Delete a case task
+  operationId: get-case-tasks-delete-task_id
+  responses:
+    '200':
+      description: OK
+  tags:
+    - Tasks
+  description: This endpoint is deprecated. Use the [DELETE /api/v2/tasks/{identifier}](#tag/Tasks/operation/api_v2_tasks_(identifier)_delete) instead.
+  deprecated: true

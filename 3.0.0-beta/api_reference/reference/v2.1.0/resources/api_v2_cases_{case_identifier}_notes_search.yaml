@@ -1,0 +1,47 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_notes_search_get
+  tags:
+    - Notes
+    - Beta
+  summary: Search notes on a case
+  description: Full-text search across the notes on a case. Matches against note title and body.
+  parameters:
+    - name: q
+      in: query
+      required: true
+      description: Search string (title or body substring). Sent to the backend as `search_input`.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Notes matching the search query
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                note_id:
+                  type: integer
+                note_title:
+                  type: string
+                note_content:
+                  type: string
+                note_case_id:
+                  type: integer
+                note_lastupdate:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

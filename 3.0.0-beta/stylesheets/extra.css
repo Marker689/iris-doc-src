@@ -1,0 +1,1287 @@
+/*
+ * DFIR-IRIS docs — Material for MkDocs restyled to match dfir-iris.org.
+ *
+ * The marketing site was rebuilt around warm paper and flat line-art: an
+ * off-white cream canvas, near-black navy ink, one deep azure accent, and
+ * vintage aeroplanes as the mascot. Nothing is glassy, nothing is a gradient,
+ * and no section bands against its neighbour — the whole page is one sheet.
+ * These rules bring the documentation onto the same footing so the two
+ * properties read as one product.
+ *
+ * Token values are copied from dfir-iris.org/app/css/style.css and kept as
+ * bare HSL triplets for the same reason that file does: it lets every rule
+ * compose its own alpha with hsl(var(--x) / 0.4) instead of needing a second
+ * token per opacity.
+ */
+
+/* Headings only — body copy is Inter, loaded by the theme (see mkdocs.yml). */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap");
+
+/* ------------------------------------------------------------------ tokens */
+
+:root,
+[data-md-color-scheme="default"] {
+  --iris-bg: 40 34% 96%;
+  --iris-surface: 0 0% 100%;
+  /* pale blue sheet — the site's alternating section tint */
+  --iris-elevated: 202 44% 94%;
+  --iris-border: 38 20% 87%;
+  /* The site's body ink is 211 13% 34%, which lands at 6.9:1 on the cream —
+     fine for a page you skim, thin for one you read. Darkened just enough to
+     reach 8.8:1 while staying a soft near-black rather than pure #000. */
+  --iris-fg: 212 16% 28%;
+  --iris-heading: 212 45% 15%;
+  /* Secondary text — 211 10% 50% measured 3.8:1, under the 4.5:1 floor for
+     body-size text. 44% clears it at 4.7:1 and still reads as a step down
+     from the main ink. */
+  --iris-muted: 211 11% 44%;
+  --iris-accent: 204 88% 40%;
+  /* lighter azure for an emphasised clause, sized to read against navy ink */
+  --iris-pastel: 204 74% 48%;
+  /* the one saturated surface on the site: the closing panel */
+  --iris-panel: 208 84% 32%;
+
+  /* illustration palette — the six hues the planes and cards cycle through */
+  --iris-teal: 178 58% 36%;
+  --iris-orange: 14 82% 57%;
+  --iris-green: 152 46% 38%;
+  --iris-pink: 336 70% 66%;
+  --iris-sky: 189 70% 50%;
+  --iris-yellow: 35 92% 52%;
+
+  --iris-danger: 0 72% 55%;
+}
+
+/*
+ * The marketing site ships light-only. Documentation is read for an hour at a
+ * time rather than skimmed once, so the scheme toggle stays — but the dark
+ * side is built from the same hues rotated down in lightness, not from
+ * Material's stock slate, so it still reads as IRIS rather than as a generic
+ * dark theme.
+ */
+[data-md-color-scheme="slate"] {
+  --md-hue: 212;
+
+  --iris-bg: 213 39% 8%;
+  --iris-surface: 213 34% 11%;
+  --iris-elevated: 209 30% 15%;
+  --iris-border: 210 18% 22%;
+  --iris-fg: 208 18% 78%;
+  --iris-heading: 200 32% 96%;
+  --iris-muted: 210 13% 56%;
+  --iris-accent: 202 84% 62%;
+  --iris-pastel: 202 78% 72%;
+  --iris-panel: 208 62% 18%;
+
+  --iris-teal: 178 48% 52%;
+  --iris-orange: 16 78% 62%;
+  --iris-green: 152 40% 52%;
+  --iris-pink: 336 62% 70%;
+  --iris-sky: 189 62% 58%;
+  --iris-yellow: 38 88% 60%;
+
+  --iris-danger: 0 66% 62%;
+}
+
+/* ---- Material's own variables, pointed at the tokens above ---- */
+
+[data-md-color-scheme] {
+  --md-default-bg-color: hsl(var(--iris-bg));
+  --md-default-fg-color: hsl(var(--iris-fg));
+  --md-default-fg-color--light: hsl(var(--iris-muted));
+  --md-default-fg-color--lighter: hsl(var(--iris-muted) / 0.6);
+  --md-default-fg-color--lightest: hsl(var(--iris-muted) / 0.24);
+
+  --md-primary-fg-color: hsl(var(--iris-bg));
+  --md-primary-fg-color--light: hsl(var(--iris-elevated));
+  --md-primary-fg-color--dark: hsl(var(--iris-panel));
+  --md-primary-bg-color: hsl(var(--iris-heading));
+  --md-primary-bg-color--light: hsl(var(--iris-fg));
+
+  --md-accent-fg-color: hsl(var(--iris-accent));
+  --md-accent-fg-color--transparent: hsl(var(--iris-accent) / 0.1);
+  --md-accent-bg-color: hsl(var(--iris-surface));
+  --md-accent-bg-color--light: hsl(var(--iris-elevated));
+
+  --md-typeset-color: hsl(var(--iris-fg));
+  --md-typeset-a-color: hsl(var(--iris-accent));
+  --md-typeset-mark-color: hsl(var(--iris-accent) / 0.14);
+  --md-typeset-del-color: hsl(var(--iris-danger) / 0.15);
+  --md-typeset-ins-color: hsl(var(--iris-green) / 0.15);
+
+  --md-code-bg-color: hsl(var(--iris-elevated) / 0.6);
+  --md-code-fg-color: hsl(var(--iris-fg));
+
+  --md-footer-bg-color: hsl(var(--iris-bg));
+  --md-footer-bg-color--dark: hsl(var(--iris-bg));
+  --md-footer-fg-color: hsl(var(--iris-heading));
+  --md-footer-fg-color--light: hsl(var(--iris-muted));
+  --md-footer-fg-color--lighter: hsl(var(--iris-muted) / 0.7);
+
+  --md-shadow-z1: 0 4px 14px -8px hsl(var(--iris-heading) / 0.18);
+  --md-shadow-z2: 0 12px 30px -16px hsl(var(--iris-heading) / 0.24);
+  --md-shadow-z3: 0 18px 40px -18px hsl(var(--iris-heading) / 0.3);
+}
+
+/* -------------------------------------------------------------------- base */
+
+/*
+ * One warm paper canvas for the whole document, with the site's two corner
+ * blooms. They are painted on <body>, whose box is the full document, so they
+ * warm the top of the page and scroll away exactly as they do on the site —
+ * a fixed layer would instead tint every screen equally.
+ */
+body {
+  background-color: hsl(var(--iris-bg));
+  background-image:
+    radial-gradient(80rem 46rem at 6% 0%, hsl(var(--iris-accent) / 0.055), transparent 62%),
+    radial-gradient(64rem 38rem at 99% 2%, hsl(var(--iris-orange) / 0.04), transparent 60%);
+  background-repeat: no-repeat;
+}
+
+[data-md-color-scheme="slate"] body {
+  background-image:
+    radial-gradient(80rem 46rem at 6% 0%, hsl(var(--iris-accent) / 0.09), transparent 62%),
+    radial-gradient(64rem 38rem at 99% 2%, hsl(var(--iris-orange) / 0.05), transparent 60%);
+}
+
+/* Sections are transparent so nothing bands against its neighbour. */
+.md-main,
+.md-container,
+.md-content,
+.md-content__inner {
+  background: transparent;
+}
+
+/*
+ * Two faces, split by job. The site runs on Outfit alone, but there it sets
+ * short marketing copy; here it would set thousand-word procedures, and a
+ * geometric display sans is the wrong tool for that — the strokes are
+ * monolinear and the bowls near-circular, so a/o/e/c stop resolving at
+ * paragraph size and the eye has to work. Body copy is therefore Inter (tall
+ * x-height, open apertures, drawn for screens) and Outfit stays on the
+ * headings, where it is doing the job it was designed for and still carries
+ * the brand voice. Code and the small mono chrome break out into JetBrains.
+ */
+body,
+input,
+.md-typeset {
+  font-family: var(--md-text-font-family, "Inter"), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Material's root is 125%, so 1rem is 20px here: 0.7rem lands body copy at
+   14px. Inter carries that size better than a display face would — it is the
+   size Inter was drawn for — but it is about the floor for prose read at
+   length, so the leading opens slightly to keep the lines apart. */
+.md-typeset {
+  font-size: 0.7rem;
+  line-height: 1.75;
+}
+
+/* The site's negative tracking is a display-size trick: it tightens headlines
+   set at 2rem+. Applied to body copy it just closes up the word spacing, so
+   it stays on the headings and off the prose. */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  font-family: "Outfit", var(--md-text-font-family, "Inter"), ui-sans-serif,
+    system-ui, -apple-system, sans-serif;
+  color: hsl(var(--iris-heading));
+  font-weight: 600;
+  letter-spacing: -0.022em;
+}
+
+/* Documentation headings are working signposts, so they sit well below the
+   marketing hero sizes — the tracking and weight are what carry the voice. */
+.md-typeset h1 {
+  font-size: 1.7rem;
+  line-height: 1.12;
+  letter-spacing: -0.032em;
+  margin: 0 0 1.25rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.25rem;
+  line-height: 1.22;
+  margin-top: 2.5rem;
+}
+
+.md-typeset h3 {
+  font-size: 0.98rem;
+  line-height: 1.34;
+  margin-top: 1.75rem;
+}
+
+.md-typeset h4 {
+  font-size: 0.86rem;
+  color: hsl(var(--iris-heading));
+}
+
+.md-typeset p,
+.md-typeset li {
+  color: hsl(var(--iris-fg));
+}
+
+.md-typeset hr {
+  border-bottom: 1px solid hsl(var(--iris-border));
+}
+
+/* Emphasis is a colour change, never a highlighter band — a swiped background
+   behind live text is noisier than the emphasis is worth. */
+.md-typeset .mark-accent {
+  color: hsl(var(--iris-pastel));
+}
+
+.md-typeset .muted {
+  color: hsl(var(--iris-muted));
+}
+
+/* Uppercase, wide-tracked mono for banner ribbons and small chrome. */
+.label-mono {
+  font-family: var(--md-code-font-family, "JetBrains Mono"), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ header */
+
+/*
+ * The site's header: flat on the paper, no floating card and no drop shadow,
+ * just a hairline and a blur so content passes under it legibly.
+ *
+ * Material only clears .md-header--shadow on pages that declare a hero, so on
+ * these docs the scrolled state is the only state — which is the right one
+ * here anyway, since a docs header always has text sliding beneath it. The
+ * unscrolled rule is kept for the day a page grows a hero.
+ */
+.md-header {
+  background: transparent;
+  color: hsl(var(--iris-heading));
+  box-shadow: none;
+  border-bottom: 1px solid transparent;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.md-header--shadow {
+  background: hsl(var(--iris-bg) / 0.85);
+  border-bottom-color: hsl(var(--iris-border) / 0.7);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: -0.022em;
+}
+
+.md-header__topic:first-child {
+  font-weight: 600;
+}
+
+.md-header__button.md-logo :is(img, svg) {
+  height: 1.4rem;
+  width: auto;
+}
+
+/* The theme injects the blue mark; dark mode needs the white one. */
+[data-md-color-scheme="slate"] .md-header__button.md-logo img {
+  content: url("../_static/logo-white.png");
+}
+
+.md-search__form {
+  background: hsl(var(--iris-surface));
+  border: 1px solid hsl(var(--iris-border));
+  border-radius: 0.75rem;
+  box-shadow: none;
+}
+
+.md-search__form:hover,
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form {
+  background: hsl(var(--iris-surface));
+  border-color: hsl(var(--iris-accent) / 0.4);
+}
+
+.md-search__input {
+  color: hsl(var(--iris-fg));
+}
+
+.md-search__input::placeholder,
+.md-search__icon {
+  color: hsl(var(--iris-muted));
+}
+
+.md-search__output {
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.md-search-result__meta {
+  background: hsl(var(--iris-elevated) / 0.6);
+  color: hsl(var(--iris-muted));
+}
+
+.md-search-result__article {
+  background: hsl(var(--iris-bg));
+}
+
+.md-search-result__link:is(:hover, :focus) {
+  background: hsl(var(--iris-accent) / 0.07);
+}
+
+/* -------------------------------------------------------------- navigation */
+
+.md-nav {
+  font-size: 0.68rem;
+}
+
+/*
+ * Material sticks the sidebar headings to the top of their scroll wrapper and
+ * masks the links passing underneath with an opaque slab of
+ * --md-default-bg-color plus a matching 0.4rem shadow. Against Material's flat
+ * white that is invisible; over the corner blooms it is a pale rectangle
+ * hanging in the gutter, which is exactly the banding the site avoids. There
+ * is no transparent way to keep the mask — a blur still resolves the gradient
+ * to a flat average — so the headings scroll away with their lists instead.
+ * Both selectors are duplicated at (0,2,0) to outweigh Material's own.
+ */
+.md-nav__title,
+.md-nav--primary .md-nav__title,
+.md-nav--secondary .md-nav__title {
+  color: hsl(var(--iris-heading));
+  font-weight: 600;
+  letter-spacing: -0.0125em;
+  background: transparent;
+  box-shadow: none;
+  position: static;
+}
+
+.md-nav__link {
+  color: hsl(var(--iris-fg) / 0.82);
+  transition: color 150ms ease;
+}
+
+.md-nav__link:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+}
+
+.md-nav__link--active,
+.md-nav__link--active code {
+  color: hsl(var(--iris-accent));
+  font-weight: 600;
+}
+
+/* The table of contents rail picks up the accent rather than Material's
+   default grey, so the reading position is legible at a glance. */
+.md-nav--secondary .md-nav__link--active {
+  color: hsl(var(--iris-accent));
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: hsl(var(--iris-border));
+}
+
+/* Drawer on small screens — same paper, not a white slab. The heading is a
+   real bar there, so it keeps a background and a rule under it. */
+@media screen and (max-width: 76.234375em) {
+  .md-nav--primary,
+  .md-nav--primary .md-nav {
+    background: hsl(var(--iris-bg));
+  }
+
+  .md-nav--primary .md-nav__title {
+    background: hsl(var(--iris-bg));
+    box-shadow: none;
+    border-bottom: 1px solid hsl(var(--iris-border));
+    /* the back arrow is absolutely positioned inside it */
+    position: relative;
+  }
+}
+
+/* ------------------------------------------------------------------- links */
+
+.md-typeset a {
+  color: hsl(var(--iris-accent));
+  text-decoration: none;
+  border-bottom: 1px solid hsl(var(--iris-accent) / 0.28);
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.md-typeset a:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+  border-bottom-color: hsl(var(--iris-accent));
+}
+
+/* Headings, buttons and cards supply their own affordance. */
+.md-typeset :is(h1, h2, h3, h4, h5, h6) a,
+.md-typeset a.md-button,
+.md-typeset .grid.cards a,
+.md-typeset a.headerlink {
+  border-bottom: none;
+}
+
+.md-typeset .headerlink {
+  color: hsl(var(--iris-muted) / 0.5);
+}
+
+.md-typeset :is(h1, h2, h3, h4, h5, h6):hover .headerlink {
+  color: hsl(var(--iris-accent));
+}
+
+/* -------------------------------------------------------------------- code */
+
+.md-typeset code {
+  background: hsl(var(--iris-elevated) / 0.7);
+  color: hsl(var(--iris-heading));
+  border: 1px solid hsl(var(--iris-border) / 0.7);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85em;
+}
+
+/* The outer container carries the frame so the inner <pre>/<code> can stay
+   flat — otherwise Material's nesting draws the box twice. */
+.md-typeset :is(.highlight, .codehilite),
+.md-typeset .highlighttable {
+  border-radius: 0.8rem;
+  border: 1px solid hsl(var(--iris-border));
+  background: hsl(var(--iris-surface));
+  overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .md-typeset :is(.highlight, .codehilite) {
+  background: hsl(var(--iris-surface));
+}
+
+.md-typeset :is(.highlight, .codehilite) pre,
+.md-typeset pre {
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.md-typeset pre > code {
+  background: transparent;
+  border: none;
+  padding: 0.9rem 1rem;
+}
+
+.md-typeset .highlight :is(.filename, .linenos) {
+  background: hsl(var(--iris-elevated) / 0.6);
+  color: hsl(var(--iris-muted));
+  border-bottom: 1px solid hsl(var(--iris-border));
+}
+
+.md-typeset .highlight span.filename {
+  font-weight: 600;
+  letter-spacing: -0.0125em;
+}
+
+.md-clipboard {
+  color: hsl(var(--iris-muted));
+}
+
+.md-clipboard:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+}
+
+.md-typeset .md-code__content {
+  background: transparent;
+}
+
+/* ------------------------------------------------------- admonitions, tabs */
+
+/*
+ * Admonitions are the closest thing the docs have to the site's feature cards,
+ * so they are drawn as cards: white sheet, hairline border, generous radius.
+ * Material's stock treatment — a coloured band behind the title and a 4px
+ * spine down the left — comes off; the site has no bars anywhere, and signals
+ * a card's hue on its border and its icon instead.
+ *
+ * Every rule here has to match Material's own `.md-typeset .note > ...`
+ * specificity to win, hence the `:is(.admonition, details) >` prefix even
+ * where a shorter selector would read better.
+ */
+.md-typeset :is(.admonition, details) {
+  background: hsl(var(--iris-surface));
+  border: 1px solid hsl(var(--iris-border));
+  border-left-width: 1px;
+  border-radius: 0.8rem;
+  box-shadow: none;
+  font-size: 0.66rem;
+  padding: 0 0.9rem;
+}
+
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  background: transparent;
+  color: hsl(var(--iris-heading));
+  font-weight: 600;
+  letter-spacing: -0.0125em;
+  border: none;
+  /* Material bleeds the title past the container padding to carry its band;
+     with the band gone it lines up with the body copy instead. */
+  margin: 0;
+  padding: 0.65rem 1.6rem 0.4rem 1.5rem;
+}
+
+/* the glyph is a masked box, so `color` reaches it through currentcolor */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before {
+  background-color: currentcolor;
+  top: 0.72em;
+  left: 0;
+  height: 0.95rem;
+  width: 0.95rem;
+}
+
+.md-typeset :is(.admonition, details) > :last-child {
+  margin-bottom: 0.7rem;
+}
+
+.md-typeset details > summary {
+  cursor: pointer;
+}
+
+/* the disclosure chevron, kept on the type's hue rather than Material's */
+.md-typeset details > summary::after {
+  color: currentcolor;
+  top: 0.72em;
+}
+
+/*
+ * Per-type hues, drawn from the site's six-colour illustration palette
+ * instead of Material's stock reds and greens.
+ */
+.md-typeset :is(.admonition, details):is(.note, .info, .todo) {
+  border-color: hsl(var(--iris-accent) / 0.3);
+}
+.md-typeset :is(.note, .info, .todo) > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-accent));
+}
+
+.md-typeset :is(.admonition, details):is(.tip, .success, .check, .done, .abstract, .summary, .tldr) {
+  border-color: hsl(var(--iris-teal) / 0.32);
+}
+.md-typeset :is(.tip, .success, .check, .done, .abstract, .summary, .tldr)
+  > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-teal));
+}
+
+.md-typeset :is(.admonition, details):is(.warning, .caution, .attention) {
+  border-color: hsl(var(--iris-orange) / 0.34);
+}
+.md-typeset :is(.warning, .caution, .attention) > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-orange));
+}
+
+.md-typeset :is(.admonition, details):is(.danger, .error, .failure, .fail, .missing, .bug) {
+  border-color: hsl(var(--iris-danger) / 0.32);
+}
+.md-typeset :is(.danger, .error, .failure, .fail, .missing, .bug)
+  > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-danger));
+}
+
+.md-typeset :is(.admonition, details):is(.question, .help, .faq, .example) {
+  border-color: hsl(var(--iris-pink) / 0.32);
+}
+.md-typeset :is(.question, .help, .faq, .example) > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-pink));
+}
+
+.md-typeset :is(.admonition, details):is(.quote, .cite) {
+  border-color: hsl(var(--iris-border));
+}
+.md-typeset :is(.quote, .cite) > :is(.admonition-title, summary) {
+  color: hsl(var(--iris-muted));
+}
+
+/* Content tabs */
+.md-typeset .tabbed-labels > label {
+  color: hsl(var(--iris-fg) / 0.7);
+  font-weight: 600;
+  letter-spacing: -0.0125em;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: hsl(var(--iris-accent));
+}
+
+.md-typeset .tabbed-labels {
+  box-shadow: 0 -1px hsl(var(--iris-border)) inset;
+}
+
+.js .md-typeset .tabbed-labels::before {
+  background: hsl(var(--iris-accent));
+}
+
+/* ------------------------------------------------------------------ tables */
+
+.md-typeset table:not([class]) {
+  border: 1px solid hsl(var(--iris-border));
+  border-radius: 0.8rem;
+  background: hsl(var(--iris-surface));
+  box-shadow: none;
+  overflow: hidden;
+  font-size: 0.68rem;
+}
+
+.md-typeset table:not([class]) th {
+  background: hsl(var(--iris-elevated) / 0.65);
+  color: hsl(var(--iris-heading));
+  font-weight: 600;
+  letter-spacing: -0.0125em;
+  border-bottom: 1px solid hsl(var(--iris-border));
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid hsl(var(--iris-border) / 0.6);
+  vertical-align: top;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background: hsl(var(--iris-accent) / 0.03);
+}
+
+/* ----------------------------------------------------------------- buttons */
+
+/*
+ * Sentence-case, softly-rounded rectangles in the display face — the site's
+ * .btn family, not uppercase pills. Primary is the solid azure with the same
+ * lifted shadow; outline is a 1.5px azure hairline; a plain .md-button with
+ * neither modifier falls through to the outline treatment because that is the
+ * secondary action everywhere on the site.
+ */
+.md-typeset .md-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 0.7rem;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.73rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: hsl(var(--iris-accent));
+  background: transparent;
+  border: 1.5px solid hsl(var(--iris-accent) / 0.4);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease, border-color 200ms ease, color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.md-typeset .md-button:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+  background: hsl(var(--iris-accent) / 0.08);
+  border-color: hsl(var(--iris-accent) / 0.75);
+}
+
+.md-typeset .md-button--primary {
+  background: hsl(var(--iris-accent));
+  color: hsl(0 0% 100%);
+  border-color: transparent;
+  box-shadow: 0 12px 26px -14px hsl(var(--iris-accent) / 0.95);
+}
+
+.md-typeset .md-button--primary:is(:hover, :focus) {
+  background: hsl(var(--iris-accent));
+  color: hsl(0 0% 100%);
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px -14px hsl(var(--iris-accent) / 0.95);
+}
+
+.md-typeset .md-button .twemoji {
+  height: 1.05em;
+  width: 1.05em;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.md-footer {
+  background: transparent;
+}
+
+.md-footer-meta {
+  background: transparent;
+  border-top: 1px solid hsl(var(--iris-border));
+  color: hsl(var(--iris-muted));
+}
+
+.md-footer-meta .md-footer-copyright,
+.md-footer-meta .md-social__link {
+  color: hsl(var(--iris-muted));
+}
+
+.md-footer-meta .md-social__link:hover {
+  color: hsl(var(--iris-accent));
+}
+
+.md-footer__link {
+  color: hsl(var(--iris-fg));
+}
+
+.md-footer__link:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+  opacity: 1;
+}
+
+.md-footer__direction {
+  color: hsl(var(--iris-muted));
+}
+
+/* ---- Version selector (mike) ---- */
+.md-version__current {
+  border-radius: 0.6rem;
+  background: hsl(var(--iris-surface));
+  border: 1px solid hsl(var(--iris-border));
+  color: hsl(var(--iris-heading));
+  padding: 0.15rem 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.md-version__list {
+  border-radius: 0.75rem;
+  background: hsl(var(--iris-surface));
+  border: 1px solid hsl(var(--iris-border));
+  box-shadow: var(--md-shadow-z2);
+}
+
+.md-version__link:is(:hover, :focus) {
+  color: hsl(var(--iris-accent));
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Home page
+   ========================================================================== */
+
+/*
+ * The site is left-aligned throughout — headline hard against the gutter,
+ * illustration in the margin beside it — so the docs landing page is too.
+ * Centred blocks were part of the old look and read as a different product.
+ */
+
+/*
+ * Material sets the root font to 125%, so one rem is 20px here against the
+ * marketing site's 16px. Every shared measurement below is divided through by
+ * 1.25 so the two properties land on the same pixel geometry: cards 1.2rem
+ * (24px), code and admonitions and tables 0.8rem (16px), buttons 0.7rem
+ * (14px), the closing panel 2rem (40px).
+ *
+ * Width is left to Material's own grid; the content column is already close
+ * to the site's copy measure.
+ */
+.iris-home {
+  margin: 0 auto;
+}
+
+/* ---- hero ---- */
+
+.iris-hero {
+  position: relative;
+  padding: 2.5rem 0 1rem;
+}
+
+.md-typeset .iris-hero h1 {
+  font-size: clamp(2.3rem, 5.4vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  max-width: 17ch;
+  margin: 1.2rem 0 0;
+  /* the old build ran a gradient through this; the new language keeps the
+     headline in ink and lets .mark-accent carry the colour */
+  background: none;
+  -webkit-text-fill-color: currentcolor;
+  color: hsl(var(--iris-heading));
+}
+
+.md-typeset .iris-hero > p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  max-width: 34rem;
+  margin: 1.4rem 0 0;
+  color: hsl(var(--iris-fg) / 0.78);
+}
+
+.iris-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.8rem;
+}
+
+/* The links are authored as one paragraph, so the paragraph carries the row
+   rather than the wrapper — the buttons would otherwise be a single inline run
+   with a line-height gap between wrapped rows. */
+.md-typeset .iris-actions p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+/* Planes hold station in the margin beside the headline, where the site puts
+   them. Below xl there is no margin to hold them in, so they are dropped. */
+.iris-hero__planes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .iris-hero__planes {
+    display: block;
+  }
+}
+
+.iris-plane {
+  position: absolute;
+  animation: iris-hover 12s ease-in-out infinite;
+}
+
+.iris-plane--2 {
+  animation-duration: 15s;
+  animation-delay: -4s;
+}
+
+@keyframes iris-hover {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+  25% {
+    transform: translate(9px, -16px) rotate(2deg);
+  }
+  50% {
+    transform: translate(-6px, 3px) rotate(-1.5deg);
+  }
+  75% {
+    transform: translate(6px, -10px) rotate(3.5deg);
+  }
+}
+
+/* the propeller reads as a blade whose vertical scale collapses and springs
+   back, which is how a prop looks side-on */
+.iris-prop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: iris-prop 0.42s ease-in-out infinite;
+}
+
+@keyframes iris-prop {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.16);
+  }
+}
+
+/* ---- section labels ---- */
+
+/*
+ * Deliberately loud, as on the site: a section name here is wayfinding
+ * ("which part of the product am I looking at?"), so it gets a chip, a dot
+ * and real size rather than a faint letterspaced eyebrow.
+ */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  padding: 0.35rem 0.85rem 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: hsl(var(--iris-accent));
+  line-height: 1;
+}
+
+.section-label::before {
+  content: "";
+  height: 0.45rem;
+  width: 0.45rem;
+  flex: none;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.section-label--orange { color: hsl(var(--iris-orange)); }
+.section-label--teal { color: hsl(var(--iris-teal)); }
+.section-label--pink { color: hsl(var(--iris-pink)); }
+.section-label--sky { color: hsl(var(--iris-sky)); }
+
+/* The label is authored as an inline span, so Markdown gives it a paragraph of
+   its own; that paragraph, not the span, is what has to carry the gap down to
+   the heading. */
+.md-typeset :is(.iris-hero, .iris-section, .iris-cta) > p:first-of-type {
+  margin: 0;
+  font-size: inherit;
+}
+
+.iris-section {
+  margin-top: 3.5rem;
+}
+
+.md-typeset .iris-section > h2 {
+  margin: 1.1rem 0 0;
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+  max-width: 22ch;
+  border: none;
+  padding: 0;
+}
+
+.md-typeset .iris-section > p {
+  max-width: 34rem;
+  color: hsl(var(--iris-fg) / 0.78);
+}
+
+/* ---- flight lane ---- */
+
+/*
+ * The strip the planes cross, sat between sections. It is transparent — the
+ * paper runs straight through it — and clips only horizontally so the range
+ * and the clouds are never cut off against a hard edge.
+ */
+.iris-lane {
+  position: relative;
+  width: 100%;
+  height: 13rem;
+  margin: 2.5rem 0 0;
+  overflow-x: clip;
+  pointer-events: none;
+}
+
+.iris-lane__sky,
+.iris-lane__range {
+  position: absolute;
+  inset-inline: 0;
+}
+
+.iris-lane__sky {
+  top: 0;
+  height: 24%;
+}
+
+/*
+ * The ridges are held to the lower part so the range has air above it, and
+ * faded out at both ends. On the marketing site the lane is full-bleed, so the
+ * ridge is cut by the viewport edge; here it stops at the content column,
+ * where a hard cut through a tinted slope would read as the edge of a panel.
+ * The fade turns that into distance haze instead.
+ */
+.iris-lane__range {
+  bottom: 0;
+  height: 76%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.iris-lane__range > svg {
+  height: 100%;
+  width: 100%;
+}
+
+/*
+ * The two ridges drift at different rates for a slow parallax that doesn't
+ * depend on scroll position — the near one faster, as it would be.
+ */
+.iris-ridge--far {
+  animation: iris-ridge-far 48s ease-in-out infinite;
+}
+
+.iris-ridge--near {
+  animation: iris-ridge-near 36s ease-in-out infinite;
+}
+
+@keyframes iris-ridge-far {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-24px); }
+}
+
+@keyframes iris-ridge-near {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-54px); }
+}
+
+.iris-cloud {
+  position: absolute;
+  animation: iris-drift 78s ease-in-out infinite;
+}
+
+.iris-cloud--2 { animation-duration: 71s; animation-delay: -22s; }
+.iris-cloud--3 { animation-duration: 96s; animation-delay: -48s; }
+
+@keyframes iris-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(92px);
+  }
+}
+
+/* one plane towing a pennant, crossing the lane */
+.iris-lane__flight {
+  position: absolute;
+  top: 6%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  animation: iris-cross 34s linear infinite;
+}
+
+@keyframes iris-cross {
+  from {
+    transform: translateX(-18vw);
+  }
+  to {
+    transform: translateX(112vw);
+  }
+}
+
+.iris-banner {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem 0.25rem 0.85rem;
+  margin-right: -0.4rem;
+  background: hsl(var(--iris-accent));
+  color: #fff;
+  font-size: 0.55rem;
+  clip-path: polygon(9px 0, 100% 0, 100% 100%, 9px 100%, 0 50%);
+}
+
+/* ---- cards ---- */
+
+/*
+ * The site's feature card: white sheet on the paper, hairline border, a
+ * tinted rounded tile for the icon, and a lift into an azure shadow on hover.
+ */
+.md-typeset .grid.cards > ul {
+  grid-gap: 0.9rem;
+  margin: 1.75rem 0 0;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 1.2rem;
+  border: 1px solid hsl(var(--iris-border));
+  background: hsl(var(--iris-surface));
+  box-shadow: none;
+  padding: 1.35rem 1.4rem;
+  margin: 0;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.md-typeset .grid.cards > ul > li:is(:hover, :focus-within) {
+  border-color: hsl(var(--iris-accent) / 0.4);
+  box-shadow: 0 18px 40px -18px hsl(var(--iris-accent) / 0.35);
+  transform: translateY(-4px);
+}
+
+/* The icon sits on its own line in the source so it can become a tile above
+   the title, the way the site stacks them. */
+.md-typeset .grid.cards > ul > li > p:first-child {
+  margin: 0 0 0.85rem;
+  line-height: 1;
+}
+
+.md-typeset .grid.cards > ul > li > p:first-child > .twemoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2rem;
+  width: 2.2rem;
+  border-radius: 0.8rem;
+  background: hsl(var(--iris-accent) / 0.12);
+  color: hsl(var(--iris-accent));
+  transition: transform 300ms ease;
+}
+
+.md-typeset .grid.cards > ul > li > p:first-child > .twemoji svg {
+  height: 1.15rem;
+  width: 1.15rem;
+}
+
+.md-typeset .grid.cards > ul > li:hover > p:first-child > .twemoji {
+  transform: rotate(-6deg);
+}
+
+.md-typeset .grid.cards > ul > li > p > strong {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: hsl(var(--iris-heading));
+}
+
+.md-typeset .grid.cards > ul > li > p {
+  margin: 0.3rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: hsl(var(--iris-fg) / 0.72);
+}
+
+.md-typeset .grid.cards > ul > li > p:last-child a {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: hsl(var(--iris-accent));
+}
+
+/* the six hues cycled across the grid, so it reads as one set */
+.md-typeset .grid.cards > ul > li:nth-child(6n + 2) > p:first-child > .twemoji {
+  background: hsl(var(--iris-orange) / 0.12);
+  color: hsl(var(--iris-orange));
+}
+.md-typeset .grid.cards > ul > li:nth-child(6n + 3) > p:first-child > .twemoji {
+  background: hsl(var(--iris-teal) / 0.13);
+  color: hsl(var(--iris-teal));
+}
+.md-typeset .grid.cards > ul > li:nth-child(6n + 4) > p:first-child > .twemoji {
+  background: hsl(var(--iris-sky) / 0.18);
+  color: hsl(var(--iris-sky));
+}
+.md-typeset .grid.cards > ul > li:nth-child(6n + 5) > p:first-child > .twemoji {
+  background: hsl(var(--iris-pink) / 0.18);
+  color: hsl(var(--iris-pink));
+}
+.md-typeset .grid.cards > ul > li:nth-child(6n) > p:first-child > .twemoji {
+  background: hsl(var(--iris-yellow) / 0.16);
+  color: hsl(var(--iris-yellow));
+}
+
+.md-typeset .iris-grid--3.grid.cards > ul {
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+/* ---- closing panel ---- */
+
+/*
+ * The one saturated surface on the whole property: a deep azure sheet that
+ * inverts the page for the final ask, with the site's flat concentric rings
+ * bleeding off its corners.
+ */
+.iris-cta {
+  position: relative;
+  margin: 4.5rem 0 1rem;
+  padding: 2.75rem 2rem;
+  border-radius: 2rem;
+  background: hsl(var(--iris-panel));
+  overflow: hidden;
+}
+
+.iris-cta::before,
+.iris-cta::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid hsl(0 0% 100% / 0.15);
+  pointer-events: none;
+}
+
+.iris-cta::before {
+  left: -8rem;
+  top: -8rem;
+  height: 24rem;
+  width: 24rem;
+}
+
+.iris-cta::after {
+  right: -6rem;
+  bottom: -10rem;
+  height: 26rem;
+  width: 26rem;
+  border-color: hsl(0 0% 100% / 0.1);
+}
+
+.md-typeset .iris-cta > * {
+  position: relative;
+}
+
+.md-typeset .iris-cta h2 {
+  margin: 1.1rem 0 0;
+  padding: 0;
+  border: none;
+  color: #fff;
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  max-width: 18ch;
+}
+
+.md-typeset .iris-cta p {
+  color: hsl(0 0% 100% / 0.8);
+  max-width: 32rem;
+  margin: 1.1rem 0 0;
+}
+
+.iris-cta .section-label {
+  color: hsl(0 0% 100% / 0.85);
+}
+
+/* --iris-pastel is tuned to sit against navy ink on paper; on the panel it is
+   nearly the background, so the emphasis colour flips to a pale sky. */
+.md-typeset .iris-cta .mark-accent {
+  color: hsl(202 80% 78%);
+}
+
+/* .iris-cta p sets the lede's rhythm; the button row has to opt back out */
+.md-typeset .iris-cta .iris-actions p {
+  margin: 0;
+}
+
+.md-typeset .iris-cta .iris-actions .md-button {
+  color: #fff;
+  border-color: hsl(0 0% 100% / 0.4);
+}
+
+.md-typeset .iris-cta .iris-actions .md-button:is(:hover, :focus) {
+  background: hsl(0 0% 100% / 0.12);
+  border-color: hsl(0 0% 100% / 0.8);
+}
+
+.md-typeset .iris-cta .iris-actions .md-button--primary {
+  background: #fff;
+  color: hsl(var(--iris-panel));
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.md-typeset .iris-cta .iris-actions .md-button--primary:is(:hover, :focus) {
+  background: #fff;
+  color: hsl(var(--iris-panel));
+}
+
+/* ---------------------------------------------------------------- a11y ---- */
+
+/* Every ambient loop — planes, props, drifting clouds — is opt-out. */
+@media (prefers-reduced-motion: reduce) {
+  .iris-plane,
+  .iris-prop,
+  .iris-cloud,
+  .iris-ridge--far,
+  .iris-ridge--near,
+  .iris-lane__flight {
+    animation: none !important;
+  }
+
+  /* the crossing plane starts off-lane, so with the animation stopped it has
+     to be parked somewhere visible rather than left in the wings */
+  .iris-lane__flight {
+    transform: translateX(14vw);
+  }
+}

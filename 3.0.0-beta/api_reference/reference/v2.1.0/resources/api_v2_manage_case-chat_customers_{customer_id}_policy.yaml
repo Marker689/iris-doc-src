@@ -1,0 +1,53 @@
+parameters:
+  - name: customer_id
+    in: path
+    required: true
+    schema:
+      type: integer
+put:
+  operationId: api_v2_manage_case-chat_customers_(customer_id)_policy_put
+  tags:
+    - Case chat
+    - Beta
+  summary: Bind a customer to a chatbot policy (or clear the binding)
+  description: >-
+    Set which chatbot policy governs this customer's conversations. A null or
+    omitted `policy_id` clears the binding rather than being ignored, so the
+    same call both sets and unsets. A `policy_id` that doesn't exist is a 400;
+    an unknown customer is a 404. Requires server administrator.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            policy_id:
+              description: Null clears the binding.
+              type:
+                - integer
+                - 'null'
+        example:
+          policy_id: 3
+  responses:
+    '200':
+      description: Binding successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              customer_id:
+                type: integer
+              policy_id:
+                type:
+                  - integer
+                  - 'null'
+          example:
+            customer_id: 1
+            policy_id: 3
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

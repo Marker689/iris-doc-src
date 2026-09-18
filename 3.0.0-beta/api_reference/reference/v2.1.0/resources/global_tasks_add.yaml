@@ -1,0 +1,186 @@
+post:
+  summary: Add a global task
+  description: This endpoint is deprecated. Use [POST /api/v2/global-tasks](#tag/Global-tasks/operation/api_v2_global-tasks_post) instead.
+  deprecated: true
+  operationId: post-global-tasks-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  task_assignee_id: 1
+                  task_close_date: null
+                  task_description: Coucou
+                  task_id: 9
+                  task_last_update: '2022-01-21T17:07:10.005200'
+                  task_open_date: '2022-01-21T17:07:10.005183'
+                  task_status_id: 15
+                  task_tags: ''
+                  task_title: Hello there
+                  task_userid_close: null
+                  task_userid_open: null
+                  task_userid_update: 1
+                message: Saved !
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - task_assignee_id
+                  - task_description
+                  - task_id
+                  - task_last_update
+                  - task_open_date
+                  - task_status_id
+                  - task_tags
+                  - task_title
+                  - task_userid_update
+                properties:
+                  task_assignee_id:
+                    type: number
+                  task_close_date:
+                    type:
+                      - integer
+                      - 'null'
+                  task_description:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    type: number
+                  task_last_update:
+                    type: string
+                    minLength: 1
+                  task_open_date:
+                    type: string
+                    minLength: 1
+                  task_status_id:
+                    type: number
+                  task_tags:
+                    type: string
+                  task_title:
+                    type: string
+                    minLength: 1
+                  task_userid_close:
+                    type:
+                      - integer
+                      - 'null'
+                  task_userid_open:
+                    type: integer
+                  task_userid_update:
+                    type: number
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Success:
+              value:
+                data:
+                  task_assignee_id: 1
+                  task_close_date: null
+                  task_description: My task description
+                  task_id: 9
+                  task_last_update: '2022-01-21T17:07:10.005200'
+                  task_open_date: '2022-01-21T17:07:10.005183'
+                  task_status_id: 15
+                  task_tags: ''
+                  task_title: Task title
+                  task_userid_close: null
+                  task_userid_open: null
+                  task_userid_update: 1
+                message: Saved !
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  task_assignee:
+                    - Invalid user id for assignee
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Invalid assignee ID:
+              value:
+                data:
+                  task_assignee:
+                    - Invalid user id for assignee
+                message: Data error
+                status: error
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          description: ''
+          type: object
+          x-examples:
+            example-1:
+              csrf_token: >-
+                IjA0NTM5M2JhYWE3NTEwNTk3NTk4NDlkNDQxYjhhMDcyYzdmMWM4YTIi.YXQRjA.geSD6G9IJ5epjXkSih7uoSP5rLI
+              task_assignee: '4'
+              task_status: To do
+              task_title: ''
+              task_description: ''
+              task_tags: sd
+          properties:
+            task_assignee_id:
+              type: integer
+              description: A user ID for whom the task will be assigned
+            task_status_id:
+              description: The initial status of the task
+              type: integer
+            task_title:
+              type: string
+              minLength: 2
+            task_description:
+              type: string
+            task_tags:
+              type: string
+          required:
+            - task_assignee_id
+            - task_status_id
+            - task_title
+            - task_description
+            - task_tags
+        examples:
+          example-1:
+            value:
+              task_assignee_id: 1
+              task_status_id: 14
+              task_title: Task title
+              task_description: My task description
+              task_tags: ''
+  tags:
+    - Global tasks

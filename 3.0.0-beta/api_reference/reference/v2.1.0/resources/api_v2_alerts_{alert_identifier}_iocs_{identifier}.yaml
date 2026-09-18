@@ -1,0 +1,36 @@
+parameters:
+  - name: alert_identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+put:
+  operationId: api_v2_alerts_(alert_identifier)_iocs_(identifier)_put
+  tags:
+    - Alerts
+    - Beta
+  summary: Update the details of an IOC attached to an alert
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/IocRequest.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Ioc.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

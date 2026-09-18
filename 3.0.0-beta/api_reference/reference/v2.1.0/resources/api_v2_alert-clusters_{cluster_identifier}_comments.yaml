@@ -1,0 +1,66 @@
+parameters:
+  - name: cluster_identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_alert-clusters_(cluster_identifier)_comments_get
+  tags:
+    - Alert clusters
+    - Beta
+  summary: List cluster comments
+  description: Return a paginated list of comments on this alert cluster.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: Paginated list of cluster comments
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comments.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_alert-clusters_(cluster_identifier)_comments_post
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Add a comment to a cluster
+  description: Post a new comment on this alert cluster.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            comment_text:
+              type: string
+              description: Body of the comment
+  responses:
+    '201':
+      description: Comment successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

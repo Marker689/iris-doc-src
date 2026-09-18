@@ -1,0 +1,65 @@
+parameters:
+  - in: path
+    name: identifier
+    required: true
+    description: Identifier of the asset type
+    schema:
+      type: integer
+  - in: path
+    name: field
+    required: true
+    description: Which icon slot to write. Accepts `compromised` or `not_compromised`; the value is persisted on the column `asset_icon_<field>`.
+    schema:
+      type: string
+      enum:
+        - compromised
+        - not_compromised
+post:
+  operationId: api_v2_manage_case-objects_asset-types_(identifier)_icon_(field)_post
+  tags:
+    - Case objects
+    - Beta
+  summary: Upload an asset type icon
+  description: Upload one of an asset type's two icons. The file must be sent as `multipart/form-data` under the key `file` and must be a PNG or SVG. On success the new filename is persisted on `asset_icon_<field>` and the full updated asset type is returned.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: string
+              format: binary
+              description: PNG or SVG icon file
+          required:
+            - file
+  responses:
+    '200':
+      description: Icon successfully uploaded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asset_id:
+                type: integer
+              asset_name:
+                type: string
+              asset_description:
+                type: string
+              asset_icon_compromised:
+                type: string
+              asset_icon_not_compromised:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expected:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

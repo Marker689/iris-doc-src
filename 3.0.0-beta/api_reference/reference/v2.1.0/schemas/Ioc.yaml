@@ -1,0 +1,71 @@
+type: object
+properties:
+  ioc_description:
+    type: string
+    minLength: 1
+  ioc_id:
+    type: integer
+  ioc_misp:
+    type:
+      - string
+      - 'null'
+  ioc_tags:
+    type: string
+  ioc_tlp_id:
+    type: integer
+  ioc_type_id:
+    type: integer
+  ioc_type:
+    $ref: ../schemas/IocType.yaml
+  ioc_value:
+    type: string
+    minLength: 1
+  user_id:
+    type:
+      - integer
+      - 'null'
+  ioc_uuid:
+    type: string
+  ioc_enrichment:
+    type:
+      - object
+      - 'null'
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+  link:
+    type: array
+    items:
+      type: object
+      properties:
+        case_id:
+          type: integer
+        case_name:
+          type: string
+        client_name:
+          type: string
+  tlp:
+    type: object
+    properties:
+      tlp_id:
+        type: integer
+      tlp_name:
+        type: string
+      tlp_bscolor:
+        type: string
+example:
+  ioc_type_id: 1
+  ioc_tlp_id: 2
+  ioc_value: 8.8.8.8
+  ioc_description: rewrw
+  ioc_tags: ''
+  cid: 2
+  link:
+    - case_id: 2
+      case_name: '#2 - case name'
+      client_name: IrisInitialClient
+  tlp:
+    tlp_id: 2
+    tlp_name: 'amber'
+    tlp_bscolor: 'warning'

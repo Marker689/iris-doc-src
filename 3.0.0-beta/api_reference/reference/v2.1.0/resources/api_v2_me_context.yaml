@@ -1,0 +1,50 @@
+get:
+  operationId: api_v2_me_context_get
+  tags:
+    - Profile
+    - Beta
+  summary: Get user context
+  description: >-
+    Return the compact bootstrap payload the SPA needs on every load:
+    the currently selected case / customer (when the session carries
+    one), the effective permission mask, and per-user UI preferences.
+    Any authenticated user can call this endpoint — it always answers
+    for the current session user.
+  responses:
+    '200':
+      description: Context successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              current_case_id:
+                type:
+                  - integer
+                  - 'null'
+              current_customer_id:
+                type:
+                  - integer
+                  - 'null'
+              iris_version:
+                type: string
+              demo_mode:
+                type: boolean
+              permissions:
+                type: object
+                properties:
+                  mask:
+                    type: integer
+                  names:
+                    type: array
+                    items:
+                      type: string
+              ui_preferences:
+                type: object
+                properties:
+                  has_mini_sidebar:
+                    type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

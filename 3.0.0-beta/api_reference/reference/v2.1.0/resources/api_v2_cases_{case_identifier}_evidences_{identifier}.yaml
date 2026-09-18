@@ -1,0 +1,90 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_evidences_(identifier)_get
+  tags:
+    - Evidences
+    - Beta
+  summary: Get an evidence
+  description: 'Get an evidence by its identifier'
+  responses:
+    '201':
+      description: evidence successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Evidence.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_evidences_(identifier)_put
+  tags:
+    - Evidences
+    - Beta
+  summary: Update an evidence
+  description: Update an evidence.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            filename:
+              type: string
+            file_description:
+              type: string
+            file_size:
+              type: integer
+            file_hash:
+              type: string
+            type_id:
+              $ref: ../schemas/evidence_type_id.yaml
+            start_date:
+              $ref: ../schemas/iso_date.yaml
+            end_date:
+              $ref: ../schemas/iso_date.yaml
+            custom_attributes:
+              type: object
+        examples:
+          example-1:
+            value:
+              filename: 'dummy file'
+              file_size: 77108
+              file_hash: 88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+              type_id: 2
+              start_date: '2024-04-13T03:02:00.000'
+              end_date: '2024-04-04T00:00:00.000'
+              custom_attributes: {}
+              file_description: Dummy description
+  responses:
+    '200':
+      description: Evidence successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Evidence.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_evidences_(identifier)_delete
+  tags:
+    - Evidences
+    - Beta
+  summary: Delete an evidence
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

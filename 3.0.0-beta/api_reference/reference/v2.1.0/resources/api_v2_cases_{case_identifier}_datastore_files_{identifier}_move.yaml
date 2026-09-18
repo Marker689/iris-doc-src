@@ -1,0 +1,53 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the datastore file to move
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_(identifier)_move_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Move a datastore file
+  description: Move the file into another folder of the same case datastore. Requires full access to the case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            destination_node:
+              type: integer
+              description: Identifier of the target folder node
+          required:
+            - destination_node
+        example:
+          destination_node: 42
+  responses:
+    '200':
+      description: File successfully moved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              file_original_name:
+                type: string
+              file_parent_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

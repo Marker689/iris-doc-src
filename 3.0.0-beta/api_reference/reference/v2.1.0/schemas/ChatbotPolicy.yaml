@@ -1,0 +1,52 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  name:
+    type: string
+  description:
+    type: string
+  restriction_level:
+    type: integer
+  provider:
+    type: string
+  model:
+    type: string
+  base_url:
+    type: string
+  auto_execute_read_tools:
+    type: boolean
+  auto_approve_write_tools:
+    type: boolean
+  max_turns_per_conversation:
+    type: integer
+  max_tool_calls_per_turn:
+    type: integer
+  daily_token_budget_per_user:
+    type: integer
+  daily_token_budget_org:
+    type: integer
+  redact_ips:
+    type: boolean
+  redact_emails:
+    type: boolean
+  redact_hashes:
+    type: boolean
+  retention_days:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+  api_key:
+    type:
+      - string
+      - 'null'
+required:
+  - name
+description: Admin CRUD schema for `ChatbotPolicy`.

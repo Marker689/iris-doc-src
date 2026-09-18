@@ -1,0 +1,25 @@
+post:
+  operationId: api_v2_me_permissions_refresh_post
+  tags:
+    - Profile
+    - Beta
+  summary: Refresh cached permissions
+  description: >-
+    Recompute the current user's effective access control mask and
+    refresh the session cache. Call after a group or customer
+    assignment change so the SPA gates menu entries against the newly
+    granted permissions without requiring re-login.
+  responses:
+    '200':
+      description: Permissions successfully refreshed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              refreshed:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

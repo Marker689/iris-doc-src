@@ -1,0 +1,67 @@
+get:
+  operationId: api_v2_manage_custom-attributes_get
+  tags:
+    - Custom attributes
+    - Beta
+  summary: List custom attribute definitions
+  description: >-
+    List every custom-attribute definition. Each row describes the schema
+    attached to one object type (case, IOC, asset, task, note, evidence,
+    event, client). Readable by any authenticated user because the schema
+    is needed to render the detail-view tabs; write access is admin-only.
+  parameters:
+    - schema:
+        type: integer
+        default: 1
+      name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+    - schema:
+        type: integer
+        default: 25
+      name: per_page
+      in: query
+      required: false
+      description: Page size
+    - schema:
+        type: string
+        enum:
+          - case
+          - ioc
+          - asset
+          - task
+          - note
+          - evidence
+          - event
+          - client
+      name: object_type
+      in: query
+      required: false
+      description: Filter to attributes attached to a single object type
+  responses:
+    '200':
+      description: Custom attribute definitions successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                attribute_id:
+                  type: integer
+                attribute_display_name:
+                  type: string
+                attribute_description:
+                  type: string
+                attribute_for:
+                  type: string
+                  description: Object type the attribute is attached to
+                attribute_content:
+                  type: object
+                  description: JSON schema document keyed by tab name then field name
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

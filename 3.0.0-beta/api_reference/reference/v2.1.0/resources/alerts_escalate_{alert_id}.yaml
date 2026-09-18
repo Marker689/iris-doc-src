@@ -1,0 +1,252 @@
+post:
+  summary: Escalate an alert
+  operationId: post-case-escalate-alert
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  case_name: '#1064 - [RANS] [ALERT] Command & Control Traffic 15'
+                  case_customer: 1
+                  case_uuid: 682ad7df-e7b9-4814-91b0-ba44733bd0aa
+                  case_description: >
+                    *Alert escalated by administrator*
+
+
+
+
+                    ### Escalation note
+
+
+                    Escalation note
+
+
+                    ### Alert description
+
+
+                    An attacker has gained access to the network by exploiting a
+                    vulnerability in the VPN.
+
+
+                    ### IRIS alert link
+
+
+                    [<i class='fa-solid fa-bell'></i> #1](/alerts?alert_ids=1)
+
+                    # Context 
+
+
+
+                    # Contact 
+
+
+
+                    # Actions 
+                  case_id: 1064
+                  open_date: '2024-01-09'
+                  status_id: 0
+                  modification_history:
+                    '1704818103.649257':
+                      user: administrator
+                      user_id: 1
+                      action: created
+                  case_soc_id: '1'
+                  state_id: 11
+                  close_date: null
+                  classification_id: 6
+                  closing_note: null
+                  owner_id: 1
+                  user_id: 1
+                  custom_attributes: null
+                  reviewer_id: null
+                  review_status_id: null
+                  severity_id: 2
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  case_name:
+                    type: string
+                  case_customer:
+                    type: integer
+                  case_uuid:
+                    type: string
+                  case_description:
+                    type: string
+                  case_id:
+                    type: integer
+                  open_date:
+                    type: string
+                  status_id:
+                    type: integer
+                  modification_history:
+                    type: object
+                  case_soc_id:
+                    type: string
+                  state_id:
+                    type: integer
+                  close_date:
+                    type: 'null'
+                  classification_id:
+                    type: integer
+                  closing_note:
+                    type: 'null'
+                  owner_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: 'null'
+                  reviewer_id:
+                    type: 'null'
+                  review_status_id:
+                    type: 'null'
+                  severity_id:
+                    type: integer
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  case_name: '#1064 - [RANS] [ALERT] Command & Control Traffic 15'
+                  case_customer: 1
+                  case_uuid: 682ad7df-e7b9-4814-91b0-ba44733bd0aa
+                  case_description: >
+                    *Alert escalated by administrator*
+
+
+
+
+                    ### Escalation note
+
+
+                    Escalation note
+
+
+                    ### Alert description
+
+
+                    An attacker has gained access to the network by exploiting a
+                    vulnerability in the VPN.
+
+
+                    ### IRIS alert link
+
+
+                    [<i class='fa-solid fa-bell'></i> #1](/alerts?alert_ids=1)
+
+                    # Context 
+
+
+
+                    # Contact 
+
+
+
+                    # Actions 
+                  case_id: 1064
+                  open_date: '2024-01-09'
+                  status_id: 0
+                  modification_history:
+                    '1704818103.649257':
+                      user: administrator
+                      user_id: 1
+                      action: created
+                  case_soc_id: '1'
+                  state_id: 11
+                  close_date: null
+                  classification_id: 6
+                  closing_note: null
+                  owner_id: 1
+                  user_id: 1
+                  custom_attributes: null
+                  reviewer_id: null
+                  review_status_id: null
+                  severity_id: 2
+  description: 'Escalate an alert into a new case. '
+  parameters: []
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Alerts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              iocs_import_list:
+                - 9d28f678-4c41-48a8-babe-66ba789e9072
+                - 7a638477-c077-4d59-b96a-e49dac84fbab
+              assets_import_list:
+                - bc7a3a2e-6047-452b-b7d1-bbb15addb072
+                - cd7c1d04-3052-4d7a-8ff2-c427fbf60153
+              note: Escalation note
+              import_as_event: true
+              case_tags: Mobile Device Management (MDM) System
+              case_template_id: '1'
+              csrf_token: >-
+                IjA3ZmU4YjRkZDIzN2FlMjFiZjY4OWJlZWE5MWFkN2I3YmViNTM1MWYi.ZFIQVg.vIjSH19dGJGbNHWGDDez5qMFROg
+              case_title: '[ALERT] Command & Control Traffic 15'
+          properties:
+            iocs_import_list:
+              type: array
+              description: >-
+                A list of UUID matching the IOCs to import into the case. These
+                UUIDs are provided when getting information on an alert. 
+              items:
+                type: string
+            assets_import_list:
+              type: array
+              description: >-
+                A list of UUID matching the assets to import into the case.
+                These UUIDs are provided when getting information on an alert.
+              items:
+                type: string
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+              description: >-
+                If set to True, a new event representing the alert is created in
+                the case. 
+            case_tags:
+              type: string
+            case_template_id:
+              type: string
+            case_title:
+              type: string
+        examples:
+          Example 1:
+            value:
+              iocs_import_list:
+                - 9d28f678-4c41-48a8-babe-66ba789e9072
+                - 7a638477-c077-4d59-b96a-e49dac84fbab
+              assets_import_list:
+                - bc7a3a2e-6047-452b-b7d1-bbb15addb072
+                - cd7c1d04-3052-4d7a-8ff2-c427fbf60153
+              note: Escalation note
+              import_as_event: true
+              case_tags: Mobile Device Management (MDM) System
+              case_template_id: '1'
+              case_title: '[ALERT] Command & Control Traffic 15'
+parameters:
+  - schema:
+      type: integer
+    name: alert_id
+    in: path
+    required: true
+    description: Alert ID to escalate

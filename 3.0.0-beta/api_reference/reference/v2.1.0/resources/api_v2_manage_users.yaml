@@ -1,0 +1,119 @@
+post:
+  operationId: api_v2_manage_users_post
+  summary: Create a new user
+  description: Administrator role required.
+  tags:
+    - Manage Users
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+              user_login:
+                type: string
+              user_name:
+                type: string
+              user_email:
+                type: string
+              has_deletion_confirmation:
+                type: boolean
+              has_mini_sidebar:
+                type: boolean
+              in_dark_mode:
+                type: boolean
+              user_is_service_account:
+                type: boolean
+              uuid:
+                type: string
+              active:
+                type: boolean
+              id:
+                type: integer
+              external_id:
+                type: 'null'
+              user_api_key:
+                type: string
+          required:
+            - user_name
+            - user_login
+            - user_email
+        example:
+          user_name: New usergroup
+          user_login: New description
+          user_email: user@test.com
+          user_is_service_account: true
+  responses:
+    '201':
+      description: User successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+get:
+  operationId: api_v2_manage_users_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: List users
+  description: >-
+    Paginated user list, newest first. `search` matches either the login or the
+    display name, so an admin can find someone by typing whichever one they
+    remember. Administrator role required.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Clamped to 1–200.
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 200
+    - name: search
+      in: query
+      required: false
+      description: >-
+        Case-insensitive substring, matched against login OR display name.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Users successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                description: Matching users across all pages, not just this one.
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: ../schemas/User.yaml
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                description: Null on the last page.
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

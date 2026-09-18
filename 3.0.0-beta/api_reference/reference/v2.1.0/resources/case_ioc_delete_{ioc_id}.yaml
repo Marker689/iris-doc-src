@@ -1,0 +1,98 @@
+post:
+  summary: Delete an IOC
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+            x-examples:
+              Example 1:
+                status: success
+                message: IOC 3956 deleted
+                data: []
+          examples:
+            Success 1:
+              value:
+                status: success
+                message: IOC 3956 deleted
+                data: []
+            Success unlink:
+              value:
+                data: []
+                message: IOC unlinked
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Invalid IOC  ID:
+              value:
+                data: []
+                message: Not a valid IOC for this case
+                status: error
+  operationId: delete-case-ioc
+  description: This endpoint is deprecated. Use [DELETE /api/v2/iocs/{identifier}](#tag/IOCs/operation/api_v2_iocs_(identifier)_delete) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - IOCs
+parameters:
+  - schema:
+      type: integer
+    name: ioc_id
+    in: path
+    required: true
+get:
+  summary: Delete an IOC
+  operationId: get-case-ioc-delete-ioc_id
+  responses:
+    '200':
+      description: OK
+  description: This endpoint is deprecated. Use the [POST /case/ioc/delete/{ioc_id}](#tag/IOCs/operation/delete-case-ioc) instead.
+  deprecated: true
+  tags:
+    - IOCs

@@ -1,0 +1,86 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cluster-rules_(identifier)_get
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Get a cluster rule
+  description: Retrieve a single cluster rule by identifier.
+  responses:
+    '200':
+      description: Rule successfully retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cluster-rules_(identifier)_put
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Update a cluster rule
+  description: Update an existing cluster rule. Server-owned identity and audit fields cannot be updated and are silently dropped.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            rule_name:
+              type: string
+              description: Human-readable rule name
+            rule_description:
+              type: string
+              description: Longer description of the rule
+            rule_is_active:
+              type: boolean
+              description: Whether the rule runs on incoming alerts
+            rule_priority:
+              type: integer
+              description: Evaluation priority (lower runs first)
+            rule_conditions:
+              type: object
+              description: Condition tree evaluated against incoming alerts
+            rule_actions:
+              type: object
+              description: Actions taken when the rule matches
+  responses:
+    '200':
+      description: Rule successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cluster-rules_(identifier)_delete
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Delete a cluster rule
+  description: Delete a cluster rule.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

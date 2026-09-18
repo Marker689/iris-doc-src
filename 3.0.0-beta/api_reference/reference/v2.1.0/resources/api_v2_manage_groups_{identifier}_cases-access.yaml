@@ -1,0 +1,97 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_groups_(identifier)_cases-access_get
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Get group cases access
+  description: Return the group's per-case access grants, including the `auto_follow` flag when the group is configured to receive access to every new case.
+  responses:
+    '200':
+      description: Cases access successfully returned
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_manage_groups_(identifier)_cases-access_post
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Grant cases access to a group
+  description: Grant the given access level to the listed cases for every member of the group. Members' effective access is recomputed before the response is returned.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - cases
+            - access_level
+          properties:
+            cases:
+              type: array
+              items:
+                type: integer
+            access_level:
+              type: integer
+        example:
+          cases:
+            - 1
+            - 42
+          access_level: 4
+  responses:
+    '200':
+      description: Cases access successfully granted
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_groups_(identifier)_cases-access_delete
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Revoke cases access from a group
+  description: Drop the group's grants for the listed cases. Members' effective access is recomputed before the response is returned.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - cases
+          properties:
+            cases:
+              type: array
+              items:
+                type: integer
+        example:
+          cases:
+            - 42
+  responses:
+    '200':
+      description: Cases access successfully revoked
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

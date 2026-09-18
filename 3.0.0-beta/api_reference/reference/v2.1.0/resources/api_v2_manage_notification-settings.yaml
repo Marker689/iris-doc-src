@@ -1,0 +1,106 @@
+get:
+  operationId: api_v2_manage_notification-settings_get
+  tags:
+    - Notifications
+    - Server admin
+    - Beta
+  summary: Get server-wide notification defaults
+  description: >-
+    Return the server-wide default notification settings. These apply
+    to every user that has not overridden a given event/channel cell.
+    Requires the `server_administrator` permission.
+  responses:
+    '200':
+      description: Defaults successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email_enabled:
+                type: boolean
+              in_app_enabled:
+                type: boolean
+              digest_frequency:
+                type: string
+              event_types:
+                type: array
+                items:
+                  type: string
+              channels:
+                type: array
+                items:
+                  type: string
+              settings:
+                type: object
+                description: >-
+                  Server default grid of `{event_type: {channel: bool}}`
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+put:
+  operationId: api_v2_manage_notification-settings_put
+  tags:
+    - Notifications
+    - Server admin
+    - Beta
+  summary: Update server-wide notification defaults
+  description: >-
+    Upsert the server-wide default notification settings. Only fields
+    present in the payload are updated. Requires the
+    `server_administrator` permission.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email_enabled:
+              type: boolean
+            in_app_enabled:
+              type: boolean
+            digest_frequency:
+              type: string
+              description: One of `never`, `daily`, `weekly`
+            event_types:
+              type: array
+              items:
+                type: string
+            settings:
+              type: object
+              description: >-
+                Grid of `{event_type: {channel: bool}}` defaults
+        example:
+          email_enabled: true
+          in_app_enabled: true
+          digest_frequency: daily
+    description: ''
+  responses:
+    '200':
+      description: Defaults successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email_enabled:
+                type: boolean
+              in_app_enabled:
+                type: boolean
+              digest_frequency:
+                type: string
+              event_types:
+                type: array
+                items:
+                  type: string
+              channels:
+                type: array
+                items:
+                  type: string
+              settings:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,91 @@
+parameters:
+  - schema:
+      type: string
+      enum:
+        - notes
+        - assets
+        - ioc
+        - events
+        - tasks
+        - evidences
+    name: object_name
+    in: path
+    required: true
+    description: Name of the case object to comment
+  - schema:
+      type: integer
+    name: object_id
+    in: path
+    required: true
+    description: ID of the object to comment
+post:
+  summary: Add a new comment to a case object
+  tags:
+    - Comments
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    comment_date:
+                      type: string
+                    comment_id:
+                      type: integer
+                    comment_text:
+                      type: string
+                    comment_update_date:
+                      type: string
+                    comment_uuid:
+                      type: string
+                    name:
+                      type: string
+                    user:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  - comment_date: Mon, 20 Mar 2023 17:12:06 GMT
+                    comment_id: 12
+                    comment_text: 'No '
+                    comment_update_date: Mon, 20 Mar 2023 17:12:06 GMT
+                    comment_uuid: f43d28a7-cd07-48ec-a602-26e0ce21743b
+                    name: administrator
+                    user: administrator
+                message: ''
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  - comment_date: Mon, 20 Mar 2023 17:12:06 GMT
+                    comment_id: 12
+                    comment_text: 'No '
+                    comment_update_date: Mon, 20 Mar 2023 17:12:06 GMT
+                    comment_uuid: f43d28a7-cd07-48ec-a602-26e0ce21743b
+                    name: administrator
+                    user: administrator
+                message: ''
+                status: success
+  operationId: post-case-object_name-object_id-comments-add
+  description: This endpoint is deprecated. Use [POST /api/v2/{objects}/{object_identifier}](#tag/Comments/operation/api_v2_(objects)_(object_identifier)_comments_post) instead.
+  deprecated: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            comment_text:
+              type: string

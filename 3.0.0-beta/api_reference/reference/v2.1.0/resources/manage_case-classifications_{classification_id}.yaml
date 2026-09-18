@@ -1,0 +1,351 @@
+get:
+  summary: Get case classification
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    name_expanded:
+                      type: string
+                    description:
+                      type: string
+                    creation_date:
+                      type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  - id: 1
+                    name: abusive-content:spam
+                    name_expanded: 'Abusive-Content: spam'
+                    description: >-
+                      Spam or ‘unsolicited bulk e-mail’, meaning that the
+                      recipient has not granted verifiable permission for the
+                      message to be sent and that the message is sent as part of
+                      a larger collection of messages, all having identical
+                      content.
+                    creation_date: '2023-04-28T11:30:00.649012'
+                  - id: 2
+                    name: abusive-content:harmful-speech
+                    name_expanded: 'Abusive-Content: Harmful Speech'
+                    description: >-
+                      Discretization or discrimination of somebody (e.g. cyber
+                      stalking, racism and threats against one or more
+                      individuals) May be found on a forum, email, tweet etc…
+                    creation_date: '2023-04-28T11:30:00.653918'
+                  - id: 3
+                    name: abusive-content:violence
+                    name_expanded: 'Abusive-Content: Child/Sexual/Violence/...'
+                    description: >-
+                      Any Child pornography, glorification of violence, may be
+                      found on a website, forum, email, tweet etc…
+                    creation_date: '2023-04-28T11:30:00.657151'
+                  - id: 4
+                    name: malicious-code:virus
+                    name_expanded: 'Malicious-Code: Virus'
+                    description: >-
+                      Malicious code that replicate itself and infects the
+                      computer and files;
+                    creation_date: '2023-04-28T11:30:00.660827'
+                  - id: 5
+                    name: malicious-code:worm
+                    name_expanded: 'Malicious-Code: Worm'
+                    description: >-
+                      Malware that self-replicates and spread itself to other
+                      computers in the network without any user interaction;
+                    creation_date: '2023-04-28T11:30:00.664177'
+                  - id: 6
+                    name: malicious-code:ransomware
+                    name_expanded: 'Malicious-Code: Ransomware'
+                    description: >-
+                      Ransomware is a type of malicious software from
+                      cryptovirology that blocks access to the victim's data or
+                      threatens to publish it until a ransom is paid.
+                    creation_date: '2023-04-28T11:30:00.667058'
+                  - id: 7
+                    name: malicious-code:trojan-malware
+                    name_expanded: 'Malicious-Code: Trojan/Malware'
+                    description: >-
+                      This category regroups many common malware types (Banking,
+                      POS, Mining malware).
+                    creation_date: '2023-04-28T11:30:00.670949'
+                  - id: 8
+                    name: malicious-code:spyware-rat
+                    name_expanded: 'Malicious-Code: Spyware/Rat'
+                    description: >-
+                      This category regroups malware types and tools that may
+                      have a bigger impact on the breached infrastructure and
+                      usually need further investigations (Common Spyware/Rat,
+                      State sponsored malwares, StealersHacking tool).
+                    creation_date: '2023-04-28T11:30:00.673649'
+                  - id: 9
+                    name: malicious-code:dialer
+                    name_expanded: 'Malicious-Code: Dialer'
+                    description: >-
+                      Computer program used to identify the phone numbers that
+                      can successfully make a connection with a computer modem.
+                      Use this category to classify overpriced SMS sent by
+                      malicious mobile application. 
+                    creation_date: '2023-04-28T11:30:00.676681'
+                  - id: 10
+                    name: malicious-code:rootkit
+                    name_expanded: 'Malicious-Code: Rootkit'
+                    description: >-
+                      Malware, which alter the standard functionality of an
+                      operating system in order to do its malicious actions in a
+                      stealthy way. In practice, Rootkits hijacks systems
+                      functions in order to alter the returning values to hide
+                      themselves from simple analysis tools.
+                    creation_date: '2023-04-28T11:30:00.679830'
+                  - id: 11
+                    name: information-gathering:scanner
+                    name_expanded: 'Information-Gathering: Scanning'
+                    description: >-
+                      Attacks that send requests to a system to discover weak
+                      points. This also includes some kinds of testing processes
+                      to gather information about hosts, services and accounts.
+                      Examples: fingerd, DNS querying, ICMP, SMTP (EXPN, RCPT,).
+                    creation_date: '2023-04-28T11:30:00.682321'
+                  - id: 12
+                    name: information-gathering:sniffing
+                    name_expanded: 'Information-Gathering: Sniffing'
+                    description: Observing and recording network traffic (wiretapping).
+                    creation_date: '2023-04-28T11:30:00.686102'
+                  - id: 13
+                    name: information-gathering:social-engineering
+                    name_expanded: 'Information-Gathering: Social Engineering'
+                    description: >-
+                      Gathering information from a human being in a
+                      non-technical way (eg, lies, tricks, bribes, or threats).
+                    creation_date: '2023-04-28T11:30:00.689526'
+                  - id: 14
+                    name: intrusion-attempts:exploit-known-vuln
+                    name_expanded: 'Intrusion-Attempts: Exploiting known vulnerabilities'
+                    description: >-
+                      An attempt to compromise a system or to disrupt any
+                      service by exploiting vulnerabilities with a standardised
+                      identifier such as CVE name (eg, buffer overflow,
+                      backdoors, cross side scripting, etc).
+                    creation_date: '2023-04-28T11:30:00.692862'
+                  - id: 15
+                    name: intrusion-attempts:login-attempts
+                    name_expanded: 'Intrusion-Attempts: Login attempts'
+                    description: >-
+                      Multiple login attempts (guessing / cracking of passwords,
+                      brute force).
+                    creation_date: '2023-04-28T11:30:00.696596'
+                  - id: 16
+                    name: intrusion-attempts:new-attack-signature
+                    name_expanded: 'Intrusion-Attempts: New attack signature'
+                    description: An attempt using an unknown exploit.
+                    creation_date: '2023-04-28T11:30:00.699969'
+                  - id: 17
+                    name: intrusion:privileged-account-compromise
+                    name_expanded: 'Intrusion: Privileged Account Compromise'
+                    description: >-
+                      A successful full compromise of a system or application
+                      (service). This can have been caused remotely by a known
+                      or new vulnerability, but also by an unauthorized local
+                      access.
+                    creation_date: '2023-04-28T11:30:00.704096'
+                  - id: 18
+                    name: intrusion:unprivileged-account-compromise
+                    name_expanded: 'Intrusion: Unprivileged Account Compromise'
+                    description: >-
+                      A successful compromise of a system or application
+                      (service). This can have been caused remotely by a known
+                      or new vulnerability, but also by an unauthorized local
+                      access. The intruded did not achieve to escale his
+                      privileges locally. 
+                    creation_date: '2023-04-28T11:30:00.707415'
+                  - id: 19
+                    name: intrusion:botnet-member
+                    name_expanded: 'Intrusion: Botnet member'
+                    description: >-
+                      The compromised asset is also being part of a botnet. This
+                      is reserved mainly for public web servers. See malicious
+                      code in priority for workstations or internal server’s
+                      compromise. For example, phpmailer, etc…
+                    creation_date: '2023-04-28T11:30:00.711851'
+                  - id: 20
+                    name: intrusion:domain-compromise
+                    name_expanded: 'Intrusion: Domain Compromise'
+                    description: >-
+                      The whole domain is compromised; this is commonly used for
+                      active directory and detected by a 'pass the ticket'
+                      attack or a discovery of 'ad dumps' files.
+                    creation_date: '2023-04-28T11:30:00.715487'
+                  - id: 21
+                    name: intrusion:application-compromise
+                    name_expanded: 'Intrusion: Application Compromise'
+                    description: >-
+                      An application is compromised; the attacker possess an
+                      uncontrolled access to data, server, and assets used by
+                      this application (CMDB, DB, Backend services, etc.).
+                    creation_date: '2023-04-28T11:30:00.719242'
+                  - id: 22
+                    name: availability:dos
+                    name_expanded: 'Availability: DoS'
+                    description: >-
+                      An attacker attempts to prevent legitimate users from
+                      accessing information or services.
+                    creation_date: '2023-04-28T11:30:00.722901'
+                  - id: 23
+                    name: availability:ddos
+                    name_expanded: 'Availability: DDoS'
+                    description: >-
+                      Form of electronic attack involving multiple computers,
+                      which send repeated requests (HTTP requests, pings, TCP or
+                      UDP Flood) to a server to load it down and render the
+                      service inaccessible for a period of time. 
+                    creation_date: '2023-04-28T11:30:00.726025'
+                  - id: 24
+                    name: availability:sabotage
+                    name_expanded: 'Availability: Sabotage'
+                    description: >-
+                      Deliberate and malicious acts that result in the
+                      disruption of the normal processes and functions or the
+                      destruction or damage of equipment or information.
+                    creation_date: '2023-04-28T11:30:00.730028'
+                  - id: 25
+                    name: availability:outage
+                    name_expanded: 'Availability: Outage (no malice)'
+                    description: Unavailability of the system but done with no malice.
+                    creation_date: '2023-04-28T11:30:00.732902'
+                  - id: 26
+                    name: >-
+                      information-content-security:Unauthorised-information-access
+                    name_expanded: >-
+                      Information-Content-Security: Unauthorised access to
+                      information
+                    description: >-
+                      Any access to unauthorized data. It may be access of data
+                      on improperly restricted server share or database
+                      exfiltered by using a SQLi.
+                    creation_date: '2023-04-28T11:30:00.736928'
+                  - id: 27
+                    name: >-
+                      information-content-security:Unauthorised-information-modification
+                    name_expanded: >-
+                      Information-Content-Security: Unauthorised modification of
+                      information
+                    description: >-
+                      Unauthorized tampering of data on files, documents or
+                      database.
+                    creation_date: '2023-04-28T11:30:00.740163'
+                  - id: 28
+                    name: fraud:copyright
+                    name_expanded: 'Fraud: Copyright'
+                    description: >-
+                      Selling or installing copies of unlicensed commercial
+                      software or other copyright protected materials (Warez).
+                    creation_date: '2023-04-28T11:30:00.743723'
+                  - id: 29
+                    name: fraud:masquerade
+                    name_expanded: 'Fraud: Masquerade'
+                    description: >-
+                      Types of attacks in which one entity illegitimately
+                      assumes the identity of another in order to benefit from
+                      it. This attack may be used for president fraud requesting
+                      transactions.
+                    creation_date: '2023-04-28T11:30:00.747483'
+                  - id: 30
+                    name: fraud:phishing
+                    name_expanded: 'Fraud: Phishing'
+                    description: >-
+                      Masquerading as another entity in order to persuade the
+                      user to reveal a private credential.
+                    creation_date: '2023-04-28T11:30:00.750375'
+                  - id: 31
+                    name: vulnerable:vulnerable-service
+                    name_expanded: 'Vulnerable: Open for abuse'
+                    description: >-
+                      Open resolvers, world readable printers, vulnerability
+                      apparent from Nessus etc scans, virus, signatures not up
+                      to date, etc. This includes for example default SNMP
+                      community or default password on any application.
+                    creation_date: '2023-04-28T11:30:00.754135'
+                  - id: 32
+                    name: conformity:regulator
+                    name_expanded: 'Conformity: Regulator'
+                    description: All lack about regulator rules (CSSF, GDPR, etc.).
+                    creation_date: '2023-04-28T11:30:00.757258'
+                  - id: 33
+                    name: conformity:standard
+                    name_expanded: 'Conformity: Standard'
+                    description: >-
+                      All lack about standards certification of the company
+                      (ISO27000, NIS, ISAE3402, etc.).
+                    creation_date: '2023-04-28T11:30:00.760692'
+                  - id: 34
+                    name: conformity:security-policy
+                    name_expanded: 'Conformity: Security policy'
+                    description: >-
+                      All lack about the internal security policy of the
+                      company.
+                    creation_date: '2023-04-28T11:30:00.764099'
+                  - id: 35
+                    name: conformity:other-conformity
+                    name_expanded: 'Conformity: Other'
+                    description: >-
+                      All lack that do not fit in one of previous categories
+                      should be put on this class.
+                    creation_date: '2023-04-28T11:30:00.766910'
+                  - id: 36
+                    name: other:other
+                    name_expanded: 'Other: other'
+                    description: >-
+                      All incidents that do not fit in one of the given
+                      categories should be put into this class. If the number of
+                      incidents in this category increases, it is an indicator
+                      that the classification scheme must be revised.
+                    creation_date: '2023-04-28T11:30:00.770376'
+                  - id: 75
+                    name: Super really
+                    name_expanded: No no no
+                    description: dsadas
+                    creation_date: '2023-05-02T07:22:38.042448'
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  creation_date: '2023-04-28T11:30:00.649012'
+                  description: >-
+                    Spam or ‘unsolicited bulk e-mail’, meaning that the
+                    recipient has not granted verifiable permission for the
+                    message to be sent and that the message is sent as part of a
+                    larger collection of messages, all having identical content.
+                  name_expanded: 'Abusive-Content: spam'
+                  id: 1
+                  name: abusive-content:spam
+  operationId: get-case-classifications-detail
+  description: 'Get a case classification from an ID. '
+  tags:
+    - Manage Cases Classifications
+parameters:
+  - schema:
+      type: integer
+    name: classification_id
+    in: path
+    required: true
+    description: Classification ID to fetch

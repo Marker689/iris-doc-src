@@ -1,0 +1,208 @@
+post:
+  operationId: api_v2_cases_import_inspect_post
+  tags:
+    - Case transfer
+    - Beta
+  summary: Upload a case archive and report what importing it would do
+  description: >-
+    First half of the two-step import. The uploaded `.iris` bundle is staged in
+    a temporary workspace and read, but nothing is written to the case database.
+    The response is the dry run: what the archive contains, which of its users
+    match local accounts, and which pieces of reference data would be created or
+    need a decision.
+
+
+    The `staging_token` is what makes the second step possible — hand it back to
+    `POST /api/v2/cases/import` along with your decisions. Staged workspaces are
+    swept after a while, so an abandoned inspection expires on its own.
+
+
+    A bundle that turns out to be encrypted answers 400 with `data.encrypted`
+    set to true, which is distinct from a wrong passphrase: it means the client
+    should prompt for one rather than report that the one it sent was rejected.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            archive:
+              description: The `.iris` bundle.
+              type: string
+              format: binary
+            passphrase:
+              description: Required only if the archive is encrypted.
+              type: string
+          required:
+            - archive
+  responses:
+    '200':
+      description: Archive successfully inspected
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              staging_token:
+                description: >-
+                  Identifies the staged workspace. Pass it to
+                  `POST /api/v2/cases/import` to carry out the import.
+                type: string
+              manifest:
+                description: Provenance of the archive, as recorded on export.
+                type: object
+                properties:
+                  format_version:
+                    type: string
+                  source_organisation:
+                    type:
+                      - string
+                      - 'null'
+                  source_iris_version:
+                    type:
+                      - string
+                      - 'null'
+                  source_case_uuid:
+                    type:
+                      - string
+                      - 'null'
+                  exported_at:
+                    type:
+                      - string
+                      - 'null'
+                  exported_by:
+                    type:
+                      - string
+                      - 'null'
+                  include_blobs:
+                    description: Whether Datastore file contents were shipped.
+                    type: boolean
+              case:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  soc_id:
+                    type:
+                      - string
+                      - 'null'
+                  description:
+                    type:
+                      - string
+                      - 'null'
+              counts:
+                description: >-
+                  Rows per entity type in the bundle, keyed by entity name
+                  (`ioc`, `asset`, `note`, `task`, ...).
+                type: object
+                additionalProperties:
+                  type: integer
+              datastore_blobs:
+                description: Datastore file contents present in the archive.
+                type: integer
+              principals:
+                description: >-
+                  One entry per user referenced by the bundle, most-referenced
+                  first. `matched_user_id` is null when nothing local matched —
+                  the importer then needs a decision for that ref.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ref:
+                      description: 'Opaque reference, e.g. `user:12`.'
+                      type: string
+                    source:
+                      description: The identity as recorded on the source instance.
+                      type: object
+                      properties:
+                        uuid:
+                          type:
+                            - string
+                            - 'null'
+                        login:
+                          type:
+                            - string
+                            - 'null'
+                        name:
+                          type:
+                            - string
+                            - 'null'
+                        email:
+                          type:
+                            - string
+                            - 'null'
+                        external_id:
+                          type:
+                            - string
+                            - 'null'
+                    matched_user_id:
+                      type:
+                        - integer
+                        - 'null'
+                    matched_by:
+                      description: >-
+                        Which identity axis matched, in priority order, or
+                        `placeholder` when the match is a placeholder account
+                        minted by an earlier import of the same instance. Null
+                        when nothing matched.
+                      type:
+                        - string
+                        - 'null'
+                      enum:
+                        - uuid
+                        - external_id
+                        - email
+                        - login
+                        - placeholder
+                        - null
+                    reference_count:
+                      description: Rows in the bundle pointing at this principal.
+                      type: integer
+              lookups:
+                description: >-
+                  Reference data the bundle needs, keyed by lookup table
+                  (`customer`, `severity`, `tag`, `ioc_type`, `tlp`,
+                  `asset_type`, `case_state`, `classification`,
+                  `review_status`, `analysis_status`, `task_status`,
+                  `evidence_type`, `event_category`). Tables the bundle doesn't
+                  touch are absent.
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      ref:
+                        type: string
+                      name:
+                        type:
+                          - string
+                          - 'null'
+                      matched_id:
+                        type:
+                          - integer
+                          - 'null'
+                      will_create:
+                        description: >-
+                          No local row matched, but this table accepts new rows,
+                          so the import would create one.
+                        type: boolean
+                      requires_decision:
+                        description: >-
+                          No local row matched and this table drives behaviour
+                          rather than labelling it, so a row cannot be invented
+                          — the operator has to map it explicitly.
+                        type: boolean
+              warnings:
+                description: >-
+                  Human-readable notes about what will be lost or differ, e.g.
+                  Datastore files without content, or a source running a
+                  different IRIS version.
+                type: array
+                items:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

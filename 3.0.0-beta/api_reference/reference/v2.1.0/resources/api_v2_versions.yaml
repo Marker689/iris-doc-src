@@ -1,0 +1,41 @@
+get:
+  operationId: api_v2_versions_get
+  tags:
+    - API
+    - Beta
+  summary: Report IRIS + API version
+  description: >-
+    Version digest of the instance. `api_min`/`api_current` bracket the API
+    versions this server speaks — clients should refuse to talk to a server
+    whose `api_current` is below what they require.
+  responses:
+    '200':
+      description: Versions successfully reported
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              iris_current:
+                description: Version of the IRIS server itself.
+                type:
+                  - string
+                  - 'null'
+              api_min:
+                description: Oldest API version this server still serves.
+                type:
+                  - string
+                  - 'null'
+              api_current:
+                description: Newest API version this server serves.
+                type:
+                  - string
+                  - 'null'
+          example:
+            iris_current: v2.4.27
+            api_min: '2.0.0'
+            api_current: '2.1.0'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

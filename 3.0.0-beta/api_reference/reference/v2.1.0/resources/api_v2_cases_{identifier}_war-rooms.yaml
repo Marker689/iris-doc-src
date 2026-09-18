@@ -1,0 +1,63 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_war_rooms_get
+  tags:
+    - Cases
+    - Beta
+  summary: List war rooms attached to a case
+  description: >-
+    Return the war rooms this case is attached to. Powers the "in war
+    room" badge and quick-jump menu in the case topbar. Gated by case
+    read access.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+  responses:
+    '200':
+      description: War rooms linked to the case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    war_room_id:
+                      type: integer
+                    war_room_name:
+                      type: string
+                    war_room_status:
+                      type: string
+                    war_room_uuid:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

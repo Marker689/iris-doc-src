@@ -1,0 +1,51 @@
+get:
+  operationId: api_v2_manage_report-templates_accessible-cases_get
+  tags:
+    - Report templates
+    - Beta
+  summary: List cases accessible for rendering
+  description: Return a lightweight list of cases the current user can render this template against. Returns at most 200 rows ordered by `case_id` descending, optionally filtered by a `search` ILIKE against case name and SOC id.
+  parameters:
+    - in: query
+      name: page
+      required: false
+      description: 1-indexed page number
+      schema:
+        type: integer
+        default: 1
+    - in: query
+      name: per_page
+      required: false
+      description: Page size
+      schema:
+        type: integer
+        default: 25
+    - in: query
+      name: search
+      required: false
+      description: ILIKE substring filter across case name and SOC id
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Accessible cases successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    case_id:
+                      type: integer
+                    name:
+                      type: string
+                    soc_id:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

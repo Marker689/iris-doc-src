@@ -1,0 +1,41 @@
+get:
+  summary: List compromise status
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: integer
+                    name:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            example-1:
+              value:
+                data:
+                  - value: 0
+                    name: To be determined
+                  - value: 1
+                    name: Compromised
+                  - value: 2
+                    name: Not compromised
+                  - value: 3
+                    name: Unknown
+                message: ''
+                status: success
+  operationId: manage_compromise-status_list_get
+  description: Return a list of available compromise status.
+  tags:
+    - Manage Compromise Status

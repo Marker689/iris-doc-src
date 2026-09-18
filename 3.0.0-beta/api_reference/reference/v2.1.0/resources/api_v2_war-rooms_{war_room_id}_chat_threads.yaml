@@ -1,0 +1,66 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_threads_get
+  tags:
+    - War room chat
+    - Beta
+  summary: List chat threads
+  description: >-
+    Return a compact list of thread roots for the war room, ordered by
+    most recent activity. Each entry carries just enough metadata to
+    render the threads sidebar (title, preview, author, reply count,
+    last-activity timestamp, follow flag); the full body and replies
+    are fetched from the `/replies` endpoint when the operator opens
+    the thread.
+  parameters:
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Maximum number of thread roots to return.
+  responses:
+    '200':
+      description: Threads successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                message_id:
+                  type: integer
+                thread_title:
+                  type: string
+                preview:
+                  type: string
+                kind:
+                  type: string
+                author_id:
+                  type: integer
+                author_login:
+                  type: string
+                author_name:
+                  type: string
+                reply_count:
+                  type: integer
+                last_activity_at:
+                  type: string
+                created_at:
+                  type: string
+                deleted_at:
+                  type: string
+                is_followed:
+                  type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

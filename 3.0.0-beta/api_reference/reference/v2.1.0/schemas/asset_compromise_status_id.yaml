@@ -1,0 +1,3 @@
+type: integer
+description: The asset compromise status identifier. Possible values are listed by endpoint [GET /manage/compromise-status/list](#tag/Manage-Compromise-Status/operation/manage_compromise-status_list_get).
+

@@ -1,0 +1,63 @@
+post:
+  operationId: api_v2_auth_oidc_exchange_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Exchange an OIDC session for JWT tokens
+  description: >-
+    Trade a fresh OIDC-authenticated session cookie for a pair of JWT
+    access/refresh tokens. Single-use: the underlying session is
+    invalidated as soon as the tokens are minted. OIDC users have their
+    MFA state trusted from the identity provider, so the returned access
+    token is issued with `mfa_verified=True`.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          description: >-
+            No body is required. The endpoint relies on the current session
+            cookie (set by the OIDC callback). An optional payload may be
+            supplied for forward compatibility.
+          properties:
+            code:
+              type: string
+              description: OIDC authorization code, if the client wants to hint the flow
+            state:
+              type: string
+              description: OIDC state parameter
+            id_token:
+              type: string
+              description: Optional OIDC id_token, when supplied out-of-band
+  responses:
+    '200':
+      description: OIDC session successfully exchanged for tokens
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              user_login:
+                type: string
+              user_name:
+                type: string
+              tokens:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  expires_in:
+                    type: integer
+              mfa_required:
+                type: boolean
+              mfa_setup_complete:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

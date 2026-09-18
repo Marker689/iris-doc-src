@@ -1,0 +1,247 @@
+get:
+  operationId: api_v2_manage_mail_rules_get
+  tags:
+    - Mail rules
+    - Beta
+  summary: List mail ingest rules
+  description: >-
+    List the mail-ingest rules that decide how inbound messages get turned
+    into alerts or cases. Server-administrator only. Rules are returned in
+    priority order (lowest first, ties broken by id).
+  parameters:
+    - schema:
+        type: integer
+        default: 1
+      name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+    - schema:
+        type: integer
+        default: 25
+      name: per_page
+      in: query
+      required: false
+      description: Page size
+    - schema:
+        type: boolean
+      name: is_active
+      in: query
+      required: false
+      description: When set, only rules with a matching enabled state are returned
+  responses:
+    '200':
+      description: Mail ingest rules successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    priority:
+                      type: integer
+                    enabled:
+                      type: boolean
+                    match_subject_regex:
+                      type:
+                        - string
+                        - 'null'
+                    match_from_regex:
+                      type:
+                        - string
+                        - 'null'
+                    match_to_regex:
+                      type:
+                        - string
+                        - 'null'
+                    action:
+                      type: string
+                    customer_id:
+                      type:
+                        - integer
+                        - 'null'
+                    case_template_id:
+                      type:
+                        - integer
+                        - 'null'
+                    severity_id:
+                      type:
+                        - integer
+                        - 'null'
+                    assignee_user_id:
+                      type:
+                        - integer
+                        - 'null'
+                    created_by_id:
+                      type: integer
+                    created_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+                    updated_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_mail_rules_post
+  tags:
+    - Mail rules
+    - Beta
+  summary: Create a mail ingest rule
+  description: >-
+    Create a new mail-ingest rule. Server-administrator only. `name` is
+    required; `conditions` bundle the subject / from / to regular
+    expressions the rule matches on, and `actions` describe what the
+    engine should do with a matching message (open a case, escalate an
+    alert, discard, etc.).
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - is_active
+            - priority
+            - conditions
+            - actions
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            is_active:
+              type: boolean
+              description: Whether the rule is evaluated during ingest
+            priority:
+              type: integer
+              description: Lower values are evaluated first
+            conditions:
+              type: object
+              description: Match rules the message must satisfy for the actions to fire
+              properties:
+                match_subject_regex:
+                  type:
+                    - string
+                    - 'null'
+                match_from_regex:
+                  type:
+                    - string
+                    - 'null'
+                match_to_regex:
+                  type:
+                    - string
+                    - 'null'
+            actions:
+              type: object
+              description: Actions to run when the rule matches. `action` selects the top-level behaviour; the remaining fields configure the resulting object.
+              properties:
+                action:
+                  type: string
+                customer_id:
+                  type:
+                    - integer
+                    - 'null'
+                case_template_id:
+                  type:
+                    - integer
+                    - 'null'
+                severity_id:
+                  type:
+                    - integer
+                    - 'null'
+                assignee_user_id:
+                  type:
+                    - integer
+                    - 'null'
+        example:
+          name: Escalate high-severity Defender alerts
+          description: Any Defender email flagged high goes straight to a case
+          is_active: true
+          priority: 10
+          conditions:
+            match_subject_regex: '^\[High\]'
+            match_from_regex: 'defender@'
+            match_to_regex: null
+          actions:
+            action: create_case
+            customer_id: 1
+            case_template_id: 3
+            severity_id: 4
+            assignee_user_id: null
+  responses:
+    '201':
+      description: Mail ingest rule successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              priority:
+                type: integer
+              enabled:
+                type: boolean
+              match_subject_regex:
+                type:
+                  - string
+                  - 'null'
+              match_from_regex:
+                type:
+                  - string
+                  - 'null'
+              match_to_regex:
+                type:
+                  - string
+                  - 'null'
+              action:
+                type: string
+              customer_id:
+                type:
+                  - integer
+                  - 'null'
+              case_template_id:
+                type:
+                  - integer
+                  - 'null'
+              severity_id:
+                type:
+                  - integer
+                  - 'null'
+              assignee_user_id:
+                type:
+                  - integer
+                  - 'null'
+              created_by_id:
+                type: integer
+              created_at:
+                type:
+                  - string
+                  - 'null'
+                format: date-time
+              updated_at:
+                type:
+                  - string
+                  - 'null'
+                format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

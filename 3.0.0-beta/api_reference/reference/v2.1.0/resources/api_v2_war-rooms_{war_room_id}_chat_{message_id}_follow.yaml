@@ -1,0 +1,68 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_follow_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Follow a thread
+  description: >-
+    Subscribe the current user to the thread rooted at this message so
+    that new replies surface in their notifications. Idempotent — the
+    `added` flag on the response indicates whether the follow was newly
+    created.
+  responses:
+    '200':
+      description: Thread successfully followed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              added:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_follow_delete
+  tags:
+    - War room chat
+    - Beta
+  summary: Unfollow a thread
+  description: >-
+    Remove the current user's subscription to the thread rooted at this
+    message. Idempotent — the `removed` flag on the response indicates
+    whether an existing follow was actually removed.
+  responses:
+    '200':
+      description: Thread successfully unfollowed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              removed:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

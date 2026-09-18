@@ -1,0 +1,73 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_groups_(identifier)_members_get
+  tags:
+    - Manage Groups
+    - Beta
+  summary: List group members
+  description: Return the list of users belonging to the given group.
+  responses:
+    '200':
+      description: Members successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: integer
+                    user:
+                      type: string
+                    name:
+                      type: string
+                    user_email:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_groups_(identifier)_members_put
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Replace group members
+  description: Replace the entire member list of the group. The data-layer helper diffs the current membership against the payload so users already in the group are left untouched.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - user_ids
+          properties:
+            user_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          user_ids:
+            - 1
+            - 3
+            - 42
+  responses:
+    '200':
+      description: Members successfully replaced
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

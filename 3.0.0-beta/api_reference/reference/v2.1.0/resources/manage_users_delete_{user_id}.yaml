@@ -1,0 +1,73 @@
+parameters:
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: User ID
+post:
+  summary: Delete a user
+  tags:
+    - Manage Users
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Cannot delete active user
+                status: error
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Cannot delete active user
+                status: error
+  operationId: post-manage-users-delete-user_id
+  description: This endpoint is deprecated. Use [DELETE /api/v2/manage/users/{identifier}](#tag/Users/operation/api_v2_manage_users_(identifier)_delete) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+get:
+  summary: ''
+  operationId: get-manage-users-delete-user_id
+  responses:
+    '200':
+      description: OK
+  tags:
+    - Manage Users
+  description: This endpoint is deprecated. Use the [POST /manage/users/delete/{user_id}](#tag/Users/operation/post-manage-users-delete-user_id) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID

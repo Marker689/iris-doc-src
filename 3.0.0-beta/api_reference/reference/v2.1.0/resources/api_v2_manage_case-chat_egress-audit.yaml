@@ -1,0 +1,26 @@
+get:
+  operationId: api_v2_manage_case-chat_egress-audit_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List recent chatbot egress-audit rows
+  description: 'Query params:
+
+    * `limit`   — max rows to return (default 100, cap 1000)
+
+    * `offset`  — pagination offset
+
+    * `user_id` — filter to a single user (optional)
+
+    * `days`    — window size (default 30)'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatEgressAudit.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

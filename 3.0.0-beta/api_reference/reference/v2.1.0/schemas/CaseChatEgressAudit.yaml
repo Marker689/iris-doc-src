@@ -1,0 +1,47 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  conversation_id:
+    type: integer
+    format: int64
+  user_id:
+    type: integer
+    format: int64
+  provider:
+    type: string
+  model:
+    type: string
+  request_bytes:
+    type: integer
+  response_bytes:
+    type: integer
+  prompt_tokens:
+    type:
+      - integer
+      - 'null'
+  completion_tokens:
+    type:
+      - integer
+      - 'null'
+  redacted:
+    type: boolean
+  request_snapshot:
+    type:
+      - object
+      - 'null'
+  created_at:
+    type: string
+    format: date-time
+  cache_read_tokens:
+    type:
+      - integer
+      - 'null'
+  cache_creation_tokens:
+    type:
+      - integer
+      - 'null'
+description: Serialize a `CaseChatEgressAudit` row for the admin audit page.

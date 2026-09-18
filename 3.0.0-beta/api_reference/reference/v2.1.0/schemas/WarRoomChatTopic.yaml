@@ -1,0 +1,41 @@
+type: object
+description: |
+  A chat lane inside a war room. Every room has exactly one `is_main` topic,
+  materialised on first use, which cannot be renamed away or archived. Topics
+  are soft-archived rather than deleted, so `archived_at` — not the absence of
+  the row — is what tells live topics from retired ones. Shape as emitted by
+  `_serialize_topic`.
+properties:
+  topic_id:
+    type: integer
+    format: int64
+  war_room_id:
+    type: integer
+    format: int64
+  name:
+    description: Trimmed; unique within the war room, case-insensitively.
+    type: string
+  is_main:
+    description: >-
+      True for the room's default lane. Exactly one topic per room has this set.
+    type: boolean
+  created_by_id:
+    type:
+      - integer
+      - 'null'
+  created_at:
+    $ref: ../schemas/iso_date.yaml
+  archived_at:
+    description: Null while the topic is live.
+    type:
+      - string
+      - 'null'
+    format: date-time
+example:
+  topic_id: 12
+  war_room_id: 4
+  name: Containment
+  is_main: false
+  created_by_id: 12
+  created_at: '2026-03-11T08:44:02.880311'
+  archived_at: null

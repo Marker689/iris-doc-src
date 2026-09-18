@@ -1,0 +1,92 @@
+post:
+  summary: Add a customer contact
+  tags:
+    - Customers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Task deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            'Customer deleted ':
+              value:
+                data: []
+                message: Deleted successfully
+                status: success
+  operationId: get-customer-add-customer-contact
+  description: 'Add a new customer contact. '
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBhm5g.JKK0wZlJTMvXEu4aoRonpIVE-X4
+              contact_name: New contact
+              contact_role: Manager
+              contact_email: contact@iris.local
+              contact_work_phone: '1111111'
+              contact_mobile_phone: '2222222'
+              contact_note: Notes on the customer
+          properties:
+            contact_name:
+              type: string
+            contact_role:
+              type: string
+            contact_email:
+              type: string
+            contact_work_phone:
+              type: string
+            contact_mobile_phone:
+              type: string
+            contact_note:
+              type: string
+        examples:
+          Example 1:
+            value:
+              contact_name: New contact
+              contact_role: Manager
+              contact_email: contact@iris.local
+              contact_work_phone: '1111111'
+              contact_mobile_phone: '2222222'
+              contact_note: Notes on the contact
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: customer_id
+    in: path
+    required: true
+    description: ID of the customer

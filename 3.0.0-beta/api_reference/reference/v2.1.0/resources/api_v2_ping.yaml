@@ -1,0 +1,22 @@
+get:
+  operationId: api_v2_ping_get
+  tags:
+    - API
+    - Beta
+  summary: Health check
+  description: >-
+    Liveness probe. Still requires authentication like every other v2 endpoint,
+    so a 401 here means the credentials are wrong, not that the server is down.
+  responses:
+    '200':
+      description: The server is up and the credentials are valid
+      content:
+        application/json:
+          schema:
+            type: string
+            const: pong
+          example: pong
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

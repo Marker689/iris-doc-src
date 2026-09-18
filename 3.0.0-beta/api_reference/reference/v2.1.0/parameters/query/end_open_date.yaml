@@ -1,0 +1,6 @@
+in: query
+name: end_open_date
+description: 'Case opening date - higher boundary'
+schema:
+  type: string
+

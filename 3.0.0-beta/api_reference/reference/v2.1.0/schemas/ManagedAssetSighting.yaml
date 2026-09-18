@@ -1,0 +1,32 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  kind:
+    type: string
+  reference_id:
+    type: integer
+  reference_name:
+    type:
+      - string
+      - 'null'
+  observation_id:
+    type: integer
+  compromise_status_id:
+    type:
+      - integer
+      - 'null'
+  observation_description:
+    type:
+      - string
+      - 'null'
+  observation_tags:
+    type:
+      - string
+      - 'null'
+  seen_at:
+    type:
+      - string
+      - 'null'
+    format: date-time
+description: One observation of an asset, in a case or an alert.

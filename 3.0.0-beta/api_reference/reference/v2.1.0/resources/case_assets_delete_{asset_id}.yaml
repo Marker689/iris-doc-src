@@ -1,0 +1,168 @@
+get:
+  summary: Delete an asset
+  tags:
+    - Assets
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Success 1:
+              value:
+                data: []
+                message: Deleted
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Invalid asset ID:
+              value:
+                data: []
+                message: Invalid asset ID for this case
+                status: error
+  operationId: get-case-delete-asset
+  description: This endpoint is deprecated. Use [DELETE /api/v2/assets/{identifier}](#tag/Assets/operation/api_v2_assets_(identifier)_delete) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: string
+    name: asset_id
+    in: path
+    required: true
+    description: ID of the note to delete
+post:
+  summary: Delete an asset
+  operationId: post-case-assets-delete
+  tags:
+    - Assets
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                value:
+                  data: []
+                  message: Deleted
+                  status: success
+            properties:
+              value:
+                type: object
+                properties:
+                  data:
+                    type:
+                      - array
+                      - 'null'
+                    items:
+                      type: object
+                      additionalProperties: false
+                  message:
+                    type: string
+                  status:
+                    type: string
+          examples:
+            Example 1:
+              value:
+                value:
+                  data: []
+                  message: Deleted
+                  status: success
+    '400':
+      description: Bad Request
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid asset ID for this case
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid asset ID for this case
+                status: error
+  description: >-
+    Delete an asset based on its ID. If the asset is linked to an event, the
+    reference is deleted but not the event. 
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true

@@ -1,0 +1,36 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_tags_get
+  tags:
+    - War room tasks
+    - Beta
+  summary: List tags used on war room tasks
+  description: >-
+    The distinct tags already in use on this room's tasks, for autocomplete on
+    the tag input. Deduplicated case-insensitively — the casing of the first
+    occurrence wins — and sorted case-insensitively. Returns a bare JSON array
+    of strings.
+  responses:
+    '200':
+      description: Tags successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+          example:
+            - containment
+            - Exfil
+            - forensics
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

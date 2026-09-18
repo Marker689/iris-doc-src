@@ -1,0 +1,70 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_managed-assets_(identifier)_get
+  tags:
+    - Managed assets
+    - Beta
+  summary: Get a registry asset and its visible sighting summary
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ManagedAssetDetail.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_managed-assets_(identifier)_put
+  tags:
+    - Managed assets
+    - Beta
+  summary: Update a registry asset
+  description: '`client_id`, `asset_type_id` and `normalized_name` are ignored if
+
+    supplied: they form the dedup identity and changing one would
+
+    orphan the asset''s audit trail.'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/ManagedAssetDetailRequest.yaml
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ManagedAssetDetail.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_managed-assets_(identifier)_delete
+  tags:
+    - Managed assets
+    - Beta
+  summary: Delete a registry asset
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

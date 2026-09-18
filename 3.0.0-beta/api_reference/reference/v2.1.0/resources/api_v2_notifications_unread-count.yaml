@@ -1,0 +1,23 @@
+get:
+  operationId: api_v2_notifications_unread-count_get
+  tags:
+    - Notifications
+    - Beta
+  summary: Get unread notification count
+  description: >-
+    Return the number of unread notifications for the current user.
+    Cheap endpoint used by the SPA's bell badge poll.
+  responses:
+    '200':
+      description: Unread count successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              unread_count:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

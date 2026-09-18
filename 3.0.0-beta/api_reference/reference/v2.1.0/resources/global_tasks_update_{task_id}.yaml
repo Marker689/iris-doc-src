@@ -1,0 +1,178 @@
+parameters:
+  - schema:
+      type: string
+    name: task_id
+    in: path
+    required: true
+    description: Global task ID to update
+post:
+  summary: Update a global task
+  description: This endpoint is deprecated. Use [PUT /api/v2/global-tasks/{identifier}](#tag/Global-tasks/operation/api_v2_global-tasks_(identifier)_put) instead.
+  deprecated: true
+  operationId: post-global-tasks-update-task_id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  task_assignee_id: 1
+                  task_close_date: null
+                  task_description: A super description
+                  task_id: 4
+                  task_last_update: '2022-01-21T17:02:04.632825'
+                  task_open_date: '2022-01-18T16:39:31.503690'
+                  task_status_id: 14
+                  task_tags: tag1,tag2,tag3
+                  task_title: Task title
+                  task_userid_close: null
+                  task_userid_open: null
+                  task_userid_update: 1
+                message: Updated !
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - task_assignee_id
+                  - task_description
+                  - task_id
+                  - task_last_update
+                  - task_open_date
+                  - task_status_id
+                  - task_tags
+                  - task_title
+                  - task_userid_update
+                properties:
+                  task_assignee_id:
+                    type: number
+                  task_close_date:
+                    type:
+                      - string
+                      - 'null'
+                  task_description:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    type: number
+                  task_last_update:
+                    type: string
+                    minLength: 1
+                  task_open_date:
+                    type: string
+                    minLength: 1
+                  task_status_id:
+                    type: number
+                  task_tags:
+                    type: string
+                    minLength: 1
+                  task_title:
+                    type: string
+                    minLength: 1
+                  task_userid_close:
+                    type:
+                      - integer
+                      - 'null'
+                  task_userid_open:
+                    type:
+                      - integer
+                      - 'null'
+                  task_userid_update:
+                    type: number
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  task_status_id:
+                    - Invalid task status ID
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            Invalid status ID:
+              value:
+                data:
+                  task_status_id:
+                    - Invalid task status ID
+                message: Data error
+                status: error
+  tags:
+    - Global tasks
+  requestBody:
+    content:
+      application/json:
+        schema:
+          description: ''
+          type: object
+          x-examples:
+            example-1:
+              csrf_token: >-
+                IjlmYmY1MDE1NzU1ZDNkMzhjMGMyYWMzMTQ3NGFlYjM4NTEzYmY3Zjci.Yerjuw.CACZAWcFNLqcVD9-bylA5b_Kris
+              task_assignee_id: '4'
+              task_status_id: '18'
+              task_title: Test
+              task_description: Test
+              task_tags: test
+          properties:
+            task_assignee_id:
+              type: integer
+            task_status_id:
+              type: integer
+            task_title:
+              type: string
+              minLength: 1
+            task_description:
+              type: string
+              minLength: 1
+            task_tags:
+              type: string
+              minLength: 1
+            cid:
+              type: integer
+          required:
+            - task_assignee_id
+            - task_status_id
+            - task_title
+            - task_description
+            - task_tags
+        examples:
+          example-1:
+            value:
+              task_assignee_id: 155
+              task_status_id: 14
+              task_title: Task title
+              task_description: A super description
+              task_tags: tag1,tag2,tag3
+              cid: 1

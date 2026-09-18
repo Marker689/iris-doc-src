@@ -1,0 +1,338 @@
+get:
+  summary: Get case evidences
+  operationId: get-case-evidences-list
+  description: This endpoint is deprecated. Use [GET /api/v2/cases/{case_identifier}/evidences](#tag/Evidences/operation/api_v2_cases_(case_identifier)_evidences_get) instead.
+  deprecated: true
+  tags:
+    - Evidences
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  evidences:
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: 2
+                      id: 116
+                      file_hash: 77077087ee0f61f174a996bbcb7ef09c
+                      filename: pat.txt
+                      start_date: null
+                      type:
+                        name: HDD image - Generic
+                        description: Generic copy of an hard drive
+                        creation_date: '2023-11-29T10:28:30.764707'
+                        id: 2
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: e6d5e920-0849-4b7c-ae62-e9455feaf25a
+                      user_id: 3
+                      custom_attributes: {}
+                      date_added: '2024-01-07T13:40:47.232707'
+                      user:
+                        id: 3
+                        user_name: User Std 2
+                        user_login: user_std_2
+                        user_email: user_std_2@iris.local
+                      file_size: 52
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 107
+                      file_hash: ''
+                      filename: test
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: fdaae5ae-475b-4108-96c9-ca30bf904556
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-11-27T13:36:09.382410'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 123
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 102
+                      file_hash: cde88d7f76b436b12ef923804c8c253d
+                      filename: 1_9KGea1STTglY4ZqVHvTAfg.png
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: 09a4238a-8745-4513-8d0c-cd8b092477b7
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-11-09T14:27:20.005296'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 37746
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 80
+                      file_hash: d9a60888a72c78db97f90c9683ec5803
+                      filename: lordly octopus with hat and monocle.gif
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: 4c2cb308-475d-4090-8946-c4ec2a218456
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-09-04T18:05:37.281133'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 1376370
+                      end_date: null
+                      file_description: '![](/datastore/file/view/3?cid=1 =60%x60%)'
+                  state:
+                    object_state: 20
+                    object_last_update: '2024-01-07T13:40:47.236614'
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - evidences
+                  - state
+                properties:
+                  evidences:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chain_of_custody:
+                          type: 'null'
+                        case_id:
+                          type: integer
+                        type_id:
+                          type:
+                            - integer
+                            - 'null'
+                        id:
+                          type: integer
+                        file_hash:
+                          type: string
+                        filename:
+                          type: string
+                        start_date:
+                          type: 'null'
+                        type:
+                          type:
+                            - 'null'
+                            - object
+                          properties:
+                            name:
+                              type: string
+                            description:
+                              type: string
+                            creation_date:
+                              type: string
+                            id:
+                              type: integer
+                        acquisition_date:
+                          type: 'null'
+                        case:
+                          type: integer
+                        file_uuid:
+                          type: string
+                        user_id:
+                          type: integer
+                        custom_attributes:
+                          type: object
+                        date_added:
+                          type: string
+                        user:
+                          type: object
+                          required:
+                            - id
+                            - user_name
+                            - user_login
+                            - user_email
+                          properties:
+                            id:
+                              type: integer
+                            user_name:
+                              type: string
+                            user_login:
+                              type: string
+                            user_email:
+                              type: string
+                        file_size:
+                          type: integer
+                        end_date:
+                          type: 'null'
+                        file_description:
+                          type: string
+                      required:
+                        - chain_of_custody
+                        - case_id
+                        - type_id
+                        - id
+                        - file_hash
+                        - filename
+                        - start_date
+                        - type
+                        - acquisition_date
+                        - case
+                        - file_uuid
+                        - user_id
+                        - custom_attributes
+                        - date_added
+                        - user
+                        - file_size
+                        - end_date
+                        - file_description
+                  state:
+                    type: object
+                    required:
+                      - object_state
+                      - object_last_update
+                    properties:
+                      object_state:
+                        type: integer
+                      object_last_update:
+                        type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  evidences:
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: 2
+                      id: 116
+                      file_hash: 77077087ee0f61f174a996bbcb7ef09c
+                      filename: pat.txt
+                      start_date: null
+                      type:
+                        name: HDD image - Generic
+                        description: Generic copy of an hard drive
+                        creation_date: '2023-11-29T10:28:30.764707'
+                        id: 2
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: e6d5e920-0849-4b7c-ae62-e9455feaf25a
+                      user_id: 3
+                      custom_attributes: {}
+                      date_added: '2024-01-07T13:40:47.232707'
+                      user:
+                        id: 3
+                        user_name: User Std 2
+                        user_login: user_std_2
+                        user_email: user_std_2@iris.local
+                      file_size: 52
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 107
+                      file_hash: ''
+                      filename: test
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: fdaae5ae-475b-4108-96c9-ca30bf904556
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-11-27T13:36:09.382410'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 123
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 102
+                      file_hash: cde88d7f76b436b12ef923804c8c253d
+                      filename: 1_9KGea1STTglY4ZqVHvTAfg.png
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: 09a4238a-8745-4513-8d0c-cd8b092477b7
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-11-09T14:27:20.005296'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 37746
+                      end_date: null
+                      file_description: ''
+                    - chain_of_custody: null
+                      case_id: 1
+                      type_id: null
+                      id: 80
+                      file_hash: d9a60888a72c78db97f90c9683ec5803
+                      filename: lordly octopus with hat and monocle.gif
+                      start_date: null
+                      type: null
+                      acquisition_date: null
+                      case: 1
+                      file_uuid: 4c2cb308-475d-4090-8946-c4ec2a218456
+                      user_id: 11
+                      custom_attributes: {}
+                      date_added: '2023-09-04T18:05:37.281133'
+                      user:
+                        id: 11
+                        user_name: Adm 1
+                        user_login: adm_1
+                        user_email: adm_1@iris.local
+                      file_size: 1376370
+                      end_date: null
+                      file_description: '![](/datastore/file/view/3?cid=1 =60%x60%)'
+                  state:
+                    object_state: 20
+                    object_last_update: '2024-01-07T13:40:47.236614'
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: case id
+      required: true
+  security:
+    - Bearer <bearer>: []

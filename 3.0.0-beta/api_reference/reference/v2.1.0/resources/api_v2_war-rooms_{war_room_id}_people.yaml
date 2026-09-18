@@ -1,0 +1,51 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_people_get
+  tags:
+    - War rooms
+    - Beta
+  summary: List war room people
+  description: |
+    Returns the union of war-room members and every user with effective access to
+    any attached case. Surfaced as the banner above the war-room tabs so an operator
+    can see at a glance who is on the war. Read-only — adding members still goes
+    through the members endpoint.
+  responses:
+    '200':
+      description: List of people involved in the war room
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: Identifier of the user.
+                user_name:
+                  type: string
+                  description: Display name of the user.
+                user_login:
+                  type: string
+                  description: Login handle of the user.
+                source:
+                  type: string
+                  enum:
+                    - member
+                    - linked
+                  description: |
+                    `member` when the user is an explicit war-room member;
+                    `linked` when the user has effective access via an attached case.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,17 @@
+type: object
+properties:
+  total:
+    type: integer
+  data:
+    type: array
+    items:
+      $ref: ../schemas/Customer.yaml
+  last_page:
+    type: integer
+  current_page:
+    type: integer
+  next_page:
+    type:
+      - integer
+      - 'null'
+

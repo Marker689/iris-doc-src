@@ -1,0 +1,55 @@
+get:
+  operationId: api_v2_dashboard_tasks_list_get
+  tags:
+    - Dashboard
+    - Beta
+  summary: List tasks owned by the current user
+  description: Returns the case tasks assigned to the current user. Used by the dashboard "my tasks" tile.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based) for pagination.
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 25
+    - name: status_id
+      in: query
+      required: false
+      description: Restrict the result to tasks in the given status.
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: List of tasks owned by the current user
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                task_title:
+                  type: string
+                task_case:
+                  type: string
+                case_id:
+                  type: integer
+                status_name:
+                  type: string
+                task_last_update:
+                  type: string
+                  format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

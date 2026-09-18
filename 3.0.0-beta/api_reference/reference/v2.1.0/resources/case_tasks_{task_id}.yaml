@@ -1,0 +1,184 @@
+get:
+  summary: Get a case task
+  tags:
+    - Tasks
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  task_open_date: '2023-08-30T14:41:13.725553'
+                  task_userid_close: null
+                  task_last_update: '2023-09-07T14:38:12.784169'
+                  task_userid_update: 11
+                  task_title: This is a title
+                  task_uuid: 7a6c2b66-2956-4c7a-8904-757656f98f5d
+                  task_tags: ''
+                  id: 705
+                  task_description: IDEK?
+                  task_userid_open: 12
+                  custom_attributes: {}
+                  task_status_id: 1
+                  task_assignees:
+                    - user: adm_2
+                      name: Adm 2
+                      id: 12
+                  task_close_date: null
+                  task_case_id: 1
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - task_open_date
+                  - task_userid_close
+                  - task_last_update
+                  - task_userid_update
+                  - task_title
+                  - task_uuid
+                  - task_tags
+                  - id
+                  - task_description
+                  - task_userid_open
+                  - custom_attributes
+                  - task_status_id
+                  - task_assignees
+                  - task_close_date
+                  - task_case_id
+                  - modification_history
+                properties:
+                  task_open_date:
+                    type: string
+                  task_userid_close:
+                    type: 'null'
+                  task_last_update:
+                    type: string
+                  task_userid_update:
+                    type: integer
+                  task_title:
+                    type: string
+                  task_uuid:
+                    type: string
+                  task_tags:
+                    type: string
+                  id:
+                    type: integer
+                  task_description:
+                    type: string
+                  task_userid_open:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  task_status_id:
+                    type: integer
+                  task_assignees:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user:
+                          type: string
+                        name:
+                          type: string
+                        id:
+                          type: integer
+                  task_close_date:
+                    type: 'null'
+                  task_case_id:
+                    type: integer
+                  modification_history:
+                    type:
+                      - object
+                      - 'null'
+                    x-stoplight:
+                      id: xss0xrnzt7t3x
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  task_title: dummy title
+                  task_status_id: 1
+                  task_assignees:
+                    - user: administrator
+                      name: administrator
+                      id: 1
+                  id: 45
+                  task_uuid: 9dfe50ea-8c5e-4deb-a670-6b705e59ee3c
+                  task_description: ''
+                  task_tags: ''
+                  task_open_date: '2024-03-21T09:33:20.792768'
+                  task_close_date: null
+                  task_last_update: '2024-03-26T06:01:45.022397'
+                  task_userid_open: 1
+                  task_userid_close: null
+                  task_userid_update: 1
+                  task_case_id: 1
+                  custom_attributes: {}
+                  modification_history: null
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Invalid task ID for this case
+                status: error
+  operationId: get-case-tasks-fetch
+  description: This endpoint is deprecated. Use [GET /api/v2/tasks/{identifier}](#tag/Tasks/operation/api_v2_tasks_(identifier)_get) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: task_id
+    in: path
+    required: true
+    description: Task ID to fetch

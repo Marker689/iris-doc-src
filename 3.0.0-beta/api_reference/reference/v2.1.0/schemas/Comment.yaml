@@ -1,0 +1,18 @@
+allOf:
+  - $ref: ../schemas/requestBodies/Comment.yaml
+  - type: object
+    properties:
+      comment_id:
+        type: integer
+      comment_uuid:
+        type: string
+      comment_date:
+        type: string
+      comment_update_date:
+        type: string
+    example:
+      comment_id: 12
+      comment_uuid: f43d28a7-cd07-48ec-a602-26e0ce21743b
+      comment_date: Mon, 20 Mar 2023 17:12:06 GMT
+      comment_update_date: Mon, 20 Mar 2023 17:12:06 GMT
+

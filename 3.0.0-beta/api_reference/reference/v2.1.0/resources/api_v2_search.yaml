@@ -1,0 +1,123 @@
+get:
+  operationId: api_v2_search_get
+  tags:
+    - Search
+    - Beta
+  summary: Cross-case search
+  description: >-
+    Search across every case the current user can read. Both `value` and
+    `types` are required — a request missing either, or naming an unsupported
+    type, is rejected with `400`. Results from all requested types are
+    concatenated and then paginated as a single list, so a page can mix object
+    types. Requires the `search_across_cases` permission.
+  parameters:
+    - schema:
+        type: string
+      name: value
+      in: query
+      required: true
+      description: >-
+        Search pattern. `%` wildcards are accepted; pattern semantics differ
+        per object type — some match exactly, others wrap the value in `%...%`.
+    - schema:
+        type: string
+      name: types
+      in: query
+      required: true
+      description: >-
+        Object types to search. Accepts a comma-separated list
+        (`?types=notes,ioc`) or a repeated parameter
+        (`?types=notes&types=ioc`).
+      examples:
+        comma-separated:
+          value: notes,ioc,comments
+    - schema:
+        type: integer
+        default: 1
+      name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+    - schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+      name: per_page
+      in: query
+      required: false
+      description: Page size. Clamped server-side to 1..100.
+    - schema:
+        type: integer
+      name: case_id
+      in: query
+      required: false
+      description: >-
+        Restrict the search to a single case. Kept for back-compat;
+        `case_ids` is the preferred shape.
+    - schema:
+        type: string
+      name: case_ids
+      in: query
+      required: false
+      description: >-
+        Restrict the search to a set of cases, comma-separated
+        (`?case_ids=1,2,3`) or repeated (`?case_ids=1&case_ids=2`). Ids the
+        caller cannot access are dropped silently rather than rejected.
+  responses:
+    '200':
+      description: Search results successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  description: >-
+                    Rows carry the columns of their own object type, so the
+                    shape varies. Only `type` and `result_id` are guaranteed
+                    on every row.
+                  properties:
+                    type:
+                      type: string
+                      description: Which searcher produced the row
+                      enum:
+                        - ioc
+                        - notes
+                        - comments
+                        - assets
+                        - events
+                        - tasks
+                        - evidences
+                        - summaries
+                    result_id:
+                      description: >-
+                        Primary key of the underlying object — `ioc_id`,
+                        `note_id`, `comment_id`, `asset_id`, `event_id`,
+                        `task_id`, `evidence_id`, or for `summaries` the
+                        `case_id`, since a case summary has no record of its
+                        own.
+                      type:
+                        - integer
+                        - 'null'
+                  additionalProperties: true
+              pagination:
+                type: object
+                properties:
+                  total:
+                    description: Total matching rows across every requested type, before slicing.
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  total_pages:
+                    description: '`0` when there are no results.'
+                    type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

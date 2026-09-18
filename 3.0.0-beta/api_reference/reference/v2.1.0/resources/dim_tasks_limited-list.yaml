@@ -1,0 +1,1358 @@
+get:
+  summary: Iris module task list
+  tags:
+    - Modules
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                uniqueItems: true
+                minItems: 1
+                items:
+                  required:
+                    - case
+                    - date_done
+                    - module
+                    - state
+                    - task_id
+                    - user
+                  properties:
+                    case:
+                      type: string
+                      minLength: 1
+                    date_done:
+                      type: string
+                      minLength: 1
+                    module:
+                      type: string
+                      minLength: 1
+                    state:
+                      type: string
+                      minLength: 1
+                    task_id:
+                      type: string
+                      minLength: 1
+                    user:
+                      type: string
+                      minLength: 1
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 17:45:54 GMT
+                    module: iris_check_module::on_postload_note_update
+                    state: success
+                    task_id: c26a6780-d678-4be9-af01-dc25b5731839
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 17:42:33 GMT
+                    module: iris_check_module::on_postload_note_update
+                    state: success
+                    task_id: 3c744c5d-9c5d-4910-8bb3-fab15ce268f4
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 17:29:37 GMT
+                    module: iris_check_module::on_manual_trigger_asset
+                    state: success
+                    task_id: e3b781e8-5660-4b53-958c-655e6a245778
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 17:12:28 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: success
+                    task_id: 15c0679d-d99c-46fc-aa4d-6cb4cfef79d6
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 13:26:19 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: success
+                    task_id: 54207a3e-c1b9-40eb-902b-c5ba4b1cdd86
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 13:00:25 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: b1c3ffd1-79b4-4e01-ad9f-a77ff105ec53
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 10:11:27 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: success
+                    task_id: cf426609-a797-4820-851c-2ee91a8ff789
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 09:40:12 GMT
+                    module: iris_vt_module::on_postload_ioc_update
+                    state: success
+                    task_id: 2d71a525-d448-4f11-a7cd-84a1cdde5e35
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 09:40:11 GMT
+                    module: iris_check_module::on_postload_ioc_update
+                    state: success
+                    task_id: 7a10194a-2dcc-4123-9e95-1f3b54f5f13a
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 09:39:10 GMT
+                    module: iris_vt_module::on_postload_ioc_update
+                    state: success
+                    task_id: 2f26f229-1221-45bf-8c18-a824f0f95b74
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 09:39:09 GMT
+                    module: iris_check_module::on_postload_ioc_update
+                    state: success
+                    task_id: d20a3c63-806c-4880-9307-2f10c136e64c
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 08:56:45 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 40ff2b06-2002-4cbb-b262-6f729ea61fa1
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 08:56:44 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 036f53d0-d243-4ce5-8395-944b57bc216e
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 06 Mar 2022 08:56:44 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 8f7ee6f7-ec7d-40a7-a8ce-0fe45d7867c7
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Sun, 06 Mar 2022 08:35:34 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 558480ec-0d0f-4746-8cf7-be8cca0fb5ce
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Sun, 06 Mar 2022 08:35:34 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: b7812974-d95a-44a9-90a7-b858b920913e
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:47:17 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 1cb7dc33-a12a-41d7-b483-3d850eaad668
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:46:06 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: d9b957fb-6cd1-4a90-8fd8-bf4ddd5895c9
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:45:05 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: e7860234-75d5-4bce-a404-7ca8061d86fb
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:43:53 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: de163920-9103-4a03-bca1-ad0a4bb9d387
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:42:58 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 7893663f-6b89-4a9c-92f5-68746a8f3d12
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:40:50 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 20e45bdc-b0d1-484a-b357-2b94aa91bd1e
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:39:59 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: b1d129f2-5210-4ce6-b121-115d01ef4855
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:35:55 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: success
+                    task_id: 9013e5a4-b333-468f-91cf-deca0f153951
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:35:53 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 0021efbf-86d3-43b4-9390-75d8ff59596c
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:33:18 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 81c22458-aa67-40bd-9ed9-9f9e4f549967
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:30:42 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: ea6a1e36-a91b-40f5-9231-dabfe4a8e95d
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:29:36 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113932190>
+                    task_id: 2d2f312f-69d2-460b-b8eb-30f59a83fe58
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Fri, 04 Mar 2022 18:26:45 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113932340>
+                    task_id: 3290834b-3cd8-44de-9ad5-d1357dc0fa68
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 19:57:56 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11393ddc0>
+                    task_id: c7b935c8-9038-41e6-8892-2ec3e69d89d1
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:31:10 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: c13ae54c-77d5-4389-a687-d6568c350a8d
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:31:10 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: dc86a636-8182-42fe-9cd1-38cbff432f75
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:30:23 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11393d6d0>
+                    task_id: 3876b046-eb5c-4ac4-b2c1-591aa1b1ffa4
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:30:22 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11390aa90>
+                    task_id: dd539f54-3693-4550-8e30-95f9d91e319e
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:29:53 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: bbaab19e-f277-40d1-bfa7-eddff39a6624
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:29:53 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 8dc5f0f7-ea0b-4ce0-abfe-91e28dde0013
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:29:41 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11390a1c0>
+                    task_id: 246ce72c-d806-4358-a656-bc2dd6ac1b9f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 14:29:41 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138d6160>
+                    task_id: eab069d4-f753-4eb9-b010-860672dcd3d7
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:56 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11390a910>
+                    task_id: ecba56bc-700b-476d-981f-55777e08866a
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:56 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11382a9d0>
+                    task_id: 47a6ab72-d714-4905-9d4e-379be2c5ef5a
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:48 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11382ac70>
+                    task_id: f84c8869-7036-4c3f-a6fe-5955c24ec9af
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:48 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138db5b0>
+                    task_id: 2d2e9465-b342-4ad4-b76b-8358f43ab3bd
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:46 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138dbc40>
+                    task_id: 1c42ffac-a953-4277-80cf-24f054d4f59f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:52:46 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138451f0>
+                    task_id: c64e45ac-ffbf-4dbd-a034-eec09e901bd9
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113855910>
+                    task_id: 6c7250a7-574a-4c39-8e1c-f958ae4f3ce2
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113945400>
+                    task_id: ec351351-23bc-4919-b967-61aded49acb3
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113845490>
+                    task_id: e935de90-9f69-45c1-bdaf-3a2a80863aa8
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11396b550>
+                    task_id: 505cea3d-3c62-4242-b289-dc9620ded9cd
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113845dc0>
+                    task_id: 2e41657c-c473-4a4f-9ceb-e319aaac852b
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x113978520>
+                    task_id: ccddec98-bad7-4f7a-a348-297f15c0b389
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11396baf0>
+                    task_id: 96c83879-48c0-4c61-9cbc-87aeb9575651
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 4bfa5a21-573c-4cfe-8432-dfd11c523a93
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: success
+                    task_id: ce0703a9-8179-4639-9357-94da9040cb0f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_vt_module::on_postload_ioc_create
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x11378c070>
+                    task_id: 7aa0170e-df57-4505-ae83-0ccf53cef007
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 1c294f37-91e1-4aff-9dc4-c7e8d91e7f87
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:27 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 9dd2007d-e76c-4233-8226-5ca5cc734023
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 106fb607-885d-4a19-8fb7-9e15b14639e9
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 8455c8b0-c369-4f3f-a875-5268c4c02780
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 896fdff8-5d80-4ee3-b95c-b9139c3a5fe0
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 685422f1-82c8-4171-8e0a-78229c31acd4
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 748bc240-8acf-47c0-9b3c-a53d1cdf3e70
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:26 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 4d1e47f1-4f72-4705-8a83-eb496560eca2
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:11 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: a3df2631-b2a0-4aeb-b3de-6dbaebceb2d0
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:08 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 5b6dd3c0-93d0-4252-8ade-6e8b8d3b51a2
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:07 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 4f4dc02e-6b27-4b95-b4ac-31226d25acb7
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:04 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: cf061143-4497-4163-bd34-26a85efec6f3
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:02 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: b41cfbf2-a535-4fe9-bc8b-3dcc0f110f99
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:50:00 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: ac37d911-932f-4342-bf5c-7625e539ee07
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:49:58 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: cb9b23c1-87b9-41b6-a680-44ba972b34c9
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:49:56 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 6c2b3c04-b99a-404e-add5-9f0c5b466545
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:49:54 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 3c9f2304-fc1e-485b-bda7-8aadeaef935b
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:30:13 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138b4c40>
+                    task_id: e14a2662-23b9-4b87-a37c-deb7fd79f893
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:27:21 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1102405b0>
+                    task_id: c022e20d-2f12-42fd-95da-f51909944dc2
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:27:18 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1134b0c40>
+                    task_id: cfb95d13-dc3a-4ff8-bb03-9d27efe3109f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:27:14 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1134b0070>
+                    task_id: 731643be-2742-47da-b536-b4dad22a3342
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:27:09 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1137431f0>
+                    task_id: 1f265291-b8fa-42fa-b335-c8eb37072ee5
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:57 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: aa444180-c6c0-4c1e-8117-e6d0356900af
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:57 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: afa621ee-1e5e-40db-b18f-31b1b3e7c65b
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 89f8adc5-30d2-4d97-8090-a269670dedcb
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 31327556-d2e7-4500-b779-d7eecaf0ced6
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 4e6e3e4c-efc0-41cc-ab79-cd8bb8b614d7
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 76de86f6-ce83-49dd-9db6-eac56756cac4
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: bc9a8283-544d-4248-9b81-4f03e7071c24
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: d0b33c8b-a81a-4627-94cc-6ce5729f8776
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: a39fd160-096c-454c-9eed-e1e6a211363d
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: ef0193b4-e699-4375-88df-2f9a4df74909
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:26:42 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 82045a58-b2e1-48b6-982a-d4a34e06df56
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:51 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 4211a674-bf8a-4b99-be2e-ee2143031caf
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:49 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 7793badf-4fe2-4ab8-9d62-a102e2359ce5
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:47 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 89ee4936-e7b0-45be-92ef-3ff8a5273009
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:44 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: f27393d7-89c5-440b-8dbb-abac5465a704
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:42 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: d57cebc1-789f-4769-bafc-7c51b78cc503
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:40 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 3010a604-0ec0-4105-adbc-56f9099fecb5
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:38 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 81b49d2f-0a0d-465c-9206-3a7f7aa9696f
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:35 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 527cb0f0-44b6-4f7d-8be0-ea1eb4b8c32e
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:25:32 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: e36039c4-a3b0-471d-8b2b-38091ffc597e
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:25:07 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 668bcbfd-c379-4922-aadc-c2756c360e90
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 5ad26d94-5f74-46c0-b39f-a0720b6f3799
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 01e9b720-0f0a-4473-990c-57d1da0e99f2
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 69b65fa4-e039-4e1d-8925-3c727704b101
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 6307271c-b3b0-48d5-9bc4-d680132b8745
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: e8e72d79-26b0-4918-83e4-35b5043047df
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 1cc8e7fc-5858-48f7-8792-ca2e6b627a20
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:41 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: c0c9792a-d65b-4d35-b10e-43921d47daca
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:40 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 329e5f21-4840-4ec5-9d13-0cdfa0f50e10
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:24:40 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 00446878-becc-4073-9a07-9d5be860398d
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 715b31d3-d23d-4caa-a226-384b2d5bf660
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 4008ef2c-52db-4dda-b3b4-5d03d8134e83
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: b7a1c231-9103-49a6-84a1-c073add9af16
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: d6ba865b-359d-4252-87f6-67d611cf3780
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: eb0d3ddf-c4a2-4008-8344-4b0111603d7d
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: ed7e0380-9bbb-41cf-9266-e90cbc92d939
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 775c578d-1c2b-49b5-af49-25ad5b327b98
+                    user: administrator
+                  - case: 'Case #1'
+                    date_done: Tue, 01 Mar 2022 09:24:02 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 8d7fc544-a3d4-4f33-b641-59ff0e93353f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:04:12 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 8b610bee-4162-498a-985c-0983c142135f
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:04:04 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: c93c741f-924b-4597-9b86-44fc7c744638
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:04:04 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 0e2c28a7-ed00-42be-8d13-05dc0b1f3c3c
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:03:51 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 0ca2c68f-792d-4528-9079-0601681c3492
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:03:51 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: e77190cb-5b06-4696-8b90-0b2e7b43fdbb
+                    user: administrator
+                  - case: 'Case #20'
+                    date_done: Tue, 01 Mar 2022 09:03:47 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 26bb1a38-2c5b-44bd-baec-54f1aff51f79
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 09:02:34 GMT
+                    module: iris_check_module::on_postload_case_create
+                    state: success
+                    task_id: 3d7a9d56-1915-432c-9b8f-006f610d99b0
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:45:37 GMT
+                    module: iris_check_module::on_postload_ioc_update
+                    state: success
+                    task_id: 4eb7189d-e05b-4d8a-923d-4aa798746555
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:44:22 GMT
+                    module: iris_check_module::on_postload_ioc_update
+                    state: success
+                    task_id: 76d0b69a-f80c-4768-b5f0-734606fde98b
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:35:45 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 52b5e510-d751-4e76-a8bc-0a3eb46015ea
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:35:45 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 73016866-9b7d-4577-9b48-36889b80197e
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:30:38 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 3222c253-c627-4a92-acec-ef75207ef456
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:26:29 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: e012cce5-d2e8-4099-ab16-58ecc8ee3823
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:26:29 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 9da65e49-09e1-4366-8bfb-169778f9cfae
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:26:17 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 055e059a-42ab-446e-997e-f869db364f55
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:26:17 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: abc1a156-9ac0-40d3-b3c8-fc11a7a03917
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:25:27 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 0f20fd09-2bb4-4007-bc8c-2fa3c836ee46
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:25:27 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 8bcf9f57-251f-4b6d-a50b-f7d2e0c9e5a5
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:40 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type "-",
+                      length 1718185061\n',))
+                    task_id: 57fffc52-11c5-456d-944e-e6367a90c642
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:40 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type " ",
+                      length 538976288\n',))
+                    task_id: ff09c0bd-901d-4880-b822-badb831b37f3
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:40 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type " ",
+                      length 538976288\n',))
+                    task_id: d270ee12-11a1-4674-b7d9-38c11ad2ca32
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:40 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type "0",
+                      length 875640117\n',))
+                    task_id: ad294d5c-083b-4b96-9577-63133b9e8192
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:08 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type " ",
+                      length 538976316\n',))
+                    task_id: d3546fe7-0e4d-467a-b9d4-81b69455d593
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:08 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.OperationalError'>(('(psycopg2.OperationalError)
+                      lost synchronization with server: got message type " ",
+                      length 538976288\n',))
+                    task_id: f2a42d39-97de-46b4-9303-5d01315bc524
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:08 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 66146095-2afe-4fdc-8373-ba3dc89acbd8
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:18:08 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: e769df09-90d4-49d7-acd7-d3050afbf41d
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:15:28 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 814ddbc9-552b-4b42-975a-4bfc9214c2cd
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:15:28 GMT
+                    module: iris_check_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 6675ce43-ffff-43d9-826f-9c04cafae321
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 01 Mar 2022 07:12:34 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: >-
+                      task_hook_wrapper() missing 1 required positional
+                      argument: 'hook_ui_name'
+                    task_id: 92876552-a69c-4357-9447-506a887e8b0e
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:44 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: ebfef2e3-dd8d-4022-992b-ff5d751b9013
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_vt_module::on_manual_trigger_ioc
+                    state: success
+                    task_id: 7accfd19-9b58-4e4c-9bb6-8346451ab973
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 5e30255a-ced4-4429-aef1-b8e0bbd714d9
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_ioc_create
+                    state: success
+                    task_id: 4ec47dcd-2484-4588-8a8e-4efbab442086
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_ioc_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: e0c0449c-49bc-4645-b8fe-d1892426ccba
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: d89dc677-2c43-47ec-b7b9-50198033cc11
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: f2763867-2a08-4f6b-a9f8-fc703196d4db
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: eac10a51-74d7-4bb2-89b9-b8ba997b18f1
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: f8da326c-d2ee-4958-8885-cd85296e5960
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: cb179292-3793-4a46-a56f-96e9b6f0e135
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 9d80b444-3eb6-4b4c-82ce-0a71a20ae4aa
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 1dbe4d32-10e4-4041-a4ef-cb686d173e92
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 1faaf2a0-3e33-4f39-8187-2ec24cd21c87
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 3c84a821-c1c2-4919-959b-846406555170
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_create
+                    state: success
+                    task_id: edad6259-be78-49db-a643-9fec57955cc8
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 6320d904-356c-45f9-8e99-5c659552c80b
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 3c48cced-12bb-47d4-b40b-1f21733c0571
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 94c3fd01-6329-41cf-bccb-631b617a2591
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: success
+                    task_id: caaa8853-0e1e-4c35-8b53-9e6fee4858b2
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 1f87fd10-dfe5-4e61-aa7c-002a1e492ddc
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 66886283-fd41-4450-8078-10a3db99d76a
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_create
+                    state: success
+                    task_id: 2d5054fe-10f7-4bda-8c87-5f3ef39159e4
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_create
+                    state: success
+                    task_id: 4770e8b8-513f-4fe6-a1b2-cb9f97dcb261
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 1847640d-514a-4a92-9edd-7c33c278631c
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 174c9001-f206-4395-9001-806a226cd4e0
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_update
+                    state: success
+                    task_id: 98caa245-4cec-499b-847b-c30edb407d27
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_note_update
+                    state: success
+                    task_id: 562a51b9-df0a-4218-8515-cfa1b346fd08
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 02e150c1-af1e-4b20-ac8c-29ad82cdd481
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: edb9a39b-e7c8-44fe-b346-b4fbd0d8f6a3
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 89eec8d7-cb76-4c08-927c-99e36f00ad10
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_case_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: b8935dd6-aa73-4e18-93bc-0c06b7097be5
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_case_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: bc867a05-cad5-4cd4-9092-6034be10e9d7
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 592cdfe4-6cfd-4c4b-ba23-e908052b7972
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: cc125633-3793-46b1-881f-f219f7da26e3
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: d9d14252-2984-4d2a-afe9-8c95de048309
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_delete
+                    state: Class 'builtins.str' is not mapped
+                    task_id: 816b8187-6258-4b26-9abc-fb7ca8fdc4cd
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 2fa88260-203c-479f-ad85-df65715c249e
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 7151dc5f-6189-41bc-bf33-54ae2b6ca07a
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 2d7c4c04-9b48-4138-abb3-59523350b431
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 32c0099f-1043-4dcb-b4b8-143ecd93a48a
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 03c25942-28ef-40c5-9b3c-6bea06f71af2
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 9f7df71a-04bf-4c5b-ade4-81cdcce4b005
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_create
+                    state: >-
+                      <class
+                      'sqlalchemy.exc.DatabaseError'>(('(psycopg2.DatabaseError)
+                      error with status PGRES_TUPLES_OK and no message from the
+                      libpq',))
+                    task_id: 52cd64cd-9c31-4750-b549-c361a0fa903c
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: >-
+                      Could not locate column in row for column
+                      'case_assets.asset_id'
+                    task_id: 794814e6-98be-4956-844f-b49ac3ad0429
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Fri, 25 Feb 2022 07:44:43 GMT
+                    module: iris_check_module::on_postload_event_create
+                    state: success
+                    task_id: 7f0f6916-9581-4cdd-acff-7a349f98ab02
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Tue, 22 Feb 2022 14:21:30 GMT
+                    module: iris_check_module::on_postload_note_create
+                    state: success
+                    task_id: 5cf4163d-f2d1-461c-88ce-cde7faff38f3
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Mon, 21 Feb 2022 13:05:48 GMT
+                    module: iris_check_module::on_postload_asset_update
+                    state: success
+                    task_id: 762b3554-2012-49f9-a5cb-318418e5b188
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Mon, 21 Feb 2022 10:37:59 GMT
+                    module: iris_check_module::on_postload_task_create
+                    state: success
+                    task_id: ebdd68ab-340c-4718-abe9-717166d63e30
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Mon, 21 Feb 2022 10:36:30 GMT
+                    module: iris_check_module::on_postload_asset_create
+                    state: success
+                    task_id: 84b77c53-99b3-467f-b538-8c97fefec15e
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 20 Feb 2022 17:21:43 GMT
+                    module: >-
+                      app.iris_engine.module_handler.module_handler.pipeline_dispatcher
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x112d73760>
+                    task_id: ee3b6508-fa25-4442-9dac-82ce4350bbd1
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 20 Feb 2022 17:12:10 GMT
+                    module: >-
+                      app.iris_engine.module_handler.module_handler.pipeline_dispatcher
+                    state: >-
+                      <iris_interface.IrisInterfaceStatus.IIStatus object at
+                      0x1138fff40>
+                    task_id: 46ff78ca-16bb-496b-a969-b7850fe0ab6f
+                    user: administrator
+                  - case: 'Case #18'
+                    date_done: Sun, 20 Feb 2022 17:09:23 GMT
+                    module: >-
+                      app.iris_engine.module_handler.module_handler.pipeline_dispatcher
+                    state: success
+                    task_id: 5c73e9e7-f1f3-40d0-a0ba-c36f27b17768
+                    user: administrator
+                  - case: Unknown
+                    date_done: Sun, 20 Feb 2022 17:08:59 GMT
+                    module: null
+                    state: >-
+                      'app.iris_engine.module_handler.module_handler.pipeline_dispatcher'
+                    task_id: 25a2ca7f-e752-4798-8491-e5a68bc0a224
+                    user: Shadow Iris
+                  - case: Unknown
+                    date_done: Sun, 20 Feb 2022 17:08:41 GMT
+                    module: null
+                    state: >-
+                      'app.iris_engine.module_handler.module_handler.pipeline_dispatcher'
+                    task_id: d9dce725-a823-4396-bfbc-2424c10fae61
+                    user: Shadow Iris
+                  - case: Unknown
+                    date_done: Sun, 20 Feb 2022 17:07:33 GMT
+                    module: null
+                    state: >-
+                      'app.iris_engine.module_handler.module_handler.pipeline_dispatcher'
+                    task_id: 2279fb7d-a127-4273-91f3-fe27d9f1ef4f
+                    user: Shadow Iris
+                  - case: Unknown
+                    date_done: Sun, 20 Feb 2022 17:06:16 GMT
+                    module: null
+                    state: >-
+                      'app.iris_engine.module_handler.module_handler.pipeline_dispatcher'
+                    task_id: b4b5501f-8ef5-44aa-90e9-d1434c435dac
+                    user: Shadow Iris
+                  - case: Unknown
+                    date_done: Sun, 20 Feb 2022 16:56:08 GMT
+                    module: null
+                    state: '''IrisEVTXInterface'''
+                    task_id: 20300037-81f9-49aa-9e7b-1c4212b5136c
+                    user: Shadow Iris
+                message: ''
+                status: success
+  operationId: get-dim-tasks-list-limited
+  description: This endpoint is depreacted. Use `/dim/tasks/list/` instead.
+  deprecated: true
+  parameters: []
+parameters: []

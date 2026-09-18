@@ -1,0 +1,12 @@
+[
+    {
+        "default": {},
+        "mandatory": false,
+        "param_description": "JSON Web hooks configuration",
+        "param_human_name": "Web hooks configuration",
+        "param_name": "wh_configuration",
+        "section": "Templates",
+        "type": "textfield_json",
+        "value": "{   \n    \"instance_url\": \"https://iris.local\",\n    \"webhooks\": [\n        {\n            \"name\": \"Discord\",\n            \"active\": false,\n            \"trigger_on\": [\n                    \"all\"\n                ],\n            \"request_url\": \"https://discord.com/api/webhooks/XXXX/XXXX\",\n            \"request_rendering\": \"markdown\", \n            \"request_body\": {\n                \"embeds\": [{\n                    \"description\" : \"%DESCRIPTION%\",\n                    \"title\" : \"%TITLE%\"\n                }]\n            }\n        },\n        {\n            \"name\": \"Slack\",\n            \"trigger_on\": [\n                    \"all\"\n                ],\n            \"request_url\": \"https://hooks.slack.com/services/XXXXX/XXXX\",\n            \"request_rendering\": \"markdown_slack\",\n            \"request_body\": {\n                \"text\": \"%TITLE%\",\n                \"blocks\": [\n                \t{\n                \t\t\"type\": \"section\",\n                \t\t\"text\": {\n                \t\t\t\"type\": \"mrkdwn\",\n                \t\t\t\"text\": \"*%TITLE%*\"\n                \t\t}\n                \t},\n                \t{\n                \t\t\"type\": \"section\",\n                \t\t\"block_id\": \"section567\",\n                \t\t\"text\": {\n                \t\t\t\"type\": \"mrkdwn\",\n                \t\t\t\"text\": \"%DESCRIPTION%\"\n                \t\t}\n                \t}\n                ]\n            }\n        }\n    ]\n}"
+    }
+]

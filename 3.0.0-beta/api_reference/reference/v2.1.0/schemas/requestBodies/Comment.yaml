@@ -1,0 +1,7 @@
+type: object
+properties:
+  comment_text:
+    type: string
+example:
+  comment_text: 'Comment content'
+

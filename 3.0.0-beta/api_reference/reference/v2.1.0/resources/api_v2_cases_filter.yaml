@@ -1,0 +1,111 @@
+get:
+  operationId: api_v2_cases_filter_get
+  tags:
+    - Cases
+    - Beta
+  summary: Advanced cases filter
+  description: >-
+    Paginated case search accepting a JSON-encoded advanced-filter
+    expression alongside the classical field-based filters. The advanced
+    filter accepts either a flat list of conditions (combined by the
+    page-level `logic`) or a nested group of the shape
+    `{logic: 'and'|'or', items: [<condition>|<group>]}`, up to 8 levels
+    deep.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+    - name: filters
+      in: query
+      required: false
+      schema:
+        type: string
+      description: URL-encoded JSON string describing the advanced-filter tree
+    - name: logic
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - and
+          - or
+        default: and
+    - name: case_name
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: case_customer_id
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: case_severity_id
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: case_state_id
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: is_open
+      in: query
+      required: false
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: Paginated filtered cases
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              draw:
+                type: integer
+              cases:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    case_id:
+                      type: integer
+                    case_name:
+                      type: string
+                    case_customer:
+                      type: string
+                    case_open_date:
+                      type: string
+                      format: date
+                    case_close_date:
+                      type:
+                        - string
+                        - 'null'
+                      format: date
+                    state_name:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

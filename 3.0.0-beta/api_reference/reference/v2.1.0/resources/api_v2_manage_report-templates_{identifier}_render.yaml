@@ -1,0 +1,54 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_report-templates_(identifier)_render_post
+  tags:
+    - Report templates
+    - Beta
+  summary: Render a report template
+  description: Render the template against a real case. The caller must hold `read_only` or better on the target case; effective access below that mask is masked as a 404. Dispatch between the `Investigation` and `Activities` generators is driven by the template's `report_type`, so the client does not need to know which pipeline is used. On success the rendered file is streamed back as an attachment.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - case_id
+          properties:
+            case_id:
+              type: integer
+            format:
+              type: string
+              enum:
+                - docx
+                - pdf
+                - html
+            variables:
+              type: object
+              additionalProperties: true
+        example:
+          case_id: 42
+          format: docx
+          variables:
+            author: Jane Doe
+            include_appendix: true
+  responses:
+    '200':
+      description: Report successfully rendered and streamed
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+        application/json:
+          schema:
+            type: object
+            properties:
+              job_id:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

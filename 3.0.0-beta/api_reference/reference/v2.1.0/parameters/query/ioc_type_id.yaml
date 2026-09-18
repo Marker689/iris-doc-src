@@ -1,0 +1,6 @@
+in: query
+name: ioc_type_id
+description: IOC type identifier
+schema:
+  type: integer
+

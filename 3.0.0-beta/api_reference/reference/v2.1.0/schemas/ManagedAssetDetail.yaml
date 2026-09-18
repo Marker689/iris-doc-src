@@ -1,0 +1,32 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  case_sighting_count:
+    type: integer
+  alert_sighting_count:
+    type: integer
+  timeline_event_count:
+    type:
+      - integer
+      - 'null'
+  first_seen_at:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  last_seen_at:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  compromise_status_id:
+    type:
+      - integer
+      - 'null'
+  compromised_at:
+    type:
+      - string
+      - 'null'
+    format: date-time
+description: A registry row plus the derived facts the caller is allowed to see.

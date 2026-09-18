@@ -1,0 +1,58 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_alerts_filters_(identifier)_get
+  summary: Get alert filters
+  tags: 
+    - Alerts
+    - Beta
+  description: Get alert filters
+  responses:
+    '200':
+      description: Alert Filter successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertFilter.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_alerts_filters_(identifier)_put
+  tags:
+    - Alerts
+    - Beta
+  summary: Update an alert filters
+  description:  Update an existing alert filters.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/requestBodies/AlertFilter.yaml
+    description: ''
+  responses:
+    '200':
+      description: Alert filter successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertFilter.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_alerts_filters_(identifier)_delete
+  tags:
+    - Alerts
+    - Beta
+  summary: Delete alert filter
+  description: Delete alert filter
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

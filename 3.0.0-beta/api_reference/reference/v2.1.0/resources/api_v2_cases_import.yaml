@@ -1,0 +1,30 @@
+post:
+  operationId: api_v2_cases_import_post
+  tags:
+    - Case transfer
+    - Beta
+  summary: Import a previously staged case archive
+  description: 'Body (JSON):
+
+    staging_token      str   from `/import/inspect`
+
+    principal_mapping  dict  {"user:12": {"action": "map"|"placeholder"|"importer",
+
+    "target_user_id": 5}}
+
+    lookup_decisions   dict  {"ioc_type:3": {"action": "map", "target_id": 7}}
+
+    customer_id        int   override the customer for the imported case
+
+    acl_grants         list  [{"group_id": 2, "access_level": 4}]'
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseDetails.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,159 @@
+get:
+  summary: List the groups
+  tags:
+    - Manage Groups
+  responses: {}
+  operationId: get-manage-groups-list
+  description: List the groups
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  group_auto_follow:
+                    type: boolean
+                  group_auto_follow_access_level:
+                    type: integer
+                  group_description:
+                    type: string
+                  group_id:
+                    type: integer
+                  group_members:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        user:
+                          type: string
+                  group_name:
+                    type: string
+                  group_permissions:
+                    type: integer
+                  group_permissions_list:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: integer
+                  group_uuid:
+                    type: string
+                  registry:
+                    type: 'null'
+            message:
+              type: string
+            status:
+              type: string
+          x-examples:
+            Example 1:
+              data:
+                - group_auto_follow: true
+                  group_auto_follow_access_level: 4
+                  group_description: Administrators
+                  group_id: 1
+                  group_members:
+                    - id: 1
+                      name: administrator
+                      user: administrator
+                  group_name: Administrators
+                  group_permissions: 3
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                    - name: server_administrator
+                      value: 2
+                  group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                  registry: null
+                - group_auto_follow: true
+                  group_auto_follow_access_level: 4
+                  group_description: Standard Analysts
+                  group_id: 2
+                  group_members: []
+                  group_name: Analysts
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: f71c519f-db4f-4bd3-9dd3-b427a5812089
+                  registry: null
+                - group_auto_follow: false
+                  group_auto_follow_access_level: 0
+                  group_description: New description
+                  group_id: 4
+                  group_members: []
+                  group_name: New group
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: a9bb4b93-c8ac-490d-9387-f97f4722271c
+                  registry: null
+              message: ''
+              status: success
+        examples:
+          Example 1:
+            value:
+              data:
+                - group_auto_follow: true
+                  group_auto_follow_access_level: 4
+                  group_description: Administrators
+                  group_id: 1
+                  group_members:
+                    - id: 1
+                      name: administrator
+                      user: administrator
+                  group_name: Administrators
+                  group_permissions: 3
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                    - name: server_administrator
+                      value: 2
+                  group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                  registry: null
+                - group_auto_follow: true
+                  group_auto_follow_access_level: 4
+                  group_description: Standard Analysts
+                  group_id: 2
+                  group_members: []
+                  group_name: Analysts
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: f71c519f-db4f-4bd3-9dd3-b427a5812089
+                  registry: null
+                - group_auto_follow: false
+                  group_auto_follow_access_level: 0
+                  group_description: New description
+                  group_id: 4
+                  group_members: []
+                  group_name: New group
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: a9bb4b93-c8ac-490d-9387-f97f4722271c
+                  registry: null
+              message: ''
+              status: success
+parameters: []

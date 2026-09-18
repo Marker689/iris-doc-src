@@ -1,0 +1,96 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  asset_name:
+    type:
+      - string
+      - 'null'
+  asset_type_id:
+    type:
+      - integer
+      - 'null'
+  ioc_links:
+    type: array
+    items:
+      type: integer
+  asset_enrichment:
+    type:
+      - object
+      - 'null'
+  asset_type:
+    $ref: ../schemas/AssetType.yaml
+  alerts:
+    type: array
+    items:
+      $ref: ../schemas/Alert.yaml
+  analysis_status:
+    $ref: ../schemas/AnalysisStatus.yaml
+  iocs:
+    type: array
+    items:
+      $ref: ../schemas/IocSchemaForAPIV2.yaml
+  asset_id:
+    type: integer
+    format: int64
+  asset_uuid:
+    type: string
+    format: uuid
+  asset_description:
+    type:
+      - string
+      - 'null'
+  asset_domain:
+    type:
+      - string
+      - 'null'
+  asset_ip:
+    type:
+      - string
+      - 'null'
+  asset_info:
+    type:
+      - string
+      - 'null'
+  asset_compromise_status_id:
+    type:
+      - integer
+      - 'null'
+  asset_tags:
+    type:
+      - string
+      - 'null'
+  case_id:
+    type:
+      - integer
+      - 'null'
+  date_added:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  date_update:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  user_id:
+    type:
+      - integer
+      - 'null'
+  analysis_status_id:
+    type:
+      - integer
+      - 'null'
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+  modification_history:
+    type:
+      - object
+      - 'null'
+required:
+  - asset_name
+  - asset_type_id
+description: Schema for serializing and deserializing CaseAssets objects.

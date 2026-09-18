@@ -1,0 +1,24 @@
+type: object
+description: |
+  Membership of a war-room team. A user has to be a member of the war room
+  itself before they can join one of its teams; adding someone who isn't will
+  enrol them in the room as well, which the add response reports through
+  `auto_added_room_member`. Shape as emitted by `_serialize_member`.
+properties:
+  team_id:
+    type: integer
+    format: int64
+  user_id:
+    type: integer
+    format: int64
+  added_at:
+    $ref: ../schemas/iso_date.yaml
+  added_by_id:
+    type:
+      - integer
+      - 'null'
+example:
+  team_id: 7
+  user_id: 19
+  added_at: '2026-03-11T09:02:14.114902'
+  added_by_id: 12

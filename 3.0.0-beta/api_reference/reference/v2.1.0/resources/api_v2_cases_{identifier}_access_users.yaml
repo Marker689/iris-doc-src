@@ -1,0 +1,66 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_access_users_get
+  tags:
+    - Cases
+    - Beta
+  summary: List users with access to a case
+  description: >-
+    Return the users who have effective access to the case, with their
+    access level. The `access_level` field is the integer enum value from
+    `CaseAccessLevel` (1 = deny_all, 2 = read_only, 4 = full_access).
+    Callers that only need assignable users typically filter on
+    `full_access` (4) client-side.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+  responses:
+    '200':
+      description: Users with access to the case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: integer
+                    user_name:
+                      type: string
+                    user_login:
+                      type: string
+                    access_level:
+                      type: integer
+                      description: 1=deny, 2=read_only, 4=full_access
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

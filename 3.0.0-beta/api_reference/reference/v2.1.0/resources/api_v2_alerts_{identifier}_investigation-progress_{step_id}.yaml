@@ -1,0 +1,56 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: step_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_alerts_(identifier)_investigation-progress_(step_id)_post
+  tags:
+    - Alerts
+    - Beta
+  summary: Record an investigation step as completed
+  description: Mark an investigation-flow step as completed for this alert, optionally attaching a note.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            note:
+              type: string
+              description: Optional note captured alongside the completion
+  responses:
+    '200':
+      description: Step successfully recorded
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_alerts_(identifier)_investigation-progress_(step_id)_delete
+  tags:
+    - Alerts
+    - Beta
+  summary: Uncheck an investigation step
+  description: Remove the completion record for an investigation-flow step on this alert.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

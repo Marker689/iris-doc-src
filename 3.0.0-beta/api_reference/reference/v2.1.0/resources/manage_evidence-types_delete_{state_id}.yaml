@@ -1,0 +1,43 @@
+parameters:
+  - schema:
+      type: integer
+    name: state_id
+    in: path
+    required: true
+    description: State ID
+post:
+  summary: Delete an evidence type
+  operationId: post-manage-evidence-type-delete
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+            x-examples:
+              Example 1:
+                status: success
+                message: Case state deleted
+                data: []
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Evidence type deleted
+                data: []
+  tags:
+    - Manage Cases Classifications
+  description: ''
+  requestBody:
+    content: {}

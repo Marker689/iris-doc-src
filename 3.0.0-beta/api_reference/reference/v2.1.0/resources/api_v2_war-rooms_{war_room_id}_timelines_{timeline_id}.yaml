@@ -1,0 +1,82 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: timeline_id
+    in: path
+    required: true
+    description: Identifier of the timeline
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_(timeline_id)_patch
+  tags:
+    - War room timelines
+    - Beta
+  summary: Update a war-room timeline
+  description: Partial update of a war-room timeline. Only the fields present in the body are touched.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            color:
+              type: string
+        example:
+          name: Adversary actions
+          color: '#e67e22'
+  responses:
+    '200':
+      description: Timeline successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeline_id:
+                type: integer
+              war_room_id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              color:
+                type: string
+              is_default:
+                type: boolean
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_(timeline_id)_delete
+  tags:
+    - War room timelines
+    - Beta
+  summary: Delete a war-room timeline
+  description: Delete a war-room timeline. Deleting the default timeline is rejected — reassign default status to another timeline first. Events on the deleted timeline are handled per the business rules of the timeline cascade.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

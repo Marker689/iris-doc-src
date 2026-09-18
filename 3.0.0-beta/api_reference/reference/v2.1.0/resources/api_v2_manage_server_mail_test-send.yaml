@@ -1,0 +1,38 @@
+post:
+  operationId: api_v2_manage_server_mail_test-send_post
+  tags:
+    - Server admin
+    - Beta
+  summary: Send a test email
+  description: Send a probe email via the currently configured SMTP settings. Runs synchronously so the admin sees the outcome (delivered or not) in the same request. Subject and body are fixed IRIS diagnostic strings and are not driven by the request payload.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            to:
+              type: string
+              format: email
+              description: Recipient email address.
+          required:
+            - to
+        example:
+          to: admin@example.com
+  responses:
+    '200':
+      description: Test email successfully delivered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              delivered:
+                type: boolean
+              to:
+                type: string
+                format: email
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

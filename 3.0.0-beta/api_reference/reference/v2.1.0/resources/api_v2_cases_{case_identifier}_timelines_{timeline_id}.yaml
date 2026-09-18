@@ -1,0 +1,115 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: timeline_id
+    in: path
+    required: true
+    description: Identifier of the timeline within the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_timelines_(timeline_id)_get
+  tags:
+    - Case Timelines
+    - Beta
+  summary: Get a case timeline
+  description: Fetch a single named timeline by its identifier.
+  responses:
+    '200':
+      description: Timeline successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeline_id:
+                type: integer
+              case_id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              color:
+                type: string
+              is_default:
+                type: boolean
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_timelines_(timeline_id)_put
+  tags:
+    - Case Timelines
+    - Beta
+  summary: Update a case timeline
+  description: Update a timeline's name, description or color. Only the fields present in the body are updated.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            color:
+              type: string
+        example:
+          name: Attacker activity - refined
+          description: Confirmed actions attributed to the threat actor
+          color: '#b91c1c'
+  responses:
+    '200':
+      description: Timeline successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeline_id:
+                type: integer
+              case_id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              color:
+                type: string
+              is_default:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_timelines_(timeline_id)_delete
+  tags:
+    - Case Timelines
+    - Beta
+  summary: Delete a case timeline
+  description: Delete a named timeline. The default timeline on a case cannot be deleted.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

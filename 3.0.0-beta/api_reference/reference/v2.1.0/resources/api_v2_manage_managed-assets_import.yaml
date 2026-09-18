@@ -1,0 +1,25 @@
+post:
+  operationId: api_v2_manage_managed-assets_import_post
+  tags:
+    - Managed assets
+    - Beta
+  summary: Apply a previously staged registry import
+  description: 'Body (JSON):
+
+    staging_token  str  from `/import/inspect`
+
+    on_conflict    str  "skip" (default) or "update"
+
+
+    Writes only to the registry: no case or alert asset is created.'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ManagedAssetImportReport.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

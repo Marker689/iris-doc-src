@@ -1,0 +1,40 @@
+get:
+  operationId: api_v2_manage_banners_get
+  tags:
+    - Banners
+    - Beta
+  summary: List all banners
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Banner.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_banners_post
+  tags:
+    - Banners
+    - Beta
+  summary: Create a banner
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/BannerRequest.yaml
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Banner.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

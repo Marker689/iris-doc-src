@@ -1,0 +1,58 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: note_id
+    in: path
+    required: true
+    description: Identifier of the note
+    schema:
+      type: integer
+  - name: revision_number
+    in: path
+    required: true
+    description: Sequential revision number to restore as the current version
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_notes_(note_id)_revisions_(revision_number)_restore_post
+  tags:
+    - War room notes
+    - Beta
+  summary: Restore a note revision
+  description: Restore the content of the given revision as the current version of the note. A new revision snapshot is taken to capture the pre-restore state, so the operation is reversible.
+  responses:
+    '200':
+      description: Note restored to the given revision
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              note_id:
+                type: integer
+              war_room_id:
+                type: integer
+              folder_id:
+                type: integer
+              title:
+                type: string
+              content:
+                type: string
+              created_at:
+                type: string
+              updated_at:
+                type: string
+              created_by_id:
+                type: integer
+              updated_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

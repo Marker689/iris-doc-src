@@ -1,0 +1,79 @@
+type: object
+description: |
+  A case attached to a war room. Customer, owner and lifecycle columns are
+  joined server-side so a row can be rendered and filtered without a
+  per-case fetch. Shape as emitted by `serialize_case_attachment`.
+properties:
+  war_room_id:
+    type: integer
+  case_id:
+    type: integer
+  case_name:
+    type: string
+  customer_id:
+    type:
+      - integer
+      - 'null'
+  customer_name:
+    type:
+      - string
+      - 'null'
+  owner_id:
+    type:
+      - integer
+      - 'null'
+  owner_login:
+    type:
+      - string
+      - 'null'
+  owner_name:
+    type:
+      - string
+      - 'null'
+  open_date:
+    description: Case open date. A date, not a timestamp — the column is `DATE`.
+    type:
+      - string
+      - 'null'
+    format: date
+  close_date:
+    description: Case close date, `null` while the case is open.
+    type:
+      - string
+      - 'null'
+    format: date
+  state_id:
+    type:
+      - integer
+      - 'null'
+  state_name:
+    type:
+      - string
+      - 'null'
+  task_count:
+    type: integer
+  task_open_count:
+    type: integer
+  attached_at:
+    $ref: ../schemas/iso_date.yaml
+  note:
+    type:
+      - string
+      - 'null'
+example:
+  war_room_id: 4
+  case_id: 31
+  case_name: '#31 - Encrypted file servers'
+  customer_id: 2
+  customer_name: ACME Manufacturing
+  owner_id: 12
+  owner_login: jdoe
+  owner_name: Jane Doe
+  open_date: '2026-03-11'
+  close_date: null
+  state_id: 3
+  state_name: Containment
+  task_count: 14
+  task_open_count: 5
+  attached_at: '2026-03-11T08:51:37.402118'
+  note: Primary affected environment.

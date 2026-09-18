@@ -1,0 +1,54 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cluster-rules_(identifier)_test_post
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Dry-run a cluster rule
+  description: Evaluate this rule against a recent sample of alerts without applying any side effects. Returns the identifiers of matching alerts.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            sample_days:
+              type: integer
+              description: Look-back window in days (default 7)
+            limit:
+              type: integer
+              description: Maximum number of matches to return (default 50)
+            alert_payload:
+              type: object
+              description: Optional single alert payload to evaluate the rule against
+  responses:
+    '200':
+      description: Rule dry-run completed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rule_id:
+                type: integer
+              matching_alert_ids:
+                type: array
+                items:
+                  type: integer
+              sample_days:
+                type: integer
+              matched:
+                type: boolean
+              cluster_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

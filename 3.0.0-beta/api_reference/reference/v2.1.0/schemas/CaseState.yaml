@@ -1,0 +1,19 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  case_state_id:
+    type: integer
+  case_id:
+    type: integer
+  state_name:
+    type: string
+  state_description:
+    type: string
+  state_id:
+    type: integer
+  protected:
+    type:
+      - boolean
+      - 'null'
+description: Schema for serializing and deserializing CaseState objects.

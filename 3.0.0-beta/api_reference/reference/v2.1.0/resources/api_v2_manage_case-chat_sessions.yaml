@@ -1,0 +1,20 @@
+get:
+  operationId: api_v2_manage_case-chat_sessions_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List every chat conversation (admin oversight)
+  description: 'Query params: `limit` (cap 500), `offset`, `user_id`, `case_id`,
+
+    `war_room_id`, `include_archived` (default false).'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

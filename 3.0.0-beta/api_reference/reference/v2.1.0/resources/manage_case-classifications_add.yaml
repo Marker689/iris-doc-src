@@ -1,0 +1,79 @@
+parameters: []
+post:
+  summary: Add a case classification
+  operationId: post-manage-case-classifications-classification_id-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  name_expanded:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  creation_date:
+                    type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: Case classification added
+                data:
+                  name: NewClassification
+                  name_expanded: New Classification
+                  description: Superbe new classification
+                  id: 41
+                  creation_date: '2024-01-10T12:56:24.442781'
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Case classification added
+                data:
+                  name: NewClassification
+                  name_expanded: New Classification
+                  description: Superbe new classification
+                  id: 41
+                  creation_date: '2024-01-10T12:56:24.442781'
+  tags:
+    - Manage Cases Classifications
+  description: ''
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjU0ZDA3ZTQwYTk5NDA4MWJlYzM0NmE2OGFiNDUxNjVjNGVkNWJlM2Ii.ZZ6TrQ.4GXBsv8sERoAn_z4JWDluc0MUzs
+              name: NewClassification
+              name_expanded: New Classification
+              description: Superbe new classification
+          properties:
+            name:
+              type: string
+            name_expanded:
+              type: string
+            description:
+              type: string
+        examples:
+          Example 1:
+            value:
+              name: NewClassification
+              name_expanded: New Classification
+              description: Superbe new classification
+    description: ''

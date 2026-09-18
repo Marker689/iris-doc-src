@@ -1,0 +1,45 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: event_id
+    in: path
+    required: true
+    description: Identifier of the timeline event
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_flag_post
+  tags:
+    - War room timelines
+    - Beta
+  summary: Toggle a timeline event's flag
+  description: Toggle the triage flag on a timeline event. Callers may either send an empty body — in which case the server flips the current value — or send an explicit `flagged` boolean to set the flag to a specific state. Returns the refreshed event row.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            flagged:
+              type: boolean
+              description: Optional explicit target state. Omit to toggle.
+        example:
+          flagged: true
+  responses:
+    '200':
+      description: Event flag successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

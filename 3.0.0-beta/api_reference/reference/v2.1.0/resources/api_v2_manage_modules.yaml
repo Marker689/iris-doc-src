@@ -1,0 +1,100 @@
+get:
+  operationId: api_v2_manage_modules_get
+  tags:
+    - Modules
+    - Beta
+  summary: List modules
+  description: Return a paginated list of the installed IRIS modules.
+  parameters:
+    - in: query
+      name: page
+      required: false
+      description: 1-indexed page number
+      schema:
+        type: integer
+        default: 1
+    - in: query
+      name: per_page
+      required: false
+      description: Page size
+      schema:
+        type: integer
+        default: 25
+  responses:
+    '200':
+      description: Modules successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    module_name:
+                      type: string
+                    module_version:
+                      type: string
+                    module_description:
+                      type: string
+                    is_active:
+                      type: boolean
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_modules_post
+  tags:
+    - Modules
+    - Beta
+  summary: Add a module
+  description: Register an IRIS module by its Python module name. IRIS resolves the module against its plugin path, imports it, and persists the metadata it declares.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - module_name
+          properties:
+            module_name:
+              type: string
+            module_version:
+              type: string
+        example:
+          module_name: iris_vt_module
+  responses:
+    '201':
+      description: Module successfully added
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              module_name:
+                type: string
+              module_version:
+                type: string
+              is_active:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

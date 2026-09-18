@@ -1,0 +1,98 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: team_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_get
+  tags:
+    - War room teams
+    - Beta
+  summary: Get a war room team
+  description: >-
+    A single team, with its current membership in `member_ids`. The team has to
+    belong to the war room in the path; a team id from another room answers 404.
+  responses:
+    '200':
+      description: Team successfully retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomTeam.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_patch
+  tags:
+    - War room teams
+    - Beta
+  summary: Update a war room team
+  description: >-
+    Partial update. Only the fields present in the body are touched, and a null
+    is indistinguishable from an omission — sending `"description": null` leaves
+    the description alone rather than clearing it. Pass `""` to clear
+    `description` or `color`. Renaming to a name another team in the room
+    already holds is a 400. Requires write access to the war room.
+
+
+    Membership is not editable here; use the `/members` sub-resource.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              description: Trimmed before storing. Unique within the war room.
+              type: string
+              maxLength: 80
+            description:
+              description: '`""` clears it.'
+              type: string
+            color:
+              description: '`#RRGGBB`. `""` clears it; anything else invalid is a 400.'
+              type: string
+              pattern: '^#[0-9a-fA-F]{6}$'
+        example:
+          color: '#4f7ec9'
+  responses:
+    '200':
+      description: Team successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomTeam.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_delete
+  tags:
+    - War room teams
+    - Beta
+  summary: Delete a war room team
+  description: >-
+    Delete the team and its membership rows. The users themselves stay in the
+    war room. Requires write access to the war room.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

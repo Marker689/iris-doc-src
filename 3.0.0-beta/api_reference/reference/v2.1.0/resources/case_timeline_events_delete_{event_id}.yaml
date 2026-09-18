@@ -1,0 +1,97 @@
+post:
+  summary: Delete an event
+  description: This endpoint is deprecated. Use [DELETE /api/v2/cases/{case_identifier}/events/{identifier}](#tag/Timeline/operation/api_v2_cases_(case_identifier)_events_(identifier)_delete) instead.
+  deprecated: true
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Event ID 22664 deleted
+                status: success
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Event ID 14984 deleted
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Not a valid event ID for this case
+                status: error
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Not a valid event ID for this case
+                status: error
+  operationId: post-case-timeline-delete
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: integer
+    name: event_id
+    in: path
+    required: true
+get:
+  summary: Delete an event
+  operationId: get-case-timeline-events-delete-event_id
+  responses:
+    '200':
+      description: OK
+  description: This endpoint is deprecated. Use [POST /case/timeline/events/delete/{event_id}](#tag/Timeline/operation/post-case-timeline-delete) instead.
+  deprecated: true
+  tags:
+    - Timeline

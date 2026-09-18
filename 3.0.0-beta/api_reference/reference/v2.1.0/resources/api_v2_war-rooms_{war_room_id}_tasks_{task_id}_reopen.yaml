@@ -1,0 +1,50 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: task_id
+    in: path
+    required: true
+    description: Identifier of the task
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_(task_id)_reopen_post
+  tags:
+    - War room tasks
+    - Beta
+  summary: Reopen a war-room task
+  description: Reopen a closed war-room task. Clears the closed-at / closed-by fields and emits a `task_assigned` system event into the war-room chat stream so watchers see the state flip.
+  responses:
+    '200':
+      description: Task successfully reopened
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+              war_room_id:
+                type: integer
+              title:
+                type: string
+              status_id:
+                type: integer
+              closed_at:
+                type:
+                  - string
+                  - 'null'
+              closed_by_id:
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

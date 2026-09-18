@@ -1,0 +1,79 @@
+get:
+  operationId: api_v2_notifications_get
+  tags:
+    - Notifications
+    - Beta
+  summary: List notifications
+  description: >-
+    Return the current user's notifications, newest first. Rows are scoped to
+    the authenticated user; a `unread_count` field is included alongside the
+    batch so a bell badge can be refreshed in the same round-trip. This feed is
+    cursor-paged on `id`, not page-numbered — pass the lowest `id` you received
+    back as `before_id` to fetch the next batch.
+  parameters:
+    - schema:
+        type: boolean
+        default: false
+      name: unread_only
+      in: query
+      required: false
+      description: When true, only unread notifications are returned
+    - schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 200
+      name: limit
+      in: query
+      required: false
+      description: Batch size. Clamped server-side to 1..200.
+    - schema:
+        type: integer
+      name: before_id
+      in: query
+      required: false
+      description: Cursor — only notifications with a strictly lower `id` are returned
+  responses:
+    '200':
+      description: Notifications successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    event_type:
+                      type: string
+                    title:
+                      type: string
+                    body:
+                      type: string
+                    link:
+                      type: string
+                    source_type:
+                      type: string
+                    source_id:
+                      type: integer
+                    read_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+                    created_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+              unread_count:
+                description: Total unread notifications for the caller, independent of this batch.
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

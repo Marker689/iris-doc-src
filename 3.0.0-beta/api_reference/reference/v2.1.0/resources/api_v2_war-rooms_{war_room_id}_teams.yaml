@@ -1,0 +1,84 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_get
+  tags:
+    - War room teams
+    - Beta
+  summary: List war room teams
+  description: >-
+    Every team defined in this war room, ordered by name. Any member of the room
+    may list them — teams exist to be @-mentioned, so they are not hidden from
+    the rest of the room. Returns a bare JSON array, not a paginated envelope.
+  responses:
+    '200':
+      description: Teams successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoomTeam.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_post
+  tags:
+    - War room teams
+    - Beta
+  summary: Create a war room team
+  description: >-
+    Create an empty team in this war room. `name` is trimmed and has to be
+    unique within the room — a collision is reported as a 400, not a 409.
+    Members are added afterwards through `POST /teams/{team_id}/members`, so
+    `member_ids` on the response is always `[]`. Requires write access to the
+    war room.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              description: Trimmed before storing. Unique within the war room.
+              type: string
+              maxLength: 80
+            description:
+              type:
+                - string
+                - 'null'
+            color:
+              description: >-
+                Hex colour of the team's chip, `#RRGGBB`. Anything else is a
+                400; an empty string is stored as null.
+              type:
+                - string
+                - 'null'
+              pattern: '^#[0-9a-fA-F]{6}$'
+          required:
+            - name
+        example:
+          name: Forensics
+          description: Disk and memory analysis
+          color: '#c94f4f'
+  responses:
+    '201':
+      description: Team successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomTeam.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

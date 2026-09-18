@@ -1,0 +1,74 @@
+parameters:
+  - schema:
+      type: string
+    name: state_id
+    in: path
+    required: true
+    description: state ID
+post:
+  summary: Update a case state
+  operationId: post-manage-case-states-state_id-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  state_name:
+                    type: string
+                  state_description:
+                    type: string
+                  state_id:
+                    type: integer
+                  protected:
+                    type: boolean
+            x-examples:
+              Example 1:
+                status: success
+                message: Case state updated
+                data:
+                  state_name: New state
+                  state_description: Superbe new state
+                  state_id: 14
+                  protected: false
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Case state updated
+                data:
+                  state_name: New state
+                  state_description: Superbe new state
+                  state_id: 14
+                  protected: false
+  tags:
+    - Manage Cases states
+  description: ''
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            state_name:
+              type: string
+            state_description:
+              type: string
+          x-examples:
+            Example 1:
+              state_name: New state
+              state_description: Superbe new state
+        examples:
+          Example 1:
+            value:
+              state_name: New state
+              state_description: Superbe new state

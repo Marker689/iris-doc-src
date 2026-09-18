@@ -1,0 +1,77 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_activities_get
+  tags:
+    - Activities
+    - Beta
+  summary: List activities for a case
+  description: >-
+    Return the recent user-activity log scoped to this case. Mirrors the
+    legacy `/case/activities/list` endpoint, which the frontend uses to
+    surface "people involved" on a case. Each row carries the user name,
+    activity date, description, and whether the entry was produced by an
+    API caller.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+    - name: since
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+        description: Include only activities on or after this ISO-8601 timestamp
+  responses:
+    '200':
+      description: Paginated case activities
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    user_name:
+                      type: string
+                    activity_desc:
+                      type: string
+                    activity_date:
+                      type: string
+                      format: date-time
+                    is_from_api:
+                      type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

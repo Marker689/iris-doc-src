@@ -1,0 +1,76 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: folder_identifier
+    in: path
+    required: true
+    description: Identifier of the target datastore folder
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_folders_(folder_identifier)_files_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Upload a file into a folder
+  description: Upload a new file into the given datastore folder. Body must be `multipart/form-data` and MUST include a `file_content` binary part. When `file_is_ioc` is true the file is stored password-protected (defaults to `infected` if no password is provided) and registered as an IoC on the case. When `file_is_evidence` is true the file is also registered as an evidence.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file_content:
+              type: string
+              format: binary
+              description: Binary content of the file
+            file_original_name:
+              type: string
+              description: Display name for the stored file (defaults to the uploaded filename)
+            file_description:
+              type: string
+            file_tags:
+              type: string
+              description: Comma-separated tags
+            file_is_ioc:
+              type: boolean
+            file_is_evidence:
+              type: boolean
+          required:
+            - file_content
+  responses:
+    '201':
+      description: File successfully uploaded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              file_original_name:
+                type: string
+              file_description:
+                type: string
+              file_size:
+                type: integer
+              file_sha256:
+                type: string
+              file_parent_id:
+                type: integer
+              file_is_ioc:
+                type: boolean
+              file_is_evidence:
+                type: boolean
+              file_tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

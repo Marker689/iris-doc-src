@@ -1,0 +1,61 @@
+post:
+  operationId: api_v2_alerts_filters_post
+  summary: Create a new alert filters
+  tags: 
+    - Alerts
+    - Beta
+  description: Creates a new alert filters.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+        example:
+          filter_is_private: true
+          filter_type: 'alerts'
+          filter_name: 'filter name'
+          filter_description: 'filter description'
+          filter_data: {
+            alert_tilte: 'filter name',
+            alert_description: '',
+            alert_source: '',
+            alert_tags: '',
+            alert_severity_id: 2,
+            alert_start_date: '',
+            source_start_date: '',
+            source_end_date: '',
+            creation_end_date: '',
+            creation_start_date: '',
+            alert_assets: [],
+            alert_iocs: [],
+            alert_ids: [],
+            source_reference: '',
+            case_id: 1,
+            custom_conditions: ''
+          }
+  responses:
+    '201':
+      description: Alert Filter successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertFilter.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+get:
+  operationId: api_v2_alerts_filters_get
+  tags:
+  - Alerts
+  - Beta
+  summary: List saved alert filters
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/SavedFilter.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

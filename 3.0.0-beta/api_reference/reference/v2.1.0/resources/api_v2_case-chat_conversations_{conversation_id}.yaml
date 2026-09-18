@@ -1,0 +1,59 @@
+parameters:
+  - name: conversation_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_case-chat_conversations_(conversation_id)_get
+  tags:
+    - Case chat
+    - Beta
+  summary: Fetch a conversation with its full message history
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+patch:
+  operationId: api_v2_case-chat_conversations_(conversation_id)_patch
+  tags:
+    - Case chat
+    - Beta
+  summary: Rename a conversation
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_case-chat_conversations_(conversation_id)_delete
+  tags:
+    - Case chat
+    - Beta
+  summary: Archive (soft-delete) a conversation
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

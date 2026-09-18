@@ -1,0 +1,53 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: event_id
+    in: path
+    required: true
+    description: Identifier of the timeline event
+    schema:
+      type: integer
+put:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_iocs_put
+  tags:
+    - War room timelines
+    - Beta
+  summary: Replace event IoC links
+  description: Replace the event's IoC associations wholesale with the provided id list. Passing `[]` detaches every IoC from the event. A missing or non-list body is rejected with a 400.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - ioc_ids
+          properties:
+            ioc_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          ioc_ids: [88, 92]
+  responses:
+    '200':
+      description: IoC links successfully replaced
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ioc_ids:
+                type: array
+                items:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

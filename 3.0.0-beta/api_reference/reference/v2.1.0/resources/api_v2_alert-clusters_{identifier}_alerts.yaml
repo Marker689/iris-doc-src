@@ -1,0 +1,37 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_alert-clusters_(identifier)_alerts_post
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Add alerts to a cluster
+  description: Attach one or more existing alerts to this cluster.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            alert_ids:
+              type: array
+              description: List of alert identifiers to attach to the cluster
+              items:
+                type: integer
+  responses:
+    '200':
+      description: Alerts successfully attached; returns the updated cluster
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertCluster.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

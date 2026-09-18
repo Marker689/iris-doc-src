@@ -1,0 +1,38 @@
+type: object
+properties:
+  user_login:
+    type: string
+  user_name:
+    type: string
+  user_email:
+    type: string
+  has_deletion_confirmation:
+    type: boolean
+  has_mini_sidebar:
+    type: boolean
+  in_dark_mode:
+    type: boolean
+  ctx_case:
+    type: boolean
+  user_active:
+    type: boolean
+  user_is_service_account:
+    type: boolean
+  user_api_key:
+    type: string
+  user_id:
+    type: integer
+  uuid:
+    type: string
+example:
+  user_login: strsing
+  user_name: string
+  user_email: stringa
+  user_id: 4
+  user_is_service_account: true
+  has_deletion_confirmation: false
+  uuid: bb807755-62fa-412b-b242-fd930a24be13
+  active: true
+  in_dark_mode: null
+  has_mini_sidebar: false
+  user_api_key: ViYIIkN_LL062yNOcq2kJA3ZMscOAoHmLy8GEh_JYKBWwspLB_E65jhYLg9CsR0J-kP8DmmM3RO31_xixrG8rw    

@@ -1,0 +1,67 @@
+get:
+  operationId: api_v2_manage_report-templates_schema_get
+  tags:
+    - Report templates
+    - Beta
+  summary: Get the report template schema
+  description: Return the JSON schema that describes the editable fields on a report template, together with the seeded `languages` and `report_types` lookups and the list of allowed template file extensions. Powers the interactive editor without extra round-trips.
+  responses:
+    '200':
+      description: Schema successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    kind:
+                      type: string
+                    required:
+                      type: boolean
+                    label:
+                      type: string
+                    help:
+                      type: string
+                    options_ref:
+                      type: string
+              lookups:
+                type: object
+                properties:
+                  languages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        code:
+                          type: string
+                  report_types:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+              allowed_extensions:
+                type: array
+                items:
+                  type: string
+              naming_format_tags:
+                type: array
+                items:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

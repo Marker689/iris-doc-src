@@ -1,0 +1,62 @@
+post:
+  summary: Delete an alert
+  operationId: post-case-delete-batch-alerts
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  alert_id:
+                    type: integer
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  alert_id: 436
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  alert_id: 436
+  description: Delete a batch of alerts
+  parameters: []
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Alerts
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            alert_ids:
+              type: array
+              x-stoplight:
+                id: kpfdhb82w6jkt
+              items:
+                x-stoplight:
+                  id: 133gotywvl5ux
+                type: integer
+          required:
+            - alert_ids
+        examples:
+          Example 1:
+            value:
+              alert_ids:
+                - 5
+                - 11
+parameters: []

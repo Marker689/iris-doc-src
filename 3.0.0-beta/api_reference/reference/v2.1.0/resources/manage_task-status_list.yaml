@@ -1,0 +1,90 @@
+get:
+  summary: List task status
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    status_bscolor:
+                      type: string
+                    status_description:
+                      type: string
+                    status_name:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  - id: 1
+                    status_bscolor: danger
+                    status_description: ''
+                    status_name: To do
+                  - id: 2
+                    status_bscolor: warning
+                    status_description: ''
+                    status_name: In progress
+                  - id: 3
+                    status_bscolor: muted
+                    status_description: ''
+                    status_name: On hold
+                  - id: 4
+                    status_bscolor: success
+                    status_description: ''
+                    status_name: Done
+                  - id: 5
+                    status_bscolor: muted
+                    status_description: ''
+                    status_name: Canceled
+                message: ''
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  - id: 1
+                    status_bscolor: danger
+                    status_description: ''
+                    status_name: To do
+                  - id: 2
+                    status_bscolor: warning
+                    status_description: ''
+                    status_name: In progress
+                  - id: 3
+                    status_bscolor: muted
+                    status_description: ''
+                    status_name: On hold
+                  - id: 4
+                    status_bscolor: success
+                    status_description: ''
+                    status_name: Done
+                  - id: 5
+                    status_bscolor: muted
+                    status_description: ''
+                    status_name: Canceled
+                message: ''
+                status: success
+  operationId: get-manage-task-status-list
+  description: 'Return a list of available task status. '
+  tags:
+    - Manage Task Status
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

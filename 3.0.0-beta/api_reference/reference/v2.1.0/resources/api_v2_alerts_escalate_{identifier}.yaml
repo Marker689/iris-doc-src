@@ -1,0 +1,64 @@
+post:
+  operationId: api_v2_alerts_escalate_post
+  summary: Escalate an alert into a new case
+  description: >-
+    Escalate a single alert into a newly created case. Distinct from
+    `POST /api/v2/alert-clusters/{identifier}/escalate`, which operates on
+    a whole alert cluster.
+  tags:
+    - Alerts
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            iocs_import_list:
+              type: array
+              items:
+                type: string
+              description: UUIDs of IOCs from the alert to import into the created case.
+            assets_import_list:
+              type: array
+              items:
+                type: string
+              description: UUIDs of assets from the alert to import into the created case.
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+            case_tags:
+              type: string
+            case_title:
+              type: string
+            case_template_id:
+              type: integer
+  responses:
+    '200':
+      description: Alert escalated to a new case.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+    '400':
+      description: Invalid payload.
+    '403':
+      description: User not entitled to escalate alerts for the client.
+    '404':
+      description: Alert not found.
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: Alert identifier to escalate.

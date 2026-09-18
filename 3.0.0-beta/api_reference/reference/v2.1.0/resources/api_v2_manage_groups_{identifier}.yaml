@@ -1,0 +1,85 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_groups_(identifier)_get
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Get a group
+  description: Requires administrative rights.
+  responses:
+    '200':
+      description: group successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_groups_(identifier)_put
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Update group
+  description:  Update an existing group. Requires administrative rights.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            group_name:
+              type: string
+            group_description:
+              type: string
+            group_permissions:
+              type: integer
+            group_auto_follow:
+              type: boolean
+            group_auto_follow_access_level:
+              type: integer
+            group_id:
+              type: integer
+            group_uuid:
+              type: string
+          required:
+            - group_name
+        example:
+          group_name: New group
+          group_description: New description
+          group_permissions: 1
+  responses:
+    '201':
+      description: Group successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_groups_(identifier)_delete
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Delete group
+  description: Delete group. Requires administrative rights.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+

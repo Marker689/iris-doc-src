@@ -1,0 +1,6 @@
+in: query
+name: is_open
+description: whether the case is open or not
+schema:
+  type: boolean
+

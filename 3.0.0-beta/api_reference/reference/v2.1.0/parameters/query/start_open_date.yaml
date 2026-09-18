@@ -1,0 +1,6 @@
+in: query
+name: start_open_date
+description: Case opening date - lower boundary
+schema:
+  type: string
+

@@ -1,0 +1,35 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_modules_(identifier)_enable_post
+  tags:
+    - Modules
+    - Beta
+  summary: Enable a module
+  description: Mark the module as active so its hooks fire on matching events. The request body is ignored.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    '200':
+      description: Module successfully enabled
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              module_name:
+                type: string
+              is_active:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

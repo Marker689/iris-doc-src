@@ -1,0 +1,51 @@
+post:
+  operationId: api_v2_alerts_batch_escalate_post
+  summary: Escalate multiple alerts into a new case
+  description: >-
+    Batch variant of `POST /api/v2/alerts/escalate/{identifier}`. Escalates
+    every listed alert into a single newly-created case.
+  tags:
+    - Alerts
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - alert_ids
+          properties:
+            alert_ids:
+              type: string
+              description: Comma-separated list of alert identifiers.
+              example: "12,13,14"
+            iocs_import_list:
+              type: array
+              items:
+                type: string
+            assets_import_list:
+              type: array
+              items:
+                type: string
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+            case_tags:
+              type: string
+            case_title:
+              type: string
+            case_template_id:
+              type: integer
+  responses:
+    '200':
+      description: Alerts escalated into a new case.
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Case.yaml
+    '400':
+      description: Missing alert_ids or invalid identifier list.
+    '403':
+      description: User not entitled to escalate one or more listed alerts.

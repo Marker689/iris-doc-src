@@ -1,0 +1,90 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: team_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_members_get
+  tags:
+    - War room teams
+    - Beta
+  summary: List war room team members
+  description: >-
+    Membership rows for the team, with the audit trail of who added whom and
+    when. Returns a bare JSON array, not a paginated envelope. For just the user
+    ids, `member_ids` on the team itself says the same thing.
+  responses:
+    '200':
+      description: Members successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoomTeamMember.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_members_post
+  tags:
+    - War room teams
+    - Beta
+  summary: Add a war room team member
+  description: >-
+    Add a user to the team. Every team member is also a member of the war room:
+    a user who isn't one yet is enrolled in the room as `responder` with full
+    access first, which the response reports through `auto_added_room_member`.
+
+
+    Idempotent — adding someone already on the team returns their existing row,
+    still as a 201. `user_id` must be an integer; a missing or non-integer one
+    is a 400. Requires write access to the war room.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+          required:
+            - user_id
+        example:
+          user_id: 19
+  responses:
+    '201':
+      description: Member successfully added
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../schemas/WarRoomTeamMember.yaml
+              - type: object
+                properties:
+                  auto_added_room_member:
+                    description: >-
+                      True when this call also enrolled the user in the war room
+                      itself.
+                    type: boolean
+          example:
+            team_id: 7
+            user_id: 19
+            added_at: '2026-03-11T09:02:14.114902'
+            added_by_id: 12
+            auto_added_room_member: false
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

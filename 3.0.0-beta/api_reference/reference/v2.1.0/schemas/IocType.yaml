@@ -1,0 +1,21 @@
+type: object
+properties:
+  type_name:
+    type: string
+  type_description:
+    type: string
+  type_id:
+    type: integer
+  type_validation_regex:
+    type:
+      - string
+      - 'null'
+  type_validation_expect:
+    type:
+      - string
+      - 'null'
+  type_taxonomy:
+    type:
+      - string
+      - 'null'
+

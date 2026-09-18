@@ -1,0 +1,66 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: note_id
+    in: path
+    required: true
+    description: Identifier of the note
+    schema:
+      type: integer
+  - name: revision_number
+    in: path
+    required: true
+    description: Sequential revision number
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_notes_(note_id)_revisions_(revision_number)_get
+  tags:
+    - War room notes
+    - Beta
+  summary: Get a note revision
+  description: Return the full snapshot of a war-room note at the given revision number.
+  responses:
+    '200':
+      description: Revision successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              revision_number:
+                type: integer
+              title:
+                type: string
+              content:
+                type: string
+              revised_at:
+                type: string
+              revised_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_notes_(note_id)_revisions_(revision_number)_delete
+  tags:
+    - War room notes
+    - Beta
+  summary: Delete a note revision
+  description: Delete a specific revision from the note's history. The current version of the note is never affected — use the restore endpoint if you want to promote a revision back to head.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

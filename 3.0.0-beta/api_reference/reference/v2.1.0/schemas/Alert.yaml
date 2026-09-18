@@ -1,0 +1,124 @@
+type: object
+properties:
+  alert_title:
+    type: string
+  alert_description:
+    type: string
+  alert_source:
+    type: string
+  alert_source_ref:
+    type: string
+  alert_source_link:
+    type: string
+  alert_source_content:
+    type: object
+  alert_severity_id:
+    $ref: ../schemas/severity_id.yaml
+  alert_status_id:
+    $ref: ../schemas/alert_status_id.yaml
+  alert_context:
+    $ref: ../schemas/alert_context.yaml
+  alert_source_event_time:
+    type: string
+  alert_note:
+    type: string
+  alert_tags:
+    type: string
+  alert_iocs:
+    type: array
+    items:
+      type: object
+      properties:
+        ioc_value:
+          type: string
+        ioc_description:
+          type: string
+        ioc_tlp_id:
+          type: integer
+        ioc_type_id:
+          type: integer
+        ioc_tags:
+          type: string
+        ioc_enrichment:
+          type: object
+  alert_assets:
+    type: array
+    items:
+      type: object
+      properties:
+        asset_name:
+          type: string
+        asset_description:
+          type: string
+        asset_type_id:
+          type: integer
+        asset_ip:
+          type: string
+        asset_domain:
+          type: string
+        asset_tags:
+          type: string
+        asset_enrichment:
+          type: object
+  alert_customer_id:
+    type: integer
+  alert_classification_id:
+      oneOf:
+      - $ref: ../schemas/classification_id.yaml
+      - type: 'null'
+example:
+  alert_title: Low-reputation arbitrary code executed by signed executable
+  alert_description: This is a test alert, courtesy of MS
+  alert_source: Test Source
+  alert_source_ref: Test-123
+  alert_source_link: https://source_link.com
+  alert_source_content:
+    _id: 603f704aaf7417985bbf3b22
+    contextId: 206e2965-6533-48a6-ba9e-794364a84bf9
+    idValue: 15795464
+    isSystemAlert: false
+    resolutionStatusValue: 0
+    severityValue: 5
+    statusValue: 1
+    stories:
+      - 0
+    threatScore: 34
+    timestamp: 1621941916475
+    title: Honeytoken activity
+    comment: ''
+    handledByUser: administrator@contoso.com
+    resolveTime: '2021-05-13T14:02:34.904Z'
+    URL: >-
+      https://contoso.portal.cloudappsecurity.com/#/alerts/603f704aaf7417985bbf3b22
+  alert_severity_id: 4
+  alert_status_id: 3
+  alert_context:
+    context_key: context_value
+  alert_source_event_time: '2023-03-26T03:00:30'
+  alert_note: A note on
+  alert_tags: defender,anothertag
+  alert_iocs:
+    - ioc_value: tarzan5
+      ioc_description: description of Tarzan
+      ioc_tlp_id: 1
+      ioc_type_id: 2
+      ioc_tags: tag1,tag2
+      ioc_enrichment:
+        provider_1:
+          data: 2
+          new_data: 3
+        provider_3:
+          enric: 'true'
+  alert_assets:
+    - asset_name: My super asset
+      asset_description: Asset description
+      asset_type_id: 1
+      asset_ip: 1.1.1.1
+      asset_domain: ''
+      asset_tags: tag1,tag2
+      asset_enrichment:
+        enrich1:
+          A key: A value
+  alert_customer_id: 1
+  alert_classification_id: 1
+

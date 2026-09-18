@@ -1,0 +1,152 @@
+post:
+  summary: Add a customer
+  operationId: post-customer-add
+  description: This endpoint is deprecated. Use [POST /api/v2/manage/customers](#tag/Customers/operation/api_v2_manage_customers_post) instead.
+  deprecated: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  client_uuid:
+                    type: string
+                  creation_date:
+                    type: string
+                  custom_attributes:
+                    type: object
+                    properties: {}
+                  customer_description:
+                    type: string
+                  customer_id:
+                    type: integer
+                  customer_name:
+                    type: string
+                  customer_sla:
+                    type: string
+                  last_update_date:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  client_uuid: d274194f-0e74-4ae5-9610-e2bf9735f10c
+                  creation_date: '2023-03-20T13:25:57.930469'
+                  custom_attributes: {}
+                  customer_description: fds
+                  customer_id: 8
+                  customer_name: fsd
+                  customer_sla: fds
+                  last_update_date: '2023-03-20T13:25:57.930469'
+                message: Added successfully
+                status: success
+          examples:
+            Successful addition:
+              value:
+                data:
+                  client_uuid: d274194f-0e74-4ae5-9610-e2bf9735f10c
+                  creation_date: '2023-03-20T13:25:57.930469'
+                  custom_attributes: {}
+                  customer_description: fds
+                  customer_id: 8
+                  customer_name: fsd
+                  customer_sla: fds
+                  last_update_date: '2023-03-20T13:25:57.930469'
+                message: Added successfully
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  customer_name:
+                    type: array
+                    items:
+                      properties: {}
+                required:
+                  - customer_name
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  customer_name:
+                    - Customer already exists
+                message: Data error
+                status: error
+          examples:
+            'Existing customer ':
+              value:
+                data:
+                  customer_name:
+                    - Customer already exists
+                message: Data error
+                status: error
+            Name too short:
+              value:
+                data:
+                  customer_name:
+                    - Shorter than minimum length 2.
+                message: Data error
+                status: error
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBhe2g.LLsEeUp4iw8i7Wl_T-N8vese8J4
+              customer_name: fsd
+              customer_description: fds
+              customer_sla: fds
+              custom_attributes: {}
+          properties:
+            customer_name:
+              type: string
+            customer_description:
+              type: string
+            customer_sla:
+              type: string
+            custom_attributes:
+              type: object
+          required:
+            - customer_name
+            - customer_description
+            - customer_sla
+            - custom_attributes
+        examples:
+          Example:
+            value:
+              customer_name: New customer
+              customer_description: New customer description
+              customer_sla: New customer SLA
+              custom_attributes: {}
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Customers
+parameters: []

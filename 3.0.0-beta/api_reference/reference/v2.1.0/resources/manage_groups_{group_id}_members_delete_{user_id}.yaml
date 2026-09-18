@@ -1,0 +1,82 @@
+post:
+  summary: Delete a member of a group
+  tags:
+    - Manage Groups
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Group deleted
+                status: success
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Group deleted
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid group ID
+                status: error
+  operationId: post-manage-groups-delete-members
+  description: 'Requires administrative rights. '
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: group_id
+    in: path
+    required: true
+    description: Group ID
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: User ID

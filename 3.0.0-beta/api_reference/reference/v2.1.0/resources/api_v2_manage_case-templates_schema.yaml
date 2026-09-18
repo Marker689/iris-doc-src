@@ -1,0 +1,61 @@
+get:
+  operationId: api_v2_manage_case-templates_schema_get
+  tags:
+    - Case templates
+    - Beta
+  summary: Get the case template schema
+  description: Returns a JSON schema describing the case-template file format. Powers the interactive editor on the Settings Case Templates page — describes each top-level field (kind, required, allow_none, dump_only, max_length, label, help) plus the nested item schemas for `task`, `note_directory` and `note`.
+  responses:
+    '200':
+      description: Case template schema
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    label:
+                      type: string
+                    help:
+                      type: string
+                    kind:
+                      type: string
+                      description: One of `string`, `text`, `integer`, `boolean`, `datetime`, `list[string]`, `list[object]`.
+                    required:
+                      type: boolean
+                    allow_none:
+                      type: boolean
+                    dump_only:
+                      type: boolean
+                    max_length:
+                      type:
+                        - integer
+                        - 'null'
+                    item_schema:
+                      type: string
+                      description: For `list[object]` fields, the key of the nested item descriptor in `item_schemas`.
+              item_schemas:
+                type: object
+                properties:
+                  task:
+                    type: array
+                    items:
+                      type: object
+                  note_directory:
+                    type: array
+                    items:
+                      type: object
+                  note:
+                    type: array
+                    items:
+                      type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

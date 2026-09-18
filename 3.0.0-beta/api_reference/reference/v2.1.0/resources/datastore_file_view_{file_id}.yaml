@@ -1,0 +1,14 @@
+parameters:
+  - schema:
+      type: integer
+    name: file_id
+    in: path
+    required: true
+    description: File ID
+get:
+  summary: Download a datastore file
+  tags:
+    - Datastore
+  responses: {}
+  operationId: get-datastore-file-view-file_id
+  description: Download the content of a datastore file

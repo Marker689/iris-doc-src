@@ -1,0 +1,92 @@
+get:
+  summary: Iris module task list
+  tags:
+    - Modules
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                uniqueItems: true
+                minItems: 1
+                items:
+                  required:
+                    - hook_name
+                    - manual_hook_ui_name
+                    - module_name
+                  properties:
+                    hook_name:
+                      type: string
+                      minLength: 1
+                    manual_hook_ui_name:
+                      type: string
+                      minLength: 1
+                    module_name:
+                      type: string
+                      minLength: 1
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  - hook_name: on_manual_trigger_ioc
+                    manual_hook_ui_name: Get VT insight
+                    module_name: iris_vt_module
+                message: ''
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  - hook_name: on_manual_trigger_ioc
+                    manual_hook_ui_name: Get VT insight
+                    module_name: iris_vt_module
+                message: ''
+                status: success
+  operationId: get-dim-tasks-hooks-options
+  description: >-
+    List all manual hooks available for a particular case object.  
+
+    Available objects types are : 
+
+
+    - case
+
+    - ioc 
+
+    - asset
+
+    - note
+
+    - event
+
+    - task 
+
+    - evidence 
+
+    - global_task 
+
+
+    The returned information can provided to the ``/dim/hooks/call`` endpoint to
+    trigger a hook. 
+  parameters: []
+parameters:
+  - schema:
+      type: string
+    name: object_type
+    in: path
+    required: true
+    description: Object type

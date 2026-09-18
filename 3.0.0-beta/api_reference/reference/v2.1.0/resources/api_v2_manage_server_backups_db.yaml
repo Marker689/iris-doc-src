@@ -1,0 +1,30 @@
+post:
+  operationId: api_v2_manage_server_backups_db_post
+  tags:
+    - Server admin
+    - Beta
+  summary: Create a database backup
+  description: Trigger a synchronous Postgres dump. Runs inline (not via Celery) so the caller sees the outcome in the same request. On success returns the dump-runner log lines; on failure the same log lines are surfaced as `data` on the error envelope.
+  responses:
+    '200':
+      description: Database backup successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              logs:
+                type: array
+                items:
+                  type: string
+                description: Log lines emitted by the dump runner.
+              backup_id:
+                type: string
+                description: Identifier of the created backup, when available.
+              backup_path:
+                type: string
+                description: Filesystem path of the resulting dump, when available.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,53 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the datastore folder to move
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_folders_(identifier)_move_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Move a datastore folder
+  description: Reparent a datastore folder under another folder in the same case. Moving a folder onto itself is rejected. Requires full access to the case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            destination_node:
+              type: integer
+              description: Identifier of the new parent folder
+          required:
+            - destination_node
+        example:
+          destination_node: 12
+  responses:
+    '200':
+      description: Folder successfully moved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              path_id:
+                type: integer
+              path_name:
+                type: string
+              path_parent_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

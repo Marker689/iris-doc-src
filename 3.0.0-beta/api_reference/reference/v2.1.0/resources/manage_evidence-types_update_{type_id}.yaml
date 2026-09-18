@@ -1,0 +1,74 @@
+parameters:
+  - schema:
+      type: string
+    name: type_id
+    in: path
+    required: true
+    description: Type ID
+post:
+  summary: Update an evidence type
+  operationId: post-manage-evidence-types-state_id-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  creation_date:
+                    type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: Evidence type updated
+                data:
+                  name: Evidence Type 1
+                  description: Superbe Evidence Type
+                  id: 3
+                  creation_date: '2023-11-29T10:28:30.768152'
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Evidence type updated
+                data:
+                  name: Evidence Type 1
+                  description: Superbe Evidence Type
+                  id: 3
+                  creation_date: '2023-11-29T10:28:30.768152'
+  tags:
+    - Manage evidence types
+  description: ''
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+          x-examples:
+            Example 1:
+              name: Evidence Type
+              description: Superbe Evidence Type
+        examples:
+          Example 1:
+            value:
+              name: Evidence Type
+              description: Superbe Evidence Type

@@ -1,0 +1,55 @@
+get:
+  summary: List case severities
+  description: 'List the case severities'
+  tags:
+    - Manage cases severities
+  operationId: get-severities-list
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    severity_id:
+                      $ref: ../schemas/severity_id.yaml
+                    severity_name:
+                      type: string
+                    severity_description:
+                      type: string
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - severity_name: Medium
+                    severity_description: Medium
+                    severity_id: 1
+                  - severity_name: Unspecified
+                    severity_description: Unspecified
+                    severity_id: 2
+                  - severity_name: Informational
+                    severity_description: Informational
+                    severity_id: 3
+                  - severity_name: Low
+                    severity_description: Low
+                    severity_id: 4
+                  - severity_name: High
+                    severity_description: High
+                    severity_id: 5
+                  - severity_name: Critical
+                    severity_description: Critical
+                    severity_id: 6
+

@@ -1,0 +1,68 @@
+post:
+  operationId: api_v2_auth_login_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Log in with username and password
+  description: >-
+    Authenticate a user with local or LDAP credentials and return a pair of
+    JWT tokens plus the user profile. When MFA is enforced, the returned
+    access token carries `mfa_verified=False` and must be exchanged for a
+    verified token via `/auth/mfa-verify` before non-MFA endpoints can be
+    reached.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+              description: User login name
+            password:
+              type: string
+              description: User password
+            mfa_code:
+              type: string
+              description: Optional TOTP code when MFA is enforced
+          required:
+            - username
+            - password
+        example:
+          username: analyst
+          password: correct-horse-battery-staple
+  responses:
+    '200':
+      description: Login successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              user_login:
+                type: string
+              user_name:
+                type: string
+              user_email:
+                type: string
+              tokens:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  expires_in:
+                    type: integer
+                    description: Access token lifetime in seconds
+              mfa_required:
+                type: boolean
+              mfa_setup_complete:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

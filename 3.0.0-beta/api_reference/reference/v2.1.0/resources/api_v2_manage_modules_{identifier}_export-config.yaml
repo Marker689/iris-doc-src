@@ -1,0 +1,22 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_modules_(identifier)_export-config_get
+  tags:
+    - Modules
+    - Beta
+  summary: Export a module's configuration
+  description: Return the module's full configuration as a JSON document. The output can be re-applied to the same or another instance via `POST /manage/modules/{identifier}/import-config`.
+  responses:
+    '200':
+      description: Configuration successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

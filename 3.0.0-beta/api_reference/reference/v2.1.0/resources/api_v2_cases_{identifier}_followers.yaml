@@ -1,0 +1,60 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_followers_get
+  tags:
+    - Cases
+    - Beta
+  summary: List followers of a case
+  description: >-
+    Return the users following this case. Powers the "Follow" toggle in
+    the case topbar (follower count and whether the caller is following).
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+  responses:
+    '200':
+      description: Users following the case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: integer
+                    user_login:
+                      type: string
+                    user_name:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

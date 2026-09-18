@@ -1,0 +1,75 @@
+get:
+  summary: List customers
+  description: This endpoint is deprecated. Use [GET /api/v2/manage/customers](#tag/Customers/operation/api_v2_manage_customers_get) instead.
+  deprecated: true
+  tags:
+    - Customers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    customer_description:
+                      type:
+                        - 'null'
+                        - string
+                    customer_id:
+                      type: integer
+                    customer_name:
+                      type: string
+                    customer_sla:
+                      type:
+                        - 'null'
+                        - string
+                    customer_uuid:
+                      type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  - customer_description: New customer description
+                    customer_id: 1
+                    customer_name: New customer
+                    customer_sla: New customer SLA
+                    customer_uuid: ad6d9fd2-a149-45b7-9209-ca558df7b03f
+                  - customer_description: null
+                    customer_id: 10
+                    customer_name: IrisInitialClient
+                    customer_sla: null
+                    customer_uuid: 43a20fd8-1012-48ac-9dff-cdf5b6334c76
+                message: ''
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  - customer_description: New customer description
+                    customer_id: 1
+                    customer_name: New customer
+                    customer_sla: New customer SLA
+                    customer_uuid: ad6d9fd2-a149-45b7-9209-ca558df7b03f
+                  - customer_description: null
+                    customer_id: 10
+                    customer_name: IrisInitialClient
+                    customer_sla: null
+                    customer_uuid: 43a20fd8-1012-48ac-9dff-cdf5b6334c76
+                message: ''
+                status: success
+  operationId: get-manage-customers-list
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID

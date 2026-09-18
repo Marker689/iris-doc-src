@@ -1,0 +1,29 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+  - in: path
+    name: user_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the user to remove from the war room.
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_members_(user_id)_delete
+  tags:
+    - War rooms
+    - Beta
+  summary: Remove a war room member
+  description: Removes a user from the war room and revokes the corresponding ACL. A system event is emitted in the activity panel.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

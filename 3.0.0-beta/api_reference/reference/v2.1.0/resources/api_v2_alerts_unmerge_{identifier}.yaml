@@ -1,0 +1,39 @@
+post:
+  operationId: api_v2_alerts_unmerge_post
+  summary: Unmerge an alert from a case
+  description: Reverse an earlier alert-to-case merge for a single alert.
+  tags:
+    - Alerts
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - target_case_id
+          properties:
+            target_case_id:
+              type: integer
+              description: Identifier of the case the alert was previously merged into.
+  responses:
+    '200':
+      description: Alert unmerged from the case.
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      description: Invalid payload or missing target case id.
+    '403':
+      description: User not entitled to unmerge alerts for the client or case.
+    '404':
+      description: Alert or target case not found.
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: Alert identifier to unmerge.

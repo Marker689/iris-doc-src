@@ -1,0 +1,136 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_datastore_get
+  tags:
+    - War room datastore
+    - Beta
+  summary: List war-room datastore files
+  description: Return the paginated list of files stored in the war-room datastore. The response also carries the ids of the cases currently attached to the war room, so the frontend can render the mixed source view without a second round-trip.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page number, starting at 1.
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Number of files per page.
+    - name: q
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Optional case-insensitive substring filter on filename.
+  responses:
+    '200':
+      description: Datastore files successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              files:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    file_id:
+                      type: integer
+                    war_room_id:
+                      type: integer
+                    filename:
+                      type: string
+                    description:
+                      type: string
+                    size_bytes:
+                      type: integer
+                    mime_type:
+                      type: string
+                    sha256:
+                      type: string
+                    uploaded_at:
+                      type: string
+                    uploaded_by_id:
+                      type: integer
+                    tags:
+                      type: string
+              attached_case_ids:
+                type: array
+                items:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_datastore_post
+  tags:
+    - War room datastore
+    - Beta
+  summary: Upload a datastore file
+  description: Upload a new file to the war-room datastore. The request must be sent as `multipart/form-data`. Only the `file` field is required; `description` and `tags` are optional metadata.
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - file
+          properties:
+            file:
+              type: string
+              format: binary
+              description: The file to upload.
+            description:
+              type: string
+              description: Free-form description recorded on the file row.
+            tags:
+              type: string
+              description: Comma-separated list of tags to attach to the file.
+  responses:
+    '201':
+      description: File successfully uploaded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              war_room_id:
+                type: integer
+              filename:
+                type: string
+              description:
+                type: string
+              size_bytes:
+                type: integer
+              mime_type:
+                type: string
+              sha256:
+                type: string
+              uploaded_at:
+                type: string
+              uploaded_by_id:
+                type: integer
+              tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,31 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: alert_id
+    in: path
+    required: true
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_alert-clusters_(identifier)_alerts_(alert_id)_delete
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Remove an alert from a cluster
+  description: Detach an alert from an alert cluster. Returns the updated cluster.
+  responses:
+    '200':
+      description: Alert successfully removed from the cluster
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertCluster.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

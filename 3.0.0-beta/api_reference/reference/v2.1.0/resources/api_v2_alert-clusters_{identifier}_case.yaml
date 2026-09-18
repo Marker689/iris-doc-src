@@ -1,0 +1,35 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_alert-clusters_(identifier)_case_delete
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Unlink the case from a cluster
+  description: Reverse a cluster-to-case escalation or merge from the cluster side. Requires full-access to the linked case.
+  responses:
+    '200':
+      description: Cluster successfully unlinked from its case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              unlinked:
+                type: boolean
+                description: >-
+                  `false` when the cluster was not linked to a case in the
+                  first place — that is a no-op success, not an error.
+              cluster_id:
+                type: integer
+                description: Only present when `unlinked` is `true`.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

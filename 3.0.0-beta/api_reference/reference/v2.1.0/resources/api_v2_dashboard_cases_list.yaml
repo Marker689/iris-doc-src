@@ -1,0 +1,41 @@
+get:
+  operationId: api_v2_dashboard_cases_list_get
+  tags:
+    - Dashboard
+    - Beta
+  summary: List cases owned by the current user
+  description: Returns the cases the current user owns. Used by the dashboard "my cases" tile.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based) for pagination.
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 25
+    - name: is_open
+      in: query
+      required: false
+      description: When true, restrict the result to open cases. When false, include closed cases as well.
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: List of cases owned by the current user
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

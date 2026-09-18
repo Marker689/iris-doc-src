@@ -1,0 +1,210 @@
+parameters: []
+post:
+  summary: Add a new note
+  operationId: post-case-notes-add
+  description: This endpoint is deprecated. Use [POST /api/v2/cases/{case_identifier}/notes](#tag/Notes/operation/api_v2_cases_(case_identifier)_notes_post) instead.
+  deprecated: true
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Upon success, returns the new added note information
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Note added
+                data:
+                  directory:
+                    id: 2
+                    name: ss
+                    parent_id: null
+                    case_id: 1
+                  note_id: 16
+                  note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                  note_title: Title of the note
+                  note_content: Content of the note
+                  note_user: 1
+                  note_creationdate: '2024-03-27T18:14:21.245694'
+                  note_lastupdate: '2024-03-27T18:14:21.245724'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 2
+                  modification_history:
+                    '1711563261.268616':
+                      user: administrator
+                      user_id: 1
+                      action: created note
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - directory
+                  - note_id
+                  - note_uuid
+                  - note_title
+                  - note_content
+                  - note_user
+                  - note_creationdate
+                  - note_lastupdate
+                  - note_case_id
+                  - custom_attributes
+                  - directory_id
+                  - modification_history
+                properties:
+                  directory:
+                    type: object
+                    required:
+                      - id
+                      - name
+                      - parent_id
+                      - case_id
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      parent_id:
+                        type: 'null'
+                      case_id:
+                        type: integer
+                  note_id:
+                    type: integer
+                  note_uuid:
+                    type: string
+                  note_title:
+                    type: string
+                  note_content:
+                    type: string
+                  note_user:
+                    type: integer
+                  note_creationdate:
+                    type: string
+                  note_lastupdate:
+                    type: string
+                  note_case_id:
+                    type: integer
+                  custom_attributes:
+                    type: 'null'
+                  directory_id:
+                    type: integer
+                  modification_history:
+                    type: object
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Note added
+                data:
+                  directory:
+                    id: 2
+                    name: A dir
+                    parent_id: null
+                    case_id: 1
+                  note_id: 16
+                  note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+                  note_title: Title of the note
+                  note_content: Content of the note
+                  note_user: 1
+                  note_creationdate: '2024-03-27T18:14:21.245694'
+                  note_lastupdate: '2024-03-27T18:14:21.245724'
+                  note_case_id: 1
+                  custom_attributes: null
+                  directory_id: 2
+                  modification_history:
+                    '1711563261.268616':
+                      user: administrator
+                      user_id: 1
+                      action: created note
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  note_tile:
+                    - Unknown field.
+                  note_title:
+                    - Missing data for required field.
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Missing field:
+              value:
+                data:
+                  note_tile:
+                    - Unknown field.
+                  note_title:
+                    - Missing data for required field.
+                message: Data error
+                status: error
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              note_title: string
+              note_content: string
+              group_id: 36
+              cid: 2
+          properties:
+            note_title:
+              type: string
+              minLength: 1
+            note_content:
+              type: string
+              minLength: 1
+            directory_id:
+              type: number
+              x-stoplight:
+                id: blmfc4nfxgzm2
+          required:
+            - note_title
+            - note_content
+            - directory_id
+        examples:
+          example-1:
+            value:
+              note_title: Title of the note
+              note_content: Content of the note
+              directory_id: 36
+    description: ''

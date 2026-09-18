@@ -1,0 +1,28 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  name:
+    type:
+      - string
+      - 'null'
+  name_expanded:
+    type:
+      - string
+      - 'null'
+  description:
+    type:
+      - string
+      - 'null'
+  id:
+    type: integer
+  creation_date:
+    type:
+      - string
+      - 'null'
+    format: date-time
+required:
+  - description
+  - name
+  - name_expanded
+description: Schema for serializing and deserializing CaseClassification objects.

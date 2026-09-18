@@ -1,0 +1,22 @@
+get:
+  operationId: api_v2_openapi_yaml_get
+  tags:
+    - API
+    - Beta
+  summary: Get the OpenAPI spec (YAML)
+  description: >-
+    Serve the OpenAPI 3.1 document generated from the running server's route
+    annotations, as `application/yaml`. Gated by the same auth as any other v2
+    endpoint — the spec exposes the entire request/response shape of the API,
+    so it is not handed out to unauthenticated callers.
+  responses:
+    '200':
+      description: The generated OpenAPI document
+      content:
+        application/yaml:
+          schema:
+            type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

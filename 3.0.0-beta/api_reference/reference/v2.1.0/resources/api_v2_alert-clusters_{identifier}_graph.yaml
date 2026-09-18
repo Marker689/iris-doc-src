@@ -1,0 +1,76 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_alert-clusters_(identifier)_graph_get
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Get a cluster's correlation graph
+  description: >-
+    Return the alert cluster's correlation graph. Links every member alert to
+    its IOCs and assets, with shared indicators surfaced as junction nodes —
+    IOCs are deduplicated on `(value, type_id)` and assets on
+    `(name, type_id)`, so one node can carry edges to several alerts. The
+    payload is emitted in vis-network's own vocabulary (`group`, `from`, `to`,
+    HTML `title`) so the client can hand it straight to the graph component.
+  responses:
+    '200':
+      description: Correlation graph successfully retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nodes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: '`alert_<alert_id>`, `ioc_<ioc_id>` or `asset_<asset_id>`.'
+                    label:
+                      type: string
+                      description: >-
+                        Alert title (prefixed with `[Closed] ` when the alert is
+                        closed, merged or escalated), IOC value, or asset name.
+                    title:
+                      type: string
+                      description: Tooltip. HTML, `<br>`-separated for IOC and asset nodes.
+                    group:
+                      type: string
+                      description: Node kind, used by the client to pick a shape and colour.
+                      enum:
+                        - alert
+                        - ioc
+                        - asset
+                    image:
+                      type: string
+                      description: >-
+                        Icon path, present only on asset nodes whose asset type
+                        defines one.
+              edges:
+                type: array
+                items:
+                  type: object
+                  description: Every edge runs from an alert node to an IOC or asset node.
+                  properties:
+                    from:
+                      type: string
+                      description: Id of the alert node
+                    to:
+                      type: string
+                      description: Id of the IOC or asset node
+                    dashes:
+                      type: boolean
+                      description: Present and `true` on alert-to-IOC edges; absent on alert-to-asset edges.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

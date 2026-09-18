@@ -1,0 +1,67 @@
+get:
+  operationId: api_v2_me_followed-cases_get
+  tags:
+    - Profile
+    - Beta
+  summary: List followed cases
+  description: >-
+    Return the cases the current user follows. Rows for cases the
+    user has lost read access to are filtered out so the dashboard's
+    "Following" tile never renders a case the user cannot open.
+  responses:
+    '200':
+      description: Followed cases successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../schemas/Case.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_me_followed-cases_post
+  tags:
+    - Profile
+    - Beta
+  summary: Follow a case
+  description: >-
+    Add a case to the current user's followed-cases list. Idempotent:
+    re-following an already-followed case returns 201 rather than 400.
+    Requires read access to the target case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            case_id:
+              type: integer
+          required:
+            - case_id
+        example:
+          case_id: 42
+    description: ''
+  responses:
+    '201':
+      description: Case successfully followed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              case_id:
+                type: integer
+              followed:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

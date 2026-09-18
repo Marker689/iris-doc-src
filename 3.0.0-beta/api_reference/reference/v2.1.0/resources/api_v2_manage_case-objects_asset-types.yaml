@@ -1,0 +1,130 @@
+get:
+  operationId: api_v2_manage_case-objects_asset-types_get
+  tags:
+    - Case objects
+    - Beta
+  summary: List asset types
+  description: Returns a paginated list of asset types. Supports substring search on `asset_name` and `asset_description` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `asset_name` or `asset_description`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of asset types
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    asset_id:
+                      type: integer
+                    asset_name:
+                      type: string
+                    asset_description:
+                      type: string
+                    asset_icon_compromised:
+                      type: string
+                    asset_icon_not_compromised:
+                      type: string
+                    type_taxonomy:
+                      type: string
+                    type_validation_regex:
+                      type: string
+                    type_validation_expected:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_case-objects_asset-types_post
+  tags:
+    - Case objects
+    - Beta
+  summary: Create an asset type
+  description: Create a new asset type. Icons are uploaded separately via the dedicated `/icon/{field}` endpoint.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            asset_name:
+              type: string
+            asset_description:
+              type: string
+            type_taxonomy:
+              type: string
+            type_validation_regex:
+              type: string
+            type_validation_expected:
+              type: string
+          required:
+            - asset_name
+        example:
+          asset_name: Cloud Bucket
+          asset_description: Object-storage bucket (S3, GCS, Azure Blob)
+          type_taxonomy: infrastructure.storage.bucket
+          type_validation_regex: ^[a-z0-9.\-]{3,63}$
+          type_validation_expected: my-bucket-name
+  responses:
+    '201':
+      description: Asset type successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asset_id:
+                type: integer
+              asset_name:
+                type: string
+              asset_description:
+                type: string
+              asset_icon_compromised:
+                type: string
+              asset_icon_not_compromised:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expected:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

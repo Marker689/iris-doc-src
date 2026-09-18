@@ -1,0 +1,28 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+  - in: path
+    name: user_id
+    required: true
+    description: Identifier of the user to remove from the group
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_manage_groups_(identifier)_members_(user_id)_delete
+  tags:
+    - Manage Groups
+    - Beta
+  summary: Remove a member from a group
+  description: Drop a single user from the group. Refuses if removing the user would lock the caller out of their own administrative access.
+  responses:
+    '200':
+      description: Member successfully removed
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,32 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_datastore_tree_get
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Get the datastore tree
+  description: Returns the full folder + file hierarchy for the case datastore. Folders and files are nested under their parent so the client can render a tree view directly.
+  responses:
+    '200':
+      description: Datastore tree
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+            description: >-
+              A recursive tree keyed by node id. Each node exposes `type`
+              (`directory` or `file`), `name`, `parent_id` and, for
+              directories, a `children` map with the same shape.
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

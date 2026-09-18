@@ -1,0 +1,25 @@
+type: object
+properties:
+  id:
+    type: integer
+  task_uuid:
+    type: string
+  task_title:
+    type: string
+  task_description:
+    type: string
+  task_open_date:
+    type: string
+  task_tags:
+    type: string
+  task_status_id:
+    type: integer
+example:
+  id: 1696
+  task_uuid: eb626d0e-ab81-4137-a8ee-33cfd452df21
+  task_title: test permission
+  task_description: ''
+  task_open_date: '2024-01-07T13:57:05.588940'
+  task_tags: ''
+  task_status_id: 1
+

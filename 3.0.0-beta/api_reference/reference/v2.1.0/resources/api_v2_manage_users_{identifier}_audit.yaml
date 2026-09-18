@@ -1,0 +1,52 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+  - in: query
+    name: page
+    required: false
+    description: 1-indexed page number
+    schema:
+      type: integer
+      default: 1
+  - in: query
+    name: per_page
+    required: false
+    description: Page size (capped server-side)
+    schema:
+      type: integer
+      default: 25
+  - in: query
+    name: since
+    required: false
+    description: ISO-8601 lower bound; only audit rows more recent than this are returned
+    schema:
+      type: string
+      format: date-time
+get:
+  operationId: api_v2_manage_users_(identifier)_audit_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: Get a user's access audit trace
+  description: Return an effective-access trace for the user. `access_audit` shows, per case, where the user's effective access comes from (direct user grant, group, organisation); `permissions_audit` shows which group(s) contribute each bit of the effective permission bitmask.
+  responses:
+    '200':
+      description: Audit successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_audit:
+                type: array
+                items:
+                  type: object
+              permissions_audit:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

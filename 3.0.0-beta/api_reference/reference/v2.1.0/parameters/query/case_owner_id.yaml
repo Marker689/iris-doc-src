@@ -1,0 +1,5 @@
+in: query
+name: case_owner_id
+description: Owner of the case
+schema:
+  type: integer

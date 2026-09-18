@@ -1,0 +1,73 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_topics_get
+  tags:
+    - War room chat
+    - Beta
+  summary: List chat topics
+  description: >-
+    Every topic on the war room, archived ones included: Main first, then live
+    topics, then archived, alphabetically within each group. Listing
+    materialises the Main topic if the room doesn't have one yet, so the array
+    is never empty. On a server whose migrations predate topics the array is
+    empty instead. Returns a bare JSON array, not a paginated envelope.
+  responses:
+    '200':
+      description: Topics successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoomChatTopic.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_topics_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Create a chat topic
+  description: >-
+    Create a topic in this war room. Names collide case-insensitively and the
+    call is idempotent rather than an error: an existing topic with that name is
+    returned as-is, and an archived one is unarchived and reused. The result is
+    always a 201, whether or not a row was actually inserted, and `is_main` is
+    always false — the Main topic is created by the server, not by this call.
+    Requires write access to the war room.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              description: Trimmed before storing.
+              type: string
+              maxLength: 80
+          required:
+            - name
+        example:
+          name: Containment
+  responses:
+    '201':
+      description: Topic successfully created, or an existing one returned
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomChatTopic.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

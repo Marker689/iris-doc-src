@@ -1,0 +1,36 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: sitrep_id
+    in: path
+    required: true
+    description: Identifier of the SitRep
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_export_html_get
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Export a SitReport as HTML
+  description: >-
+    Return the SitRep as a styled, self-contained HTML document with
+    `Content-Disposition: attachment` set so browsers save the file.
+    Useful for archiving or feeding into browser print-to-PDF workflows.
+  responses:
+    '200':
+      description: SitRep successfully exported as HTML
+      content:
+        text/html:
+          schema:
+            type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

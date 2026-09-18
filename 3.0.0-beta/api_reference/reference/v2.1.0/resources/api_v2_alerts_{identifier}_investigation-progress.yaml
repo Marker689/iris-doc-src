@@ -1,0 +1,54 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_alerts_(identifier)_investigation-progress_get
+  tags:
+    - Alerts
+    - Beta
+  summary: List investigation-flow progress for an alert
+  description: Return the investigation flow attached to this alert, its steps and the progress rows recorded so far.
+  responses:
+    '200':
+      description: Investigation progress successfully retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              flow_id:
+                type:
+                  - integer
+                  - 'null'
+              flow_name:
+                type:
+                  - string
+                  - 'null'
+              steps:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    step_id:
+                      type: integer
+                    step_order:
+                      type: integer
+                    step_title:
+                      type: string
+                    step_description:
+                      type: string
+                    step_is_required:
+                      type: boolean
+              progress:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

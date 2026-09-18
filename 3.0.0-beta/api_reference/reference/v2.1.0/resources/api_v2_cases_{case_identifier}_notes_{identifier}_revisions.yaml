@@ -1,0 +1,50 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the note
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_notes_(identifier)_revisions_get
+  tags:
+    - Notes
+    - Beta
+  summary: List revisions of a note
+  description: Returns every stored revision of a note, oldest first. Only the current revision is expanded to full content in the note payload; earlier revisions are available through this endpoint.
+  responses:
+    '200':
+      description: List of note revisions
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                revision_id:
+                  type: integer
+                note_id:
+                  type: integer
+                revision_number:
+                  type: integer
+                revision_content:
+                  type: string
+                revision_title:
+                  type: string
+                revision_timestamp:
+                  type: string
+                user_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

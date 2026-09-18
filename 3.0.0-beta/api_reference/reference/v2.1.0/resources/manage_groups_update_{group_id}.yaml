@@ -1,0 +1,132 @@
+post:
+  summary: Update a group
+  description: This endpoint is deprecated. Use [PUT /api/v2/manage/groups/{identifier}](#tag/Manage-Groups/operation/api_v2_manage_groups_(identifier)_put) instead.
+  deprecated: true
+  tags:
+    - Manage Groups
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  group_auto_follow:
+                    type: boolean
+                  group_auto_follow_access_level:
+                    type: integer
+                  group_description:
+                    type: string
+                  group_id:
+                    type: integer
+                  group_name:
+                    type: string
+                  group_permissions:
+                    type: integer
+                  group_uuid:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  group_auto_follow: false
+                  group_auto_follow_access_level: 0
+                  group_description: New description
+                  group_id: 4
+                  group_name: New group
+                  group_permissions: 1
+                  group_uuid: a9bb4b93-c8ac-490d-9387-f97f4722271c
+                message: ''
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  group_auto_follow: false
+                  group_auto_follow_access_level: 0
+                  group_description: New description
+                  group_id: 4
+                  group_name: New group
+                  group_permissions: 1
+                  group_uuid: a9bb4b93-c8ac-490d-9387-f97f4722271c
+                message: ''
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid group ID
+                status: error
+  operationId: post-manage-groups-update
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBgqlA.pQFYS9EwzjkEhRmwZIuSo6-zkvo
+              group_name: My new group
+              group_description: New description
+              group_permissions: '1'
+          properties:
+            group_name:
+              type: string
+            group_description:
+              type: string
+            group_permissions:
+              type: integer
+          required:
+            - group_name
+            - group_description
+            - group_permissions
+        examples:
+          Example 1:
+            value:
+              group_name: New group
+              group_description: New description
+              group_permissions: 1
+parameters:
+  - schema:
+      type: integer
+    name: group_id
+    in: path
+    required: true
+    description: Group ID

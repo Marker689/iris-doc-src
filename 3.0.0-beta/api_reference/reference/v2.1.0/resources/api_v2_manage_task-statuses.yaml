@@ -1,0 +1,63 @@
+get:
+  operationId: api_v2_manage_task-statuses_get
+  tags:
+    - Taxonomies
+    - Beta
+  summary: List task statuses
+  description: Returns a paginated list of task statuses (To Do / In Progress / Done / etc.). Read-only seed data. Supports substring search on `status_name` and `status_description` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `status_name` or `status_description`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of task statuses
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    status_name:
+                      type: string
+                    status_description:
+                      type: string
+                    status_bscolor:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

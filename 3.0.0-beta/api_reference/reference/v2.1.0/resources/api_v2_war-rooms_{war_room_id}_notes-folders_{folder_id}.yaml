@@ -1,0 +1,115 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: folder_id
+    in: path
+    required: true
+    description: Identifier of the note folder
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_notes-folders_(folder_id)_get
+  tags:
+    - War room notes
+    - Beta
+  summary: Get a note folder
+  description: Return the metadata for a single note folder. Folders that belong to a different war room are hidden behind a 404 to avoid cross-room enumeration.
+  responses:
+    '200':
+      description: Folder successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              war_room_id:
+                type: integer
+              parent_id:
+                type:
+                  - integer
+                  - 'null'
+              created_at:
+                type: string
+              updated_at:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_war-rooms_(war_room_id)_notes-folders_(folder_id)_put
+  tags:
+    - War room notes
+    - Beta
+  summary: Update a note folder
+  description: Update the folder's name and/or parent. Only the fields present in the body are touched. `parent_folder_id` set to `null` moves the folder to the root. Cycles are rejected server-side.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            parent_folder_id:
+              type:
+                - integer
+                - 'null'
+        example:
+          name: Playbooks (renamed)
+          parent_folder_id: 3
+  responses:
+    '200':
+      description: Folder successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              war_room_id:
+                type: integer
+              parent_id:
+                type:
+                  - integer
+                  - 'null'
+              created_at:
+                type: string
+              updated_at:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_notes-folders_(folder_id)_delete
+  tags:
+    - War room notes
+    - Beta
+  summary: Delete a note folder
+  description: Delete a note folder. Children are cascaded according to the business rules of the war-room notes tree.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,92 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_dim-hooks_invoke_post
+  tags:
+    - Dim hooks
+    - Beta
+  summary: Invoke a DIM hook for a case
+  description: >-
+    Queue a manual module hook against a batch of case objects — the action
+    behind a module-provided button. Dispatch is asynchronous: a 200 means the
+    hook was queued, not that the module has finished. Targets that don't exist
+    in this case are skipped and reported in `logs` rather than failing the
+    call. Requires full access to the case.
+
+
+    Alerts are not addressable here: they don't belong to a case, so they go
+    through `POST /api/v2/alerts/dim-hooks/invoke` instead.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            hook_name:
+              description: Hook to fire, e.g. `on_manual_trigger_ioc`.
+              type: string
+            hook_ui_name:
+              description: Label of the specific action within that hook.
+              type: string
+            module_name:
+              description: Module registering the hook.
+              type: string
+            type:
+              description: Kind of object the identifiers in `targets` refer to.
+              type: string
+              enum:
+                - ioc
+                - case
+                - asset
+                - note
+                - event
+                - task
+                - evidence
+                - global_task
+            targets:
+              description: Identifiers of the objects to run the hook against.
+              type: array
+              items:
+                type: integer
+          required:
+            - hook_name
+            - type
+            - targets
+        example:
+          hook_name: on_manual_trigger_ioc
+          hook_ui_name: Lookup on VirusTotal
+          module_name: IrisVT
+          type: ioc
+          targets:
+            - 41
+            - 42
+  responses:
+    '200':
+      description: Hook successfully queued
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              queued:
+                description: Number of targets the hook was queued for.
+                type: integer
+              logs:
+                description: >-
+                  Per-target notes about targets that were skipped. Omitted
+                  entirely when nothing was skipped.
+                type: array
+                items:
+                  type: string
+          example:
+            queued: 2
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,86 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_datastore_folders_get
+  tags:
+    - Case Datastore
+    - Beta
+  summary: List datastore folders
+  description: Returns every folder in the case datastore, flat, ordered by folder id. Use `GET /datastore/tree` if you want a nested tree instead.
+  responses:
+    '200':
+      description: List of folders
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                path_id:
+                  type: integer
+                path_name:
+                  type: string
+                path_parent_id:
+                  type: integer
+                path_case_id:
+                  type: integer
+                path_is_root:
+                  type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_folders_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Create a datastore folder
+  description: Create a new folder under the given parent. Requires full access to the case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            folder_name:
+              type: string
+            parent_node:
+              type: integer
+              description: Identifier of the parent folder (send the root folder id to create at the top level)
+          required:
+            - folder_name
+            - parent_node
+        example:
+          folder_name: Malware samples
+          parent_node: 1
+  responses:
+    '201':
+      description: Folder successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              path_id:
+                type: integer
+              path_name:
+                type: string
+              path_parent_id:
+                type: integer
+              path_case_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

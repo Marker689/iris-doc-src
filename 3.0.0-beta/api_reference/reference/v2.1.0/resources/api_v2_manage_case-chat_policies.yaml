@@ -1,0 +1,34 @@
+get:
+  operationId: api_v2_manage_case-chat_policies_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List every chatbot policy
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ChatbotPolicy.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_case-chat_policies_post
+  tags:
+    - Case chat
+    - Beta
+  summary: Create a chatbot policy
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ChatbotPolicy.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,33 @@
+post:
+  operationId: api_v2_manage_mail_poll-now_post
+  tags:
+    - Mail rules
+    - Beta
+  summary: Trigger a manual mail poll
+  description: >-
+    Run one IMAP poll immediately instead of waiting for the Celery beat
+    schedule. Mostly a diagnostic while tuning rules — the request blocks
+    on the fetch and returns the identifier of the job that ran.
+    Server-administrator only.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          description: Empty request body
+        example: {}
+  responses:
+    '200':
+      description: Mail poll successfully triggered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              job_id:
+                type: string
+                description: Identifier of the ingest job that was executed
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

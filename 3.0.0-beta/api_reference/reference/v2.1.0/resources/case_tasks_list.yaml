@@ -1,0 +1,419 @@
+get:
+  summary: Get case tasks
+  description: This endpoint is deprecated. Use [GET /api/v2/cases/{case_identifier}/tasks](#tag/Tasks/operation/api_v2_cases_(case_identifier)_tasks_get) instead.
+  deprecated: true
+  tags:
+    - Tasks
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  tasks_status:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        registry:
+                          type: 'null'
+                        status_bscolor:
+                          type: string
+                        status_description:
+                          type: string
+                        status_name:
+                          type: string
+                  tasks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        task_id:
+                          type: integer
+                        task_uuid:
+                          type: string
+                        task_title:
+                          type: string
+                        task_description:
+                          type: string
+                        task_open_date:
+                          type: string
+                        task_tags:
+                          type: string
+                        task_status_id:
+                          type: integer
+                        status_name:
+                          type: string
+                        status_bscolor:
+                          type: string
+                        task_assignees:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              user:
+                                type: string
+                              name:
+                                type: string
+                              id:
+                                type: integer
+                  state:
+                    type: object
+                    properties:
+                      object_state:
+                        type: integer
+                      object_last_update:
+                        type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  tasks_status:
+                    - id: 1
+                      registry: null
+                      status_bscolor: danger
+                      status_description: ''
+                      status_name: To do
+                    - id: 2
+                      registry: null
+                      status_bscolor: warning
+                      status_description: ''
+                      status_name: In progress
+                    - id: 3
+                      registry: null
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: On hold
+                    - id: 4
+                      registry: null
+                      status_bscolor: success
+                      status_description: ''
+                      status_name: Done
+                    - id: 5
+                      registry: null
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: Canceled
+                  tasks:
+                    - task_id: 1696
+                      task_uuid: eb626d0e-ab81-4137-a8ee-33cfd452df21
+                      task_title: test permission
+                      task_description: ''
+                      task_open_date: '2024-01-07T13:57:05.588940'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                    - task_id: 505
+                      task_uuid: dd6df267-3edf-49be-87d7-c1a2dfc72fbf
+                      task_title: Urob forenznú analýzu
+                      task_description: Makaj
+                      task_open_date: '2023-07-20T09:18:13.560575'
+                      task_tags: Forensics
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_3
+                          name: Adm 3
+                          id: 13
+                    - task_id: 705
+                      task_uuid: 7a6c2b66-2956-4c7a-8904-757656f98f5d
+                      task_title: This is a title
+                      task_description: IDEK?
+                      task_open_date: '2023-08-30T14:41:13.725553'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_2
+                          name: Adm 2
+                          id: 12
+                    - task_id: 1125
+                      task_uuid: a15b5fc6-534c-4946-be02-833e9d2ea11c
+                      task_title: test
+                      task_description: >-
+                        [](https://v200.beta.dfir-iris.org/datastore/file/view/3?cid=1)
+                      task_open_date: '2023-10-03T07:24:32.764414'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: test1
+                          name: test
+                          id: 14
+                    - task_id: 1271
+                      task_uuid: 49181b9a-fa66-484f-957c-2dead9089adc
+                      task_title: dgdgdfgdfg
+                      task_description: ''
+                      task_open_date: '2023-10-29T19:51:12.979036'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_2
+                          name: Adm 2
+                          id: 12
+                    - task_id: 644
+                      task_uuid: cdbd4092-1cd1-414e-ae51-4d94e8cf427b
+                      task_title: Investigation
+                      task_description: >-
+                        Test
+
+
+                        [t](https://v200.beta.dfir-iris.org/datastore/file/view/3?cid=1)
+                      task_open_date: '2023-08-15T12:43:44.736601'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_3
+                          name: Adm 3
+                          id: 13
+                        - user: fofo
+                          name: fofo
+                          id: 90
+                        - user: user_std_2
+                          name: User Std 2
+                          id: 3
+                        - user: adm_2
+                          name: Adm 2
+                          id: 12
+                    - task_id: 37
+                      task_uuid: 3f41bbf8-ec3f-4fcf-a38c-80e6ea9932e4
+                      task_title: thisi a alloy test
+                      task_description: |-
+                        This is a sample task.
+                        Details of the task would be entered here.
+                        The status, assignee, and tags are entered in the
+                        task entry [page](URL)
+                      task_open_date: '2023-02-23T00:17:30.476337'
+                      task_tags: SOI,GoC,Malware
+                      task_status_id: 3
+                      status_name: On hold
+                      status_bscolor: muted
+                      task_assignees:
+                        - user: adm_3
+                          name: Adm 3
+                          id: 13
+                        - user: alex
+                          name: alex
+                          id: 16
+                    - task_id: 673
+                      task_uuid: 52ba65e3-129f-41c7-9ebb-d61a0d0a7cd8
+                      task_title: mach kaffee
+                      task_description: 2 löffel zucker
+                      task_open_date: '2023-08-24T12:28:26.690754'
+                      task_tags: ''
+                      task_status_id: 3
+                      status_name: On hold
+                      status_bscolor: muted
+                      task_assignees:
+                        - user: alex
+                          name: alex
+                          id: 16
+                    - task_id: 1353
+                      task_uuid: 068d359f-3b94-4c8a-9e82-47bd3661b2a0
+                      task_title: analyze data
+                      task_description: much info
+                      task_open_date: '2023-11-09T14:24:05.710751'
+                      task_tags: ''
+                      task_status_id: 2
+                      status_name: In progress
+                      status_bscolor: warning
+                      task_assignees:
+                        - user: adm_3
+                          name: Adm 3
+                          id: 13
+                        - user: Sputnik
+                          name: Sputnik
+                          id: 89
+                        - user: apontice
+                          name: A Ponti
+                          id: 91
+                        - user: user_std_9
+                          name: User Std 9
+                          id: 10
+                    - task_id: 1006
+                      task_uuid: 39d53777-5405-4ecc-95d2-e47ff09eb8d2
+                      task_title: kahha
+                      task_description: test iris demo
+                      task_open_date: '2023-09-19T13:49:15.911505'
+                      task_tags: ''
+                      task_status_id: 2
+                      status_name: In progress
+                      status_bscolor: warning
+                      task_assignees:
+                        - user: user_std_9
+                          name: User Std 9
+                          id: 10
+                    - task_id: 1549
+                      task_uuid: 36021ace-f1eb-4855-ac33-f59718c68660
+                      task_title: tet
+                      task_description: >-
+                        ![t](https://v200.beta.dfir-iris.org/datastore/file/view/3?cid=1)
+                      task_open_date: '2023-12-08T02:24:51.829249'
+                      task_tags: ''
+                      task_status_id: 2
+                      status_name: In progress
+                      status_bscolor: warning
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                    - task_id: 1355
+                      task_uuid: 4ea19116-bcd6-4e43-9385-5fa3e02dee33
+                      task_title: Analyze portscan
+                      task_description: this oahohiuofauehfhseau
+                      task_open_date: '2023-11-10T06:55:33.804929'
+                      task_tags: ''
+                      task_status_id: 2
+                      status_name: In progress
+                      status_bscolor: warning
+                      task_assignees:
+                        - user: apontice
+                          name: A Ponti
+                          id: 91
+                        - user: pthien
+                          name: Phạm Hiền
+                          id: 86
+                        - user: theone
+                          name: The Queen
+                          id: 94
+                    - task_id: 973
+                      task_uuid: 257b32e0-9df9-4b12-a74a-18451a8dc040
+                      task_title: check
+                      task_description: |-
+                        fesfwe
+
+                        update in progress
+                      task_open_date: '2023-09-12T08:18:57.448279'
+                      task_tags: ''
+                      task_status_id: 4
+                      status_name: Done
+                      status_bscolor: success
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                    - task_id: 672
+                      task_uuid: e80d7f00-38ad-4ecf-b15f-32c4f8448b88
+                      task_title: NEw ting to do to close case
+                      task_description: |-
+                        More task details
+
+                        |   a |    b|c|
+                        |--|--|--|
+                        | a  
+                        | d | e|
+                        | | 
+                        |  f  | g   |
+                        |  j  |   h |i    |
+                      task_open_date: '2023-08-24T01:20:26.544072'
+                      task_tags: ''
+                      task_status_id: 4
+                      status_name: Done
+                      status_bscolor: success
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                    - task_id: 141
+                      task_uuid: 9520c99c-5fc4-4b4d-9ad6-fe8b31a12da3
+                      task_title: Identify DC Sync Activity
+                      task_description: |-
+                        Attackers ran the following commands from Cobalt Strike
+
+                        `dcsync lycia-pensions.corp`
+                      task_open_date: '2023-05-08T22:33:37.610779'
+                      task_tags: ''
+                      task_status_id: 4
+                      status_name: Done
+                      status_bscolor: success
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                  state:
+                    object_state: 120
+                    object_last_update: '2024-01-07T13:57:05.599620'
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  tasks_status:
+                    - id: 1
+                      registry: null
+                      status_bscolor: danger
+                      status_description: ''
+                      status_name: To do
+                    - id: 2
+                      registry: null
+                      status_bscolor: warning
+                      status_description: ''
+                      status_name: In progress
+                    - id: 3
+                      registry: null
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: On hold
+                    - id: 4
+                      registry: null
+                      status_bscolor: success
+                      status_description: ''
+                      status_name: Done
+                    - id: 5
+                      registry: null
+                      status_bscolor: muted
+                      status_description: ''
+                      status_name: Canceled
+                  tasks:
+                    - task_id: 1696
+                      task_uuid: eb626d0e-ab81-4137-a8ee-33cfd452df21
+                      task_title: test permission
+                      task_description: ''
+                      task_open_date: '2024-01-07T13:57:05.588940'
+                      task_tags: ''
+                      task_status_id: 1
+                      status_name: To do
+                      status_bscolor: danger
+                      task_assignees:
+                        - user: adm_1
+                          name: Adm 1
+                          id: 11
+                  state:
+                    object_state: 120
+                    object_last_update: '2024-01-07T13:57:05.599620'
+  operationId: get-case-tasks-get
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

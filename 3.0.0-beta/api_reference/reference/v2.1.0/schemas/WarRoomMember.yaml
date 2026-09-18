@@ -1,0 +1,34 @@
+type: object
+description: |
+  A user on a war room's roster. Membership is a presentation and notification
+  affordance — access itself is enforced by the war-room ACL, so a member row
+  and an access grant are not the same thing. Shape as emitted by
+  `serialize_member`.
+properties:
+  war_room_id:
+    type: integer
+  user_id:
+    type: integer
+  user_login:
+    type: string
+  user_name:
+    type: string
+  role:
+    type: string
+    description: |
+      Coordination hint only: `lead` renders as the Incident Commander chip,
+      `responder` is the default for IR operators, `observer` is for
+      stakeholders. Not an access-control decision.
+    enum:
+      - lead
+      - responder
+      - observer
+  added_at:
+    $ref: ../schemas/iso_date.yaml
+example:
+  war_room_id: 4
+  user_id: 12
+  user_login: jdoe
+  user_name: Jane Doe
+  role: lead
+  added_at: '2026-03-11T08:44:02.880311'

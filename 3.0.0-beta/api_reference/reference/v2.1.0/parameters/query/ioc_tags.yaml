@@ -1,0 +1,5 @@
+in: query
+name: ioc_tags
+schema:
+  type: string
+

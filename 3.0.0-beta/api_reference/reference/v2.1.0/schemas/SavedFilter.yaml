@@ -1,0 +1,22 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  filter_id:
+    type: integer
+    format: int64
+  created_by:
+    type: integer
+  filter_name:
+    type: string
+  filter_description:
+    type:
+    - string
+    - 'null'
+  filter_data:
+    type: object
+  filter_is_private:
+    type: boolean
+  filter_type:
+    type: string
+description: Schema for serializing and deserializing SavedFilter objects.

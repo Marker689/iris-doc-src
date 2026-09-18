@@ -1,0 +1,29 @@
+post:
+  operationId: api_v2_manage_managed-assets_import_inspect_post
+  tags:
+    - Managed assets
+    - Beta
+  summary: Upload a registry file and report what importing it would do
+  description: 'Multipart form:
+
+    file       file  a CSV or JSON registry export
+
+    client_id  int   the customer the rows belong to
+
+    format     str   "csv" (default) or "json"
+
+
+    Only flat text is accepted — no archives — so there is no
+
+    decompression step and no archive-bomb class to defend against.'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/ManagedAssetImportReport.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,111 @@
+parameters:
+  - schema:
+      type: integer
+    name: file_id
+    in: path
+    required: true
+    description: File ID
+get:
+  summary: Get datastore file info
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  file_size: 12
+                  file_is_ioc: null
+                  file_sha256: >-
+                    3C5F1202EEE7096C9508FBC0E3A114B8680BBA9357CF620DBB47DDA184EBD529
+                  file_is_evidence: null
+                  file_uuid: 1dfe9518-071a-42d9-a3ae-dca82b453cfc
+                  file_case_id: 1
+                  file_date_added: '2023-08-02T13:34:31.674676'
+                  file_parent_id: 303
+                  added_by_user_id: 11
+                  file_original_name: tst.txt
+                  file_tags: ''
+                  modification_history:
+                    '1690983271.6747':
+                      user: adm_1
+                      user_id: 11
+                      action: created
+                  file_id: 24
+                  file_description: ''
+                  file_password: ''
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  file_size:
+                    type: integer
+                  file_is_ioc:
+                    type: 'null'
+                  file_sha256:
+                    type: string
+                  file_is_evidence:
+                    type: 'null'
+                  file_uuid:
+                    type: string
+                  file_case_id:
+                    type: integer
+                  file_date_added:
+                    type: string
+                  file_parent_id:
+                    type: integer
+                  added_by_user_id:
+                    type: integer
+                  file_original_name:
+                    type: string
+                  file_tags:
+                    type: string
+                  modification_history:
+                    type: object
+                  file_id:
+                    type: integer
+                  file_description:
+                    type: string
+                  file_password:
+                    type: string
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  file_size: 12
+                  file_is_ioc: null
+                  file_sha256: >-
+                    3C5F1202EEE7096C9508FBC0E3A114B8680BBA9357CF620DBB47DDA184EBD529
+                  file_is_evidence: null
+                  file_uuid: 1dfe9518-071a-42d9-a3ae-dca82b453cfc
+                  file_case_id: 1
+                  file_date_added: '2023-08-02T13:34:31.674676'
+                  file_parent_id: 303
+                  added_by_user_id: 11
+                  file_original_name: tst.txt
+                  file_tags: ''
+                  modification_history:
+                    '1690983271.6747':
+                      user: adm_1
+                      user_id: 11
+                      action: created
+                  file_id: 24
+                  file_description: ''
+                  file_password: ''
+  operationId: get-datastore-file-info-file_id
+  description: >-
+    Get a datastore file information. To download a file, use the
+    `/datastore/file/view` endpoint. 

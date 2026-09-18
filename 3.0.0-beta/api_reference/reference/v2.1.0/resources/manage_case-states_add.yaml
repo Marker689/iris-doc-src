@@ -1,0 +1,74 @@
+parameters: []
+post:
+  summary: Add a case state
+  operationId: post-manage-case-states-state_id-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  state_name:
+                    type: string
+                  state_description:
+                    type: string
+                  state_id:
+                    type: integer
+                  protected:
+                    type: boolean
+            x-examples:
+              Example 1:
+                status: success
+                message: Case state added
+                data:
+                  state_name: New state
+                  state_description: Superbe new state
+                  state_id: 14
+                  protected: false
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Case state added
+                data:
+                  state_name: New state
+                  state_description: Superbe new state
+                  state_id: 14
+                  protected: false
+  tags:
+    - Manage Cases states
+  description: ''
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjU0ZDA3ZTQwYTk5NDA4MWJlYzM0NmE2OGFiNDUxNjVjNGVkNWJlM2Ii.ZZ63tg.lcfh2Bp5E2e9FiFR-8cNXwgvIBQ
+              state_name: New state
+              state_description: Superbe new state
+          properties:
+            state_name:
+              type: string
+            state_description:
+              type: string
+          required:
+            - state_name
+            - state_description
+        examples:
+          Example 1:
+            value:
+              state_name: New state
+              state_description: Superbe new state
+    description: ''

@@ -1,0 +1,70 @@
+post:
+  operationId: api_v2_manage_custom-attributes_validate_post
+  tags:
+    - Custom attributes
+    - Beta
+  summary: Validate a custom attribute schema
+  description: >-
+    Dry-run the custom-attribute schema validator. Nothing is written, which is
+    the point: the real update back-fills every existing row of that object
+    type, so a schema is worth checking before paying that cost only to be
+    rejected.
+
+
+    A schema that fails validation is still a 200 — the outcome is in `ok` and
+    the per-field problems in `logs`. A 400 means the request itself was
+    malformed, not the schema. Requires server administrator.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            attribute_content:
+              description: >-
+                The schema to check, either as a JSON object or as a JSON
+                string. Any other type is a 400.
+              oneOf:
+                - type: object
+                - type: array
+                - type: string
+          required:
+            - attribute_content
+        example:
+          attribute_content:
+            Analysis:
+              Confidence:
+                mandatory: true
+                type: input_string
+  responses:
+    '200':
+      description: Schema successfully checked — see `ok` for the verdict
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ok:
+                description: True when `logs` is empty.
+                type: boolean
+              logs:
+                description: One entry per problem found. Empty when `ok` is true.
+                type: array
+                items:
+                  type: string
+          examples:
+            valid:
+              summary: Schema accepted
+              value:
+                ok: true
+                logs: []
+            invalid:
+              summary: Schema rejected
+              value:
+                ok: false
+                logs:
+                  - 'Analysis.Confidence: unknown type "input_strng"'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

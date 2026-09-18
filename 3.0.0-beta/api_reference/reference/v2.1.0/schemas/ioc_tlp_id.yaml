@@ -1,0 +1,2 @@
+type: integer
+description: Identifier of the IOC TLP (traffic light protocol) color. See [GET /manage/tlp/list](#tag/Manage-ioc-tlp/operation/get-tlp-list) for possible values.

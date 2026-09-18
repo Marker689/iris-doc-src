@@ -1,0 +1,50 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_archive_post
+  tags:
+    - War rooms
+    - Beta
+  summary: Archive a war room
+  description: |
+    Archives the war room. Archiving is a filing decision independent of the
+    operational state (`open` / `active` / `standby` / `closed`) — state and every
+    child row are preserved. A system event is emitted in the activity panel.
+  responses:
+    '200':
+      description: War room successfully archived
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_archive_delete
+  tags:
+    - War rooms
+    - Beta
+  summary: Unarchive a war room
+  description: Restores an archived war room to the live list. A system event is emitted in the activity panel.
+  responses:
+    '200':
+      description: War room successfully unarchived
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

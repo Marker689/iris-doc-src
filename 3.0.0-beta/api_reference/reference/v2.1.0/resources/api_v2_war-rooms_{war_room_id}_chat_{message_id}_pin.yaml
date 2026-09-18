@@ -1,0 +1,54 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_pin_patch
+  tags:
+    - War room chat
+    - Beta
+  summary: Pin or unpin a chat message
+  description: >-
+    Toggle the sticky-pin flag on a chat message. Pinning is not
+    destructive, so war-room write access is sufficient — the endpoint
+    does not restrict to the message author. Emits a `message:pin`
+    socket event so other clients in the room flip the badge without a
+    full stream reload.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - is_pinned
+          properties:
+            is_pinned:
+              type: boolean
+              description: Desired pin state. `true` pins the message, `false` unpins it.
+        example:
+          is_pinned: true
+  responses:
+    '200':
+      description: Pin state successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              is_pinned:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

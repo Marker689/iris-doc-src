@@ -1,0 +1,25 @@
+parameters:
+  - name: conversation_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_case-chat_sessions_(conversation_id)_get
+  tags:
+    - Case chat
+    - Beta
+  summary: Read a conversation's full history (admin oversight)
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,124 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: sitrep_id
+    in: path
+    required: true
+    description: Identifier of the SitRep
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_get
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Get a war-room SitReport
+  description: Return a single SitRep by id, including its markdown body.
+  responses:
+    '200':
+      description: SitRep successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              sitrep_id:
+                type: integer
+              war_room_id:
+                type: integer
+              version:
+                type: integer
+              title:
+                type: string
+              body_md:
+                type: string
+              authored_by_id:
+                type: integer
+              authored_at:
+                type: string
+              published:
+                type: boolean
+              snapshot_json:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_patch
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Update a war-room SitReport
+  description: Partial update of a SitRep. Only the fields present in the body are touched. A published SitRep is versioned — updates may bump the version rather than overwrite the row in place.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            content:
+              type: string
+              description: Markdown body of the SitRep.
+        example:
+          title: Day 1 status (revised)
+          content: |-
+            ## Summary
+            Triage complete, containment underway.
+  responses:
+    '200':
+      description: SitRep successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              sitrep_id:
+                type: integer
+              war_room_id:
+                type: integer
+              version:
+                type: integer
+              title:
+                type: string
+              body_md:
+                type: string
+              authored_by_id:
+                type: integer
+              authored_at:
+                type: string
+              published:
+                type: boolean
+              snapshot_json:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_delete
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Delete a war-room SitReport
+  description: Delete a SitRep. Published SitReps may be protected from deletion — the server returns a 400 with a descriptive error message in that case.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

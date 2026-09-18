@@ -1,0 +1,103 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_notes_get
+  tags:
+    - Notes
+    - Beta
+  summary: List notes on a case
+  description: Returns every note on the case. Optionally filter to a single directory with `directory_id` and paginate with `page` and `per_page`.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: directory_id
+      in: query
+      required: false
+      description: Restrict the listing to notes inside this directory
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: List of notes on the case
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                note_id:
+                  type: integer
+                note_title:
+                  type: string
+                note_content:
+                  type: string
+                note_case_id:
+                  type: integer
+                directory_id:
+                  type: integer
+                note_creationdate:
+                  type: string
+                note_lastupdate:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_notes_post
+  summary: Add a new note
+  description: Add a new note to an existing group.
+  tags:
+    - Notes
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            note_title:
+              type: string
+            note_content:
+              type: string
+            directory_id:
+              type: integer
+          required:
+            - directory_id
+        example:
+          note_title: Title of the note
+          note_content: Content of the note
+          directory_id: 36
+  responses:
+    '201':
+      description: Note successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Note.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      description: Case with identifier `case_identifier` not found

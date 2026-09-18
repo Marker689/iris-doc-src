@@ -1,0 +1,103 @@
+parameters:
+  - in: path
+    name: identifier
+    required: true
+    description: Identifier of the parent customer
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_customers_(identifier)_contacts_get
+  tags:
+    - Customers
+    - Beta
+  summary: List customer contacts
+  description: Return every contact attached to the given customer.
+  responses:
+    '200':
+      description: Contacts successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                contact_name:
+                  type: string
+                contact_email:
+                  type: string
+                contact_role:
+                  type: string
+                contact_phone:
+                  type: string
+                contact_note:
+                  type: string
+                client_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_manage_customers_(identifier)_contacts_post
+  tags:
+    - Customers
+    - Beta
+  summary: Create a customer contact
+  description: Attach a new contact to the given customer. The parent customer id is forced from the URL — the `client_id` field on the body is ignored.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - contact_name
+          properties:
+            contact_name:
+              type: string
+            contact_email:
+              type: string
+            contact_role:
+              type: string
+            contact_phone:
+              type: string
+            contact_note:
+              type: string
+        example:
+          contact_name: Jane Doe
+          contact_email: jane@example.com
+          contact_role: Incident Response Lead
+          contact_phone: '+1-202-555-0110'
+          contact_note: Primary out-of-hours contact
+  responses:
+    '201':
+      description: Contact successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              contact_name:
+                type: string
+              contact_email:
+                type: string
+              contact_role:
+                type: string
+              contact_phone:
+                type: string
+              contact_note:
+                type: string
+              client_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

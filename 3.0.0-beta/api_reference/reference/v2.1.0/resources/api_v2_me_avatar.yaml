@@ -1,0 +1,63 @@
+post:
+  operationId: api_v2_me_avatar_post
+  tags:
+    - Profile
+    - Avatars
+    - Beta
+  summary: Upload own avatar
+  description: >-
+    Upload a new avatar for the current user. Body must be
+    `multipart/form-data` with an `avatar` file part. The server
+    validates the format, centre-crops to a square, resizes to
+    256x256 and re-encodes as PNG. Uploads over 4 MB are rejected.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            avatar:
+              type: string
+              format: binary
+              description: Image file (jpg / png / webp / gif). 4 MB max.
+          required:
+            - avatar
+    description: ''
+  responses:
+    '200':
+      description: Avatar successfully uploaded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              avatar_updated_at:
+                type: string
+                format: date-time
+              mime:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_me_avatar_delete
+  tags:
+    - Profile
+    - Avatars
+    - Beta
+  summary: Remove own avatar
+  description: Clear the current user's avatar.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

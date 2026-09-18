@@ -1,0 +1,42 @@
+post:
+  operationId: api_v2_manage_case-chat_retention_run_post
+  tags:
+    - Case chat
+    - Beta
+  summary: Run the chatbot retention purge synchronously
+  description: >-
+    Hard-delete chat conversations past their policy's retention window, and
+    their messages, pending tool calls and egress audit rows with them. This is
+    the trigger for the job: there is no scheduler, so retention runs when an
+    operator or an external cron calls this endpoint.
+
+
+    Retention is opt-in per policy. Only policies with `retention_days > 0` are
+    scanned; conversations under a policy with `retention_days == 0`, or under
+    no policy at all, are left alone.
+
+
+    Synchronous — the call returns once the purge is done, so on a large
+    backlog it can take a while. Takes no body. Requires server administrator.
+  responses:
+    '200':
+      description: Purge completed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              conversations_deleted:
+                type: integer
+              messages_deleted:
+                type: integer
+              egress_deleted:
+                type: integer
+          example:
+            conversations_deleted: 14
+            messages_deleted: 322
+            egress_deleted: 158
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

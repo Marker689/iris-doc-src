@@ -1,0 +1,100 @@
+get:
+  operationId: api_v2_war-rooms_get
+  tags:
+    - War rooms
+    - Beta
+  summary: List war rooms
+  description: Returns the list of war rooms visible to the caller.
+  parameters:
+    - in: query
+      name: state
+      required: false
+      schema:
+        type: string
+      description: Filter by war room operational state (for example `open`, `active`, `standby`, `closed`).
+    - in: query
+      name: search
+      required: false
+      schema:
+        type: string
+      description: Free-text search across war room name and description.
+    - in: query
+      name: archived
+      required: false
+      schema:
+        type: string
+        enum:
+          - 'true'
+          - 'false'
+          - '1'
+          - '0'
+          - 'any'
+          - 'all'
+      description: |
+        Filter by archive state:
+          * absent, `false` or `0` — live rooms only (default)
+          * `true` or `1` — archived rooms only
+          * `any` or `all` — both live and archived rooms
+  responses:
+    '200':
+      description: List of war rooms
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_war-rooms_post
+  tags:
+    - War rooms
+    - Beta
+  summary: Create a war room
+  description: Creates a new war room. The caller becomes the war room creator.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Short, human-readable name of the war room.
+            description:
+              type: string
+              description: Optional longer description of the war room's purpose.
+            state:
+              type: string
+              description: Initial operational state (for example `open`, `active`, `standby`, `closed`).
+            severity_id:
+              type: integer
+              description: Severity identifier associated with the war room.
+            color:
+              type: string
+              description: UI color tag for the war room (hex or named token).
+            custom_attributes:
+              type: object
+              description: Free-form custom attributes.
+          required:
+            - name
+        example:
+          name: RANSOM-2026-07
+          description: Coordinated response to the July ransomware wave
+          state: active
+          severity_id: 4
+          color: '#e11d48'
+  responses:
+    '201':
+      description: War room successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

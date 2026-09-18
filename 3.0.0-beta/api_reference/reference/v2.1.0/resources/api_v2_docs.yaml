@@ -1,0 +1,21 @@
+get:
+  operationId: api_v2_docs_get
+  tags:
+    - API
+    - Beta
+  summary: Interactive API reference (Redoc)
+  description: >-
+    An HTML page rendering `/api/v2/openapi.yaml` with Redoc. Both endpoints
+    require the same session/API-key auth, so operators can browse the reference
+    while logged in but public visitors cannot.
+  responses:
+    '200':
+      description: The rendered reference page
+      content:
+        text/html:
+          schema:
+            type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

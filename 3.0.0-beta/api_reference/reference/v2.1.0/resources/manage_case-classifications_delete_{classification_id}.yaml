@@ -1,0 +1,43 @@
+parameters:
+  - schema:
+      type: string
+    name: classification_id
+    in: path
+    required: true
+    description: Classification ID
+post:
+  summary: Delete a case classification
+  operationId: manage_case-classifications_delete_(classification_id)_post
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+            x-examples:
+              Example 1:
+                status: success
+                message: Case classification deleted
+                data: []
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Case classification deleted
+                data: []
+  tags:
+    - Manage Cases Classifications
+  description: ''
+  requestBody:
+    content: {}

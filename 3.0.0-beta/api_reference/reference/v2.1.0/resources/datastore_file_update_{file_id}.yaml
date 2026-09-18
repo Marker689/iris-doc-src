@@ -1,0 +1,176 @@
+parameters:
+  - schema:
+      type: integer
+    name: file_id
+    in: path
+    required: true
+    description: File ID
+post:
+  summary: Update datastore file information
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data:
+                  added_by_user_id: 1
+                  file_case_id: 1
+                  file_date_added: '2023-03-20T15:54:45.841847'
+                  file_description: dsa
+                  file_id: 31
+                  file_is_evidence: true
+                  file_is_ioc: null
+                  file_local_name: >-
+                    /Users/blue/Documents/Projects/Test/Evidences/case-1/dsf-65fc1aa8-aa58-4c02-a12a-bee485e8c30a.zip
+                  file_original_name: nalysis_IrisInitialClient_2023-02-03.md
+                  file_parent_id: 49
+                  file_password: eqeq
+                  file_sha256: >-
+                    E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+                  file_size: 0
+                  file_tags: asd
+                  file_uuid: 65fc1aa8-aa58-4c02-a12a-bee485e8c30a
+                  modification_history:
+                    '1679324085.841901':
+                      action: created
+                      user: administrator
+                      user_id: 1
+                message: File saved in datastore and added in evidence
+                status: success
+            properties:
+              data:
+                type: object
+                properties:
+                  added_by_user_id:
+                    type: integer
+                  file_case_id:
+                    type: integer
+                  file_date_added:
+                    type: string
+                  file_description:
+                    type: string
+                  file_id:
+                    type: integer
+                  file_is_evidence:
+                    type: boolean
+                  file_is_ioc:
+                    type: boolean
+                  file_local_name:
+                    type: string
+                  file_original_name:
+                    type: string
+                  file_parent_id:
+                    type: integer
+                  file_password:
+                    type: string
+                  file_sha256:
+                    type: string
+                  file_size:
+                    type: integer
+                  file_tags:
+                    type: string
+                  file_uuid:
+                    type: string
+                  modification_history:
+                    $ref: ../schemas/modification_history.yaml
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            Example 1:
+              value:
+                data:
+                  added_by_user_id: 1
+                  file_case_id: 1
+                  file_date_added: '2023-03-20T15:54:45.841847'
+                  file_description: dsa
+                  file_id: 31
+                  file_is_evidence: true
+                  file_is_ioc: false
+                  file_local_name: >-
+                    /Evidences/case-1/dsf-65fc1aa8-aa58-4c02-a12a-bee485e8c30a.zip
+                  file_original_name: nalysis_IrisInitialClient_2023-02-03.md
+                  file_parent_id: 49
+                  file_password: eqeq
+                  file_sha256: >-
+                    E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+                  file_size: 0
+                  file_tags: asd
+                  file_uuid: 65fc1aa8-aa58-4c02-a12a-bee485e8c30a
+                  modification_history:
+                    '1679324085.841901':
+                      action: created
+                      user: administrator
+                      user_id: 1
+                message: File saved in datastore and added in evidence
+                status: success
+  operationId: post-datastore-file-update-file_id
+  description: >-
+    Update a datastore file. The file's content can be replaced. If a password
+    was previously set, it is removed and cannot be re-enabled. The file
+    identifiers stay the same.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties: {}
+    description: >-
+      ```
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_original_name"
+
+
+      the_original_filename
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_description"
+
+
+      File description
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_tags"
+
+
+      tag1,tag2
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_is_evidence"
+
+
+      y
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_is_ioc"
+
+
+      y
+
+      -----------------------------139681927112990666592379500992
+
+      Content-Disposition: form-data; name="file_content"; filename="new
+      filename"
+
+      Content-Type: text/markdown
+
+
+      File Content
+
+
+      -----------------------------139681927112990666592379500992--
+
+      ```

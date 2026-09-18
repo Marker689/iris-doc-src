@@ -1,0 +1,88 @@
+parameters: []
+post:
+  summary: Add a new notes directory
+  operationId: post-case-notes-add-directory
+  description: This endpoint is deprecated. Use [POST /api/v2/cases/{case_identifier}/notes-directories](#tag/Notes/operation/api_v2_cases_(case_identifier)_notes-directories_post) instead.
+  deprecated: true
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Upon success, returns the new added group information
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Directory added
+                data:
+                  id: 34
+                  name: Test
+                  parent_id: null
+                  case_id: 1
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - id
+                  - name
+                  - parent_id
+                  - case_id
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  parent_id:
+                    type: 'null'
+                  case_id:
+                    type: integer
+            required:
+              - status
+              - message
+              - data
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              group_title: Test
+              cid: 5
+          properties:
+            name:
+              type: string
+              minLength: 1
+              x-stoplight:
+                id: dx798bvpo9pnc
+            parent_id:
+              type: number
+              x-stoplight:
+                id: 4jz5qdrpoepow
+              description: >-
+                An existing parent directory ID. To add at the root, do not set
+                the field or set it to null. 
+          required:
+            - name
+        examples:
+          Add test group:
+            value:
+              name: Test
+              parent_id: null
+    description: ''

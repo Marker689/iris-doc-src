@@ -1,0 +1,199 @@
+parameters:
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: user ID
+get:
+  summary: Fetch a user
+  tags:
+    - Manage Users
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user_active:
+                    type: boolean
+                  user_cases_access:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  user_email:
+                    type: string
+                  user_groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        group_id:
+                          type: integer
+                        group_name:
+                          type: string
+                        group_uuid:
+                          type: string
+                  user_id:
+                    type: integer
+                  user_login:
+                    type: string
+                  user_name:
+                    type: string
+                  user_organisations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        is_primary_org:
+                          type: boolean
+                        org_id:
+                          type: integer
+                        org_name:
+                          type: string
+                        org_uuid:
+                          type: string
+                  user_permissions:
+                    type: object
+                    properties:
+                      '1':
+                        type: object
+                        properties:
+                          inherited_from:
+                            type: array
+                            items:
+                              type: string
+                          name:
+                            type: string
+                          value:
+                            type: integer
+                      '2':
+                        type: object
+                        properties:
+                          inherited_from:
+                            type: array
+                            items:
+                              type: string
+                          name:
+                            type: string
+                          value:
+                            type: integer
+                  user_primary_organisation_id:
+                    type: integer
+                  user_uuid:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  user_active: true
+                  user_cases_access: []
+                  user_email: administrator@iris.local
+                  user_groups:
+                    - group_id: 1
+                      group_name: Administrators
+                      group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                  user_id: 1
+                  user_login: administrator
+                  user_name: administrator
+                  user_organisations:
+                    - is_primary_org: true
+                      org_id: 1
+                      org_name: Default Org
+                      org_uuid: f0b6364d-bab8-48ac-8de3-8be04f409aa7
+                  user_permissions:
+                    '1':
+                      inherited_from:
+                        - Administrators
+                      name: standard_user
+                      value: 1
+                    '2':
+                      inherited_from:
+                        - Administrators
+                      name: server_administrator
+                      value: 2
+                  user_primary_organisation_id: 1
+                  user_uuid: 87d6cfcd-6871-43ea-85ab-eea705c08845
+                message: ''
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  user_active: true
+                  user_cases_access: []
+                  user_email: administrator@iris.local
+                  user_groups:
+                    - group_id: 1
+                      group_name: Administrators
+                      group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                  user_id: 1
+                  user_login: administrator
+                  user_name: administrator
+                  user_organisations:
+                    - is_primary_org: true
+                      org_id: 1
+                      org_name: Default Org
+                      org_uuid: f0b6364d-bab8-48ac-8de3-8be04f409aa7
+                  user_permissions:
+                    '1':
+                      inherited_from:
+                        - Administrators
+                      name: standard_user
+                      value: 1
+                    '2':
+                      inherited_from:
+                        - Administrators
+                      name: server_administrator
+                      value: 2
+                  user_primary_organisation_id: 1
+                  user_uuid: 87d6cfcd-6871-43ea-85ab-eea705c08845
+                message: ''
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid user ID
+                status: error
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Invalid user ID:
+              value:
+                data: []
+                message: Invalid user ID
+                status: error
+  operationId: get-manage-users-get-user_id
+  description: This endpoint is deprecated. Use [GET /api/v2/manage/users/{identifier}](#tag/Users/operation/api_v2_manage_users_(identifier)_get) instead.
+  deprecated: true
+  parameters: []
+  security:
+    - Bearer <bearer>: []

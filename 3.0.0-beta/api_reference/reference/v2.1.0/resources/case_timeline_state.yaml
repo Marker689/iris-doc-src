@@ -1,0 +1,60 @@
+get:
+  summary: Fetch the timeline
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  object_last_update:
+                    type: string
+                    minLength: 1
+                  object_state:
+                    type: number
+                required:
+                  - object_last_update
+                  - object_state
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  object_last_update: Sun, 06 Mar 2022 13:00:25 GMT
+                  object_state: 39
+                message: ''
+                status: success
+          examples:
+            Example:
+              value:
+                data:
+                  object_last_update: Sun, 06 Mar 2022 13:00:25 GMT
+                  object_state: 39
+                message: ''
+                status: success
+  operationId: get-case-timeline-state
+  description: 'Fetch the state of the timeline. '
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+parameters: []

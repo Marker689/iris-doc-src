@@ -1,0 +1,37 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_modules_(identifier)_import-config_post
+  tags:
+    - Modules
+    - Beta
+  summary: Import a module's configuration
+  description: Apply a previously exported configuration document to the module. The payload is validated against the module's declared parameter schema before any change is persisted.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - config
+          properties:
+            config:
+              type: object
+        example:
+          config:
+            parameters:
+              api_key: my-api-key
+              base_url: https://example.com
+  responses:
+    '200':
+      description: Configuration successfully imported
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

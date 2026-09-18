@@ -1,0 +1,12 @@
+type: object
+additionalProperties:
+  x-additionalPropertiesName: string timestamp
+  type: object
+  properties:
+    user:
+      type: string
+    user_id:
+      type: integer
+    action:
+      type: string
+

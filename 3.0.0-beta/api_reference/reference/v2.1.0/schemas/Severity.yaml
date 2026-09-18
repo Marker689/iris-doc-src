@@ -1,0 +1,13 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  severity_id:
+    type: integer
+  severity_name:
+    type: string
+  severity_description:
+    type:
+      - string
+      - 'null'
+description: Schema for serializing and deserializing Severity objects.

@@ -1,0 +1,89 @@
+parameters:
+  - schema:
+      type: string
+      enum:
+        - alerts
+        - assets
+        - events
+        - evidences
+        - iocs
+        - notes
+        - tasks
+    name: objects
+    in: path
+    required: true
+    description: Type of commented object
+  - schema:
+      type: integer
+    name: object_identifier
+    in: path
+    required: true
+    description: Identifier of the commented object
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: Identifier of the comment
+get:
+  operationId: api_v2_(objects)_(object_identifier)_comments_(identifier)_get
+  summary: Get a comment
+  description: Get a comment
+  tags:
+    - Comments
+    - Beta
+  responses:
+    '200':
+      description: Comment successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_(objects)_(object_identifier)_comments_(identifier)_put
+  summary: Update a comment
+  description: Update a comment
+  tags:
+    - Comments
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/requestBodies/Comment.yaml
+  responses:
+    '200':
+      description: Comment successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_(objects)_(object_identifier)_comments_(identifier)_delete
+  summary: Delete a comment
+  description: Delete a comment
+  tags:
+    - Comments
+    - Beta
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

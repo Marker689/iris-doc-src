@@ -1,0 +1,2 @@
+type: integer
+description: The classification identifier for case and alert.

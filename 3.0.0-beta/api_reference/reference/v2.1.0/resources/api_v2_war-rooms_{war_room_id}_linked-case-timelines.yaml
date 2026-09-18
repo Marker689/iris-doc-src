@@ -1,0 +1,43 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_linked-case-timelines_get
+  tags:
+    - War room timelines
+    - Beta
+  summary: List linked-case timelines
+  description: Return a nested `case -> timelines` tree of the case timelines exposed by the war room's linked cases. Cases the caller cannot read are silently dropped so their existence is not leaked. The tree drives the sidebar toggles that decide which case events are folded into the war-room timeline view.
+  responses:
+    '200':
+      description: Linked case timelines successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                case_id:
+                  type: integer
+                case_name:
+                  type: string
+                timelines:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      timeline_id:
+                        type: integer
+                      name:
+                        type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

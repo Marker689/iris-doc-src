@@ -1,0 +1,53 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: event_id
+    in: path
+    required: true
+    description: Identifier of the timeline event
+    schema:
+      type: integer
+put:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_assets_put
+  tags:
+    - War room timelines
+    - Beta
+  summary: Replace event asset links
+  description: Replace the event's asset associations wholesale with the provided id list. Passing `[]` detaches every asset from the event. A missing or non-list body is rejected with a 400.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - asset_ids
+          properties:
+            asset_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          asset_ids: [17, 21, 33]
+  responses:
+    '200':
+      description: Asset links successfully replaced
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asset_ids:
+                type: array
+                items:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

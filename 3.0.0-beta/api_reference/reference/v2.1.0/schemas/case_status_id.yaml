@@ -1,0 +1,5 @@
+type: integer
+description: "The case status identifier. It can be one of the following 0: unknown, 1: false_positive, 2: true_positive_with_impact, 3: not_applicable, 4: true_positive_without_impact, 5: legitimate"
+minimum: 0
+maximum: 5
+

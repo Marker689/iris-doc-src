@@ -1,0 +1,134 @@
+parameters:
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: User ID
+post:
+  summary: Update a user
+  operationId: post-manage-users-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                  external_id:
+                    type: 'null'
+                  has_deletion_confirmation:
+                    type: boolean
+                  id:
+                    type: integer
+                  in_dark_mode:
+                    type: 'null'
+                  user_email:
+                    type: string
+                  user_id:
+                    type: integer
+                  user_login:
+                    type: string
+                  user_name:
+                    type: string
+                  user_password:
+                    type: string
+                  uuid:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  active: true
+                  external_id: null
+                  has_deletion_confirmation: false
+                  id: 2
+                  in_dark_mode: null
+                  user_email: string
+                  user_id: 2
+                  user_login: string
+                  user_name: string
+                  user_password: $2b$12$3sbfv5obflwiZQGHjTHwQeHVUyMC1vENHXOKkH8dsHKhhe2zJ/Duy
+                  uuid: bfb2c85d-72d6-4c97-9823-8b29ceb2fc7e
+                message: User updated
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  user_password:
+                    - Password must contain 1 capital letter and 1 number
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  user_password:
+                    - >-
+                      Password must be longer than 12 characters. Password must
+                      contain uppercase char. Password must contain digit. 
+                message: Data error
+                status: error
+  description: This endpoint is deprecated. Use [PUT /api/v2/manage/users/{identifier}](#tag/Users/operation/api_v2_manage_users_(identifier)_put) instead.
+  deprecated: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_name:
+              type: string
+            user_login:
+              type: string
+            user_email:
+              type: string
+            user_password:
+              type: string
+          x-examples:
+            Example 1:
+              user_name: string
+              user_login: string
+              user_email: string
+              user_password: string
+    description: ''
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - Manage Users

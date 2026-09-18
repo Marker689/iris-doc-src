@@ -1,0 +1,37 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: file_id
+    in: path
+    required: true
+    description: Identifier of the datastore file
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_datastore_(file_id)_content_get
+  tags:
+    - War room datastore
+    - Beta
+  summary: Download a datastore file
+  description: >-
+    Stream the raw bytes of the datastore file. Responds with
+    `Content-Disposition: attachment` and the file's stored mime type
+    (falls back to `application/octet-stream`).
+  responses:
+    '200':
+      description: File bytes successfully returned
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

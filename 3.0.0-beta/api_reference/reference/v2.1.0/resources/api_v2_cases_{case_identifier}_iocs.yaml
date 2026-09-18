@@ -1,0 +1,87 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_iocs_post
+  summary: Create an IOC
+  tags:
+    - IOCs
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            ioc_value:
+              type: string
+              minLength: 1
+            ioc_type_id:
+              type: number
+            ioc_tlp_id:
+              type: number
+            ioc_description:
+              type: string
+              minLength: 1
+              description: 'A short description of the ioc. This will be the summary of the ioc.'
+            ioc_misp:
+              type:
+                - string
+                - 'null'
+              description: 'Misp of ioc'
+            ioc_tags:
+              type: string
+              description : 'Ioc tags'
+          required:
+            - ioc_value
+            - ioc_type_id
+            - ioc_tlp_id
+            - ioc_description
+            - ioc_tags
+        examples:
+           Valid request:
+             value:
+               ioc_value: 8.8.8.8
+               ioc_type_id: 1
+               ioc_tlp_id: 2
+               ioc_description: rewrw
+               ioc_misp: null
+               ioc_tags: ''
+  responses:
+    '201':
+      description: Ioc successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Ioc.yaml
+    '400':
+        $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+  description: 'Creates a new ioc.'
+get:
+  operationId: api_v2_cases_(case_identifier)_iocs_get
+  summary: Get a paginated list of IOCs
+  description: Returns a paginated list of IOCS. Accepts filters and sort query parameters.
+  parameters:
+    - $ref: ../parameters/query/page.yaml
+    - $ref: ../parameters/query/per_page.yaml
+    - $ref: ../parameters/query/order_by.yaml
+    - $ref: ../parameters/query/sort_dir.yaml
+    - $ref: ../parameters/query/ioc_type_id.yaml
+    - $ref: ../parameters/query/ioc_type.yaml
+    - $ref: ../parameters/query/ioc_tlp_id.yaml
+    - $ref: ../parameters/query/ioc_value.yaml
+    - $ref: ../parameters/query/ioc_description.yaml
+    - $ref: ../parameters/query/ioc_tags.yaml
+  responses:
+    '200':
+      description: Paginated list of IOCS
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Iocs.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+  tags:
+    - IOCs
+    - Beta

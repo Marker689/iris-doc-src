@@ -1,0 +1,130 @@
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: Numeric identifier of the custom attribute definition
+get:
+  operationId: api_v2_manage_custom-attributes_(identifier)_get
+  tags:
+    - Custom attributes
+    - Beta
+  summary: Get a custom attribute definition
+  description: >-
+    Return a single custom-attribute definition. Readable by any
+    authenticated user.
+  responses:
+    '200':
+      description: Custom attribute definition successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              attribute_id:
+                type: integer
+              attribute_display_name:
+                type: string
+              attribute_description:
+                type: string
+              attribute_for:
+                type: string
+              attribute_content:
+                type: object
+                description: JSON schema document keyed by tab name then field name
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_custom-attributes_(identifier)_put
+  tags:
+    - Custom attributes
+    - Beta
+  summary: Update a custom attribute definition
+  description: >-
+    Update the schema for a custom-attribute definition. The server
+    re-validates the JSON with the same helper the legacy route used and
+    back-fills existing object rows so their detail pages render the new
+    tabs / fields on the next load. Server-administrator only.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            label:
+              type: string
+              description: Human-readable display name of the attribute
+            definition:
+              type: object
+              description: >-
+                The new attribute-content schema. Keyed by tab name then
+                field name; each field carries `type`, `value`,
+                `mandatory` and optional `options` (for `input_select`).
+              additionalProperties:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - input_string
+                        - input_textfield
+                        - input_checkbox
+                        - input_select
+                        - input_date
+                        - input_datetime
+                        - raw
+                        - html
+                    value: {}
+                    mandatory:
+                      type: boolean
+                    options:
+                      type: array
+                      items:
+                        type: string
+            is_active:
+              type: boolean
+              description: Whether the attribute definition is applied to new records
+        example:
+          label: Investigation
+          definition:
+            Investigation:
+              Priority:
+                type: input_select
+                value: Medium
+                mandatory: true
+                options:
+                  - Low
+                  - Medium
+                  - High
+          is_active: true
+  responses:
+    '201':
+      description: Custom attribute definition successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              attribute_id:
+                type: integer
+              attribute_display_name:
+                type: string
+              attribute_description:
+                type: string
+              attribute_for:
+                type: string
+              attribute_content:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

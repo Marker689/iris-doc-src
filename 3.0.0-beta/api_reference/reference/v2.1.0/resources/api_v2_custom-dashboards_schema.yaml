@@ -1,0 +1,49 @@
+get:
+  operationId: api_v2_custom-dashboards_schema_get
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Get the custom dashboard editor schema
+  description: Returns the JSON schema describing the tables, columns, aggregations, operators, chart types and time buckets accepted by the dashboard editor.
+  responses:
+    '200':
+      description: Editor schema
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tables:
+                type: array
+                items:
+                  type: string
+              columns:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+              named_aggregations:
+                type: array
+                items:
+                  type: object
+              aggregations:
+                type: array
+                items:
+                  type: string
+              operators:
+                type: array
+                items:
+                  type: string
+              chart_types:
+                type: array
+                items:
+                  type: string
+              time_buckets:
+                type: array
+                items:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,6 @@
+in: query
+name: per_page
+description: Number of results per page
+schema:
+  type: integer
+  default: 10

@@ -1,0 +1,31 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_users_(identifier)_mfa_reset_post
+  tags:
+    - Manage Users
+    - Beta
+  summary: Reset a user's MFA
+  description: Clear the user's MFA secrets and any registered WebAuthn credentials so the user is prompted to re-enrol on next login. The request body is ignored.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    '200':
+      description: MFA successfully reset
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

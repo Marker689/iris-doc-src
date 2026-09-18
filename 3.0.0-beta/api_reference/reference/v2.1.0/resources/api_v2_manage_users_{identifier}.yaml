@@ -1,0 +1,88 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_users_(identifier)_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: Get a user
+  description: Requires administrative rights. Returns information of a specific user.
+  responses:
+    '201':
+      description: user successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_users_(identifier)_put
+  tags:
+    - Manage Users
+    - Beta
+  summary: Update user
+  description:  Update an existing user. Requires administrative rights.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            active:
+              type: boolean
+            external_id:
+              type: string
+            has_deletion_confirmation:
+              type: boolean
+            in_dark_mode:
+              type: boolean
+            user_email:
+              type: string
+            user_id:
+              type: integer
+            user_login:
+              type: string
+            user_name:
+              type: string
+            user_password:
+              type: string
+            uuid:
+              type: string
+          example:
+            user_name: new_user
+            user_login: new_user_login
+            user_email: new_user_email
+  responses:
+    '201':
+      description: User successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_users_(identifier)_delete
+  tags:
+    - Manage Users
+    - Beta
+  summary: Delete user
+  description: Delete user. Requires administrative rights.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

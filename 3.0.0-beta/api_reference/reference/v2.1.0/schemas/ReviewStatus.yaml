@@ -1,0 +1,8 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  id:
+    type: integer
+  status_name:
+    type: string

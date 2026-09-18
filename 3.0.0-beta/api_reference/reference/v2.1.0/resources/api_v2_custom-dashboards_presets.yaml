@@ -1,0 +1,37 @@
+get:
+  operationId: api_v2_custom-dashboards_presets_get
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: List custom dashboard widget presets
+  description: Returns the ready-made widget presets (alerts by severity, cases by classification, MTTD, MTTR, ...) that the editor exposes when the user drops a new widget onto a dashboard.
+  responses:
+    '200':
+      description: List of widget presets
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                chart_type:
+                  type: string
+                fields:
+                  type: array
+                  items:
+                    type: object
+                group_by:
+                  type: array
+                  items:
+                    type: string
+                options:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,7 @@
+in: path
+name: case_identifier
+required: true
+description: Case identifier
+schema:
+  type: integer
+

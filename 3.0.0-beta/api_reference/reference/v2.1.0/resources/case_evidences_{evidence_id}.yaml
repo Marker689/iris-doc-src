@@ -1,0 +1,198 @@
+get:
+  summary: Get an evidence
+  operationId: get-case-evidence
+  description: This endpoint is deprecated. Use [GET /api/v2/cases/{case_identifier}/evidences/{identifier}](#tag/Evidences/operation/api_v2_cases_(case_identifier)_evidences_(identifier)_get) instead.
+  deprecated: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  chain_of_custody: null
+                  case_id: 1
+                  type_id: 2
+                  id: 116
+                  file_hash: 77077087ee0f61f174a996bbcb7ef09c
+                  filename: pat.txt
+                  start_date: null
+                  type:
+                    name: HDD image - Generic
+                    description: Generic copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.764707'
+                    id: 2
+                  acquisition_date: null
+                  case: 1
+                  file_uuid: e6d5e920-0849-4b7c-ae62-e9455feaf25a
+                  user_id: 3
+                  custom_attributes: {}
+                  date_added: '2024-01-07T13:40:47.232707'
+                  user:
+                    id: 3
+                    user_name: User Std 2
+                    user_login: user_std_2
+                    user_email: user_std_2@iris.local
+                  file_size: 52
+                  end_date: null
+                  file_description: ''
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - chain_of_custody
+                  - case_id
+                  - type_id
+                  - id
+                  - file_hash
+                  - filename
+                  - start_date
+                  - type
+                  - acquisition_date
+                  - case
+                  - file_uuid
+                  - user_id
+                  - custom_attributes
+                  - date_added
+                  - user
+                  - file_size
+                  - end_date
+                  - file_description
+                properties:
+                  chain_of_custody:
+                    type: 'null'
+                  case_id:
+                    type: integer
+                  type_id:
+                    type: integer
+                  id:
+                    type: integer
+                  file_hash:
+                    type: string
+                  filename:
+                    type: string
+                  start_date:
+                    type: 'null'
+                  type:
+                    type: object
+                    required:
+                      - name
+                      - description
+                      - creation_date
+                      - id
+                    properties:
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      creation_date:
+                        type: string
+                      id:
+                        type: integer
+                  acquisition_date:
+                    type: 'null'
+                  case:
+                    type: integer
+                  file_uuid:
+                    type: string
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  date_added:
+                    type: string
+                  user:
+                    type: object
+                    required:
+                      - id
+                      - user_name
+                      - user_login
+                      - user_email
+                    properties:
+                      id:
+                        type: integer
+                      user_name:
+                        type: string
+                      user_login:
+                        type: string
+                      user_email:
+                        type: string
+                  file_size:
+                    type: integer
+                  end_date:
+                    type: 'null'
+                  file_description:
+                    type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  custom_attributes: null
+                  date_added: '2023-03-06T09:24:21.700465'
+                  file_description: Imported from datastore. dummy description
+                  file_hash: >-
+                    E7314F28AC81AAB727957B317AEBF02B54E8B06C07F5A56F36D4F0B642C38D28
+                  file_size: 76050
+                  file_uuid: 7da1be2f-b0cb-4cdb-85b5-a9a7716d08e8
+                  filename: dummy file
+                  id: 1
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid evidence ID for this case
+                status: error
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid evidence ID for this case
+                status: error
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - Evidences
+parameters:
+  - schema:
+      type: integer
+    name: evidence_id
+    in: path
+    required: true
+    description: Evidence ID

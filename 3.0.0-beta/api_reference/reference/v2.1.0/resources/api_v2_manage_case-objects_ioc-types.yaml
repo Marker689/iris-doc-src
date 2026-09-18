@@ -1,0 +1,119 @@
+get:
+  operationId: api_v2_manage_case-objects_ioc-types_get
+  tags:
+    - Case objects
+    - Beta
+  summary: List IOC types
+  description: Returns a paginated list of IOC types. Supports substring search on `type_name`, `type_description` and `type_taxonomy` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `type_name`, `type_description` or `type_taxonomy`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of IOC types
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type_id:
+                      type: integer
+                    type_name:
+                      type: string
+                    type_description:
+                      type: string
+                    type_taxonomy:
+                      type: string
+                    type_validation_regex:
+                      type: string
+                    type_validation_expect:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_case-objects_ioc-types_post
+  tags:
+    - Case objects
+    - Beta
+  summary: Create an IOC type
+  description: Create a new IOC type.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            type_name:
+              type: string
+            type_description:
+              type: string
+            type_taxonomy:
+              type: string
+            type_validation_regex:
+              type: string
+          required:
+            - type_name
+        example:
+          type_name: sha256
+          type_description: SHA-256 hash
+          type_taxonomy: hash.sha256
+          type_validation_regex: ^[A-Fa-f0-9]{64}$
+  responses:
+    '201':
+      description: IOC type successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type_id:
+                type: integer
+              type_name:
+                type: string
+              type_description:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expect:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

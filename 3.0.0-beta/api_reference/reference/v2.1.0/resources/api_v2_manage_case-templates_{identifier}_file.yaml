@@ -1,0 +1,61 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+put:
+  operationId: api_v2_manage_case-templates_(identifier)_file_put
+  tags:
+    - Case templates
+    - Beta
+  summary: Replace a case template from a JSON file
+  description: Replace the case template's contents by uploading a JSON file. The file must be sent as `multipart/form-data` under the key `file` and must be a valid case-template JSON document (same shape as `GET /manage/case-templates/schema`).
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: string
+              format: binary
+              description: Case template JSON file
+          required:
+            - file
+  responses:
+    '200':
+      description: Case template successfully replaced
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              display_name:
+                type: string
+              description:
+                type: string
+              author:
+                type: string
+              title_prefix:
+                type: string
+              summary:
+                type: string
+              tags:
+                type: string
+              classification:
+                type: string
+              tasks:
+                type: array
+                items:
+                  type: object
+              note_directories:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

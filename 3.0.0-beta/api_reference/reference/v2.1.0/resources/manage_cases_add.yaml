@@ -1,0 +1,209 @@
+parameters: []
+post:
+  summary: Add a new case
+  description: This endpoint is deprecated. Use [POST /api/v2/cases](#tag/Cases/operation/api_v2_cases_post) instead.
+  deprecated: true
+  operationId: post-manage-cases-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Case created
+                data:
+                  case_name: '#1065 - My Case API'
+                  case_customer: 1
+                  case_uuid: 435e3f47-479e-4a3c-98df-8e28b01fd2bc
+                  case_description: A super nice description
+                  case_id: 1065
+                  open_date: '2024-01-10'
+                  status_id: 0
+                  modification_history:
+                    '1704888196.578914':
+                      user: administrator
+                      user_id: 1
+                      action: created
+                  case_soc_id: SOC_154
+                  state_id: 11
+                  close_date: null
+                  classification_id: null
+                  closing_note: null
+                  owner_id: 1
+                  user_id: 1
+                  custom_attributes: null
+                  reviewer_id: null
+                  review_status_id: null
+                  severity_id: 4
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  case_name:
+                    type: string
+                  case_customer:
+                    type: integer
+                  case_uuid:
+                    type: string
+                  case_description:
+                    type: string
+                  case_id:
+                    type: integer
+                  open_date:
+                    type: string
+                  status_id:
+                    type: integer
+                  modification_history:
+                    type: object
+                  case_soc_id:
+                    type: string
+                  state_id:
+                    type: integer
+                  close_date:
+                    type: 'null'
+                  classification_id:
+                    type: 'null'
+                  closing_note:
+                    type: 'null'
+                  owner_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: 'null'
+                  reviewer_id:
+                    type: 'null'
+                  review_status_id:
+                    type: 'null'
+                  severity_id:
+                    type: integer
+          examples:
+            Valid request:
+              value:
+                status: success
+                message: Case created
+                data:
+                  case_name: '#1065 - My Case API'
+                  case_customer: 1
+                  case_uuid: 435e3f47-479e-4a3c-98df-8e28b01fd2bc
+                  case_description: A super nice description
+                  case_id: 1065
+                  open_date: '2024-01-10'
+                  status_id: 0
+                  modification_history:
+                    '1704888196.578914':
+                      user: administrator
+                      user_id: 1
+                      action: created
+                  case_soc_id: SOC_154
+                  state_id: 11
+                  close_date: null
+                  classification_id: null
+                  closing_note: null
+                  owner_id: 1
+                  user_id: 1
+                  custom_attributes: null
+                  reviewer_id: null
+                  review_status_id: null
+                  severity_id: 4
+    '400':
+      description: Bad Request
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  case_desciption:
+                    - Unknown field.
+                  case_description:
+                    - Missing data for required field.
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+                properties:
+                  field_with_error:
+                    type: array
+                    items:
+                      type: string
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  case_soc_id:
+                    - Missing data for required field.
+                message: Data error
+                status: error
+  parameters: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              case_soc_id: '156516'
+              case_customer: 1
+              case_name: my_case_api
+              case_description: a description
+          properties:
+            case_soc_id:
+              type: string
+              minLength: 1
+              description: 'A SOC ticket reference '
+            case_customer:
+              type: number
+              description: 'The customer ID linked to the case. '
+            case_name:
+              type: string
+              minLength: 2
+              description: 'A short name for the case. The case number will be prepend. '
+            case_description:
+              type: string
+              minLength: 2
+              description: >-
+                A short description of the case. This will be the summary of the
+                case.
+            custom_attributes:
+              type: object
+            case_template_id:
+              type: integer
+            classification_id:
+              type: integer
+          required:
+            - case_soc_id
+            - case_customer
+            - case_name
+            - case_description
+        examples:
+          Valid request:
+            value:
+              case_soc_id: SOC_154
+              case_customer: 1
+              case_name: My Case API
+              case_description: A super nice description
+  tags:
+    - Cases

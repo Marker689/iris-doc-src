@@ -1,0 +1,81 @@
+parameters:
+  - name: dashboard_uuid
+    in: path
+    required: true
+    description: UUID identifier of the custom dashboard.
+    schema:
+      type: string
+      format: uuid
+get:
+  operationId: api_v2_custom-dashboards_(dashboard_uuid)_get
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Get a custom dashboard
+  description: Returns a single custom dashboard by its UUID.
+  responses:
+    '200':
+      description: Custom dashboard successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_custom-dashboards_(dashboard_uuid)_put
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Update a custom dashboard
+  description: Updates a custom dashboard. Only the fields present in the request body are modified. System dashboards are read-only and will return an error.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            layout:
+              type: object
+            is_public:
+              type: boolean
+        example:
+          name: SOC overview (v2)
+          is_public: true
+  responses:
+    '200':
+      description: Custom dashboard successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_custom-dashboards_(dashboard_uuid)_delete
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Delete a custom dashboard
+  description: Deletes a custom dashboard. System dashboards cannot be deleted through the API.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

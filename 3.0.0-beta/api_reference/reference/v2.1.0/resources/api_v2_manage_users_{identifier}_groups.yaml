@@ -1,0 +1,68 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_users_(identifier)_groups_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: List a user's groups
+  description: Return the groups the given user belongs to.
+  responses:
+    '200':
+      description: Groups successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    group_id:
+                      type: integer
+                    group_name:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_users_(identifier)_groups_put
+  tags:
+    - Manage Users
+    - Beta
+  summary: Replace a user's groups
+  description: Replace the user's group membership. Every group id is validated to exist before any database write is performed.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - group_ids
+          properties:
+            group_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          group_ids:
+            - 1
+            - 2
+  responses:
+    '200':
+      description: Group membership successfully replaced
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

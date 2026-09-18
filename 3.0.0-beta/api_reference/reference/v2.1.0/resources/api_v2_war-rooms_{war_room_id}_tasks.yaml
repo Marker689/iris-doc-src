@@ -1,0 +1,171 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_get
+  tags:
+    - War room tasks
+    - Beta
+  summary: List war-room tasks
+  description: Return the list of tasks belonging to the war room. Each row is joined with the assignee/creator/closer display fields server-side so the SPA can render the table in a single pass.
+  responses:
+    '200':
+      description: Tasks successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                war_room_id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                status_id:
+                  type: integer
+                assignee_id:
+                  type:
+                    - integer
+                    - 'null'
+                assignee_login:
+                  type: string
+                assignee_name:
+                  type: string
+                due_at:
+                  type:
+                    - string
+                    - 'null'
+                source_case_id:
+                  type:
+                    - integer
+                    - 'null'
+                source_case_task_id:
+                  type:
+                    - integer
+                    - 'null'
+                created_at:
+                  type: string
+                created_by_id:
+                  type: integer
+                created_by_login:
+                  type: string
+                created_by_name:
+                  type: string
+                closed_at:
+                  type:
+                    - string
+                    - 'null'
+                closed_by_id:
+                  type:
+                    - integer
+                    - 'null'
+                closed_by_login:
+                  type: string
+                closed_by_name:
+                  type: string
+                tags:
+                  type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_post
+  tags:
+    - War room tasks
+    - Beta
+  summary: Create a war-room task
+  description: Create a new task in the war room. `due_at` accepts either a `YYYY-MM-DD` string or a full ISO-8601 timestamp (with or without `Z` suffix). Creating a task also emits a `task_assigned` system event into the war-room chat stream.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - title
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            assignee_user_id:
+              type:
+                - integer
+                - 'null'
+              description: Optional user id to assign the task to.
+            due_at:
+              type:
+                - string
+                - 'null'
+              description: Optional ISO-8601 date or timestamp.
+        example:
+          title: Rotate SSH keys on bastion
+          description: Rotate the shared key pair and update the vault.
+          assignee_user_id: 12
+          due_at: '2026-07-15T18:00:00Z'
+  responses:
+    '201':
+      description: Task successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+              war_room_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              status_id:
+                type: integer
+              assignee_id:
+                type:
+                  - integer
+                  - 'null'
+              due_at:
+                type:
+                  - string
+                  - 'null'
+              source_case_id:
+                type:
+                  - integer
+                  - 'null'
+              source_case_task_id:
+                type:
+                  - integer
+                  - 'null'
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+              closed_at:
+                type:
+                  - string
+                  - 'null'
+              closed_by_id:
+                type:
+                  - integer
+                  - 'null'
+              tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

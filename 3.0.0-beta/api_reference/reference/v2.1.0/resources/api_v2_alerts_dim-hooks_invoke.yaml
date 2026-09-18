@@ -1,0 +1,73 @@
+post:
+  operationId: api_v2_alerts_dim-hooks_invoke_post
+  tags:
+    - Alerts
+    - Beta
+  summary: Invoke a DIM hook against alerts
+  description: >-
+    Queue the `on_manual_trigger_alert` hook against a batch of alerts — the
+    module-provided buttons on an alert. `hook_name` must be exactly
+    `on_manual_trigger_alert`; any other hook is rejected, so that alerts can't
+    be handed to a module expecting some other object.
+
+
+    Each target is loaded with the usual tenant check. Alerts the caller cannot
+    see are reported in `logs` in the same words as alerts that don't exist, so
+    the two cannot be told apart. A batch where every target was skipped still
+    answers 200, with `queued: 0`.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            hook_name:
+              type: string
+              const: on_manual_trigger_alert
+            hook_ui_name:
+              description: Label of the specific action within that hook.
+              type: string
+            module_name:
+              description: Module registering the hook.
+              type: string
+            targets:
+              description: Alert identifiers to run the hook against.
+              type: array
+              items:
+                type: integer
+          required:
+            - hook_name
+            - targets
+        example:
+          hook_name: on_manual_trigger_alert
+          hook_ui_name: Enrich with threat intel
+          module_name: IrisVT
+          targets:
+            - 1204
+            - 1205
+  responses:
+    '200':
+      description: Hook successfully queued
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              queued:
+                description: Number of alerts the hook was queued for.
+                type: integer
+              logs:
+                description: >-
+                  One line per skipped target. Omitted entirely when nothing was
+                  skipped.
+                type: array
+                items:
+                  type: string
+          example:
+            queued: 1
+            logs:
+              - Alert ID 1205 not found
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

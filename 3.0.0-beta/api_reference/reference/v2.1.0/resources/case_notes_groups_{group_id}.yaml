@@ -1,0 +1,169 @@
+get:
+  summary: Fetch a notes group
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  group_id:
+                    type: integer
+                  group_uuid:
+                    type: string
+                  group_title:
+                    type: string
+                  group_creationdate:
+                    type: string
+                  group_lastupdate:
+                    type: string
+                  notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        note_id:
+                          type: integer
+                        note_uuid:
+                          type: string
+                        note_title:
+                          type: string
+                        user:
+                          type: string
+                        note_lastupdate:
+                          type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  group_id: 186
+                  group_uuid: 3551ce9f-1446-4163-ab9e-78b9c4187cfd
+                  group_title: Group 186
+                  group_creationdate: '2023-02-09T19:01:45.753049'
+                  group_lastupdate: '2023-02-09T19:01:45.753049'
+                  notes:
+                    - note_id: 110
+                      note_uuid: 45df996f-f96d-4162-a5eb-2ddb66500d97
+                      note_title: Test Note
+                      user: adm_1
+                      note_lastupdate: '2023-12-29T19:21:48.799248'
+                    - note_id: 1620
+                      note_uuid: c47a232f-ccce-4883-ace2-b071c31ba009
+                      note_title: Untitled note
+                      user: adm_3
+                      note_lastupdate: '2023-12-14T17:50:03.136531'
+                    - note_id: 1733
+                      note_uuid: 56a0bea6-e65b-4ff9-9000-a3f34b162d83
+                      note_title: Untitled note
+                      user: adm_1
+                      note_lastupdate: '2023-11-24T14:10:31.487938'
+                    - note_id: 1834
+                      note_uuid: 9176ddd1-fb35-41f3-ba4e-e26f32fede8b
+                      note_title: Untitled note
+                      user: adm_3
+                      note_lastupdate: '2023-12-07T14:50:05.324440'
+                    - note_id: 1953
+                      note_uuid: 6d34d408-df68-45c1-a92a-d7fb1e962993
+                      note_title: Untitled note
+                      user: adm_1
+                      note_lastupdate: '2024-01-04T15:50:06.758144'
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  group_id: 186
+                  group_uuid: 3551ce9f-1446-4163-ab9e-78b9c4187cfd
+                  group_title: Group 186
+                  group_creationdate: '2023-02-09T19:01:45.753049'
+                  group_lastupdate: '2023-02-09T19:01:45.753049'
+                  notes:
+                    - note_id: 110
+                      note_uuid: 45df996f-f96d-4162-a5eb-2ddb66500d97
+                      note_title: Test Note
+                      user: adm_1
+                      note_lastupdate: '2023-12-29T19:21:48.799248'
+                    - note_id: 1620
+                      note_uuid: c47a232f-ccce-4883-ace2-b071c31ba009
+                      note_title: Untitled note
+                      user: adm_3
+                      note_lastupdate: '2023-12-14T17:50:03.136531'
+                    - note_id: 1733
+                      note_uuid: 56a0bea6-e65b-4ff9-9000-a3f34b162d83
+                      note_title: Untitled note
+                      user: adm_1
+                      note_lastupdate: '2023-11-24T14:10:31.487938'
+                    - note_id: 1834
+                      note_uuid: 9176ddd1-fb35-41f3-ba4e-e26f32fede8b
+                      note_title: Untitled note
+                      user: adm_3
+                      note_lastupdate: '2023-12-07T14:50:05.324440'
+                    - note_id: 1953
+                      note_uuid: 6d34d408-df68-45c1-a92a-d7fb1e962993
+                      note_title: Untitled note
+                      user: adm_1
+                      note_lastupdate: '2024-01-04T15:50:06.758144'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid group ID
+                status: error
+          examples:
+            Invalid group ID:
+              value:
+                data: []
+                message: Invalid group ID
+                status: error
+  operationId: get-case-groups-fetch
+  description: This endpoint is deprecated and not replaced yet.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: ID Of the case
+      required: true
+parameters:
+  - schema:
+      type: string
+    name: group_id
+    in: path
+    required: true
+    description: ID of the group to return

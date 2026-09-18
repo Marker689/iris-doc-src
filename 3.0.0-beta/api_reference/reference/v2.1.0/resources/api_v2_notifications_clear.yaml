@@ -1,0 +1,45 @@
+post:
+  operationId: api_v2_notifications_clear_post
+  tags:
+    - Notifications
+    - Beta
+  summary: Clear notifications
+  description: >-
+    Permanently delete notifications belonging to the current user.
+    Supply a list of `notification_ids` to clear a subset, or an empty
+    body (or `all: true`) to clear every notification the current user
+    owns.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            notification_ids:
+              type: array
+              items:
+                type: integer
+              description: Ids of notifications to clear
+            all:
+              type: boolean
+              description: When true, clear every notification of the current user
+        example:
+          notification_ids:
+            - 12
+    description: ''
+  responses:
+    '200':
+      description: Notifications successfully cleared
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              cleared_count:
+                type: integer
+              unread_count:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

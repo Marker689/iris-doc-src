@@ -1,0 +1,47 @@
+post:
+  summary: Delete an alert
+  description: This endpoint is deprecated. Use [DELETE /api/v2/alerts/{identifier}](#tag/Alerts/operation/api_v2_alerts_(identifier)_delete) instead.
+  deprecated: true
+  operationId: post-case-delete-alert
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  alert_id:
+                    type: integer
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  alert_id: 436
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  alert_id: 436
+  parameters: []
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Alerts
+parameters:
+  - schema:
+      type: integer
+    name: alert_id
+    in: path
+    required: true
+    description: Alert ID to delete

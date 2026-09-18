@@ -1,0 +1,66 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_interactive_post
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Create an interactive datastore file
+  description: Create a file from a base64-encoded blob, dropped into the case's dedicated "interactive" folder. Used by the rich-text editor to store pasted images and inline attachments. If a file with the same content already exists, the existing entry is reused (`existed=true`).
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            file_original_name:
+              type: string
+              description: Original filename including extension
+            file_content:
+              type: string
+              format: byte
+              description: Base64-encoded file content
+            file_description:
+              type: string
+            file_tags:
+              type: string
+          required:
+            - file_original_name
+            - file_content
+        example:
+          file_original_name: pasted-screenshot.png
+          file_content: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgAAIAAAUAAeIVWUcAAAAASUVORK5CYII=
+          file_description: Screenshot dropped from the analyst note editor
+  responses:
+    '201':
+      description: Interactive file created (or an existing identical file returned)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              existed:
+                type: boolean
+                description: True when the file content already existed and was deduplicated
+              file_url:
+                type: string
+                description: Case-scoped URL where the file content can be downloaded
+              file_id:
+                type: integer
+              file_original_name:
+                type: string
+              file_sha256:
+                type: string
+              file_size:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

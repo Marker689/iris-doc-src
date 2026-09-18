@@ -1,0 +1,128 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: task_id
+    in: path
+    required: true
+    description: Identifier of the task
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_(task_id)_patch
+  tags:
+    - War room tasks
+    - Beta
+  summary: Update a war-room task
+  description: Partial update of a war-room task. Only the fields present in the body are touched. `due_at` accepts the same date/timestamp shapes as task creation. Use the dedicated `/close` and `/reopen` endpoints for lifecycle transitions when you also want the chat mirror event to fire.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            assignee_user_id:
+              type:
+                - integer
+                - 'null'
+            status:
+              type: string
+              description: Task status name; alternatively pass `status_id` for the numeric equivalent.
+            status_id:
+              type: integer
+            due_at:
+              type:
+                - string
+                - 'null'
+            source_case_id:
+              type:
+                - integer
+                - 'null'
+            source_case_task_id:
+              type:
+                - integer
+                - 'null'
+            tags:
+              type: string
+        example:
+          title: Rotate SSH keys on bastion (all envs)
+          assignee_user_id: 14
+          status_id: 2
+  responses:
+    '200':
+      description: Task successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+              war_room_id:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              status_id:
+                type: integer
+              assignee_id:
+                type:
+                  - integer
+                  - 'null'
+              due_at:
+                type:
+                  - string
+                  - 'null'
+              source_case_id:
+                type:
+                  - integer
+                  - 'null'
+              source_case_task_id:
+                type:
+                  - integer
+                  - 'null'
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+              closed_at:
+                type:
+                  - string
+                  - 'null'
+              closed_by_id:
+                type:
+                  - integer
+                  - 'null'
+              tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_tasks_(task_id)_delete
+  tags:
+    - War room tasks
+    - Beta
+  summary: Delete a war-room task
+  description: Delete a war-room task.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,83 @@
+get:
+  operationId: api_v2_runtime-config_get
+  tags:
+    - Runtime config
+    - Beta
+  summary: Runtime config digest for the SPA (browser-safe subset)
+  description: >-
+    The browser-safe slice of the server settings, read at boot by the web UI:
+    which optional subsystems are switched on and, for error reporting, the
+    front-end DSN. Secrets are never included — the chatbot API key, for
+    instance, is reduced to the `provider_available` boolean. Future runtime
+    toggles are added as new top-level keys, so treat the object as open.
+  responses:
+    '200':
+      description: Runtime configuration successfully retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_reporting:
+                type: object
+                properties:
+                  enabled:
+                    description: >-
+                      Only true when error reporting is on *and* a front-end DSN
+                      is configured — otherwise there is nothing to initialise
+                      the SDK against.
+                    type: boolean
+                  dsn:
+                    description: Null when error reporting is disabled.
+                    type:
+                      - string
+                      - 'null'
+                  environment:
+                    type:
+                      - string
+                      - 'null'
+                  sample_rate:
+                    description: Defaults to `1.0` when unset or unparseable.
+                    type: number
+                  release:
+                    description: '`iris@<version>`, or `iris@unknown`.'
+                    type: string
+              mcp:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  endpoint:
+                    description: Constant; exposed so clients never have to guess it.
+                    type: string
+              chatbot:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  provider_available:
+                    description: >-
+                      True only when the chatbot is enabled and fully
+                      configured: a model, a provider, and — for every provider
+                      but Ollama — an API key.
+                    type: boolean
+                  model:
+                    type: string
+          example:
+            error_reporting:
+              enabled: true
+              dsn: https://examplePublicKey@o0.ingest.sentry.io/0
+              environment: production
+              sample_rate: 1
+              release: iris@v2.4.27
+            mcp:
+              enabled: false
+              endpoint: /api/v2/mcp
+            chatbot:
+              enabled: true
+              provider_available: true
+              model: gpt-4o-mini
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,34 @@
+get:
+  operationId: api_v2_me_api-keys_get
+  tags:
+    - Profile
+    - Beta
+  summary: List the caller's named API keys
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/UserApiKey.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_me_api-keys_post
+  tags:
+    - Profile
+    - Beta
+  summary: Mint a new named, scope-restricted API key
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/UserApiKey.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

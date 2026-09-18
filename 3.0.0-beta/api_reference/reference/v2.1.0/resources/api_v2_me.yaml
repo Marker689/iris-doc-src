@@ -1,0 +1,44 @@
+get:
+  operationId: api_v2_me_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: Get user profile
+  description: Returns the current user profile
+  responses:
+    '200':
+      description: user successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+put:
+  operationId: api_v2_me_put
+  tags:
+    - Manage Users
+    - Beta
+  summary: Update user profile
+  description:  Update the current user profile
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/requestBodies/User.yaml
+  responses:
+    '201':
+      description: User profile successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

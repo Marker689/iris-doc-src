@@ -1,0 +1,32 @@
+parameters:
+  - name: conversation_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_case-chat_sessions_(conversation_id)_turns_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List LLM turns for a conversation with request snapshots
+  description: 'Each row includes `request_snapshot` — the system prompt, tools list,
+
+    and triggering user message sent to the model on that turn, with
+
+    conversation history stripped. Useful for verifying which tools the
+
+    model actually received (e.g. debugging Ollama tool truncation).'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatEgressAudit.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

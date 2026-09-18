@@ -1,0 +1,43 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+  - in: path
+    name: param_name
+    required: true
+    description: Name of the module parameter to update. Slashes are permitted for parameters that use path-style names.
+    schema:
+      type: string
+put:
+  operationId: api_v2_manage_modules_(identifier)_parameters_(param_name)_put
+  tags:
+    - Modules
+    - Beta
+  summary: Set a module parameter
+  description: Update the value of a single named parameter on the module. Compared to the legacy API, this route encodes the module id and parameter name as discrete path segments instead of a base64-encoded `mod_id##param_name` string.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - value
+          properties:
+            value: {}
+        example:
+          value: my-api-key-abc123
+  responses:
+    '200':
+      description: Parameter successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              parameter_name:
+                type: string
+              parameter_value: {}
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

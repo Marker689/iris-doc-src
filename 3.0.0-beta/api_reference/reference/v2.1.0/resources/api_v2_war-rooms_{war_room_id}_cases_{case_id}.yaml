@@ -1,0 +1,29 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+  - in: path
+    name: case_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the case to detach from the war room.
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_cases_(case_id)_delete
+  tags:
+    - War rooms
+    - Beta
+  summary: Detach a case from a war room
+  description: Detaches a case from the war room. A system event is emitted in the activity panel and mirrored on the case chat.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,71 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_members_get
+  tags:
+    - War rooms
+    - Beta
+  summary: List war room members
+  description: Returns the list of members attached to the war room.
+  responses:
+    '200':
+      description: List of war room members
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoomMember.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_members_post
+  tags:
+    - War rooms
+    - Beta
+  summary: Add a war room member
+  description: |
+    Adds a user to the war room and grants the corresponding ACL. A system event
+    is emitted in the activity panel with the member's name and role.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+              description: Identifier of the user to add to the war room.
+            role:
+              type: string
+              description: Role granted to the member inside the war room (for example `lead`, `responder`, `observer`).
+            access_level:
+              type: integer
+              description: Optional case-access level to grant on attached cases.
+          required:
+            - user_id
+        example:
+          user_id: 42
+          role: responder
+  responses:
+    '201':
+      description: Member successfully added
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomMember.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

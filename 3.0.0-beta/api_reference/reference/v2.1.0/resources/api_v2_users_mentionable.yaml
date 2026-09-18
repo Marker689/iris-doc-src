@@ -1,0 +1,42 @@
+get:
+  operationId: api_v2_users_mentionable_get
+  tags:
+    - Avatars
+    - Manage Users
+    - Beta
+  summary: List mentionable users
+  description: >-
+    Return active users that the current user can @-mention. Match is
+    case-insensitive against user login and display name. The payload
+    is intentionally minimal (id, login, name) so it can't be used to
+    leak permission info. Any authenticated user can call it.
+  parameters:
+    - schema:
+        type: string
+      name: q
+      in: query
+      required: false
+      description: Case-insensitive substring filter on user login and display name
+  responses:
+    '200':
+      description: Mentionable users successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: integer
+                    user_name:
+                      type: string
+                    user_login:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

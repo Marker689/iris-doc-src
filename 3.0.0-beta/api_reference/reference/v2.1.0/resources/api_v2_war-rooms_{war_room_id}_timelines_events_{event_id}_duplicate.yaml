@@ -1,0 +1,45 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: event_id
+    in: path
+    required: true
+    description: Identifier of the timeline event
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_(event_id)_duplicate_post
+  tags:
+    - War room timelines
+    - Beta
+  summary: Duplicate a timeline event
+  description: Shallow-copy a war-room timeline event. By default the duplicate lands on the same timeline as the source; pass `target_timeline_id` to drop the copy onto a different timeline in the same war room. Assets and IoCs on the source event are copied by reference.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            target_timeline_id:
+              type: integer
+              description: Optional destination timeline for the duplicate.
+        example:
+          target_timeline_id: 4
+  responses:
+    '201':
+      description: Event successfully duplicated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

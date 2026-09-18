@@ -1,0 +1,63 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the asset within the case
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_assets_(identifier)_links_get
+  tags:
+    - Assets
+    - Beta
+  summary: List other cases that share this asset
+  description: Returns the list of OTHER cases where the same asset (same name and type, on the same customer) was seen. Results are filtered to cases the current user can read.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+  responses:
+    '200':
+      description: Other cases where the asset appears
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                case_id:
+                  type: integer
+                case_name:
+                  type: string
+                asset_id:
+                  type: integer
+                asset_name:
+                  type: string
+                asset_type_id:
+                  type: integer
+                customer_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

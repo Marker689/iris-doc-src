@@ -1,0 +1,136 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: timeline_id
+    in: path
+    required: true
+    description: Identifier of the timeline
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_(timeline_id)_events_post
+  tags:
+    - War room timelines
+    - Beta
+  summary: Add a timeline event
+  description: Add a new event onto the given timeline. `event_date` accepts an ISO-8601 timestamp (with or without a `Z` suffix). Assets and IoCs can be linked at creation time by passing id lists; use the sibling `/assets` and `/iocs` endpoints later to replace those links.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - title
+            - event_date
+          properties:
+            title:
+              type: string
+            event_date:
+              type: string
+              description: ISO-8601 timestamp for when the event occurred.
+            description:
+              type: string
+              description: Free-form body for the event (also called `content` in the response).
+            categories:
+              type: array
+              items:
+                type: integer
+              description: Category ids to tag the event with.
+            asset_ids:
+              type: array
+              items:
+                type: integer
+            ioc_ids:
+              type: array
+              items:
+                type: integer
+        example:
+          title: Malware executed on HR-02
+          event_date: '2026-07-08T14:23:00Z'
+          description: Suspicious PowerShell child spawned by winword.exe.
+          categories: [3]
+          asset_ids: [17, 21]
+          ioc_ids: [88]
+  responses:
+    '201':
+      description: Event successfully added
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              uuid:
+                type: string
+              timeline_id:
+                type: integer
+              parent_id:
+                type:
+                  - integer
+                  - 'null'
+              case_id:
+                type:
+                  - integer
+                  - 'null'
+              event_id:
+                type:
+                  - integer
+                  - 'null'
+              title:
+                type: string
+              content:
+                type: string
+              raw:
+                type:
+                  - object
+                  - 'null'
+              source:
+                type:
+                  - string
+                  - 'null'
+              tags:
+                type:
+                  - string
+                  - 'null'
+              is_flagged:
+                type: boolean
+              event_date:
+                type: string
+              event_tz:
+                type: string
+              color:
+                type: string
+              category:
+                type:
+                  - string
+                  - 'null'
+              modification_history:
+                type:
+                  - object
+                  - 'null'
+              assets:
+                type: array
+                items:
+                  type: integer
+              iocs:
+                type: array
+                items:
+                  type: integer
+              children_count:
+                type: integer
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

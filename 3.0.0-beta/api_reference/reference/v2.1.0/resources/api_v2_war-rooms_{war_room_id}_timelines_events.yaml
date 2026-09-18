@@ -1,0 +1,58 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_events_get
+  tags:
+    - War room timelines
+    - Beta
+  summary: List events across war-room timelines
+  description: Return events aggregated across all native timelines in the war room. Filter by timeline with the CSV `timeline_ids` query parameter — the same shape used by `/linked-case-timelines/events` so the frontend can build both URLs identically. Case-sourced events are not included here; project those in via `/linked-case-timelines/events`.
+  parameters:
+    - name: timeline_ids
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of timeline ids to restrict the query to.
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: since
+      in: query
+      required: false
+      schema:
+        type: string
+      description: ISO timestamp lower bound (inclusive) on `event_date`.
+    - name: until
+      in: query
+      required: false
+      schema:
+        type: string
+      description: ISO timestamp upper bound (inclusive) on `event_date`.
+  responses:
+    '200':
+      description: Events successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,61 @@
+get:
+  operationId: api_v2_case-chat_health_get
+  tags:
+    - Case chat
+    - Beta
+  summary: Return whether the chatbot is enabled and configured
+  description: >-
+    Configuration probe for the case-chat assistant, used by the UI to decide
+    between the chat panel and a "chatbot is unavailable" empty state. Always
+    answers 200 — a broken configuration is reported in the body, not as an
+    error status.
+  responses:
+    '200':
+      description: Chatbot availability successfully reported
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              enabled:
+                description: Whether the chatbot is switched on in the server settings.
+                type: boolean
+              provider_available:
+                description: >-
+                  Whether the configured LLM provider could actually be
+                  instantiated.
+                type: boolean
+              model:
+                description: >-
+                  Configured model name. Absent when the configuration itself
+                  could not be loaded.
+                type:
+                  - string
+                  - 'null'
+              reason:
+                description: >-
+                  Why the provider is unavailable, or null when it is. The
+                  sentinel `load-error` means the chatbot configuration could
+                  not be read at all.
+                type:
+                  - string
+                  - 'null'
+          examples:
+            available:
+              summary: Chatbot ready
+              value:
+                enabled: true
+                provider_available: true
+                model: gpt-4o-mini
+                reason: null
+            disabled:
+              summary: Switched off in the server settings
+              value:
+                enabled: false
+                provider_available: false
+                model: ''
+                reason: Chatbot is disabled
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

@@ -1,0 +1,56 @@
+get:
+  summary: Get an evidence type
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  state_name:
+                    type: string
+                  state_description:
+                    type: string
+                  state_id:
+                    type: integer
+                  protected:
+                    type: boolean
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  state_name: Unspecified
+                  state_description: Unspecified
+                  state_id: 1
+                  protected: true
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  state_name: Unspecified
+                  state_description: Unspecified
+                  state_id: 1
+                  protected: true
+  operationId: get-evidence-types-detail
+  description: 'Get a evidence type from an ID. '
+  tags:
+    - Manage evidence types
+parameters:
+  - schema:
+      type: integer
+    name: type_id
+    in: path
+    required: true
+    description: state ID to fetch

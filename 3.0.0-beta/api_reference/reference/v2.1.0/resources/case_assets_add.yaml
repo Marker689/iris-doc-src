@@ -1,0 +1,265 @@
+parameters: []
+post:
+  summary: Add a new asset
+  operationId: post-case-asset-add
+  tags:
+    - Assets
+  responses:
+    '200':
+      description: Upon success, returns the new added asset information
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Asset added
+                data:
+                  asset_enrichment: null
+                  asset_type:
+                    asset_icon_not_compromised: windows_desktop.png
+                    asset_icon_compromised: ioc_windows_desktop.png
+                    asset_description: Standard Windows Computer
+                    asset_id: 9
+                    asset_name: Windows - Computer
+                  asset_type_id: 9
+                  case_id: 1
+                  asset_description: A host description
+                  asset_id: 3912
+                  analysis_status_id: 3
+                  custom_attributes: {}
+                  asset_info: ''
+                  user_id: 1
+                  date_added: '2024-01-09T13:25:51.328503'
+                  date_update: '2024-01-09T13:25:51.328506'
+                  asset_name: admin_laptop
+                  asset_ip: 127.0.0.1
+                  asset_tags: anewtag
+                  asset_compromise_status_id: 1
+                  asset_uuid: 5914a960-d6d5-4e18-9665-613037d8f702
+                  asset_domain: iris.local
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - asset_enrichment
+                  - asset_type
+                  - asset_type_id
+                  - case_id
+                  - asset_description
+                  - asset_id
+                  - analysis_status_id
+                  - custom_attributes
+                  - asset_info
+                  - user_id
+                  - date_added
+                  - date_update
+                  - asset_name
+                  - asset_ip
+                  - asset_tags
+                  - asset_compromise_status_id
+                  - asset_uuid
+                  - asset_domain
+                properties:
+                  asset_enrichment:
+                    type: 'null'
+                  asset_type:
+                    type: object
+                    required:
+                      - asset_icon_not_compromised
+                      - asset_icon_compromised
+                      - asset_description
+                      - asset_id
+                      - asset_name
+                    properties:
+                      asset_icon_not_compromised:
+                        type: string
+                      asset_icon_compromised:
+                        type: string
+                      asset_description:
+                        type: string
+                      asset_id:
+                        type: integer
+                      asset_name:
+                        type: string
+                  asset_type_id:
+                    type: integer
+                  case_id:
+                    type: integer
+                  asset_description:
+                    type: string
+                  asset_id:
+                    type: integer
+                  analysis_status_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  asset_info:
+                    type: string
+                  user_id:
+                    type: integer
+                  date_added:
+                    type: string
+                  date_update:
+                    type: string
+                  asset_name:
+                    type: string
+                  asset_ip:
+                    type: string
+                  asset_tags:
+                    type: string
+                  asset_compromise_status_id:
+                    type: integer
+                  asset_uuid:
+                    type: string
+                  asset_domain:
+                    type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: Asset added
+                data:
+                  asset_enrichment: null
+                  asset_type:
+                    asset_icon_not_compromised: windows_desktop.png
+                    asset_icon_compromised: ioc_windows_desktop.png
+                    asset_description: Standard Windows Computer
+                    asset_id: 9
+                    asset_name: Windows - Computer
+                  asset_type_id: 9
+                  case_id: 1
+                  asset_description: A host description
+                  asset_id: 3912
+                  analysis_status_id: 3
+                  custom_attributes: {}
+                  asset_info: ''
+                  user_id: 1
+                  date_added: '2024-01-09T13:25:51.328503'
+                  date_update: '2024-01-09T13:25:51.328506'
+                  asset_name: admin_laptop
+                  asset_ip: 127.0.0.1
+                  asset_tags: anewtag
+                  asset_compromise_status_id: 1
+                  asset_uuid: 5914a960-d6d5-4e18-9665-613037d8f702
+                  asset_domain: iris.local
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  analysis_status_id:
+                    - Invalid analysis status ID
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Missing field:
+              value:
+                data:
+                  analysis_status_id:
+                    - Invalid analysis status ID
+                message: Data error
+                status: error
+  description: This endpoint is deprecated. Use [POST /api/v2/cases/{case_identifier}/assets](#tag/Assets/operation/api_v2_cases_(case_identifier)_assets_post) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjU0ZDA3ZTQwYTk5NDA4MWJlYzM0NmE2OGFiNDUxNjVjNGVkNWJlM2Ii.ZZ1IXA.s-Ca2CpkV5M-eXv5INaJ-6TQ6MY
+              asset_type_id: '9'
+              asset_domain: iris.local
+              asset_ip: 127.0.0.1
+              asset_info: ''
+              asset_compromise_status_id: '1'
+              analysis_status_id: '3'
+              ioc_links:
+                - '30'
+              asset_name: admin_laptop
+              asset_tags: anewtag
+              asset_description: A host description
+              custom_attributes: {}
+          properties:
+            asset_type_id:
+              type: string
+            asset_domain:
+              type: string
+            asset_ip:
+              type: string
+            asset_info:
+              type: string
+            asset_compromise_status_id:
+              type: string
+            analysis_status_id:
+              type: string
+            ioc_links:
+              type: array
+              items:
+                type: string
+            asset_name:
+              type: string
+            asset_tags:
+              type: string
+            asset_description:
+              type: string
+            custom_attributes:
+              type: object
+          required:
+            - asset_type_id
+            - asset_name
+        examples:
+          Example 1:
+            value:
+              asset_type_id: '9'
+              asset_domain: iris.local
+              asset_ip: 127.0.0.1
+              asset_info: ''
+              asset_compromise_status_id: '1'
+              analysis_status_id: '3'
+              ioc_links:
+                - '30'
+              asset_name: admin_laptop
+              asset_tags: anewtag
+              asset_description: A host description
+              custom_attributes: {}
+    description: ''

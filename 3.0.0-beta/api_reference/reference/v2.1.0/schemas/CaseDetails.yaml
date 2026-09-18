@@ -1,0 +1,102 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  client:
+    $ref: ../schemas/Customer.yaml
+  owner:
+    $ref: ../schemas/User.yaml
+  classification:
+    $ref: ../schemas/CaseClassification.yaml
+  state:
+    $ref: ../schemas/CaseState.yaml
+  tags:
+    type: array
+    items:
+      $ref: ../schemas/Tags.yaml
+  user:
+    $ref: ../schemas/User.yaml
+  reviewer:
+    $ref: ../schemas/User.yaml
+  review_status:
+    $ref: ../schemas/ReviewStatus.yaml
+  severity:
+    $ref: ../schemas/Severity.yaml
+  status_name: {}
+  protagonists: {}
+  case_id:
+    type: integer
+    format: int64
+  soc_id:
+    type:
+      - string
+      - 'null'
+  client_id:
+    type: integer
+  name:
+    type:
+      - string
+      - 'null'
+  description:
+    type:
+      - string
+      - 'null'
+  open_date:
+    type:
+      - string
+      - 'null'
+    format: date
+  close_date:
+    type:
+      - string
+      - 'null'
+    format: date
+  initial_date:
+    type: string
+    format: date-time
+  closing_note:
+    type:
+      - string
+      - 'null'
+  user_id:
+    type:
+      - integer
+      - 'null'
+  owner_id:
+    type:
+      - integer
+      - 'null'
+  status_id:
+    type: integer
+  state_id:
+    type:
+      - integer
+      - 'null'
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+  case_uuid:
+    type: string
+    format: uuid
+  classification_id:
+    type:
+      - integer
+      - 'null'
+  reviewer_id:
+    type:
+      - integer
+      - 'null'
+  review_status_id:
+    type:
+      - integer
+      - 'null'
+  severity_id:
+    type:
+      - integer
+      - 'null'
+  modification_history:
+    type:
+      - object
+      - 'null'
+description: Schema for serializing and deserializing Case objects in details.

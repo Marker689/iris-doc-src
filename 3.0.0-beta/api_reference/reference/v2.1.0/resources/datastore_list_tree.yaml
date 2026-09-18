@@ -1,0 +1,160 @@
+get:
+  summary: Get the datastore tree
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data:
+                  d-48:
+                    children:
+                      d-49:
+                        children:
+                          f-31:
+                            added_by_user_id: 1
+                            file_case_id: 1
+                            file_date_added: Mon, 20 Mar 2023 15:54:45 GMT
+                            file_description: dsa
+                            file_id: 31
+                            file_is_evidence: true
+                            file_is_ioc: null
+                            file_local_name: >-
+                              /Users/blue/Documents/Projects/Test/Evidences/case-1/dsf-65fc1aa8-aa58-4c02-a12a-bee485e8c30a.zip
+                            file_original_name: nalysis_IrisInitialClient_2023-02-03.md
+                            file_parent_id: 49
+                            file_password: eqeq
+                            file_sha256: >-
+                              E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+                            file_size: 0
+                            file_tags: asd
+                            file_uuid: 65fc1aa8-aa58-4c02-a12a-bee485e8c30a
+                            modification_history:
+                              '1679324085.841901':
+                                action: created
+                                user: administrator
+                                user_id: 1
+                            type: file
+                        name: Evidences
+                        type: directory
+                      d-50:
+                        children: {}
+                        name: IOCs
+                        type: directory
+                      d-51:
+                        children: {}
+                        name: Images
+                        type: directory
+                    is_root: true
+                    name: Case 1
+                    type: directory
+                message: ''
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - root-id
+                properties:
+                  root-id:
+                    type: object
+                    required:
+                      - children
+                      - is_root
+                      - name
+                      - type
+                    properties:
+                      children:
+                        type: object
+                        required:
+                          - directory-id
+                        properties:
+                          directory-id:
+                            type: object
+                            required:
+                              - children
+                              - name
+                              - type
+                            properties:
+                              children:
+                                type: object
+                              name:
+                                type: string
+                              type:
+                                type: string
+                      is_root:
+                        type: boolean
+                      name:
+                        type: string
+                      type:
+                        type: string
+              message:
+                type: string
+              status:
+                type: string
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Example 1:
+              value:
+                data:
+                  d-48:
+                    children:
+                      d-49:
+                        children:
+                          f-31:
+                            added_by_user_id: 1
+                            file_case_id: 1
+                            file_date_added: Mon, 20 Mar 2023 15:54:45 GMT
+                            file_description: dsa
+                            file_id: 31
+                            file_is_evidence: true
+                            file_is_ioc: null
+                            file_local_name: >-
+                              /Evidences/case-1/dsf-65fc1aa8-aa58-4c02-a12a-bee485e8c30a.zip
+                            file_original_name: analysis_IrisInitialClient_2023-02-03.md
+                            file_parent_id: 49
+                            file_password: badpassword
+                            file_sha256: >-
+                              E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+                            file_size: 0
+                            file_tags: asd
+                            file_uuid: 65fc1aa8-aa58-4c02-a12a-bee485e8c30a
+                            modification_history:
+                              '1679324085.841901':
+                                action: created
+                                user: administrator
+                                user_id: 1
+                            type: file
+                        name: Evidences
+                        type: directory
+                      d-50:
+                        children: {}
+                        name: IOCs
+                        type: directory
+                      d-51:
+                        children: {}
+                        name: Images
+                        type: directory
+                    is_root: true
+                    name: Case 1
+                    type: directory
+                message: ''
+                status: success
+  operationId: get-datastore-list-tree
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  description: List datastore folders and files
+parameters: []

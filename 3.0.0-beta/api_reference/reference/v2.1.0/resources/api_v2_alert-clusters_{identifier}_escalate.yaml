@@ -1,0 +1,52 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_alert-clusters_(identifier)_escalate_post
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Escalate a cluster to a new case
+  description: Create a new case from this alert cluster. Every member alert is attached to the newly created case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            template_id:
+              type: integer
+              description: Optional case template identifier used to seed the new case
+            case_title:
+              type: string
+              description: Optional override for the new case title
+            note:
+              type: string
+              description: Free-text note recorded on the escalation
+            import_as_event:
+              type: boolean
+              description: If true, imports each alert as a timeline event on the case
+            case_tags:
+              type: string
+              description: Comma-separated tags applied to the new case
+  responses:
+    '200':
+      description: Cluster successfully escalated to a new case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              cluster_id:
+                type: integer
+              case_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

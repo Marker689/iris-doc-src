@@ -1,0 +1,58 @@
+get:
+  summary: Get API versions
+  tags:
+    - API
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  api_current:
+                    type: string
+                    minLength: 1
+                  api_min:
+                    type: string
+                    minLength: 1
+                  iris_current:
+                    type: string
+                    minLength: 1
+                required:
+                  - api_current
+                  - api_min
+                  - iris_current
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  api_current: 1.0.2
+                  api_min: 1.0.1
+                  iris_current: v1.2.1
+                message: ''
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  api_current: 2.0.0
+                  api_min: 2.0.0
+                  iris_current: v2.0.0-beta-3
+                message: ''
+                status: success
+  operationId: get-api-versions
+  description: 'Returns information on API versions supported by the server. '

@@ -1,0 +1,17 @@
+get:
+  operationId: api_v2_manage_banners_active_get
+  tags:
+    - Banners
+    - Beta
+  summary: List currently-active banners (any authenticated user)
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Banner.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

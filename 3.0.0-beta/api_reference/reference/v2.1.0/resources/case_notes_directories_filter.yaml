@@ -1,0 +1,520 @@
+get:
+  summary: Get list of directories and notes
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        group_id:
+                          type: integer
+                        group_uuid:
+                          type: string
+                        group_title:
+                          type: string
+                        notes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              note_id:
+                                type: integer
+                              note_uuid:
+                                type: string
+                              note_title:
+                                type: string
+                              user:
+                                type: string
+                              note_lastupdate:
+                                type: string
+                  state:
+                    type: object
+                    properties:
+                      object_state:
+                        type: integer
+                      object_last_update:
+                        type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  groups:
+                    - group_id: 186
+                      group_uuid: 3551ce9f-1446-4163-ab9e-78b9c4187cfd
+                      group_title: Group 186
+                      notes:
+                        - note_id: 110
+                          note_uuid: 45df996f-f96d-4162-a5eb-2ddb66500d97
+                          note_title: Test Note
+                          user: adm_1
+                          note_lastupdate: '2023-12-29T19:21:48.799248'
+                        - note_id: 1620
+                          note_uuid: c47a232f-ccce-4883-ace2-b071c31ba009
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-12-14T17:50:03.136531'
+                        - note_id: 1733
+                          note_uuid: 56a0bea6-e65b-4ff9-9000-a3f34b162d83
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-11-24T14:10:31.487938'
+                        - note_id: 1834
+                          note_uuid: 9176ddd1-fb35-41f3-ba4e-e26f32fede8b
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-12-07T14:50:05.324440'
+                        - note_id: 1953
+                          note_uuid: 6d34d408-df68-45c1-a92a-d7fb1e962993
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2024-01-04T15:50:06.758144'
+                    - group_id: 192
+                      group_uuid: 39434f81-9b8f-4540-9818-96b3dae0a48e
+                      group_title: Investigation
+                      notes:
+                        - note_id: 856
+                          note_uuid: bcd2f25c-e329-4ef0-b2fb-1b68ee4ef537
+                          note_title: IOC ?
+                          user: adm_1
+                          note_lastupdate: '2023-12-08T02:23:07.030130'
+                        - note_id: 1820
+                          note_uuid: 6d293b2c-06b7-422a-887b-284bf559636d
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-12-05T03:20:09.078152'
+                        - note_id: 1934
+                          note_uuid: f3b28930-844e-4edb-936d-12d87231aeaf
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2024-01-02T06:44:34.079779'
+                        - note_id: 1954
+                          note_uuid: 12b4a4a8-d0a9-49ff-9b97-3ad43c6aa86e
+                          note_title: testing stuff for frodo on the one ring server
+                          user: adm_1
+                          note_lastupdate: '2024-01-04T15:50:44.699016'
+                    - group_id: 223
+                      group_uuid: 7538ceb3-e7c2-4ca8-911d-031a66f0f2fc
+                      group_title: Group 223
+                      notes:
+                        - note_id: 213
+                          note_uuid: 066e24c2-85ca-41a5-b982-91f44dd92ebe
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-03-31T22:35:43.435906'
+                    - group_id: 229
+                      group_uuid: 3bec5c22-ae2e-415a-9eee-18b10ace47df
+                      group_title: Group 229
+                      notes:
+                        - note_id: 530
+                          note_uuid: b5a5403a-2bf6-4649-bf78-2a476d0b31da
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-06-06T07:18:08.899797'
+                    - group_id: 230
+                      group_uuid: 80c4fb87-e939-42b5-863e-11be4c4c8991
+                      group_title: Group 230
+                      notes:
+                        - note_id: 774
+                          note_uuid: 294ab835-cc02-4ae5-a04c-821cde72b623
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-07-27T06:33:29.931800'
+                    - group_id: 316
+                      group_uuid: ba1e558b-cc24-46ee-b192-a6fe2a3a03ec
+                      group_title: Group 316
+                      notes:
+                        - note_id: 1757
+                          note_uuid: 8f909d5a-07d7-4f81-afad-767c860253ba
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-11-29T22:28:49.316698'
+                    - group_id: 317
+                      group_uuid: 46a1c5d4-8e18-42e0-89f4-906c1e0bd288
+                      group_title: Group 317
+                      notes: []
+                    - group_id: 318
+                      group_uuid: c64875de-5cdb-43b9-b49f-ba523e8b610d
+                      group_title: Group 318
+                      notes:
+                        - note_id: 1732
+                          note_uuid: b16a7bdb-698a-4c7a-be56-2deb64f4d949
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-11-24T00:05:45.580907'
+                    - group_id: 319
+                      group_uuid: ce1c592c-3df6-43ea-9cbd-894f30a56bf0
+                      group_title: Group 319
+                      notes: []
+                    - group_id: 320
+                      group_uuid: 970e0a0d-f28f-4192-8239-7831c4560367
+                      group_title: Group 320
+                      notes:
+                        - note_id: 239
+                          note_uuid: a714b7a3-8344-4b15-ba24-d1722adcfe65
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-04-12T13:14:48.811734'
+                    - group_id: 351
+                      group_uuid: 71d555a9-4060-411a-be2f-f0d33793c647
+                      group_title: new group
+                      notes:
+                        - note_id: 276
+                          note_uuid: 5217a534-e236-4516-8d44-dfd0d6fcbdcb
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-04-27T09:27:18.650654'
+                    - group_id: 385
+                      group_uuid: 8eb53b45-1226-4468-ace1-2d10f7831a6f
+                      group_title: Group 385
+                      notes: []
+                    - group_id: 562
+                      group_uuid: 1dfe7ef3-7597-4d4b-9096-3e390e011b40
+                      group_title: Group 562
+                      notes:
+                        - note_id: 1831
+                          note_uuid: c305d4e1-adcd-410d-8d56-d73364faff34
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-12-07T10:20:18.227276'
+                    - group_id: 563
+                      group_uuid: a5094fd7-02d0-44b0-beeb-c8b3d3e8f8e8
+                      group_title: Group 563
+                      notes: []
+                    - group_id: 565
+                      group_uuid: bcd7ac17-064f-49b9-941b-a5e01b82cfdb
+                      group_title: Group 565
+                      notes:
+                        - note_id: 696
+                          note_uuid: 5d45d634-f463-4400-840a-646423e9c152
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-07-12T08:35:22.251498'
+                    - group_id: 589
+                      group_uuid: c111f93c-622d-4954-9592-da4406109897
+                      group_title: Group 589
+                      notes: []
+                    - group_id: 590
+                      group_uuid: 2e38b22f-f3b8-4345-b110-a735d1afb228
+                      group_title: Group 590
+                      notes:
+                        - note_id: 1789
+                          note_uuid: e8f3943a-778a-4850-be22-0fb9fca7eeed
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-12-01T16:06:25.564707'
+                    - group_id: 615
+                      group_uuid: 1555f460-e29a-4a1e-a438-b02309b4e9ef
+                      group_title: Group 615
+                      notes: []
+                    - group_id: 731
+                      group_uuid: 11e3e6d1-ab59-4c39-a478-420c865e7e69
+                      group_title: Group 731
+                      notes:
+                        - note_id: 730
+                          note_uuid: 7e45074a-e828-45b6-95c3-1c2d50854d31
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-07-20T07:08:09.733633'
+                    - group_id: 748
+                      group_uuid: 2af357bf-9a8a-4a82-b047-6d2804b5de8b
+                      group_title: Group 748
+                      notes: []
+                    - group_id: 766
+                      group_uuid: f55a2e9e-ab3e-4e89-9bcb-3a082c677e73
+                      group_title: New notes group
+                      notes:
+                        - note_id: 1276
+                          note_uuid: 17d9b1b2-7788-4588-9a8b-59a4cd014cce
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-09-22T08:28:12.315640'
+                    - group_id: 767
+                      group_uuid: 04e13560-18c1-48fc-b8ff-31f49dd9f8fd
+                      group_title: New notes group
+                      notes:
+                        - note_id: 798
+                          note_uuid: 947019ef-f587-417f-b2be-1f02cb083add
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-07-31T11:41:40.057720'
+                    - group_id: 801
+                      group_uuid: b68617d8-a1c5-43a3-ac0f-490fb884f615
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 802
+                      group_uuid: 4443a8b5-08c7-432f-971c-48413073487d
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 912
+                      group_uuid: cfde6d2d-5985-4276-8e5e-a7836df5a0b3
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 916
+                      group_uuid: ff8c3646-75ff-417a-81b5-8b6555be49ee
+                      group_title: New notes group
+                      notes:
+                        - note_id: 1606
+                          note_uuid: e9358f9c-ef82-4754-b6df-12344b053a91
+                          note_title: Untitled note
+                          user: adm_3
+                          note_lastupdate: '2023-11-06T02:32:11.434290'
+                    - group_id: 984
+                      group_uuid: 31cc129c-f097-469b-a97b-ffde2c3e52da
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 985
+                      group_uuid: 1f455c92-7985-4abe-bd45-b7412691a026
+                      group_title: New notes group
+                      notes:
+                        - note_id: 1933
+                          note_uuid: 60c88bb5-78bd-4f2e-8eb2-d77d7cbf2b2d
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2024-01-02T06:44:22.177576'
+                    - group_id: 986
+                      group_uuid: baa949b7-7dc0-4b9c-bb91-58748d2d4914
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1122
+                      group_uuid: 25bc6402-53f8-4165-82a6-7e098ad3dfce
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1141
+                      group_uuid: 78ed4c55-bd49-4cd9-8d59-0a3461063529
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1142
+                      group_uuid: 3647e416-e782-47c6-bfc0-9ee42e835345
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1169
+                      group_uuid: 536404d9-ceb1-4e52-bcdc-6a5fb1faa0dd
+                      group_title: New notes group
+                      notes:
+                        - note_id: 1277
+                          note_uuid: dd310051-550c-40ff-b5fc-53fa5e022997
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-09-22T08:28:23.443734'
+                    - group_id: 1235
+                      group_uuid: 76924746-b2e2-4088-afad-b0e88161a756
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1289
+                      group_uuid: aeb2e9b0-a0ee-4c09-9be8-60123ebc86ea
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1290
+                      group_uuid: 16114da7-40ed-4864-8c3c-f63b1b1c5b6e
+                      group_title: New notes group
+                      notes:
+                        - note_id: 1919
+                          note_uuid: d72525a6-81c0-44ca-8ec5-76dea8ccd9df
+                          note_title: Untitled note
+                          user: adm_1
+                          note_lastupdate: '2023-12-27T16:15:24.956701'
+                    - group_id: 1291
+                      group_uuid: 60b1fd6b-24a2-4f82-aeec-25d48858a1a7
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1292
+                      group_uuid: c26094d8-5284-4270-b8e7-854e0306d378
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1329
+                      group_uuid: 9a950733-4825-436f-b5d8-5b7be9fd130e
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1378
+                      group_uuid: c731447c-52d9-462e-b006-548cdba13fbe
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1384
+                      group_uuid: 07617992-8300-4023-99ae-933e7b3cd8ed
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1385
+                      group_uuid: 72e5a1a1-3853-42fc-a8b6-4765043ce12f
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1425
+                      group_uuid: 1b42b99b-8479-47bc-84dc-7992c2ddaab7
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1442
+                      group_uuid: 47436e25-8bd9-4926-adab-3a74e5131a73
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1498
+                      group_uuid: 7a0b754a-096b-4b94-a3d5-8cda257f42d5
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1499
+                      group_uuid: 126968ba-cc9f-42fe-87d3-f48ce6cdf034
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1505
+                      group_uuid: e417f7a3-9d61-416b-aa59-ecc2f623da6b
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1506
+                      group_uuid: 4afff67b-9eb9-42fa-ae37-b54cbc170e8e
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1507
+                      group_uuid: 40e12b26-3ae9-47aa-ae28-15e46a777ab9
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1510
+                      group_uuid: 7247267b-3e14-4154-93a5-ba388c45b7e0
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1511
+                      group_uuid: 87d73fcb-3dba-4fda-920e-9c315a5023eb
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1512
+                      group_uuid: dd28240f-0edf-484f-b904-c5e71de8ccac
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1526
+                      group_uuid: 20947604-dc3a-40f9-a68d-2c758ae05e8a
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1527
+                      group_uuid: a489154f-a436-4a29-97b0-0a2554eda575
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1528
+                      group_uuid: 40f9fa9e-3895-4de2-9f73-c64dc398771d
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1530
+                      group_uuid: ec3ab46b-ae85-4734-8db7-2d4895f57bd0
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1531
+                      group_uuid: 7db00392-05ac-489a-8de9-0a0fc93c761d
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1532
+                      group_uuid: 318a8ee3-b405-4381-9161-8e40af979e57
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1545
+                      group_uuid: 485c039f-5baf-4b1c-a0a8-c20660ef8c5f
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1583
+                      group_uuid: c49962b4-39c8-4a21-82de-8eb659f2b106
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1602
+                      group_uuid: ff1b79ed-12ed-475d-9ab7-4cfb1e073480
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1639
+                      group_uuid: de3d38eb-9a5b-4f87-99d6-d6c610d32ac3
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1657
+                      group_uuid: d07e3f4c-ba88-4586-94f8-1cc3d7239cad
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1665
+                      group_uuid: f3d66447-fad7-44f5-9831-5a25486f8408
+                      group_title: New notes group
+                      notes: []
+                    - group_id: 1675
+                      group_uuid: b384e358-6cd3-4773-b6b8-8e47e963cc8d
+                      group_title: New notes group
+                      notes: []
+                  state:
+                    object_state: 215
+                    object_last_update: '2024-01-04T15:50:13.728362'
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - id: 5
+                    name: Dummy title
+                    note_count: 1
+                    subdirectories: []
+                    notes:
+                      - id: 1
+                        title: New note
+                  - id: 7
+                    name: Dummy title
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 4
+                    name: New folder
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 34
+                    name: Test
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 33
+                    name: Test
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 3
+                    name: ds
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 1
+                    name: dsd
+                    note_count: 0
+                    subdirectories: []
+                    notes: []
+                  - id: 2
+                    name: ss
+                    note_count: 0
+                    subdirectories:
+                      - id: 4
+                        name: New folder
+                        note_count: 0
+                        subdirectories: []
+                      - id: 3
+                        name: ds
+                        note_count: 0
+                        subdirectories: []
+                    notes: []
+  operationId: get-case-notes-directories
+  description: List the directories and notes associated to it.  Use [GET /api/v2/cases/{case_identifier}/notes-directories](#tag/Notes/operation/api_v2_cases_(case_identifier)_notes-directories_get) instead. 
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

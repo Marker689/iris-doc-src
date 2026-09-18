@@ -1,0 +1,53 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: poll_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_polls_(poll_id)_vote_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Cast votes on a poll
+  description: >-
+    Record the current user's votes on a poll. For a single-select
+    poll, pass exactly one option id; for a multi-select poll, pass
+    one or more. Submitting an empty list clears the user's votes.
+    The fresh poll state is returned so the caller can update its UI
+    atomically; other viewers rely on the `poll:voted` socket event
+    to refetch.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - option_ids
+          properties:
+            option_ids:
+              type: array
+              items:
+                type: integer
+              description: Ids of the options the voter is selecting.
+        example:
+          option_ids:
+            - 12
+  responses:
+    '200':
+      description: Vote successfully recorded; current poll state returned
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

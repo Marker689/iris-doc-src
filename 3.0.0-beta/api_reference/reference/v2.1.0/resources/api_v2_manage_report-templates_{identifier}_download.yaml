@@ -1,0 +1,23 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_report-templates_(identifier)_download_get
+  tags:
+    - Report templates
+    - Beta
+  summary: Download a report template file
+  description: Stream the raw template file back as an attachment. The download filename is derived from the template's human-readable name plus the stored file extension.
+  responses:
+    '200':
+      description: Template file successfully streamed
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

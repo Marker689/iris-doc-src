@@ -1,0 +1,91 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_iocs_(identifier)_get
+  tags:
+    - IOCs
+    - Beta
+  summary: Get an IOC
+  description: ''
+  responses:
+    '201':
+      description: IOC successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Ioc.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_iocs_(identifier)_put
+  tags:
+    - IOCs
+    - Beta
+  summary: Update an IOC
+  description: ''
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            ioc_value:
+              type: string
+              minLength: 1
+            ioc_type_id:
+              type: number
+            ioc_tlp_id:
+              type: number
+            ioc_description:
+              type: string
+              minLength: 1
+              description: 'A short description of the ioc. This will be the summary of the ioc.'
+            ioc_misp:
+              type:
+                - string
+                - 'null'
+              description: 'Misp of ioc'
+            ioc_tags:
+              type: string
+              description : 'Ioc tags'
+        examples:
+           Valid request:
+             value:
+               ioc_value: 8.8.8.8
+               ioc_type_id: 1
+               ioc_tlp_id: 2
+               ioc_description: rewrw
+               ioc_tags: ''
+  responses:
+    '200':
+      description: IOC successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Ioc.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_iocs_(identifier)_delete
+  tags:
+    - IOCs
+    - Beta
+  summary: Delete an IOC
+  description: 'Delete an IOC from the case. If the IOC is still reference in other cases than it''s only unlinked from the current case.'
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

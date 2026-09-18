@@ -1,0 +1,55 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_export_post
+  tags:
+    - Case transfer
+    - Beta
+  summary: Export a case as a transferable archive
+  description: >-
+    Stream the case out as a `.iris` bundle, for import into another IRIS
+    instance through `POST /api/v2/cases/import/inspect`. The response is the
+    archive itself, as an attachment — the filename is in
+    `Content-Disposition`, not in a JSON body.
+
+
+    The archive is built into a temporary file that is discarded once the
+    response has been sent, so a large export leaves nothing behind whether or
+    not the download completes. A passphrase encrypts the bundle; the importing
+    side will then be asked for the same one.
+  requestBody:
+    description: Optional; an empty body exports with the defaults.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            include_blobs:
+              description: >-
+                Ship the Datastore file contents. When false, Datastore files
+                are exported as metadata only and the importing side is warned.
+              type: boolean
+              default: true
+            passphrase:
+              description: Encrypt the archive with this passphrase.
+              type: string
+        example:
+          include_blobs: true
+  responses:
+    '200':
+      description: The case archive
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

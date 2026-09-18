@@ -1,0 +1,66 @@
+parameters:
+  - name: flow_id
+    in: path
+    required: true
+    description: Numeric identifier of the parent investigation flow.
+    schema:
+      type: integer
+  - name: step_id
+    in: path
+    required: true
+    description: Numeric identifier of the step being addressed.
+    schema:
+      type: integer
+put:
+  operationId: api_v2_investigation-flows_(flow_id)_steps_(step_id)_put
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Update a step of an investigation flow
+  description: Updates a step belonging to the given investigation flow. Only the fields present in the request body are modified.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            step_type:
+              type: string
+            order:
+              type: integer
+            config:
+              type: object
+        example:
+          order: 2
+          config:
+            title: Investigate phishing indicators
+            assignee_id: 5
+  responses:
+    '200':
+      description: Step successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_investigation-flows_(flow_id)_steps_(step_id)_delete
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Delete a step of an investigation flow
+  description: Deletes a step belonging to the given investigation flow.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

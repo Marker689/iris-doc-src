@@ -1,0 +1,5 @@
+in: query
+name: ioc_description
+schema:
+  type: string
+

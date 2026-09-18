@@ -1,0 +1,84 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-objects_evidence-types_(identifier)_get
+  tags:
+    - Case objects
+    - Beta
+  summary: Get an evidence type
+  description: Get a single evidence type by its identifier.
+  responses:
+    '200':
+      description: Evidence type successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-objects_evidence-types_(identifier)_put
+  tags:
+    - Case objects
+    - Beta
+  summary: Update an evidence type
+  description: Update an existing evidence type. Any subset of writable fields can be sent.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+        example:
+          description: Raw or forensic-format disk image
+  responses:
+    '200':
+      description: Evidence type successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-objects_evidence-types_(identifier)_delete
+  tags:
+    - Case objects
+    - Beta
+  summary: Delete an evidence type
+  description: Delete an evidence type. Fails with 400 if any evidence still references this type.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,54 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_thread-title_patch
+  tags:
+    - War room chat
+    - Beta
+  summary: Set a thread title
+  description: >-
+    Name, rename, or clear a thread's title. An empty string or `null`
+    removes the title. Works whether the caller passes the thread root
+    or any reply id — the business layer folds to the root.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type:
+                - string
+                - 'null'
+              description: New thread title. Empty string or `null` clears it.
+        example:
+          title: Containment war-plan
+  responses:
+    '200':
+      description: Thread title successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              thread_title:
+                type:
+                  - string
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

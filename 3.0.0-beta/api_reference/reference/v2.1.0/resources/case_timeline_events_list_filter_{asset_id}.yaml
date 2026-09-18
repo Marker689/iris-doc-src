@@ -1,0 +1,299 @@
+get:
+  summary: Fetch the timeline
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  state:
+                    object_last_update: Sun, 06 Mar 2022 13:00:25 GMT
+                    object_state: 39
+                  timeline:
+                    - assets: []
+                      category_name: Unspecified
+                      event_category_id: 1
+                      event_color: '#31CE3699'
+                      event_content: https://nvd.nist.gov/vuln/details/CVE/XXX
+                      event_date: '2021-10-13T00:00:00.000000'
+                      event_date_wtz: '2021-10-13T00:00:00.000000'
+                      event_id: 6
+                      event_in_graph: true
+                      event_in_summary: true
+                      event_tags: ''
+                      event_title: CVE XXXX published
+                      event_tz: '+00:00'
+                    - assets: []
+                      category_name: Unspecified
+                      event_category_id: 1
+                      event_color: ''
+                      event_content: First POC available on github..
+                      event_date: '2021-10-15T08:00:00.000000'
+                      event_date_wtz: '2021-10-15T08:00:00.000000'
+                      event_id: 7
+                      event_in_graph: true
+                      event_in_summary: true
+                      event_tags: ''
+                      event_title: POC published published
+                      event_tz: '+00:00'
+                    - assets:
+                        - asset_id: 7
+                          asset_name: VPN-KQL
+                          event_id: 8
+                        - asset_id: 5
+                          asset_name: bob.iris.local
+                          event_id: 8
+                      category_name: Initial Access
+                      event_category_id: 4
+                      event_color: ''
+                      event_content: >-
+                        First time ever Bob logging observed from 82.223.70.24
+                        on VPN
+                      event_date: '2021-10-15T08:00:00.000000'
+                      event_date_wtz: '2021-10-15T08:00:00.000000'
+                      event_id: 8
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: Bob logs in from 82.223.70.24
+                      event_tz: '+00:00'
+                    - assets:
+                        - asset_id: 5
+                          asset_name: bob.iris.local
+                          event_id: 9
+                        - asset_id: 3
+                          asset_name: DESKTOP-DS5488
+                          event_id: 9
+                      category_name: Lateral Movement
+                      event_category_id: 11
+                      event_color: ''
+                      event_content: ''
+                      event_date: '2021-12-13T15:20:05.000000'
+                      event_date_wtz: '2021-12-13T15:20:05.000000'
+                      event_id: 9
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: 4624 - RDP - Bob to Alice's computer
+                      event_tz: '+00:00'
+                    - assets:
+                        - asset_id: 3
+                          asset_name: DESKTOP-DS5488
+                          event_id: 10
+                      category_name: Execution
+                      event_category_id: 5
+                      event_color: ''
+                      event_content: Cobalt strike
+                      event_date: '2021-12-13T15:54:06.000000'
+                      event_date_wtz: '2021-12-13T15:54:06.000000'
+                      event_id: 10
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: 4648 - svhost.exe executed on Alice' computer
+                      event_tz: '+00:00'
+                    - assets:
+                        - asset_id: 3
+                          asset_name: DESKTOP-DS5488
+                          event_id: 12
+                      category_name: Command and Control
+                      event_category_id: 13
+                      event_color: '#F2596199'
+                      event_content: ''
+                      event_date: '2021-12-13T15:54:54.000000'
+                      event_date_wtz: '2021-12-13T15:54:54.000000'
+                      event_id: 12
+                      event_in_graph: true
+                      event_in_summary: true
+                      event_tags: ''
+                      event_title: Connection from Alice's laptop to 82.223.70.24
+                      event_tz: '+00:00'
+                    - assets:
+                        - asset_id: 7
+                          asset_name: VPN-KQL
+                          event_id: 14
+                      category_name: Unspecified
+                      event_category_id: 1
+                      event_color: null
+                      event_content: fsafsdf
+                      event_date: '2022-02-01T08:46:54.000000'
+                      event_date_wtz: '2022-02-01T08:46:54.000000'
+                      event_id: 14
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: dadasd
+                      event_tz: '+00:00'
+                    - assets: []
+                      category_name: Unspecified
+                      event_category_id: 1
+                      event_color: '#31CE3699'
+                      event_content: ''
+                      event_date: '2022-02-09T00:00:00.000000'
+                      event_date_wtz: '2022-02-09T00:00:00.000000'
+                      event_id: 13
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: Dummy event
+                      event_tz: '+00:00'
+                    - assets: []
+                      category_name: null
+                      event_category_id: null
+                      event_color: null
+                      event_content: ''
+                      event_date: '2022-02-16T00:00:00.000000'
+                      event_date_wtz: '2022-02-16T00:00:00.000000'
+                      event_id: 5
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: dada
+                      event_tz: '+00:00'
+                    - assets: []
+                      category_name: null
+                      event_category_id: null
+                      event_color: null
+                      event_content: ''
+                      event_date: '2022-03-02T00:00:00.000000'
+                      event_date_wtz: '2022-03-02T00:00:00.000000'
+                      event_id: 4
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: dsad
+                      event_tz: '+00:00'
+                message: ''
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - state
+                  - timeline
+                properties:
+                  state:
+                    type: object
+                    required:
+                      - object_last_update
+                      - object_state
+                    properties:
+                      object_last_update:
+                        type: string
+                        minLength: 1
+                      object_state:
+                        type: number
+                  timeline:
+                    type: array
+                    uniqueItems: true
+                    minItems: 0
+                    items:
+                      type: object
+                      properties:
+                        assets:
+                          type: array
+                          items:
+                            type: object
+                        category_name:
+                          type: string
+                          minLength: 1
+                        event_category_id:
+                          type: number
+                        event_color:
+                          type: string
+                          minLength: 1
+                        event_content:
+                          type: string
+                          minLength: 1
+                        event_date:
+                          type: string
+                          minLength: 1
+                        event_date_wtz:
+                          type: string
+                          minLength: 1
+                        event_id:
+                          type: number
+                        event_in_graph:
+                          type: boolean
+                        event_in_summary:
+                          type: boolean
+                        event_tags:
+                          type: string
+                        event_title:
+                          type: string
+                          minLength: 1
+                        event_tz:
+                          type: string
+                          minLength: 1
+                      required:
+                        - category_name
+                        - event_category_id
+                        - event_color
+                        - event_content
+                        - event_date
+                        - event_date_wtz
+                        - event_id
+                        - event_in_graph
+                        - event_in_summary
+                        - event_tags
+                        - event_title
+                        - event_tz
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  state:
+                    object_last_update: string
+                    object_state: 0
+                  timeline:
+                    - assets:
+                        - {}
+                      category_name: string
+                      event_category_id: 0
+                      event_color: string
+                      event_content: string
+                      event_date: string
+                      event_date_wtz: string
+                      event_id: 0
+                      event_in_graph: true
+                      event_in_summary: true
+                      event_tags: string
+                      event_title: string
+                      event_tz: string
+                message: string
+                status: string
+  operationId: get-case-timeline-get
+  description: The endpoint is deprecated. Use `case/timeline/advanced-filter` instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: integer
+    name: asset_id
+    in: path
+    required: true
+    description: Filter by assets

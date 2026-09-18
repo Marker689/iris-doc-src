@@ -1,0 +1,253 @@
+get:
+  summary: Reopen a case
+  operationId: get-manage-cases-reopen
+  responses:
+    '200':
+      description: Case successfully reopened
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  case_customer: 1
+                  case_description: This is a demonstration of case
+                  case_id: 1
+                  case_name: Initial Demo
+                  case_soc_id: soc_id_demo
+                  close_date: null
+                  open_date: '2021-10-19'
+                  user_id: 1
+                message: Case reopened successfully
+                status: success
+            properties:
+              data:
+                type: object
+                required:
+                  - case_customer
+                  - case_description
+                  - case_id
+                  - case_name
+                  - case_soc_id
+                  - close_date
+                  - open_date
+                  - user_id
+                properties:
+                  case_customer:
+                    type: number
+                  case_description:
+                    type: string
+                    minLength: 1
+                  case_id:
+                    type: number
+                  case_name:
+                    type: string
+                    minLength: 1
+                  case_soc_id:
+                    type: string
+                    minLength: 1
+                  close_date:
+                    type:
+                      - string
+                      - 'null'
+                  open_date:
+                    type: string
+                    minLength: 1
+                  user_id:
+                    type: number
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Successful reopening:
+              value:
+                data:
+                  case_customer: 26
+                  case_description: Testing case number6
+                  case_id: 8
+                  case_name: Test 6
+                  case_soc_id: SOC6
+                  close_date: null
+                  open_date: '2021-10-19'
+                  user_id: 52
+                message: Case reopened successfully
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Tried to close an non-existing case
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            Invalid case number:
+              value:
+                data: []
+                message: Tried to reopen an non-existing case
+                status: error
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Not found
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            No case ID provided:
+              value:
+                data: []
+                message: Resource not found
+                status: error
+  description: This endpoint is deprecated. Use [POST /manage/cases/reopen/{case_id}](#tag/Cases/operation/post-manage-cases-reopen-case_id) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Cases
+  parameters: []
+parameters:
+  - schema:
+      type: integer
+    name: case_id
+    in: path
+    description: Case ID
+    required: true
+post:
+  summary: Reopen a case
+  operationId: post-manage-cases-reopen-case_id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Case reopened successfully
+                data:
+                  case_uuid: 507a5fab-358a-4946-82d0-625ef8a9fa0d
+                  case_id: 1
+                  case_name: '#1 - Initial Demo'
+                  closing_note: null
+                  user_id: 1
+                  owner_id: 1
+                  case_customer: 1
+                  status_id: 0
+                  case_soc_id: soc_id_demo
+                  open_date: '2023-05-11'
+                  modification_history:
+                    '1683900741.546554':
+                      user: administrator
+                      user_id: 1
+                      action: case closed
+                    '1683901251.748556':
+                      user: administrator
+                      user_id: 1
+                      action: case reopened
+                  custom_attributes: null
+                  close_date: null
+                  case_description: This is a demonstration.
+                  state_id: 3
+                  classification_id: null
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  case_uuid:
+                    type: string
+                  case_id:
+                    type: integer
+                  case_name:
+                    type: string
+                  closing_note:
+                    type:
+                      - string
+                      - 'null'
+                  user_id:
+                    type: integer
+                  owner_id:
+                    type: integer
+                  case_customer:
+                    type: integer
+                  status_id:
+                    type: integer
+                  case_soc_id:
+                    type: string
+                  open_date:
+                    type: string
+                  modification_history:
+                    type: object
+                  custom_attributes:
+                    type:
+                      - object
+                      - 'null'
+                  close_date:
+                    type:
+                      - string
+                      - 'null'
+                  case_description:
+                    type: string
+                  state_id:
+                    type: integer
+                  classification_id:
+                    type:
+                      - integer
+                      - 'null'
+  description: >-
+    Reopen a case previously closed. A case can be reopened even if it is not
+    closed. 
+  tags:
+    - Cases

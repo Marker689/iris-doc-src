@@ -1,0 +1,31 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: team_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: user_id
+    in: path
+    required: true
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_teams_(team_id)_members_(user_id)_delete
+  tags:
+    - War room teams
+    - Beta
+  summary: Remove a war room team member
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

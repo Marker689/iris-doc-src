@@ -1,0 +1,65 @@
+get:
+  operationId: api_v2_manage_access-control_accessible-cases_get
+  tags:
+    - Access control
+    - Beta
+  summary: List cases accessible to the current user
+  description: >-
+    Lightweight case picker for the per-user / per-group case-access
+    modals. Returns at most 200 rows ordered `case_id DESC`, optionally
+    filtered by a `search` ILIKE on case name + SOC id. Each candidate is
+    re-checked against the current user's case ACL so an admin who's
+    explicitly removed themselves from a case still doesn't see it in the
+    picker. Server-administrator only.
+  parameters:
+    - schema:
+        type: integer
+        default: 1
+      name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+    - schema:
+        type: integer
+        default: 200
+      name: per_page
+      in: query
+      required: false
+      description: Page size (server clamps at 200)
+    - schema:
+        type: integer
+      name: user_id
+      in: query
+      required: false
+      description: When set, return the cases accessible to the given user instead of the current one
+    - schema:
+        type: string
+      name: search
+      in: query
+      required: false
+      description: ILIKE filter applied to case name and SOC id
+  responses:
+    '200':
+      description: Accessible cases successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    case_id:
+                      type: integer
+                    name:
+                      type: string
+                    soc_id:
+                      type:
+                        - string
+                        - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

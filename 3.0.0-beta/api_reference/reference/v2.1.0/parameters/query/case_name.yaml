@@ -1,0 +1,5 @@
+in: query
+name: case_name
+description: Name of the case
+schema:
+  type: string

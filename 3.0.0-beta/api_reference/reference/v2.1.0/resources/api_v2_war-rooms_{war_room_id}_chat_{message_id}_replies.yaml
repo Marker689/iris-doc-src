@@ -1,0 +1,90 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_replies_get
+  tags:
+    - War room chat
+    - Beta
+  summary: List thread replies
+  description: >-
+    Return the replies attached to a chat message, in chronological
+    order. Passing any message id within the thread resolves to the
+    thread root.
+  parameters:
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Maximum number of replies to return.
+  responses:
+    '200':
+      description: Replies successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_replies_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Post a thread reply
+  description: >-
+    Post a reply inside the thread rooted at `message_id`. The
+    `/decision`, `/pin`, and `/note` slash commands are honoured inside
+    a reply and are stored as structured rows; room-wide commands (for
+    example `/attach`, `/task`, `/state`) are rejected because they
+    belong on the main stream.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - body
+          properties:
+            body:
+              type: string
+              description: >-
+                Reply body. Prefix with `/decision`, `/pin`, or `/note`
+                to record a structured trace row inside the thread.
+        example:
+          body: /decision Sticking with plan B for the next 30 minutes.
+  responses:
+    '201':
+      description: Reply successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              parent_message_id:
+                type: integer
+              kind:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

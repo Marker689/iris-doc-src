@@ -1,0 +1,100 @@
+type: object
+properties:
+  case_name:
+    type: string
+  case_description:
+    type: string
+  case_customer_id:
+    type: integer
+  case_soc_id:
+    type: string
+  case_uuid:
+    type: string
+  case_id:
+    type: integer
+  severity_id:
+    $ref: ../schemas/severity_id.yaml
+  status_id:
+    $ref: ../schemas/case_status_id.yaml
+  state:
+    type: object
+    properties:
+      state_id:
+        type: integer
+      protected:
+        type: boolean
+      state_description:
+        type: string
+      state_name:
+        type: string
+  classification_id:
+      oneOf:
+      - $ref: ../schemas/classification_id.yaml
+      - type: 'null'
+  review_status_id:
+    type: 'null'
+  reviewer_id:
+    type: 'null'
+  owner:
+    type: object
+    properties:
+      id:
+        type: integer
+      user_name:
+        type: string
+      user_login:
+        type: string
+      user_email:
+        type: string
+  user_id:
+    type: integer
+  case_tags:
+    type: string
+  open_date:
+    type: string
+  close_date:
+    type:
+      - string
+      - 'null'
+  closing_note:
+    type:
+      - string
+      - 'null'
+  custom_attributes:
+    type: object
+  modification_history:
+    type: object
+example:
+  case_name: '#1065 - My Case API'
+  case_description: A super nice description
+  case_customer_id: 1
+  case_soc_id: SOC_154
+  case_uuid: 435e3f47-479e-4a3c-98df-8e28b01fd2bc
+  case_id: 1065
+  severity_id: 4
+  status_id: 0
+  state:
+    state_name: 'Open'
+    state_description: 'Case is open'
+    state_id: 3
+    protected: true
+  classification_id: null
+  review_status_id: null
+  reviewer_id: null
+  owner:
+    id: 2
+    user_name: User Std 1
+    user_login: user_std_1
+    user_email: user_std_1@iris.local
+  user_id: 1
+  case_tags: tag1,tag2
+  open_date: '2024-01-10'
+  close_date: null
+  closing_note: null
+  custom_attributes: {}
+  modification_history:
+    '1704888196.578914':
+      user: administrator
+      user_id: 1
+      action: created
+

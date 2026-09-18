@@ -1,0 +1,152 @@
+post:
+  summary: Update a customer
+  description: This endpoint is deprecated. Use [PUT /api/v2/manage/customers/{identifier}](#tag/Customers/operation/api_v2_manage_customers_(identifier)_put) instead.
+  deprecated: true
+  operationId: post-customer-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  client_uuid:
+                    type: string
+                  creation_date:
+                    type: string
+                  custom_attributes:
+                    type: object
+                    properties: {}
+                  customer_description:
+                    type: string
+                  customer_id:
+                    type: integer
+                  customer_name:
+                    type: string
+                  customer_sla:
+                    type: string
+                  last_update_date:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  client_uuid: ad6d9fd2-a149-45b7-9209-ca558df7b03f
+                  creation_date: '2023-03-06T08:24:16.671619'
+                  custom_attributes: {}
+                  customer_description: New customer description
+                  customer_id: 1
+                  customer_name: New customer
+                  customer_sla: New customer SLA
+                  last_update_date: '2023-03-06T08:24:16.671619'
+                message: Customer updated
+                status: success
+          examples:
+            Successful update:
+              value:
+                data:
+                  client_uuid: ad6d9fd2-a149-45b7-9209-ca558df7b03f
+                  creation_date: '2023-03-06T08:24:16.671619'
+                  custom_attributes: {}
+                  customer_description: New customer description
+                  customer_id: 1
+                  customer_name: New customer
+                  customer_sla: New customer SLA
+                  last_update_date: '2023-03-06T08:24:16.671619'
+                message: Customer updated
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  customer_name:
+                    type: array
+                    items:
+                      properties: {}
+                required:
+                  - customer_name
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  customer_name:
+                    - Customer already exists
+                message: Data error
+                status: error
+          examples:
+            'Existing customer ':
+              value:
+                data:
+                  customer_name:
+                    - Customer already exists
+                message: Data error
+                status: error
+            Name too short:
+              value:
+                data:
+                  customer_name:
+                    - Shorter than minimum length 2.
+                message: Data error
+                status: error
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            customer_name:
+              type: string
+            customer_description:
+              type: string
+            customer_sla:
+              type: string
+            custom_attributes:
+              type: object
+              properties: {}
+          x-examples:
+            Example 1:
+              customer_name: New customer
+              customer_description: New customer description
+              customer_sla: New customer SLA
+              custom_attributes: {}
+        examples:
+          Example:
+            value:
+              customer_name: New customer
+              customer_description: New customer description
+              customer_sla: New customer SLA
+              custom_attributes: {}
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Customers
+parameters:
+  - schema:
+      type: integer
+    name: customer_id
+    in: path
+    required: true
+    description: Customer ID to update

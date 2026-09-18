@@ -1,0 +1,21 @@
+parameters:
+  - name: token
+    in: path
+    required: true
+    schema:
+      type: string
+delete:
+  operationId: api_v2_manage_managed-assets_import_(token)_delete
+  tags:
+    - Managed assets
+    - Beta
+  summary: Discard a staged registry import
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

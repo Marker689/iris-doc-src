@@ -1,0 +1,6 @@
+in: query
+name: case_state_id
+description: State identifier of the case
+schema:
+  type: integer
+

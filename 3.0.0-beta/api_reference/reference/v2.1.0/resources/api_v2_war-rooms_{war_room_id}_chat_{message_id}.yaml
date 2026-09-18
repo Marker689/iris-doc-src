@@ -1,0 +1,69 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_patch
+  tags:
+    - War room chat
+    - Beta
+  summary: Edit a chat message
+  description: >-
+    Edit the body of an existing chat message. Only the original author
+    (or a server administrator) may edit a message; the previous body is
+    preserved in the trace log.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - body
+          properties:
+            body:
+              type: string
+              description: Replacement message body.
+        example:
+          body: Correcting timeline — containment started at 09:14 UTC.
+  responses:
+    '200':
+      description: Message successfully edited
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_delete
+  tags:
+    - War room chat
+    - Beta
+  summary: Delete a chat message
+  description: >-
+    Soft-delete a chat message. The row remains in the stream as a
+    tombstone so replies and references stay coherent; only the author
+    or a server administrator may delete a message.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,70 @@
+get:
+  operationId: api_v2_custom-dashboards_get
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: List custom dashboards
+  description: Returns the custom dashboards the current user is allowed to see, including public dashboards owned by other users.
+  responses:
+    '200':
+      description: List of custom dashboards
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_custom-dashboards_post
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Create a custom dashboard
+  description: Creates a new custom dashboard owned by the current user. Sharing requires the custom_dashboards_share permission.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Human-readable name of the dashboard.
+            description:
+              type: string
+              description: Optional free-form description.
+            layout:
+              type: object
+              description: Dashboard definition (sections, widgets, layout). See the /custom-dashboards/schema endpoint for the accepted structure.
+            is_public:
+              type: boolean
+              description: When true, share the dashboard with all users. Requires the custom_dashboards_share permission.
+          required:
+            - name
+            - layout
+        example:
+          name: SOC overview
+          description: Daily triage dashboard.
+          layout:
+            sections:
+              - id: main
+                title: Alerts
+                widgets:
+                  - name: Alerts by severity
+                    chart_type: pie
+          is_public: false
+  responses:
+    '201':
+      description: Custom dashboard successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

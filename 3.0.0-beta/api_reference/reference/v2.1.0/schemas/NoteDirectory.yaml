@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  parent_id:
+    type: 
+      - integer
+      - 'null'
+  case_id:
+    type: integer
+example:
+  id: 34
+  name: Test
+  parent_id: null
+  case_id: 1
+

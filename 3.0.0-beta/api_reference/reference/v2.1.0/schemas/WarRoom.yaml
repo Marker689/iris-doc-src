@@ -1,0 +1,79 @@
+type: object
+description: |
+  A war room — a crisis-coordination workspace that aggregates cases, chat,
+  notes, tasks and timelines. Shape as emitted by `serialize_war_room`.
+properties:
+  war_room_id:
+    type: integer
+  war_room_uuid:
+    type: string
+    format: uuid
+  name:
+    type: string
+  description:
+    type:
+      - string
+      - 'null'
+  state:
+    type: string
+    description: |
+      Operational lifecycle state. `closed` makes the room read-only; it is
+      independent of `archived_at`, which is a filing decision.
+    enum:
+      - open
+      - active
+      - standby
+      - closed
+  severity_id:
+    type:
+      - integer
+      - 'null'
+  color:
+    type:
+      - string
+      - 'null'
+    description: Hex colour used for the room chip, e.g. `#c0392b`.
+  created_at:
+    $ref: ../schemas/iso_date.yaml
+  created_by_id:
+    type:
+      - integer
+      - 'null'
+  closed_at:
+    oneOf:
+      - $ref: ../schemas/iso_date.yaml
+      - type: 'null'
+  closed_by_id:
+    type:
+      - integer
+      - 'null'
+  archived_at:
+    description: |
+      `null` while the room is listed by default; timestamped once it has been
+      archived out of the default view. Archived rooms stay fully readable.
+    oneOf:
+      - $ref: ../schemas/iso_date.yaml
+      - type: 'null'
+  archived_by_id:
+    type:
+      - integer
+      - 'null'
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+example:
+  war_room_id: 4
+  war_room_uuid: 6f1e2b0c-1f4a-4f6e-9a1f-2b0c1f4a4f6e
+  name: Ransomware — EU manufacturing
+  description: Coordination room for the 2026-03 encryption event.
+  state: active
+  severity_id: 4
+  color: '#c0392b'
+  created_at: '2026-03-11T08:42:10.115423'
+  created_by_id: 1
+  closed_at: null
+  closed_by_id: null
+  archived_at: null
+  archived_by_id: null
+  custom_attributes: null

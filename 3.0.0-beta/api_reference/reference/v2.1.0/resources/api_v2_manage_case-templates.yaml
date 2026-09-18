@@ -1,0 +1,216 @@
+get:
+  operationId: api_v2_manage_case-templates_get
+  tags:
+    - Case templates
+    - Beta
+  summary: List case templates
+  description: Returns a paginated list of case templates. Supports substring search on `name`, `display_name`, `description`, `author` and `title_prefix` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `name`, `display_name`, `description`, `author` or `title_prefix`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of case templates
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    display_name:
+                      type: string
+                    description:
+                      type: string
+                    author:
+                      type: string
+                    title_prefix:
+                      type: string
+                    summary:
+                      type: string
+                    tags:
+                      type: string
+                    classification:
+                      type: string
+                    tasks:
+                      type: array
+                      items:
+                        type: object
+                    note_directories:
+                      type: array
+                      items:
+                        type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_case-templates_post
+  tags:
+    - Case templates
+    - Beta
+  summary: Create a case template
+  description: >-
+    Create a new case template. Bodies are plain JSON — the legacy
+    `{case_template_json: "stringified"}` envelope is still accepted for
+    backwards compatibility but the object form is preferred.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            display_name:
+              type: string
+            description:
+              type: string
+            author:
+              type: string
+            title_prefix:
+              type: string
+            summary:
+              type: string
+            tags:
+              type: string
+            classification:
+              type: string
+              description: Must match the `name` of an existing case classification.
+            tasks:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  tags:
+                    type: array
+                    items:
+                      type: string
+            iocs:
+              type: array
+              items:
+                type: object
+            assets:
+              type: array
+              items:
+                type: object
+            note_groups:
+              type: array
+              items:
+                type: object
+              description: Legacy alias for `note_directories`. Prefer `note_directories`.
+            note_directories:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        content:
+                          type: string
+            classifications:
+              type: array
+              items:
+                type: string
+          required:
+            - name
+        example:
+          name: ransomware
+          display_name: Ransomware incident
+          description: Starter template for a ransomware investigation
+          title_prefix: '[RANSOM]'
+          classification: malicious-code:ransomware
+          tasks:
+            - title: Isolate the host
+              description: Take the affected host off the network
+              tags:
+                - containment
+          note_directories:
+            - title: Timeline
+              notes:
+                - title: Initial detection
+                  content: 'Details on the first alert.'
+  responses:
+    '201':
+      description: Case template successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              display_name:
+                type: string
+              description:
+                type: string
+              author:
+                type: string
+              title_prefix:
+                type: string
+              summary:
+                type: string
+              tags:
+                type: string
+              classification:
+                type: string
+              tasks:
+                type: array
+                items:
+                  type: object
+              note_directories:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

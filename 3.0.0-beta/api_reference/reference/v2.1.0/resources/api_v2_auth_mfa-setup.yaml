@@ -1,0 +1,67 @@
+post:
+  operationId: api_v2_auth_mfa_setup_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Enroll a user in MFA
+  description: >-
+    Persist a TOTP secret for the caller after verifying the supplied
+    one-time code and the user's password. The endpoint is identified by
+    the refresh token rather than a session, and enforces a per-user
+    lockout after repeated failures. Re-enrollment through this endpoint
+    is refused when MFA is already configured — an admin reset is required
+    instead.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            refresh_token:
+              type: string
+              description: Refresh token issued at login (identifies the user)
+            token:
+              type: string
+              description: TOTP code generated from the new secret
+            mfa_secret:
+              type: string
+              description: The Base32-encoded TOTP secret to persist
+            password:
+              type: string
+              description: User password (also accepted as `user_password`)
+          required:
+            - refresh_token
+            - token
+            - mfa_secret
+            - password
+        example:
+          refresh_token: eyJhbGciOi...
+          token: '123456'
+          mfa_secret: JBSWY3DPEHPK3PXP
+          password: correct-horse-battery-staple
+  responses:
+    '200':
+      description: MFA enrolled successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              mfa_setup_complete:
+                type: boolean
+              secret:
+                type: string
+                description: Echoes the persisted TOTP secret
+              provisioning_uri:
+                type: string
+                description: otpauth:// URI usable by authenticator apps
+              qr_code_svg:
+                type: string
+                description: SVG payload representing the provisioning URI as a QR code
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

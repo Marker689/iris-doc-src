@@ -1,0 +1,51 @@
+type: object
+properties:
+  task_id:
+    type: number
+  task_title:
+    type: string
+    minLength: 1
+  task_description:
+    type:
+      - string
+      - 'null'
+  task_status_id:
+    type: number
+  task_assignee_id:
+    type: number
+  task_tags:
+    type:
+      - string
+      - 'null'
+  task_userid_open:
+    type: integer
+  task_open_date:
+    type: string
+    minLength: 1
+  task_userid_update:
+    type: number
+  task_last_update:
+    type: string
+    minLength: 1
+  task_userid_close:
+    type:
+      - integer
+      - 'null'
+  task_close_date:
+    anyOf:
+      - $ref: ../schemas/iso_date.yaml
+      - type: 'null'
+example:
+  task_id: 9
+  task_title: Task title
+  task_description: My task description
+  task_status_id: 15
+  task_assignee_id: 1
+  task_tags: ''
+  task_userid_open: null
+  task_open_date: '2022-01-21T17:07:10.005183'
+  task_userid_update: 1
+  task_last_update: '2022-01-21T17:07:10.005200'
+  task_userid_close: null
+  task_close_date: null
+

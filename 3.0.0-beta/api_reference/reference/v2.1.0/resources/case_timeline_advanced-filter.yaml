@@ -1,0 +1,719 @@
+get:
+  summary: Fetch the timeline
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ok
+                data:
+                  timeline:
+                    - event_id: 35
+                      event_uuid: 274cd72b-e133-4d3f-999c-839321f649d6
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:26:34'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 88
+                      event_uuid: 96730e40-0de9-4bb4-97df-954e2e5f079f
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-23T08:34:29'
+                      category_name: Unspecified
+                      assets:
+                        - name: admin_laptop (Windows - Computer)
+                          ip: 127.0.0.1
+                          description: A host description
+                          compromised: true
+                      iocs:
+                        - name: >-
+                            88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+                          description: SHA256 of dummy file. Imported from datastore.
+                    - event_id: 69
+                      event_uuid: 969551ea-7910-439a-8110-2da7a36c8944
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:33:11'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 16
+                      event_uuid: a9025fba-354f-4865-8890-932f73fa0a41
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:24:00'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 53
+                      event_uuid: ecd0f42d-53a6-43ed-87da-1bc731a695be
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:32:14'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 70
+                      event_uuid: 0d36e81b-1fbe-464c-968c-f6019e7e920c
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:33:11'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 105
+                      event_uuid: 548ad69f-7f82-4a88-9415-32b974fe9b96
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-24T07:49:16'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 87
+                      event_uuid: 44dc9b10-2d30-43bd-bb5f-7aec439c844a
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-23T08:34:29'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 106
+                      event_uuid: fd2232bc-6188-429b-992d-f3fde7a1bae2
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-24T07:49:17'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 17
+                      event_uuid: bdb78e95-d6bf-4075-ac38-7d843a92f8d4
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:24:00'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 89
+                      event_uuid: a912ac40-6d72-4e37-9d13-35da374e8ec1
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-23T08:34:29'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 33
+                      event_uuid: 29073f55-cb89-4939-83b9-f08cc2a1fe84
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:26:34'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 34
+                      event_uuid: c502b95a-0413-485b-8e80-6f3e101de7c3
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:26:34'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 71
+                      event_uuid: 82565abe-7584-4475-977e-62c92cc8cf8c
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:33:11'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 15
+                      event_uuid: 47e3f07b-1569-45e2-bc69-daa2bff418ff
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:23:59'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 107
+                      event_uuid: f14ce7fc-7919-4b77-81e4-99ea18178407
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-24T07:49:17'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 52
+                      event_uuid: 24af1c39-8995-4f72-bda4-24a484ed9d36
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:32:14'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 51
+                      event_uuid: f92f599d-105a-4f2c-a7b2-0a6cc7078341
+                      event_date: '2023-03-26T03:00:30.000000'
+                      event_date_wtz: '2023-03-26T03:00:30.000000'
+                      event_tz: '+00:00'
+                      event_title: '[ALERT] Super alert 5'
+                      event_color: null
+                      event_tags: defender
+                      event_content: This is a test alert
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:32:14'
+                      category_name: null
+                      assets: []
+                      iocs: []
+                    - event_id: 1
+                      event_uuid: 1b1185f6-7c30-4c63-b22b-20c94d95ac7f
+                      event_date: '2024-03-06T03:33:00.000000'
+                      event_date_wtz: '2024-03-06T03:33:00.000000'
+                      event_tz: '+00:00'
+                      event_title: dsaasd
+                      event_color: null
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-18T08:36:09'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                    - event_id: 3
+                      event_uuid: 2dd3d539-921d-427f-b285-c0141aaaaefd
+                      event_date: '2024-03-21T09:12:59.776385'
+                      event_date_wtz: '2024-03-21T09:12:59.776385'
+                      event_tz: '+00:00'
+                      event_title: dummy event
+                      event_color: ''
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:12:59'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                    - event_id: 5
+                      event_uuid: 432e4ec4-39a5-4cce-b568-93941fc45674
+                      event_date: '2024-03-21T09:15:00.411243'
+                      event_date_wtz: '2024-03-21T09:15:00.411243'
+                      event_tz: '+00:00'
+                      event_title: dummy event
+                      event_color: ''
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:15:00'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                    - event_id: 7
+                      event_uuid: 79b777a9-2644-4b3d-9846-6b8023c1ab50
+                      event_date: '2024-03-21T09:19:38.409298'
+                      event_date_wtz: '2024-03-21T09:19:38.409298'
+                      event_tz: '+00:00'
+                      event_title: dummy event
+                      event_color: ''
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:19:38'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                    - event_id: 9
+                      event_uuid: 4577fb9f-da3d-4e9b-a446-04934674d1b4
+                      event_date: '2024-03-21T09:20:31.274028'
+                      event_date_wtz: '2024-03-21T09:20:31.274028'
+                      event_tz: '+00:00'
+                      event_title: dummy event
+                      event_color: ''
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:20:31'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                    - event_id: 11
+                      event_uuid: 16fbb9e4-65da-4dfc-a398-7b4ae7b0f6f8
+                      event_date: '2024-03-21T09:21:43.551325'
+                      event_date_wtz: '2024-03-21T09:21:43.551325'
+                      event_tz: '+00:00'
+                      event_title: dummy event
+                      event_color: ''
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      parent_event_id: null
+                      user: administrator
+                      event_added: '2024-03-21T08:21:43'
+                      category_name: Unspecified
+                      assets: []
+                      iocs: []
+                  state:
+                    object_state: 231
+                    object_last_update: '2024-03-27T18:28:21.623728'
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - timeline
+                  - state
+                properties:
+                  timeline:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        event_id:
+                          type: integer
+                        event_uuid:
+                          type: string
+                        event_date:
+                          type: string
+                        event_date_wtz:
+                          type: string
+                        event_tz:
+                          type: string
+                        event_title:
+                          type: string
+                        event_color:
+                          type:
+                            - 'null'
+                            - string
+                        event_tags:
+                          type: string
+                        event_content:
+                          type: string
+                        event_in_summary:
+                          type: boolean
+                        event_in_graph:
+                          type: boolean
+                        event_is_flagged:
+                          type: boolean
+                        parent_event_id:
+                          type: 'null'
+                        user:
+                          type: string
+                        event_added:
+                          type: string
+                        category_name:
+                          type:
+                            - 'null'
+                            - string
+                        assets:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                x-stoplight:
+                                  id: xnr69hv51haqh
+                              ip:
+                                type: string
+                                x-stoplight:
+                                  id: xnr69hv51haqh
+                              description:
+                                type: string
+                                x-stoplight:
+                                  id: xnr69hv51haqh
+                              compromised:
+                                type: string
+                                x-stoplight:
+                                  id: xnr69hv51haqh
+                        iocs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                x-stoplight:
+                                  id: jzjnh39nbim6j
+                              description:
+                                type: string
+                                x-stoplight:
+                                  id: jzjnh39nbim6j
+                      required:
+                        - event_id
+                        - event_uuid
+                        - event_date
+                        - event_date_wtz
+                        - event_tz
+                        - event_title
+                        - event_color
+                        - event_tags
+                        - event_content
+                        - event_in_summary
+                        - event_in_graph
+                        - event_is_flagged
+                        - parent_event_id
+                        - user
+                        - event_added
+                        - category_name
+                        - assets
+                        - iocs
+                  state:
+                    type: object
+                    required:
+                      - object_state
+                      - object_last_update
+                    properties:
+                      object_state:
+                        type: integer
+                      object_last_update:
+                        type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ok
+                data:
+                  timeline:
+                    - event_id: 40
+                      event_uuid: a5f85030-4384-4781-97da-06037808d526
+                      event_date: '2023-01-29T00:00:00.000000'
+                      event_date_wtz: '2023-01-29T00:00:00.000000'
+                      event_tz: '+00:00'
+                      event_title: Logged to
+                      event_color: '#1572E899'
+                      event_tags: ''
+                      event_content: Test event in timeline
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      user: adm_1
+                      event_added: '2023-01-30T07:17:24'
+                      category_name: Execution
+                      assets:
+                        - name: EndpointDevice1 (Windows - Computer)
+                          ip: ''
+                          description: ''
+                          compromised: false
+                        - name: User1_FRZ (Firewall)
+                          ip: ''
+                          description: ''
+                          compromised: true
+                      iocs:
+                        - name: 8.8.8.8
+                          description: None
+                        - name: 2amsports.com
+                          description: ''
+                    - event_id: 93
+                      event_uuid: 8370ae48-5936-45b7-b2b9-f7bba6b4c155
+                      event_date: '2023-03-22T00:00:00.000000'
+                      event_date_wtz: '2023-03-22T00:00:00.000000'
+                      event_tz: '+00:00'
+                      event_title: test 2
+                      event_color: null
+                      event_tags: ''
+                      event_content: ''
+                      event_in_summary: false
+                      event_in_graph: true
+                      event_is_flagged: false
+                      user: adm_1
+                      event_added: '2023-03-22T12:39:41'
+                      category_name: Lateral Movement
+                      assets:
+                        - name: DC01 (Windows - DC)
+                          ip: 10.0.0.8
+                          description: ''
+                          compromised: false
+                        - name: EndpointDevice1 (Windows - Computer)
+                          ip: ''
+                          description: ''
+                          compromised: false
+                        - name: DC02 (Windows - DC)
+                          ip: '123'
+                          description: adadsasd
+                          compromised: false
+                      iocs:
+                        - name: 2.2.2.2
+                          description: test IP Malicious
+                    - event_id: 173
+                      event_uuid: 57134ce2-e8d9-4469-befe-63b5787d2c95
+                      event_date: '2023-05-15T00:00:00.000000'
+                      event_date_wtz: '2023-05-15T00:00:00.000000'
+                      event_tz: '+00:00'
+                      event_title: IPC
+                      event_color: '#FFAD4699'
+                      event_tags: ''
+                      event_content: test:101010
+                      event_in_summary: true
+                      event_in_graph: true
+                      event_is_flagged: true
+                      user: adm_1
+                      event_added: '2023-05-15T10:30:21'
+                      category_name: Collection
+                      assets:
+                        - name: EndpointDevice1 (Windows - Computer)
+                          ip: ''
+                          description: ''
+                          compromised: false
+                      iocs:
+                        - name: 2.2.2.2
+                          description: test IP Malicious
+                  state:
+                    object_state: 74
+                    object_last_update: '2024-01-04T13:20:43.549933'
+  operationId: get-case-timeline-filter
+  description: >
+    Filter the timeline through a query. `q` should be a valid JSON mapping
+    `{field1:[value], field2: [value2]}`.  
+
+    Fields are AND together. The query needs to be URL encoded.  
+
+
+    The following fields are available:   
+
+
+    - asset: Asset linked to the event
+
+    - ioc: IOC linked to the event
+
+    - tag: Tag within the event
+
+    - title: Title of the event
+
+    - description: Description of the event
+
+    - raw : Raw event content
+
+    - category: Category of the event
+
+    - source: Source of the event
+
+    - startDate: Start date to filter with
+
+    - endDate: End date to filter with
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+    - schema:
+        type: string
+      in: query
+      name: q
+      description: Query filter
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content: {}
+parameters: []

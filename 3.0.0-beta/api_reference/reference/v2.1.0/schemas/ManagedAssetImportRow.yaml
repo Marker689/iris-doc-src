@@ -1,0 +1,21 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  row:
+    type: integer
+  name:
+    type:
+      - string
+      - 'null'
+  asset_type:
+    type:
+      - string
+      - 'null'
+  action:
+    type: string
+  errors:
+    type: array
+    items:
+      type: string
+description: What the importer would do with one row of the uploaded file.

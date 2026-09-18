@@ -1,0 +1,114 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_notes_get
+  tags:
+    - War room notes
+    - Beta
+  summary: List war-room notes
+  description: Return the flat list of notes belonging to the war room. Notes live in a folder tree owned by the war room — see the companion `/notes-folders` endpoints for folder management. The frontend hydrates the tree client-side from each note's `folder_id`.
+  responses:
+    '200':
+      description: Notes successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                note_id:
+                  type: integer
+                war_room_id:
+                  type: integer
+                folder_id:
+                  type: integer
+                title:
+                  type: string
+                content:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+                created_by_id:
+                  type: integer
+                updated_by_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_notes_post
+  tags:
+    - War room notes
+    - Beta
+  summary: Create a war-room note
+  description: Create a new note in the war room. `folder_id` is optional — omit or set to `null` to place the note at the root of the folder tree. Creating a note also emits a system event into the war-room chat stream.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - title
+          properties:
+            title:
+              type: string
+              description: Note title.
+            content:
+              type: string
+              description: Markdown body of the note.
+            folder_id:
+              type:
+                - integer
+                - 'null'
+              description: Optional identifier of the folder to place the note in.
+        example:
+          title: Containment plan
+          content: |-
+            # Containment plan
+            - Isolate host X
+            - Rotate creds
+          folder_id: 12
+  responses:
+    '201':
+      description: Note successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              note_id:
+                type: integer
+              war_room_id:
+                type: integer
+              folder_id:
+                type: integer
+              title:
+                type: string
+              content:
+                type: string
+              created_at:
+                type: string
+              updated_at:
+                type: string
+              created_by_id:
+                type: integer
+              updated_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

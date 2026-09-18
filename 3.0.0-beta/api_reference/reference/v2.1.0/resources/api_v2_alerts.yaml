@@ -1,0 +1,130 @@
+post:
+  operationId: api_v2_alerts_post
+  summary: Create a new alert
+  tags: 
+    - Alerts
+    - Beta
+  description: Creates a new alert.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties: 
+            alert_title:
+              type: string
+            alert_severity_id:
+              $ref: ../schemas/severity_id.yaml
+            alert_customer_id:
+              type: integer
+            alert_classification_id:
+              $ref: ../schemas/classification_id.yaml
+            alert_description:
+              type: string
+            alert_source:
+              type: string
+            alert_source_ref:
+              type: string
+            alert_source_link:
+              type: string
+            alert_status_id:
+              $ref: ../schemas/alert_status_id.yaml
+            alert_context:
+              $ref: ../schemas/alert_context.yaml
+            alert_source_event_time:
+              type: string
+            alert_note:
+              type: string
+            alert_tags:
+              type: string
+            alert_iocs:
+              type: array
+              items:
+                type: object
+                properties:
+                  ioc_value:
+                    type: string
+                  ioc_description:
+                    type: string
+                  ioc_tlp_id:
+                    type: integer
+                  ioc_type_id:
+                    type: integer
+                  ioc_tags:
+                    type: string
+                  ioc_enrichment:
+                    type: object
+            alert_assets:
+              type: array
+              items:
+                type: object
+                properties:
+                  asset_name:
+                    type: string
+                  asset_description:
+                    type: string
+                  asset_type_id:
+                    type: integer
+                  asset_ip:
+                    type: string
+                  asset_domain:
+                    type: string
+                  asset_tags:
+                    type: string
+                  asset_enrichment:
+                    type: object
+            alert_source_content:
+              type: object
+          required:
+            - alert_title
+            - alert_severity_id
+            - alert_customer_id
+            - alert_classification_id
+        example:
+          alert_title: title
+          alert_severity_id: 2
+          alert_customer_id: 3
+          alert_classification_id: 1
+  responses:
+    '201':
+      description: Alert successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Alert.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+get:
+  operationId: api_v2_alerts_get
+  tags:
+  - Alerts
+  - Beta
+  summary: List alerts
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: ../schemas/Alert.yaml
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                type:
+                - integer
+                - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

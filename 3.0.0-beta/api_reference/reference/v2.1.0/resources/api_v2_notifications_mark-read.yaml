@@ -1,0 +1,47 @@
+post:
+  operationId: api_v2_notifications_mark-read_post
+  tags:
+    - Notifications
+    - Beta
+  summary: Mark notifications read
+  description: >-
+    Mark a specific set of notifications as read, or set every unread
+    notification for the current user to read at once. The request body
+    must supply either a list of `notification_ids` or `all: true`.
+    Notification ids that do not belong to the current user are silently
+    ignored.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            notification_ids:
+              type: array
+              items:
+                type: integer
+              description: Ids of notifications to mark read
+            all:
+              type: boolean
+              description: When true, mark every unread notification of the current user as read
+        example:
+          notification_ids:
+            - 12
+            - 13
+    description: ''
+  responses:
+    '200':
+      description: Notifications successfully marked read
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              updated_count:
+                type: integer
+              unread_count:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

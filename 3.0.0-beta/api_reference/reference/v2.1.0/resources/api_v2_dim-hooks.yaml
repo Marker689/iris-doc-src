@@ -1,0 +1,44 @@
+get:
+  operationId: api_v2_dim-hooks_get
+  tags:
+    - Dim hooks
+    - Beta
+  summary: List available module hooks
+  description: >-
+    Every active module hook registered against the requested `target` type —
+    that is, the manual actions modules have added to that kind of object.
+    Returns a bare JSON array, not a paginated envelope.
+  parameters:
+    - schema:
+        type: string
+      name: target
+      in: query
+      required: true
+      description: >-
+        Object type the hook applies to, e.g. `ioc`, `asset`, `case`. Maps to
+        the `on_manual_trigger_<target>` hook name. Omitting it is a 400.
+  responses:
+    '200':
+      description: Hooks successfully listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                manual_hook_ui_name:
+                  description: Label to show on the action.
+                  type: string
+                hook_name:
+                  type: string
+                module_name:
+                  type: string
+          example:
+            - manual_hook_ui_name: Lookup on VirusTotal
+              hook_name: on_manual_trigger_ioc
+              module_name: IrisVT
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

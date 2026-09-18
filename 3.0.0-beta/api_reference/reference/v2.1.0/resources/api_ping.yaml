@@ -1,0 +1,66 @@
+get:
+  summary: Ping server
+  tags:
+    - API
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  api_current: 1.0.2
+                  api_min: 1.0.1
+                  iris_current: v1.2.1
+                message: ''
+                status: success
+            properties:
+              data:
+                type: array
+              message:
+                type: string
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          example:
+            data: []
+            message: pong
+            status: success
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          example:
+            data: []
+            message: Authentication required
+            status: error
+  operationId: get-api-ping
+  description: 'Used to test authentication. Respond "pong" if authentication is successfull. '
+parameters: []
+

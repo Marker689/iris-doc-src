@@ -1,0 +1,92 @@
+post:
+  operationId: api_v2_manage_managed-assets_export_post
+  tags:
+    - Managed assets
+    - Beta
+  summary: Export the visible registry as a CSV or JSON attachment
+  description: >-
+    Download the managed-asset registry as a file. Only assets the caller can
+    see are exported, and the row count is capped server-side by
+    `MANAGED_ASSETS_MAX_EXPORT_ROWS` (50000 by default).
+
+
+    A POST rather than a GET because the filter set is the list endpoint's, and
+    it does not fit comfortably in a query string. The response is the file
+    itself, served as an attachment with `X-Content-Type-Options: nosniff` — a
+    CSV of hostnames must never be sniffed as HTML and rendered in the IRIS
+    origin.
+
+
+    The CSV column order is the one the importer reads back, and customers and
+    asset types are written as names rather than ids, so a file exported from
+    one instance can be imported into another.
+  requestBody:
+    description: Optional; an empty body exports everything visible, as CSV.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            format:
+              type: string
+              enum:
+                - csv
+                - json
+              default: csv
+            filters:
+              description: >-
+                Same filters as `GET /api/v2/manage/managed-assets`, as an
+                object. Omitted keys are not filtered on.
+              type: object
+              properties:
+                client_id:
+                  type: array
+                  items:
+                    type: integer
+                asset_type_id:
+                  type: array
+                  items:
+                    type: integer
+                criticality:
+                  type: array
+                  items:
+                    type: string
+                environment:
+                  type: array
+                  items:
+                    type: string
+                tag:
+                  type: array
+                  items:
+                    type: string
+                owner:
+                  type: string
+                search:
+                  type: string
+                is_active:
+                  type: boolean
+                has_sightings:
+                  type: boolean
+                compromised:
+                  type: boolean
+        example:
+          format: csv
+          filters:
+            client_id:
+              - 1
+            is_active: true
+  responses:
+    '200':
+      description: The registry export, as an attachment
+      content:
+        text/csv:
+          schema:
+            type: string
+        application/json:
+          schema:
+            type: string
+            format: binary
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

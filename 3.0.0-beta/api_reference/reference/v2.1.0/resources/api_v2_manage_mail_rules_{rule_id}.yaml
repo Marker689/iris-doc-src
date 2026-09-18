@@ -1,0 +1,182 @@
+parameters:
+  - schema:
+      type: integer
+    name: rule_id
+    in: path
+    required: true
+    description: Numeric identifier of the mail ingest rule
+get:
+  operationId: api_v2_manage_mail_rules_(rule_id)_get
+  tags:
+    - Mail rules
+    - Beta
+  summary: Get a mail ingest rule
+  description: Return a single mail-ingest rule by id. Server-administrator only.
+  responses:
+    '200':
+      description: Mail ingest rule successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              priority:
+                type: integer
+              enabled:
+                type: boolean
+              match_subject_regex:
+                type:
+                  - string
+                  - 'null'
+              match_from_regex:
+                type:
+                  - string
+                  - 'null'
+              match_to_regex:
+                type:
+                  - string
+                  - 'null'
+              action:
+                type: string
+              customer_id:
+                type:
+                  - integer
+                  - 'null'
+              case_template_id:
+                type:
+                  - integer
+                  - 'null'
+              severity_id:
+                type:
+                  - integer
+                  - 'null'
+              assignee_user_id:
+                type:
+                  - integer
+                  - 'null'
+              created_by_id:
+                type: integer
+              created_at:
+                type:
+                  - string
+                  - 'null'
+                format: date-time
+              updated_at:
+                type:
+                  - string
+                  - 'null'
+                format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_mail_rules_(rule_id)_put
+  tags:
+    - Mail rules
+    - Beta
+  summary: Update a mail ingest rule
+  description: >-
+    Update an existing mail-ingest rule. Only the fields present in the
+    body are modified; server-owned fields (id, created_by_id, timestamps)
+    are ignored. Server-administrator only.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            is_active:
+              type: boolean
+            priority:
+              type: integer
+            conditions:
+              type: object
+              properties:
+                match_subject_regex:
+                  type:
+                    - string
+                    - 'null'
+                match_from_regex:
+                  type:
+                    - string
+                    - 'null'
+                match_to_regex:
+                  type:
+                    - string
+                    - 'null'
+            actions:
+              type: object
+              properties:
+                action:
+                  type: string
+                customer_id:
+                  type:
+                    - integer
+                    - 'null'
+                case_template_id:
+                  type:
+                    - integer
+                    - 'null'
+                severity_id:
+                  type:
+                    - integer
+                    - 'null'
+                assignee_user_id:
+                  type:
+                    - integer
+                    - 'null'
+        example:
+          name: Escalate high-severity Defender alerts
+          priority: 5
+          is_active: true
+  responses:
+    '201':
+      description: Mail ingest rule successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              priority:
+                type: integer
+              enabled:
+                type: boolean
+              action:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_mail_rules_(rule_id)_delete
+  tags:
+    - Mail rules
+    - Beta
+  summary: Delete a mail ingest rule
+  description: Permanently delete a mail-ingest rule. Server-administrator only.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

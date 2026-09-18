@@ -1,0 +1,37 @@
+get:
+  operationId: api_v2_auth_whoami_get
+  tags:
+    - Authentication
+    - Beta
+  summary: Get the current authenticated user
+  description: >-
+    Return the profile of the caller as identified by the bearer token or
+    session cookie, along with the redirect target the SPA should route to
+    after login. Useful for hydrating the client on page reload.
+  responses:
+    '200':
+      description: Current user info
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              user_name:
+                type: string
+              user_login:
+                type: string
+              user_email:
+                type: string
+              is_admin:
+                type: boolean
+              permissions:
+                type: array
+                items:
+                  type: string
+                description: List of permission names granted to the user
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

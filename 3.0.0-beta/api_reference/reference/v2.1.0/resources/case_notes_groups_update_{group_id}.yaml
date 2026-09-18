@@ -1,0 +1,124 @@
+parameters:
+  - schema:
+      type: string
+    name: group_id
+    in: path
+    required: true
+    description: Group ID to update
+post:
+  summary: Update a notes group
+  operationId: post-case-notes-update-group
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Upon success, returns the new added group information
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  group_lastupdate:
+                    type: string
+                  group_uuid:
+                    type: string
+                  group_title:
+                    type: string
+                  group_creationdate:
+                    type: string
+                  group_id:
+                    type: integer
+            x-examples:
+              Example 1:
+                status: success
+                message: Updated title of group ID 186
+                data:
+                  group_lastupdate: '2023-02-09T19:01:45.753049'
+                  group_uuid: 3551ce9f-1446-4163-ab9e-78b9c4187cfd
+                  group_title: Test
+                  group_creationdate: '2023-02-09T19:01:45.753049'
+                  group_id: 186
+          examples:
+            Example:
+              value:
+                status: success
+                message: Updated title of group ID 186
+                data:
+                  group_lastupdate: '2023-02-09T19:01:45.753049'
+                  group_uuid: 3551ce9f-1446-4163-ab9e-78b9c4187cfd
+                  group_title: Test
+                  group_creationdate: '2023-02-09T19:01:45.753049'
+                  group_id: 186
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  note_tile:
+                    - Unknown field.
+                  note_title:
+                    - Missing data for required field.
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Group ID 3 not found
+                status: error
+  description: This endpoint is deprecated. Use [POST /case/notes/directories/update/{directory_id}](#tag/Notes/operation/post-case-notes-update-directory) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              group_title: Test
+              cid: 5
+          properties:
+            group_title:
+              type: string
+              minLength: 1
+          required:
+            - group_title
+        examples:
+          Add test group:
+            value:
+              group_title: Test
+    description: ''

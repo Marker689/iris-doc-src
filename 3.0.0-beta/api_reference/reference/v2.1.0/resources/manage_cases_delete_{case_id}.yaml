@@ -1,0 +1,94 @@
+post:
+  summary: Delete a case
+  tags:
+    - Cases
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Case successfully deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            Case deleted successfully:
+              value:
+                data: []
+                message: Case successfully deleted
+                status: success
+    '400':
+      description: Bad Request
+      headers: {}
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid request
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            'Bad case number ':
+              value:
+                data: []
+                message: Tried to delete a non-existing case
+                status: error
+  operationId: get-manage-cases-delete
+  description: This endpoint is deprecated. Use [DELETE /api/v2/cases/{case_identifier}](#tag/Cases/operation/api_v2_cases_(case_identifier)_delete) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters: []
+parameters:
+  - schema:
+      type: integer
+    name: case_id
+    in: path
+    required: true
+    description: 'Case ID '
+get:
+  summary: Delete case
+  operationId: get-manage-cases-delete-case_id
+  responses:
+    '200':
+      description: OK
+  description: This endpoint is deprecated. Use [DELETE /api/v2/cases/{case_identifier}](#tag/Cases/operation/api_v2_cases_(case_identifier)_delete) instead.
+  deprecated: true
+  tags:
+    - Cases

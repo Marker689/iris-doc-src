@@ -1,0 +1,58 @@
+type: object
+properties:
+  asset_name:
+    type: string
+  asset_type:
+    type: object
+    properties:
+      asset_name:
+        type: string
+      asset_description:
+        type: string
+      asset_icon_compromised:
+        type: string
+      asset_icon_not_compromised:
+        type: string
+  asset_description:
+    type:
+      - string
+      - 'null'
+  asset_domain:
+    type:
+      - string
+      - 'null'
+  asset_compromise_status_id:
+    anyOf:
+      - $ref: ../asset_compromise_status_id.yaml
+      - type: 'null'
+  asset_ip:
+    type:
+      - string
+      - 'null'
+  asset_type_id:
+    type: integer
+  analysis_status:
+    type:
+      - object
+      - 'null'
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+  analysis_status_id:
+    anyOf:
+      - $ref: ../analysis_status_id.yaml
+      - type: 'null'
+  asset_tags:
+    type:
+      - string
+      - 'null'
+  modification_history:
+    anyOf:
+      - $ref: ../modification_history.yaml
+      - type: 'null'
+example:
+  asset_name: FILESERVER1231
+  asset_type: Windows - Server
+

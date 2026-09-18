@@ -1,0 +1,114 @@
+get:
+  operationId: api_v2_cases_filters_get
+  tags:
+    - Cases filters
+    - Beta
+  summary: List saved cases filters
+  description: >-
+    Return the caller's private saved cases filters plus (by default) any
+    filters that have been shared publicly. Set `include_public=0` to
+    restrict the response to private filters.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 25
+    - name: include_public
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+  responses:
+    '200':
+      description: Saved cases filters
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                filter_id:
+                  type: integer
+                name:
+                  type: string
+                filter_type:
+                  type: string
+                  enum:
+                    - cases
+                is_public:
+                  type: boolean
+                created_by:
+                  type: integer
+                definition:
+                  type: object
+                  description: Opaque filter definition, mirrors the shape used at query time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_cases_filters_post
+  tags:
+    - Cases filters
+    - Beta
+  summary: Create a saved cases filter
+  description: >-
+    Persist a new saved cases filter. The `created_by` and `filter_type`
+    fields are forced by the server — `filter_type` is always `cases` and
+    the caller cannot set another owner.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            definition:
+              type: object
+              description: Opaque filter definition to persist
+            is_public:
+              type: boolean
+              default: false
+          required:
+            - name
+            - definition
+        example:
+          name: Open critical cases
+          is_public: false
+          definition:
+            case_state_id: 1
+            case_severity_id: 4
+  responses:
+    '201':
+      description: Filter created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              filter_id:
+                type: integer
+              name:
+                type: string
+              filter_type:
+                type: string
+              is_public:
+                type: boolean
+              definition:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

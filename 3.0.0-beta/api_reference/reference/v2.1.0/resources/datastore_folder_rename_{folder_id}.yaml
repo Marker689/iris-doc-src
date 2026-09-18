@@ -1,0 +1,95 @@
+parameters:
+  - schema:
+      type: string
+    name: folder_id
+    in: path
+    required: true
+post:
+  summary: Rename a datastore folder
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  case:
+                    type: 'null'
+                  path_case_id:
+                    type: integer
+                  path_id:
+                    type: integer
+                  path_is_root:
+                    type: boolean
+                  path_name:
+                    type: string
+                  path_parent_id:
+                    type: integer
+                  path_uuid:
+                    type: string
+                  registry:
+                    type: 'null'
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 53
+                  path_is_root: false
+                  path_name: New folder name
+                  path_parent_id: 49
+                  path_uuid: 61af71c7-4c7b-4d29-a4c5-825f415b3e06
+                  registry: null
+                message: Folder renamed
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 53
+                  path_is_root: false
+                  path_name: New folder name
+                  path_parent_id: 49
+                  path_uuid: 61af71c7-4c7b-4d29-a4c5-825f415b3e06
+                  registry: null
+                message: Folder renamed
+                status: success
+  operationId: post-datastore-folder-rename-folder_id
+  description: 'Rename a datastore folder. '
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            parent_node:
+              type: string
+            folder_name:
+              type: string
+          x-examples:
+            Example 1:
+              parent_node: '53'
+              folder_name: New folder name
+        examples:
+          Example 1:
+            value:
+              parent_node: '53'
+              folder_name: New folder name

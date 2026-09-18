@@ -1,0 +1,49 @@
+post:
+  summary: Delete a customer
+  description: This endpoint is deprecated. Use [DELETE /api/v2/manage/customers/{identifier}](#tag/Customers/operation/api_v2_manage_customers_(identifier)_delete) instead.
+  deprecated: true
+  tags:
+    - Customers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Task deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            'Customer deleted ':
+              value:
+                data: []
+                message: Deleted successfully
+                status: success
+  operationId: get-customer-delete
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: integer
+    name: customer_id
+    in: path
+    required: true
+    description: ID of the customer to delete

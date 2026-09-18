@@ -1,0 +1,62 @@
+get:
+  operationId: api_v2_cluster-rules_get
+  tags:
+    - Cluster rules
+    - Beta
+  summary: List cluster rules
+  description: Return every cluster rule the caller is entitled to see.
+  responses:
+    '200':
+      description: List of cluster rules
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_cluster-rules_post
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Create a cluster rule
+  description: Create a new cluster rule. Server-owned identity and audit fields (`rule_id`, `rule_uuid`, `rule_created_by`, `rule_created_at`, `rule_updated_at`) are ignored if supplied.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            rule_name:
+              type: string
+              description: Human-readable rule name
+            rule_description:
+              type: string
+              description: Longer description of the rule
+            rule_is_active:
+              type: boolean
+              description: Whether the rule runs on incoming alerts
+            rule_priority:
+              type: integer
+              description: Evaluation priority (lower runs first)
+            rule_conditions:
+              type: object
+              description: Condition tree evaluated against incoming alerts
+            rule_actions:
+              type: object
+              description: Actions taken when the rule matches
+  responses:
+    '201':
+      description: Rule successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

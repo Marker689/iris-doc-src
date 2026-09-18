@@ -1,0 +1,80 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    description: Numeric identifier of the investigation flow.
+    schema:
+      type: integer
+get:
+  operationId: api_v2_investigation-flows_(identifier)_get
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Get an investigation flow
+  description: Returns a single investigation flow by its numeric identifier.
+  responses:
+    '200':
+      description: Investigation flow successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_investigation-flows_(identifier)_put
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Update an investigation flow
+  description: Updates an existing investigation flow. Only the fields present in the request body are modified.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            triggers:
+              type: object
+            is_active:
+              type: boolean
+        example:
+          name: Auto-triage phishing alerts (v2)
+          is_active: false
+  responses:
+    '200':
+      description: Investigation flow successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_investigation-flows_(identifier)_delete
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Delete an investigation flow
+  description: Deletes an investigation flow. Attached steps are removed as well.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,49 @@
+type: object
+description: |
+  A named team scoped to a single war room. Teams exist for @-mentions: any
+  war-room member can see and mention any team, and team membership drives the
+  notification fan-out. Deleting the war room cascades its teams. Shape as
+  emitted by `_serialize_team`.
+properties:
+  team_id:
+    type: integer
+    format: int64
+  war_room_id:
+    type: integer
+    format: int64
+  name:
+    description: Unique within the war room.
+    type: string
+  description:
+    type:
+      - string
+      - 'null'
+  color:
+    description: Hex colour used for the team's chip, e.g. `#c94f4f`.
+    type:
+      - string
+      - 'null'
+  created_at:
+    $ref: ../schemas/iso_date.yaml
+  created_by_id:
+    type:
+      - integer
+      - 'null'
+  member_ids:
+    description: >-
+      Ascending user ids on the team. Always `[]` on the create response — a
+      team starts empty.
+    type: array
+    items:
+      type: integer
+example:
+  team_id: 7
+  war_room_id: 4
+  name: Forensics
+  description: Disk and memory analysis
+  color: '#c94f4f'
+  created_at: '2026-03-11T08:44:02.880311'
+  created_by_id: 12
+  member_ids:
+    - 12
+    - 19

@@ -1,0 +1,28 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_users_(identifier)_deactivate_post
+  tags:
+    - Manage Users
+    - Beta
+  summary: Deactivate a user
+  description: Mark the user account as inactive so it can no longer authenticate. Refuses to deactivate the caller themselves — an administrator locking themselves out is not recoverable without database access. The request body is ignored.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    '200':
+      description: User successfully deactivated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

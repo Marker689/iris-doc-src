@@ -1,0 +1,108 @@
+get:
+  operationId: api_v2_manage_case-objects_case-states_get
+  tags:
+    - Case objects
+    - Beta
+  summary: List case states
+  description: Returns a paginated list of case states. Supports substring search on `state_name` and `state_description` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `state_name` or `state_description`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of case states
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state_id:
+                      type: integer
+                    state_name:
+                      type: string
+                    state_description:
+                      type: string
+                    protected:
+                      type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_case-objects_case-states_post
+  tags:
+    - Case objects
+    - Beta
+  summary: Create a case state
+  description: Create a new case state. Protected states are seeded by the engine and cannot be deleted.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            state_name:
+              type: string
+            state_description:
+              type: string
+            protected:
+              type: boolean
+          required:
+            - state_name
+        example:
+          state_name: Waiting for feedback
+          state_description: The case is on hold pending an external response
+          protected: false
+  responses:
+    '201':
+      description: Case state successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              state_id:
+                type: integer
+              state_name:
+                type: string
+              state_description:
+                type: string
+              protected:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

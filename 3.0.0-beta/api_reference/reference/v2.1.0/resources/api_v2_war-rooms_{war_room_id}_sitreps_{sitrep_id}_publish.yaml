@@ -1,0 +1,64 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: sitrep_id
+    in: path
+    required: true
+    description: Identifier of the SitRep
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_(sitrep_id)_publish_post
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Publish a war-room SitReport
+  description: Promote a draft SitRep to a published version and freeze a snapshot of its content. Publishing also mirrors a system event into the war-room chat stream so the team sees the release inline. The optional `publish_channel` field lets a caller pick which downstream channel the SitRep is announced on; if omitted the war-room defaults apply.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            publish_channel:
+              type: string
+              description: Optional downstream channel to announce the SitRep on.
+        example:
+          publish_channel: exec-briefing
+  responses:
+    '200':
+      description: SitRep successfully published
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              sitrep_id:
+                type: integer
+              war_room_id:
+                type: integer
+              version:
+                type: integer
+              title:
+                type: string
+              body_md:
+                type: string
+              published:
+                type: boolean
+              authored_by_id:
+                type: integer
+              authored_at:
+                type: string
+              snapshot_json:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

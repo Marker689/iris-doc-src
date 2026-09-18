@@ -1,0 +1,42 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_access_me_get
+  tags:
+    - Cases
+    - Beta
+  summary: Get the caller's access level for a case
+  description: >-
+    Return the current user's effective access level on the case. The
+    SPA calls this on case load to gate edit affordances before the user
+    attempts a mutation that would 403. A user with no explicit access
+    row is reported as `deny_all` (1).
+  responses:
+    '200':
+      description: Caller's access level
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              case_id:
+                type: integer
+              access_level:
+                type: integer
+                description: 1=deny_all, 2=read_only, 4=full_access
+              permissions:
+                type: array
+                items:
+                  type: string
+                description: List of case-scoped permission strings this user has
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

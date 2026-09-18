@@ -1,0 +1,21 @@
+parameters:
+  - name: key_id
+    in: path
+    required: true
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_me_api-keys_(key_id)_delete
+  tags:
+    - Profile
+    - Beta
+  summary: Revoke a named API key (idempotent)
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,73 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+    description: Case identifier
+get:
+  operationId: api_v2_cases_(identifier)_source_alert_cluster_get
+  tags:
+    - Cases
+    - Beta
+  summary: Get the source alert cluster of a case
+  description: >-
+    Return the alert cluster this case was created from, if any. Powers
+    the "linked alerts" chip in the case topbar. Returns 200 with a null
+    payload when the case has no source cluster, so the frontend can
+    render the chip conditionally without handling a 404.
+  responses:
+    '200':
+      description: Source alert cluster (or null)
+      content:
+        application/json:
+          schema:
+            type:
+              - object
+              - 'null'
+            properties:
+              cluster_id:
+                type: integer
+              cluster_title:
+                type: string
+              cluster_status:
+                type:
+                  - string
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(identifier)_source_alert_cluster_delete
+  tags:
+    - Cases
+    - Beta
+  summary: Unlink the source alert cluster from a case
+  description: >-
+    Detach the alert cluster that produced this case: clear the cluster's
+    back-reference, move it back to Investigating, and reset every member
+    alert's status to Assigned so it reappears in the analyst queue.
+    Returns `{unlinked: false}` (still 200) when the case wasn't sourced
+    from a cluster.
+  responses:
+    '200':
+      description: Unlink result
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              unlinked:
+                type: boolean
+              cluster_id:
+                type: integer
+                description: Present when `unlinked` is true
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

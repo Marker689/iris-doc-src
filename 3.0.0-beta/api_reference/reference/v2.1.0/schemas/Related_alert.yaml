@@ -1,0 +1,6 @@
+type: object
+properties:
+  assets:
+    $ref: ../schemas/Asset.yaml
+  iocs:
+    $ref: ../schemas/Ioc.yaml

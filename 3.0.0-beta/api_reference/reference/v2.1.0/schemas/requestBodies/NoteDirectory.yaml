@@ -1,0 +1,11 @@
+type: object
+properties:
+  name:
+    type: string
+    minLength: 1
+  parent_id:
+    type: number
+    description: An existing parent directory identifier. To add at the root, do not set the field.
+example:
+  name: Test
+

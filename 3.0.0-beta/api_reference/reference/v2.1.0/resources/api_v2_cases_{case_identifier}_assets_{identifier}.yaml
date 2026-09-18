@@ -1,0 +1,105 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_assets_(identifier)_get
+  tags:
+    - Assets
+    - Beta
+  summary: Get an asset
+  description: 'Get an asset by its identifier'
+  responses:
+    '201':
+      description: Asset successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Asset.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_assets_(identifier)_put
+  tags:
+    - Assets
+    - Beta
+  summary: Update an asset
+  description: Update an asset
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            asset_name:
+              type: string
+            asset_type_id:
+              type: integer
+            asset_domain:
+              type: string
+            asset_ip:
+              type: string
+            asset_info:
+              type: string
+            asset_compromise_status_id:
+              $ref: ../schemas/asset_compromise_status_id.yaml
+            analysis_status_id:
+              $ref: ../schemas/analysis_status_id.yaml
+            ioc_links:
+              type: array
+              items:
+                type: string
+            asset_tags:
+              type: string
+            asset_description:
+              type: string
+            custom_attributes:
+              type: object
+          required:
+            - asset_name
+            - asset_type_id
+        examples:
+          Example 1:
+            value:
+              asset_name: admin_laptop
+              asset_type_id: 9
+              asset_domain: iris.local
+              asset_ip: 127.0.0.1
+              asset_info: ''
+              asset_compromise_status_id: 1
+              analysis_status_id: 3
+              ioc_links:
+                - '30'
+              asset_tags: anewtag
+              asset_description: A host description
+              custom_attributes: {}
+  responses:
+    '200':
+      description: Asset successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Asset.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_assets_(identifier)_delete
+  tags:
+    - Assets
+    - Beta
+  summary: Delete an asset
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

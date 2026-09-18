@@ -1,0 +1,103 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_get
+  tags:
+    - War room timelines
+    - Beta
+  summary: List war-room timelines
+  description: Return the list of native timelines defined in the war room. Case-sourced timelines are exposed separately via the `/linked-case-timelines` endpoint.
+  responses:
+    '200':
+      description: Timelines successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                timeline_id:
+                  type: integer
+                war_room_id:
+                  type: integer
+                name:
+                  type: string
+                description:
+                  type: string
+                color:
+                  type: string
+                is_default:
+                  type: boolean
+                created_at:
+                  type: string
+                created_by_id:
+                  type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_timelines_post
+  tags:
+    - War room timelines
+    - Beta
+  summary: Create a war-room timeline
+  description: Create a new native timeline in the war room. Timelines act as swim-lanes for events; the frontend renders one column per timeline in the timeline view.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            color:
+              type: string
+              description: Optional CSS color used to tint the timeline swim-lane.
+        example:
+          name: Attacker actions
+          description: All observed adversary steps.
+          color: '#c0392b'
+  responses:
+    '201':
+      description: Timeline successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeline_id:
+                type: integer
+              war_room_id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              color:
+                type: string
+              is_default:
+                type: boolean
+              created_at:
+                type: string
+              created_by_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

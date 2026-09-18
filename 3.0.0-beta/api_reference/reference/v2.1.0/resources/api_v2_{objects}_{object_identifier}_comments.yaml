@@ -1,0 +1,70 @@
+parameters:
+  - schema:
+      type: string
+      enum:
+        - alerts
+        - assets
+        - events
+        - evidences
+        - iocs
+        - notes
+        - tasks
+    name: objects
+    in: path
+    required: true
+    description: Type of commented object
+  - schema:
+      type: integer
+    name: object_identifier
+    in: path
+    required: true
+    description: Identifier of the commented object
+get:
+  operationId: api_v2_(objects)_(object_identifier)_comments_get
+  summary: Get a paginated list of comments
+  description: Get a paginated list of comments
+  tags:
+    - Comments
+    - Beta
+  parameters:
+    - $ref: ../parameters/query/page.yaml
+    - $ref: ../parameters/query/per_page.yaml
+  responses:
+    '200':
+      description: Paginated list of comments
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comments.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_(objects)_(object_identifier)_comments_post
+  summary: Add a new comment to a case object
+  description: Add a new comment to a case object
+  tags:
+    - Comments
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/requestBodies/Comment.yaml
+  responses:
+    '201':
+      description: Comment successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      description: Object with identifier `object_identifier` not found
+

@@ -1,0 +1,82 @@
+get:
+  summary: Delete a global task
+  description: This endpoint is deprecated. Use [DELETE /api/v2/global-tasks/{identifier}](#tag/Global-tasks/operation/api_v2_global-tasks_(identifier)_delete) instead.
+  deprecated: true
+  tags:
+    - Global tasks
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Task deleted
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            'Task deleted ':
+              value:
+                data: []
+                message: Task deleted
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  - {}
+                message: Invalid global task ID
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            Invalid task ID:
+              value:
+                data: []
+                message: Invalid global task ID
+                status: error
+  operationId: get-global-tasks-delete
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: string
+    name: task_id
+    in: path
+    required: true
+    description: Task to delete

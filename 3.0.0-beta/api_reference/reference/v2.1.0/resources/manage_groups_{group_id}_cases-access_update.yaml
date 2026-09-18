@@ -1,0 +1,188 @@
+post:
+  summary: Set case access of a group
+  tags:
+    - Manage Groups
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  group_auto_follow:
+                    type: boolean
+                  group_auto_follow_access_level:
+                    type: integer
+                  group_cases_access:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        access_level:
+                          type: integer
+                        access_level_list:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        case_id:
+                          type: integer
+                        case_name:
+                          type: string
+                  group_description:
+                    type: string
+                  group_id:
+                    type: integer
+                  group_members:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  group_name:
+                    type: string
+                  group_permissions:
+                    type: integer
+                  group_permissions_list:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: integer
+                  group_uuid:
+                    type: string
+                  registry:
+                    type: 'null'
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  group_auto_follow: false
+                  group_auto_follow_access_level: 4
+                  group_cases_access:
+                    - access_level: 0
+                      access_level_list: []
+                      case_id: 1
+                      case_name: '#1 - Dummy name'
+                  group_description: Standard Analysts
+                  group_id: 2
+                  group_members: []
+                  group_name: Analysts
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: f71c519f-db4f-4bd3-9dd3-b427a5812089
+                  registry: null
+                message: ''
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  group_auto_follow: false
+                  group_auto_follow_access_level: 4
+                  group_cases_access:
+                    - access_level: 0
+                      access_level_list: []
+                      case_id: 1
+                      case_name: '#1 - Dummy name'
+                  group_description: Standard Analysts
+                  group_id: 2
+                  group_members: []
+                  group_name: Analysts
+                  group_permissions: 1
+                  group_permissions_list:
+                    - name: standard_user
+                      value: 1
+                  group_uuid: f71c519f-db4f-4bd3-9dd3-b427a5812089
+                  registry: null
+                message: ''
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid group ID
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+              status:
+                type: string
+            required:
+              - data
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid group ID
+                status: error
+  operationId: post-manage-groups-set-case-access
+  description: 'Requires administrative rights. '
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              access_level: 2
+              cases_list:
+                - '1'
+              auto_follow_cases: false
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBgqhQ.VItSFvOr-K6iqMUzTq-JV4X3N4w
+          properties:
+            access_level:
+              type: integer
+            cases_list:
+              type: array
+              items:
+                type: integer
+            auto_follow_cases:
+              type: boolean
+          required:
+            - access_level
+            - cases_list
+            - auto_follow_cases
+        examples:
+          Example 1:
+            value:
+              access_level: 0
+              cases_list:
+                - 0
+              auto_follow_cases: false
+parameters:
+  - schema:
+      type: integer
+    name: group_id
+    in: path
+    required: true
+    description: Group ID

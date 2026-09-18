@@ -1,0 +1,86 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_alert-clusters_(identifier)_get
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Get an alert cluster
+  description: Retrieve a single alert cluster by its identifier.
+  responses:
+    '200':
+      description: Alert cluster successfully retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertCluster.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_alert-clusters_(identifier)_put
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Update an alert cluster
+  description: Update an existing alert cluster. Immutable server-owned fields (`cluster_id`, `cluster_customer_id`, `cluster_creation_time`, `cluster_case_id`, `cluster_dedupe_key`, `cluster_source_rule_id`) are silently ignored.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            cluster_title:
+              type: string
+              description: Short human-readable title
+            cluster_description:
+              type: string
+              description: Longer description of the cluster
+            cluster_status_id:
+              type: integer
+              description: Cluster status identifier
+            cluster_severity_id:
+              type: integer
+              description: Cluster severity identifier
+            cluster_owner_id:
+              type: integer
+              description: Analyst the cluster is assigned to
+            cluster_investigation_flow_id:
+              type: integer
+              description: Investigation flow attached to the cluster. Normally maintained by the flow evaluator.
+  responses:
+    '200':
+      description: Alert cluster successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/AlertCluster.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_alert-clusters_(identifier)_delete
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Delete an alert cluster
+  description: Delete an alert cluster.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

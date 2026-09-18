@@ -1,0 +1,83 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_cases_get
+  tags:
+    - War rooms
+    - Beta
+  summary: List cases attached to a war room
+  description: Returns the list of cases currently attached to the war room.
+  responses:
+    '200':
+      description: List of attached cases
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/WarRoomCaseAttachment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_cases_post
+  tags:
+    - War rooms
+    - Beta
+  summary: Attach a case to a war room
+  description: |
+    Attaches a case to the war room. The caller must have full access on the case
+    being attached — war-room write access alone is not sufficient. A system event
+    is emitted in the activity panel and mirrored on the case chat.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            case_id:
+              type: integer
+              description: Identifier of the case to attach.
+            note:
+              type: string
+              description: Optional note describing why the case is being attached.
+          required:
+            - case_id
+        example:
+          case_id: 128
+          note: Suspected pivot from the ransomware crew tracked in this war room
+  responses:
+    '201':
+      description: Case successfully attached
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              war_room_id:
+                type: integer
+              case_id:
+                type: integer
+              attached_at:
+                type:
+                  - string
+                  - 'null'
+                format: date-time
+              note:
+                type:
+                  - string
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

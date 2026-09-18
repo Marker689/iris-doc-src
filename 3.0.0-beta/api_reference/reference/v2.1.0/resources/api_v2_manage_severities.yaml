@@ -1,0 +1,61 @@
+get:
+  operationId: api_v2_manage_severities_get
+  tags:
+    - Taxonomies
+    - Beta
+  summary: List severities
+  description: Returns a paginated list of severity levels. Read-only seed data. Supports substring search on `severity_name` and `severity_description` via the `search` query parameter.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: Page number (1-based)
+      schema:
+        type: integer
+        default: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 25
+    - name: search
+      in: query
+      required: false
+      description: Case-insensitive substring match on `severity_name` or `severity_description`
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Paginated list of severities
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              current_page:
+                type: integer
+              last_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    severity_id:
+                      type: integer
+                    severity_name:
+                      type: string
+                    severity_description:
+                      type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

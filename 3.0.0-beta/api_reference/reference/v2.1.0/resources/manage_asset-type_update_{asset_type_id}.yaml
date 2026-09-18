@@ -1,0 +1,131 @@
+parameters:
+  - schema:
+      type: integer
+    name: asset_type_id
+    in: path
+    required: true
+    description: Asset Type to update
+post:
+  summary: Update an asset type
+  operationId: post-manage-asset-type-asset_type-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  asset_description:
+                    type: string
+                  asset_icon_compromised:
+                    type: string
+                  asset_icon_not_compromised:
+                    type: string
+                  asset_id:
+                    type: integer
+                  asset_name:
+                    type: string
+                  registry:
+                    type: 'null'
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  asset_description: Windows Account - Local - Admin
+                  asset_icon_compromised: ioc_user.png
+                  asset_icon_not_compromised: user.png
+                  asset_id: 17
+                  asset_name: Windows Account - Local - Admin
+                  registry: null
+                message: Asset type updated
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  asset_description: Windows Account - Local - Admin
+                  asset_icon_compromised: ioc_user.png
+                  asset_icon_not_compromised: user.png
+                  asset_id: 17
+                  asset_name: Windows Account - Local - Admin
+                  registry: null
+                message: Asset type updated
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  asset_name:
+                    - Asset type name already exists
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+                required:
+                  - asset_name
+                properties:
+                  asset_name:
+                    type: array
+                    items: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  asset_name:
+                    - Asset type name already exists
+                message: Data error
+                status: error
+  tags:
+    - Manage Assets Types
+  description: 'Administrator role required. '
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            asset_name:
+              type: string
+            asset_description:
+              type: string
+            asset_icon_not_compromised:
+              type: string
+            asset_icon_compromised:
+              type: string
+          required:
+            - asset_name
+            - asset_description
+            - asset_icon_not_compromised
+            - asset_icon_compromised
+    description: "```\n-----------------------------145784024822865434322863553415\nContent-Disposition: form-data; name=\"asset_name\"\n\nMy asset name\n-----------------------------145784024822865434322863553415\nContent-Disposition: form-data; name=\"asset_description\"\n\nMy asset description\n-----------------------------145784024822865434322863553415\nContent-Disposition: form-data; name=\"asset_icon_not_compromised\"; filename=\"ex.png\"\nContent-Type: image/png\n\n\x89PNG DATA\n-----------------------------145784024822865434322863553415\nContent-Disposition: form-data; name=\"asset_icon_compromised\"; filename=\"ex_1.png\"\nContent-Type: image/png\n\n\x89PNG DATA\n-----------------------------145784024822865434322863553415--\n```"
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true

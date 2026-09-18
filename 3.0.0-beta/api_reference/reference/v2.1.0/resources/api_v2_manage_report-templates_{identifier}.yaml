@@ -1,0 +1,108 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_report-templates_(identifier)_get
+  tags:
+    - Report templates
+    - Beta
+  summary: Get a report template
+  description: Return the metadata for a single report template.
+  responses:
+    '200':
+      description: Report template successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              naming_format:
+                type: string
+              internal_reference:
+                type: string
+              date_created:
+                type: string
+                format: date-time
+              created_by_user_id:
+                type: integer
+              created_by:
+                type: string
+              language_id:
+                type: integer
+              language_code:
+                type: string
+              language_name:
+                type: string
+              report_type_id:
+                type: integer
+              report_type_name:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_report-templates_(identifier)_put
+  tags:
+    - Report templates
+    - Beta
+  summary: Update a report template's metadata
+  description: Update metadata fields on the report template. This route only edits metadata — use `PUT /manage/report-templates/{identifier}/file` (multipart) to replace the underlying template file.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            naming_format:
+              type: string
+            language_id:
+              type: integer
+            report_type_id:
+              type: integer
+        example:
+          name: Standard Investigation Report
+          description: Default template for investigation reports
+          naming_format: '%date%_%case_name%_investigation'
+          language_id: 1
+          report_type_id: 1
+  responses:
+    '200':
+      description: Report template successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_report-templates_(identifier)_delete
+  tags:
+    - Report templates
+    - Beta
+  summary: Delete a report template
+  description: Delete the report template metadata and its underlying file. If the file cannot be removed from disk, the metadata row is still deleted and a warning is returned.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

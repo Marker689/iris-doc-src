@@ -1,0 +1,47 @@
+parameters:
+  - name: cluster_identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_alert-clusters_(cluster_identifier)_comments_(identifier)_get
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Get a cluster comment
+  description: Retrieve a single comment on this alert cluster.
+  responses:
+    '200':
+      description: Comment successfully retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Comment.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_alert-clusters_(cluster_identifier)_comments_(identifier)_delete
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Delete a cluster comment
+  description: Delete a comment on this alert cluster. Only the comment's author may delete it.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

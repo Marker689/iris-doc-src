@@ -1,0 +1,53 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: message_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_(message_id)_reactions_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Toggle a reaction on a chat message
+  description: >-
+    Toggle the current user's reaction with the given emoji on a chat
+    message. If the reaction already exists it is removed; otherwise it
+    is added. The response `added` flag indicates which side of the
+    toggle occurred.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - emoji
+          properties:
+            emoji:
+              type: string
+              description: Emoji character or shortcode identifying the reaction.
+        example:
+          emoji: "\U0001F44D"
+  responses:
+    '200':
+      description: Reaction successfully toggled
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              added:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

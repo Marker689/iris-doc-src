@@ -1,0 +1,74 @@
+post:
+  summary: Add a datastore folder
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  case:
+                    type: 'null'
+                  path_case_id:
+                    type: integer
+                  path_id:
+                    type: integer
+                  path_is_root:
+                    type: boolean
+                  path_name:
+                    type: string
+                  path_parent_id:
+                    type: integer
+                  path_uuid:
+                    type: string
+                  registry:
+                    type: 'null'
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 54
+                  path_is_root: false
+                  path_name: string
+                  path_parent_id: 48
+                  path_uuid: 90413f42-c495-4eff-928b-c4a321128595
+                  registry: null
+                message: Folder added
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 54
+                  path_is_root: false
+                  path_name: string
+                  path_parent_id: 48
+                  path_uuid: 90413f42-c495-4eff-928b-c4a321128595
+                  registry: null
+                message: Folder added
+                status: success
+  operationId: post-datastore-folder-add
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            folder_name:
+              type: string
+            parent_node:
+              type: integer
+  description: 'Add a new datastore folder. '

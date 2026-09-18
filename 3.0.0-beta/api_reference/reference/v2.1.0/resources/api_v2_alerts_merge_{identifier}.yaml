@@ -1,0 +1,63 @@
+post:
+  operationId: api_v2_alerts_merge_post
+  summary: Merge an alert into an existing case
+  description: >-
+    Merge a single alert into an existing case. Distinct from
+    `POST /api/v2/alert-clusters/{identifier}/merge`, which merges an
+    entire cluster into a case.
+  tags:
+    - Alerts
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - target_case_id
+          properties:
+            target_case_id:
+              type: integer
+              description: Identifier of the case the alert should be merged into.
+            iocs_import_list:
+              type: array
+              items:
+                type: string
+            assets_import_list:
+              type: array
+              items:
+                type: string
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+            case_tags:
+              type: string
+  responses:
+    '200':
+      description: Alert merged into the target case.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+    '400':
+      description: Invalid payload or missing target case id.
+    '403':
+      description: User not entitled to merge alerts for the client or case.
+    '404':
+      description: Alert or target case not found.
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: Alert identifier to merge.

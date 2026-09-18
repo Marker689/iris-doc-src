@@ -1,0 +1,26 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  asset_name:
+    type:
+      - string
+      - 'null'
+  asset_description:
+    type:
+      - string
+      - 'null'
+  asset_icon_compromised:
+    type:
+      - string
+      - 'null'
+  asset_icon_not_compromised:
+    type:
+      - string
+      - 'null'
+  asset_id:
+    type: integer
+required:
+  - asset_description
+  - asset_name
+description: Schema for serializing and deserializing AssetsType objects.

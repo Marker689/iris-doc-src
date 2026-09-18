@@ -1,0 +1,101 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-objects_ioc-types_(identifier)_get
+  tags:
+    - Case objects
+    - Beta
+  summary: Get an IOC type
+  description: Get a single IOC type by its identifier.
+  responses:
+    '200':
+      description: IOC type successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type_id:
+                type: integer
+              type_name:
+                type: string
+              type_description:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expect:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-objects_ioc-types_(identifier)_put
+  tags:
+    - Case objects
+    - Beta
+  summary: Update an IOC type
+  description: Update an existing IOC type. Any subset of writable fields can be sent.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            type_name:
+              type: string
+            type_description:
+              type: string
+            type_taxonomy:
+              type: string
+            type_validation_regex:
+              type: string
+        example:
+          type_name: sha256
+          type_description: SHA-256 hash
+  responses:
+    '200':
+      description: IOC type successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type_id:
+                type: integer
+              type_name:
+                type: string
+              type_description:
+                type: string
+              type_taxonomy:
+                type: string
+              type_validation_regex:
+                type: string
+              type_validation_expect:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-objects_ioc-types_(identifier)_delete
+  tags:
+    - Case objects
+    - Beta
+  summary: Delete an IOC type
+  description: Delete an IOC type. Fails with 400 if any IOC still references this type.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

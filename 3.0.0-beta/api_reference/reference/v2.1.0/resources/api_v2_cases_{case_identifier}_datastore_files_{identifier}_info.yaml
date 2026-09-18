@@ -1,0 +1,58 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the datastore file
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_datastore_files_(identifier)_info_get
+  tags:
+    - Case Datastore
+    - Beta
+  summary: Get datastore file metadata
+  description: Returns the metadata for a datastore file without streaming its content. The on-disk storage name (`file_local_name`) is intentionally omitted from the payload.
+  responses:
+    '200':
+      description: File metadata
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              file_original_name:
+                type: string
+              file_description:
+                type: string
+              file_size:
+                type: integer
+              file_sha256:
+                type: string
+              file_mimetype:
+                type: string
+              file_parent_id:
+                type: integer
+              file_tags:
+                type: string
+              file_is_ioc:
+                type: boolean
+              file_is_evidence:
+                type: boolean
+              added_by_user_id:
+                type: integer
+              file_date_added:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,55 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    description: Numeric identifier of the investigation flow to deploy.
+    schema:
+      type: integer
+post:
+  operationId: api_v2_investigation-flows_(identifier)_deploy_post
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Deploy an investigation flow
+  description: Back-fills the flow onto a historical alert or case that matches its trigger conditions. Returns per-target attach counts.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            target_type:
+              type: string
+              enum:
+                - alert
+                - case
+              description: Type of object the flow should be attached to.
+            target_id:
+              type: integer
+              description: Numeric identifier of the alert or case to deploy the flow onto.
+          required:
+            - target_type
+            - target_id
+        example:
+          target_type: alert
+          target_id: 42
+  responses:
+    '200':
+      description: Flow deployment counts
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              flow_id:
+                type: integer
+              alerts_attached:
+                type: integer
+              clusters_attached:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

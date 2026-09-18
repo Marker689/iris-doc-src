@@ -1,0 +1,110 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_get
+  tags:
+    - War room sitreps
+    - Beta
+  summary: List war-room SitReps
+  description: Return the list of SitReps drafted or published for the war room. The list omits the body of each SitRep — fetch a specific SitRep to read its content.
+  responses:
+    '200':
+      description: SitReps successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                sitrep_id:
+                  type: integer
+                war_room_id:
+                  type: integer
+                version:
+                  type: integer
+                title:
+                  type: string
+                authored_by_id:
+                  type: integer
+                authored_at:
+                  type: string
+                published:
+                  type: boolean
+                snapshot_json:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_sitreps_post
+  tags:
+    - War room sitreps
+    - Beta
+  summary: Draft a war-room SitReport
+  description: Create a new draft SitRep for the war room. The optional `template_id` seeds the body from a preset — omit it for a blank draft. The SitRep is created unpublished; use the publish endpoint to promote it.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - title
+            - content
+          properties:
+            title:
+              type: string
+              description: SitRep title.
+            content:
+              type: string
+              description: Markdown body of the SitRep.
+            template_id:
+              type: integer
+              description: Optional template to seed the SitRep from.
+        example:
+          title: Day 1 status
+          content: |-
+            ## Summary
+            Initial triage complete.
+          template_id: 2
+  responses:
+    '201':
+      description: SitRep successfully drafted
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              sitrep_id:
+                type: integer
+              war_room_id:
+                type: integer
+              version:
+                type: integer
+              title:
+                type: string
+              body_md:
+                type: string
+              authored_by_id:
+                type: integer
+              authored_at:
+                type: string
+              published:
+                type: boolean
+              snapshot_json:
+                type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,103 @@
+get:
+  operationId: api_v2_alerts_search-schema_get
+  tags:
+    - Alerts
+    - Beta
+  summary: List the fields the alert search expression understands
+  description: 'Autocomplete reads this rather than carrying its own copy of the
+
+    alias list, so a field the backend gained is offered by the client
+
+    without a frontend release. Values are *not* included: they are
+
+    tenant-scoped rows, and the client already loads the ones it can see.'
+  responses:
+    '200':
+      description: Search vocabulary successfully retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    alias:
+                      description: Canonical name to use in a `query` expression.
+                      type: string
+                    synonyms:
+                      description: Other names resolving to the same field.
+                      type: array
+                      items:
+                        type: string
+                    kind:
+                      type: string
+                      enum:
+                        - text
+                        - integer
+                        - uuid
+                        - date
+                        - enum
+                        - user
+                        - membership
+                        - relation
+                        - json
+                        - macro
+                    description:
+                      type: string
+                    enumerable:
+                      description: >-
+                        True for `enum` and `macro` fields — the ones whose
+                        value list a client can offer up front.
+                      type: boolean
+                    ordered:
+                      description: >-
+                        Whether the field supports range and comparison
+                        operators (`>=`, `[a TO b]`).
+                      type: boolean
+                    values:
+                      description: >-
+                        Populated for `macro` fields only. Enumerable non-macro
+                        fields report `[]` here: their values are tenant-scoped
+                        rows the client already loads elsewhere.
+                      type: array
+                      items:
+                        type: string
+          example:
+            fields:
+              - alias: severity
+                synonyms: []
+                kind: enum
+                description: Alert severity
+                enumerable: true
+                ordered: true
+                values: []
+              - alias: owner
+                synonyms:
+                  - assignee
+                kind: user
+                description: Alert owner — a login, 'me' or 'none'
+                enumerable: false
+                ordered: false
+                values: []
+              - alias: is
+                synonyms: []
+                kind: macro
+                description: Alert state shorthand
+                enumerable: true
+                ordered: false
+                values:
+                  - assigned
+                  - closed
+                  - escalated
+                  - merged
+                  - open
+                  - resolved
+                  - unassigned
+                  - unresolved
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

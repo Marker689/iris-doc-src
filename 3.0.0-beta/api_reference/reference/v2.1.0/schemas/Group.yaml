@@ -1,0 +1,25 @@
+type: object
+properties:
+  group_name:
+    type: string
+  group_description:
+    type: string
+  group_permissions:
+    type: integer
+  group_auto_follow:
+    type: boolean
+  group_auto_follow_access_level:
+    type: integer
+  group_id:
+    type: integer
+  group_uuid:
+    type: string
+example:
+  group_auto_follow: false
+  group_auto_follow_access_level: 0
+  group_description: New description
+  group_id: 4
+  group_name: New group
+  group_permissions: 1
+  group_uuid: a9bb4b93-c8ac-490d-9387-f97f4722271c
+

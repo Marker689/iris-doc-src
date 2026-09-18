@@ -1,0 +1,109 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_users_(identifier)_cases-access_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: List a user's explicit cases access
+  description: Return the user's explicit per-case access rows. Effective access — after merging group and organisation grants — is exposed by the audit endpoint.
+  responses:
+    '200':
+      description: Cases access successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    case_id:
+                      type: integer
+                    case_name:
+                      type: string
+                    access_level:
+                      type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_manage_users_(identifier)_cases-access_post
+  tags:
+    - Manage Users
+    - Beta
+  summary: Grant cases access to a user
+  description: Grant the given access level over the listed cases. Existing grants for the same case are overwritten in place.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - cases
+            - access_level
+          properties:
+            cases:
+              type: array
+              items:
+                type: integer
+            access_level:
+              type: integer
+        example:
+          cases:
+            - 12
+            - 42
+          access_level: 4
+  responses:
+    '200':
+      description: Cases access successfully granted
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_users_(identifier)_cases-access_delete
+  tags:
+    - Manage Users
+    - Beta
+  summary: Revoke cases access from a user
+  description: Drop the user's explicit grants for the listed cases.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - cases
+          properties:
+            cases:
+              type: array
+              items:
+                type: integer
+        example:
+          cases:
+            - 42
+  responses:
+    '200':
+      description: Cases access successfully revoked
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/User.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

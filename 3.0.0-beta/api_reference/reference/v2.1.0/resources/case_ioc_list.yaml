@@ -1,0 +1,886 @@
+get:
+  summary: Get list of IOCs
+  tags:
+    - IOCs
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  ioc:
+                    - ioc_id: 3687
+                      ioc_uuid: 8af24a70-adef-490f-9d48-4efa88adb961
+                      ioc_value: fjjjjjjjjjjj
+                      ioc_type_id: 1
+                      ioc_type: AS
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 119
+                      ioc_uuid: 7de0ffb1-f837-4c03-99e7-f13533b7516c
+                      ioc_value: testss
+                      ioc_type_id: 2
+                      ioc_type: aba-rtn
+                      ioc_description: ''
+                      ioc_tags: testtag
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3914
+                      ioc_uuid: 69c30c73-1d00-43aa-8004-6dd1b831e43e
+                      ioc_value: dadmin
+                      ioc_type_id: 3
+                      ioc_type: account
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link: []
+                      misp_link: null
+                    - ioc_id: 86
+                      ioc_uuid: 4cef264d-3381-4a6b-aa16-79db5e509714
+                      ioc_value: ylil
+                      ioc_type_id: 5
+                      ioc_type: attachment
+                      ioc_description: ''
+                      ioc_tags: kl
+                      ioc_misp: null
+                      tlp_name: clear
+                      tlp_bscolor: black
+                      ioc_tlp_id: 4
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3881
+                      ioc_uuid: bd514766-c753-4124-b9ea-fa8d0b1feb0e
+                      ioc_value: example.com
+                      ioc_type_id: 20
+                      ioc_type: domain
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 693
+                          case_name: '#693 - [RANS] discord  Malware '
+                          client_name: Chose Armando
+                        - case_id: 789
+                          case_name: '#789 - [RANS] Test'
+                          client_name: Burning Candle LLC
+                      misp_link: null
+                    - ioc_id: 3885
+                      ioc_uuid: daf526e9-d2de-4e59-b616-ca8e930db74e
+                      ioc_value: 2amsports.com
+                      ioc_type_id: 20
+                      ioc_type: domain
+                      ioc_description: ''
+                      ioc_tags: bad.exe
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3705
+                      ioc_uuid: df5bb374-574e-4b5d-b98e-0e27150ed33e
+                      ioc_value: prkinko.cz
+                      ioc_type_id: 20
+                      ioc_type: domain
+                      ioc_description: testovanie
+                      ioc_tags: domenax,cumim
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link: []
+                      misp_link: null
+                    - ioc_id: 81
+                      ioc_uuid: 177ae53a-baa4-4b52-b8d3-d110e45199dc
+                      ioc_value: test.test.ru
+                      ioc_type_id: 20
+                      ioc_type: domain
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 379
+                          case_name: '#379 - fhddfhdfh'
+                          client_name: '--'
+                        - case_id: 486
+                          case_name: '#486 - Test-ab'
+                          client_name: Client 0
+                        - case_id: 525
+                          case_name: '#525 - [RANS] 111111111111'
+                          client_name: Client 1
+                        - case_id: 612
+                          case_name: '#612 - Malware'
+                          client_name: DOV - Testkund1
+                      misp_link: null
+                    - ioc_id: 3702
+                      ioc_uuid: deac3601-ee8f-4010-b2ce-57594c7f8c15
+                      ioc_value: 80.78.25.162
+                      ioc_type_id: 21
+                      ioc_type: domain|ip
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 349
+                      ioc_uuid: 93263bc0-7d92-4fac-b28b-f828a6f37702
+                      ioc_value: ufrsmrdxlqq.org
+                      ioc_type_id: 22
+                      ioc_type: email
+                      ioc_description: description_hey
+                      ioc_tags: tag1,tag2
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 674
+                          case_name: '#674 - [RANS] AMZ ransomeware'
+                          client_name: Client 0
+                        - case_id: 675
+                          case_name: '#675 - [PREFIX] AJ SAM'
+                          client_name: IrisInitialClient
+                        - case_id: 789
+                          case_name: '#789 - [RANS] Test'
+                          client_name: Burning Candle LLC
+                        - case_id: 993
+                          case_name: '#993 - [RANS] [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 994
+                          case_name: '#994 -  [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 1028
+                          case_name: '#1028 -  [ALERT] VPN Exploit 1208 test #9212'
+                          client_name: IrisInitialClient
+                      misp_link: null
+                    - ioc_id: 1135
+                      ioc_uuid: e173ce0a-6532-4020-a51b-ba90f4f03186
+                      ioc_value: aunnrzg.co.uk
+                      ioc_type_id: 22
+                      ioc_type: email
+                      ioc_description: description_hey
+                      ioc_tags: tag1,tag2
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 789
+                          case_name: '#789 - [RANS] Test'
+                          client_name: Burning Candle LLC
+                        - case_id: 993
+                          case_name: '#993 - [RANS] [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 994
+                          case_name: '#994 -  [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 1028
+                          case_name: '#1028 -  [ALERT] VPN Exploit 1208 test #9212'
+                          client_name: IrisInitialClient
+                      misp_link: null
+                    - ioc_id: 3640
+                      ioc_uuid: 8cc9af99-7297-4d24-8465-a80d63be099e
+                      ioc_value: "test@test.com\r\ntest2@test2.com"
+                      ioc_type_id: 22
+                      ioc_type: email
+                      ioc_description: ''
+                      ioc_tags: email
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link: []
+                      misp_link: null
+                    - ioc_id: 788
+                      ioc_uuid: a71ff377-0e86-41f3-8417-a481420160d0
+                      ioc_value: bsaoln.gov
+                      ioc_type_id: 22
+                      ioc_type: email
+                      ioc_description: Fake description
+                      ioc_tags: tag1,tag2
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link:
+                        - case_id: 210
+                          case_name: '#210 - RYUK'
+                          client_name: Client 0
+                        - case_id: 284
+                          case_name: '#284 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 300
+                          case_name: '#300 -  [ALERT] Zero-Day Vulnerability 1149 TEST'
+                          client_name: IrisInitialClient
+                        - case_id: 301
+                          case_name: '#301 -  A - Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 323
+                          case_name: '#323 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 329
+                          case_name: '#329 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 353
+                          case_name: '#353 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 354
+                          case_name: '#354 - asdf'
+                          client_name: Client 1
+                        - case_id: 383
+                          case_name: '#383 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 450
+                          case_name: '#450 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 489
+                          case_name: '#489 - [PREFIX] Spear phishing SMS swedbank'
+                          client_name: NRD Cyber Security
+                        - case_id: 499
+                          case_name: '#499 - [RANS] XXX555'
+                          client_name: IrisInitialClient
+                        - case_id: 505
+                          case_name: '#505 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 512
+                          case_name: '#512 - [PREFIX] fggdfg'
+                          client_name: Client 1
+                        - case_id: 531
+                          case_name: '#531 - [PREFIX] Test Alert merging to a case '
+                          client_name: Client 0
+                        - case_id: 534
+                          case_name: '#534 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 535
+                          case_name: '#535 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 536
+                          case_name: '#536 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 577
+                          case_name: '#577 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 583
+                          case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 596
+                          case_name: '#596 - [RANS] Infection HR'
+                          client_name: Human Resources
+                        - case_id: 620
+                          case_name: >-
+                            #620 -  [ALERT] Zero-Day Vulnerability 1149 -
+                            Recreate
+                          client_name: IrisInitialClient
+                        - case_id: 631
+                          case_name: '#631 - [PREFIX] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 657
+                          case_name: >-
+                            #657 - [PREFIX] [ALERT] Command & Control Traffic
+                            729
+                          client_name: IrisInitialClient
+                        - case_id: 660
+                          case_name: '#660 - [RANS] E Corp Trojan 9-7-23'
+                          client_name: Evil Corp
+                        - case_id: 674
+                          case_name: '#674 - [RANS] AMZ ransomeware'
+                          client_name: Client 0
+                        - case_id: 677
+                          case_name: '#677 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 680
+                          case_name: '#680 - [RANS] E-Corp worm'
+                          client_name: Evil Corp
+                        - case_id: 685
+                          case_name: >-
+                            #685 - [RANS] [ALERT] Zero-Day Vulnerability AMZ
+                            ransomeware 9/7/2023
+                          client_name: IrisInitialClient
+                        - case_id: 687
+                          case_name: '#687 - [RANS] ransomware attack'
+                          client_name: Client 0
+                        - case_id: 690
+                          case_name: '#690 - [RANS] Google Virus'
+                          client_name: Client 1
+                        - case_id: 691
+                          case_name: '#691 - [PREFIX] unauthorized access '
+                          client_name: Client 1
+                        - case_id: 692
+                          case_name: '#692 - [PREFIX] Google AJ'
+                          client_name: Client 1
+                        - case_id: 695
+                          case_name: '#695 - [PREFIX] Google'
+                          client_name: Client 1
+                        - case_id: 716
+                          case_name: '#716 - [RANS] Test case'
+                          client_name: New Custo
+                        - case_id: 746
+                          case_name: '#746 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 764
+                          case_name: '#764 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 789
+                          case_name: '#789 - [RANS] Test'
+                          client_name: Burning Candle LLC
+                        - case_id: 835
+                          case_name: '#835 - [PREFIX] Phishing'
+                          client_name: UK
+                        - case_id: 847
+                          case_name: '#847 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 864
+                          case_name: >-
+                            #864 - [Standard - ] [ALERT] Zero-Day Vulnerability
+                            1149
+                          client_name: IrisInitialClient
+                        - case_id: 893
+                          case_name: '#893 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 912
+                          case_name: '#912 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 945
+                          case_name: '#945 - Test'
+                          client_name: Client 0
+                        - case_id: 961
+                          case_name: '#961 - [PREFIX] VAVHUvs'
+                          client_name: Arby's
+                        - case_id: 987
+                          case_name: '#987 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 988
+                          case_name: '#988 - ORGTEST-2023-1'
+                          client_name: Alemania
+                        - case_id: 1015
+                          case_name: '#1015 - test'
+                          client_name: '--'
+                      misp_link: null
+                    - ioc_id: 3716
+                      ioc_uuid: 5273a23c-b621-4215-94cd-38baaefd211b
+                      ioc_value: file
+                      ioc_type_id: 97
+                      ioc_type: file-path
+                      ioc_description: >-
+                        [<i class="fa-solid fa-virus-covid text-danger mr-1"
+                        title="File is an IOC"></i><i class="fa-solid
+                        fa-file-shield text-success mr-1" title="File is an
+                        evidence"></i><i title="Password protected"
+                        class="fa-solid fa-lock text-success mr-1"></i> [DS]
+                        example.txt](/datastore/file/view/22?cid=1)
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3834
+                      ioc_uuid: 891dabb7-685e-4e50-b8d6-f4ec99115a55
+                      ioc_value: lkudhfxlijl;ijh;65435845653xfgc
+                      ioc_type_id: 44
+                      ioc_type: filename|sha1
+                      ioc_description: this is a sha12 hash from the infected machine
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3678
+                      ioc_uuid: 42322077-27dd-4c8b-a906-829c1837e316
+                      ioc_value: 10.10.25.444
+                      ioc_type_id: 55
+                      ioc_type: filename|ssdeep
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3654
+                      ioc_uuid: 1de4c10c-0acf-44ee-b7b3-436405ff69f0
+                      ioc_value: 125.248.26.251
+                      ioc_type_id: 76
+                      ioc_type: ip-any
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3953
+                      ioc_uuid: 8383cfd9-7b5d-4b37-ada2-d2fe1a3bf2e9
+                      ioc_value: 10.10.10.10
+                      ioc_type_id: 77
+                      ioc_type: ip-dst
+                      ioc_description: sxaxax
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 95
+                      ioc_uuid: 9c49404c-e8b1-4fe8-8f5a-c6a6437ec7a6
+                      ioc_value: 2.2.2.2
+                      ioc_type_id: 77
+                      ioc_type: ip-dst
+                      ioc_description: test IP Malicious
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: red
+                      tlp_bscolor: danger
+                      ioc_tlp_id: 1
+                      link: []
+                      misp_link: null
+                    - ioc_id: 3704
+                      ioc_uuid: 34f0f753-b46b-4ef1-b6e3-f6689a846544
+                      ioc_value: 8.5.21.3
+                      ioc_type_id: 77
+                      ioc_type: ip-dst
+                      ioc_description: moj dns server
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: green
+                      tlp_bscolor: success
+                      ioc_tlp_id: 3
+                      link: []
+                      misp_link: null
+                    - ioc_id: 30
+                      ioc_uuid: 4500cc81-34c2-4d8b-81c9-2ca3459e09d8
+                      ioc_value: 8.8.8.8
+                      ioc_type_id: 78
+                      ioc_type: ip-dst|port
+                      ioc_description: None
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 34
+                      ioc_uuid: dbd2e9d3-6a92-498f-9ad8-cb8122fe4944
+                      ioc_value: 8.8.8.8
+                      ioc_type_id: 79
+                      ioc_type: ip-src
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 73
+                          case_name: '#73 - TestingCase - GC'
+                          client_name: Client 0
+                        - case_id: 109
+                          case_name: '#109 - 06FEB23_TEST'
+                          client_name: Finance Department
+                        - case_id: 167
+                          case_name: '#167 - Test Trojan Case'
+                          client_name: Finance Department
+                        - case_id: 236
+                          case_name: '#236 - aaa'
+                          client_name: Client 2
+                        - case_id: 564
+                          case_name: '#564 - [RANS] Ransomware File Found'
+                          client_name: Evil Corp
+                        - case_id: 816
+                          case_name: '#816 - [RANS] fghjk'
+                          client_name: '--'
+                      misp_link: null
+                    - ioc_id: 62
+                      ioc_uuid: de17b997-60c9-4dcf-82fb-388c688fdd2d
+                      ioc_value: 127.0.0.1
+                      ioc_type_id: 79
+                      ioc_type: ip-src
+                      ioc_description: Test IOC
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: green
+                      tlp_bscolor: success
+                      ioc_tlp_id: 3
+                      link:
+                        - case_id: 112
+                          case_name: '#112 - Test ticket'
+                          client_name: Public Works - WW
+                      misp_link: null
+                    - ioc_id: 3719
+                      ioc_uuid: ec70eb70-487c-414f-bc8f-7f55752c3150
+                      ioc_value: 10.0.0.1
+                      ioc_type_id: 79
+                      ioc_type: ip-src
+                      ioc_description: xaxasxaxasx
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 510
+                          case_name: '#510 - [RANS] Defcon IR Test'
+                          client_name: Defcon
+                      misp_link: null
+                    - ioc_id: 3802
+                      ioc_uuid: 415e7739-9fbd-4cd3-9909-59f320d20bae
+                      ioc_value: md5
+                      ioc_type_id: 88
+                      ioc_type: malware-sample
+                      ioc_description: ''
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                    - ioc_id: 407
+                      ioc_uuid: a5bee1a7-851e-4929-8227-62eb7902fe6a
+                      ioc_value: ec3e51e46aae
+                      ioc_type_id: 113
+                      ioc_type: sha256
+                      ioc_description: description_hey
+                      ioc_tags: tag1,tag2
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 210
+                          case_name: '#210 - RYUK'
+                          client_name: Client 0
+                        - case_id: 284
+                          case_name: '#284 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 300
+                          case_name: '#300 -  [ALERT] Zero-Day Vulnerability 1149 TEST'
+                          client_name: IrisInitialClient
+                        - case_id: 301
+                          case_name: '#301 -  A - Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 323
+                          case_name: '#323 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 329
+                          case_name: '#329 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 353
+                          case_name: '#353 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 354
+                          case_name: '#354 - asdf'
+                          client_name: Client 1
+                        - case_id: 383
+                          case_name: '#383 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 450
+                          case_name: '#450 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 489
+                          case_name: '#489 - [PREFIX] Spear phishing SMS swedbank'
+                          client_name: NRD Cyber Security
+                        - case_id: 499
+                          case_name: '#499 - [RANS] XXX555'
+                          client_name: IrisInitialClient
+                        - case_id: 505
+                          case_name: '#505 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 512
+                          case_name: '#512 - [PREFIX] fggdfg'
+                          client_name: Client 1
+                        - case_id: 531
+                          case_name: '#531 - [PREFIX] Test Alert merging to a case '
+                          client_name: Client 0
+                        - case_id: 534
+                          case_name: '#534 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 535
+                          case_name: '#535 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 536
+                          case_name: '#536 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 577
+                          case_name: '#577 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 583
+                          case_name: '#583 -  [ALERT] VPN Exploit 1208'
+                          client_name: IrisInitialClient
+                        - case_id: 596
+                          case_name: '#596 - [RANS] Infection HR'
+                          client_name: Human Resources
+                        - case_id: 620
+                          case_name: >-
+                            #620 -  [ALERT] Zero-Day Vulnerability 1149 -
+                            Recreate
+                          client_name: IrisInitialClient
+                        - case_id: 631
+                          case_name: '#631 - [PREFIX] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 657
+                          case_name: >-
+                            #657 - [PREFIX] [ALERT] Command & Control Traffic
+                            729
+                          client_name: IrisInitialClient
+                        - case_id: 660
+                          case_name: '#660 - [RANS] E Corp Trojan 9-7-23'
+                          client_name: Evil Corp
+                        - case_id: 674
+                          case_name: '#674 - [RANS] AMZ ransomeware'
+                          client_name: Client 0
+                        - case_id: 677
+                          case_name: '#677 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 680
+                          case_name: '#680 - [RANS] E-Corp worm'
+                          client_name: Evil Corp
+                        - case_id: 685
+                          case_name: >-
+                            #685 - [RANS] [ALERT] Zero-Day Vulnerability AMZ
+                            ransomeware 9/7/2023
+                          client_name: IrisInitialClient
+                        - case_id: 687
+                          case_name: '#687 - [RANS] ransomware attack'
+                          client_name: Client 0
+                        - case_id: 690
+                          case_name: '#690 - [RANS] Google Virus'
+                          client_name: Client 1
+                        - case_id: 691
+                          case_name: '#691 - [PREFIX] unauthorized access '
+                          client_name: Client 1
+                        - case_id: 692
+                          case_name: '#692 - [PREFIX] Google AJ'
+                          client_name: Client 1
+                        - case_id: 695
+                          case_name: '#695 - [PREFIX] Google'
+                          client_name: Client 1
+                        - case_id: 716
+                          case_name: '#716 - [RANS] Test case'
+                          client_name: New Custo
+                        - case_id: 746
+                          case_name: '#746 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 764
+                          case_name: '#764 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 789
+                          case_name: '#789 - [RANS] Test'
+                          client_name: Burning Candle LLC
+                        - case_id: 810
+                          case_name: '#810 - [PREFIX] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 835
+                          case_name: '#835 - [PREFIX] Phishing'
+                          client_name: UK
+                        - case_id: 847
+                          case_name: '#847 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 864
+                          case_name: >-
+                            #864 - [Standard - ] [ALERT] Zero-Day Vulnerability
+                            1149
+                          client_name: IrisInitialClient
+                        - case_id: 893
+                          case_name: '#893 -  [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 912
+                          case_name: '#912 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 945
+                          case_name: '#945 - Test'
+                          client_name: Client 0
+                        - case_id: 961
+                          case_name: '#961 - [PREFIX] VAVHUvs'
+                          client_name: Arby's
+                        - case_id: 987
+                          case_name: '#987 - [RANS] [ALERT] Zero-Day Vulnerability 1149'
+                          client_name: IrisInitialClient
+                        - case_id: 988
+                          case_name: '#988 - ORGTEST-2023-1'
+                          client_name: Alemania
+                        - case_id: 1015
+                          case_name: '#1015 - test'
+                          client_name: '--'
+                      misp_link: null
+                    - ioc_id: 3692
+                      ioc_uuid: d35d30b9-11d9-4164-88ce-78f754f32ff9
+                      ioc_value: >-
+                        E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+                      ioc_type_id: 113
+                      ioc_type: sha256
+                      ioc_description: >-
+                        SHA256 of Half-Life Opposing Force.desktop. Imported
+                        from datastore.
+
+                        [<i class="fa-solid fa-virus-covid text-danger mr-1"
+                        title="File is an IOC"></i><i title="Password protected"
+                        class="fa-solid fa-lock text-success mr-1"></i> [DS]
+                        Half-Life Opposing
+                        Force.desktop](/datastore/file/view/14?cid=428)
+                      ioc_tags: datastore
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link:
+                        - case_id: 428
+                          case_name: '#428 - disk image'
+                          client_name: Client 1
+                      misp_link: null
+                  state:
+                    object_state: 55
+                    object_last_update: '2024-01-05T05:21:41.718323'
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - ioc
+                  - state
+                properties:
+                  ioc:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ioc_id:
+                          type: integer
+                        ioc_uuid:
+                          type: string
+                        ioc_value:
+                          type: string
+                        ioc_type_id:
+                          type: integer
+                        ioc_type:
+                          type: string
+                        ioc_description:
+                          type: string
+                        ioc_tags:
+                          type: string
+                        ioc_misp:
+                          type: 'null'
+                        tlp_name:
+                          type: string
+                        tlp_bscolor:
+                          type: string
+                        ioc_tlp_id:
+                          type: integer
+                        link:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              case_id:
+                                type: integer
+                              case_name:
+                                type: string
+                              client_name:
+                                type: string
+                            required:
+                              - case_id
+                              - case_name
+                              - client_name
+                        misp_link:
+                          type: 'null'
+                      required:
+                        - ioc_id
+                        - ioc_uuid
+                        - ioc_value
+                        - ioc_type_id
+                        - ioc_type
+                        - ioc_description
+                        - ioc_tags
+                        - ioc_misp
+                        - tlp_name
+                        - tlp_bscolor
+                        - ioc_tlp_id
+                        - link
+                        - misp_link
+                  state:
+                    type: object
+                    required:
+                      - object_state
+                      - object_last_update
+                    properties:
+                      object_state:
+                        type: integer
+                      object_last_update:
+                        type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  ioc:
+                    - ioc_id: 15
+                      ioc_uuid: 47ee4c47-0328-4edf-ba15-4fe2e4c828f0
+                      ioc_value: s<dasdasdasdasd
+                      ioc_type_id: 5
+                      ioc_type: attachment
+                      ioc_description: None
+                      ioc_tags: ''
+                      ioc_misp: null
+                      tlp_name: amber
+                      tlp_bscolor: warning
+                      ioc_tlp_id: 2
+                      link: []
+                      misp_link: null
+                  state:
+                    object_state: 1
+                    object_last_update: '2023-01-16T10:02:05.271648'
+  operationId: get-case-ioc-list
+  description: 'Returns a list of IOCs as well as any existing links with other cases. '
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters: []

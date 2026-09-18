@@ -1,0 +1,52 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    description: Numeric identifier of the parent investigation flow.
+    schema:
+      type: integer
+post:
+  operationId: api_v2_investigation-flows_(identifier)_steps_post
+  tags:
+    - Investigation flows
+    - Beta
+  summary: Add a step to an investigation flow
+  description: Appends a new step to the given investigation flow.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            step_type:
+              type: string
+              description: Identifier of the step behaviour (for example task_create, tag_apply, webhook_call).
+            order:
+              type: integer
+              description: Ordering index of the step within the flow. Lower values run first.
+            config:
+              type: object
+              description: Free-form configuration blob interpreted by the step type.
+          required:
+            - step_type
+            - order
+            - config
+        example:
+          step_type: task_create
+          order: 1
+          config:
+            title: Investigate phishing indicators
+            assignee_id: 4
+  responses:
+    '201':
+      description: Step successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

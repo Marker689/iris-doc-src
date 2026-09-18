@@ -1,0 +1,50 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the note
+    schema:
+      type: integer
+  - name: revision_number
+    in: path
+    required: true
+    description: Sequential revision number to restore as the current version
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cases_(case_identifier)_notes_(identifier)_revisions_(revision_number)_restore_post
+  tags:
+    - Notes
+    - Beta
+  summary: Restore a note revision
+  description: Restore the content of the given revision as the current version of the note. A new revision is created capturing the state before the restore. Requires full access to the case.
+  responses:
+    '200':
+      description: Note restored to the given revision
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              note_id:
+                type: integer
+              note_title:
+                type: string
+              note_content:
+                type: string
+              note_case_id:
+                type: integer
+              note_lastupdate:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,80 @@
+post:
+  operationId: api_v2_bug-reports_post
+  tags:
+    - Bug reports
+    - Beta
+  summary: Submit a manual bug report (fallback path)
+  description: >-
+    Fallback report channel, used by the web UI when error reporting is
+    disabled. The report is written to the server log and the activity log;
+    nothing is persisted as a ticket and no screenshot is stored — binary
+    attachments go through the Sentry `captureFeedback` route instead.
+
+
+    Every string field is trimmed and clipped to its maximum rather than
+    rejected. Rate-limited to 5 reports per user per minute; over that, the
+    call answers 429.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              description: Clipped to 200 characters. Required after trimming.
+              type: string
+              maxLength: 200
+            description:
+              description: Clipped to 10000 characters. Required after trimming.
+              type: string
+              maxLength: 10000
+            url:
+              description: Page the report was filed from. Clipped to 2000 characters.
+              type: string
+              maxLength: 2000
+            user_agent:
+              type: string
+              maxLength: 500
+            request_id:
+              description: >-
+                Client-side correlation id. The server's own request id is
+                recorded alongside it automatically.
+              type: string
+              maxLength: 128
+          required:
+            - title
+            - description
+        example:
+          title: Timeline fails to load on a large case
+          description: Opening case 412's timeline spins forever; no error is shown.
+          url: https://iris.example.org/case/412/timeline
+  responses:
+    '200':
+      description: Report successfully recorded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              received:
+                type: boolean
+          example:
+            received: true
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '429':
+      description: >-
+        Rate limit exceeded — more than 5 reports from this user in the last
+        minute.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Error message
+                type: string
+            required:
+              - message

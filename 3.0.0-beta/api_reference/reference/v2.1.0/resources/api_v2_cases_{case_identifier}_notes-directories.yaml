@@ -1,0 +1,53 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+post:
+  operationId: api_v2_cases_(case_identifier)_notes-directories_post
+  summary: Add a new notes directory
+  description: Create a new empty directory.
+  tags:
+    - Notes
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../schemas/requestBodies/NoteDirectory.yaml
+            - type: object
+              required:
+                - name
+  responses:
+    '201':
+      description: Note directory successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/NoteDirectory.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      description: Case with identifier `case_identifier` not found
+
+get:
+  operationId: api_v2_cases_(case_identifier)_notes-directories_get
+  tags:
+    - Notes
+    - Beta
+  summary: Get filtered collection of note directories
+  description: Return collection of note directories
+  responses:
+    '201':
+      description: notes directories filter successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/SearchNoteDirectory.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

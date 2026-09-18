@@ -1,0 +1,232 @@
+get:
+  summary: Fetch an event
+  description: This endpoint is deprecated. Use [GET /api/v2/cases/{case_identifier}/events/{identifier}](#tag/Timeline/operation/api_v2_cases_(case_identifier)_events_(identifier)_get) instead.
+  deprecated: true
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  event_tags: tag
+                  case_id: 1
+                  event_in_summary: true
+                  modification_history:
+                    '1704815238.257724':
+                      user: administrator
+                      action: created
+                      user_id: 1
+                  event_date: '2023-03-08T03:02:00.000000'
+                  event_title: An event
+                  custom_attributes: {}
+                  user_id: 1
+                  event_color: '#1572E899'
+                  event_added: '2024-01-09T15:47:18.257680'
+                  event_in_graph: true
+                  event_tz: '+00:00'
+                  event_content: My description
+                  event_source: My source
+                  event_uuid: eedceb90-def7-4707-a478-5c5a218f0116
+                  event_is_flagged: false
+                  event_raw: My event raw data
+                  event_date_wtz: '2023-03-08T03:02:00.000000'
+                  event_id: 664
+                  event_assets: []
+                  event_iocs: []
+                  event_category_id: 5
+                  event_comments_map: []
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - event_tags
+                  - case_id
+                  - event_in_summary
+                  - modification_history
+                  - event_date
+                  - event_title
+                  - custom_attributes
+                  - user_id
+                  - event_color
+                  - event_added
+                  - event_in_graph
+                  - event_tz
+                  - event_content
+                  - event_source
+                  - event_uuid
+                  - event_is_flagged
+                  - event_raw
+                  - event_date_wtz
+                  - event_id
+                  - event_assets
+                  - event_iocs
+                  - event_category_id
+                  - event_comments_map
+                  - parent_event_id
+                properties:
+                  event_tags:
+                    type: string
+                  case_id:
+                    type: integer
+                  event_in_summary:
+                    type: boolean
+                  modification_history:
+                    type: object
+                  event_date:
+                    type: string
+                  event_title:
+                    type: string
+                  custom_attributes:
+                    type: object
+                  user_id:
+                    type: integer
+                  event_color:
+                    type: string
+                  event_added:
+                    type: string
+                  event_in_graph:
+                    type: boolean
+                  event_tz:
+                    type: string
+                  event_content:
+                    type: string
+                  event_source:
+                    type: string
+                  event_uuid:
+                    type: string
+                  event_is_flagged:
+                    type: boolean
+                  event_raw:
+                    type: string
+                  event_date_wtz:
+                    type: string
+                  event_id:
+                    type: integer
+                  event_assets:
+                    type: array
+                    items:
+                      type: object
+                  event_iocs:
+                    type: array
+                    items:
+                      type: object
+                  event_category_id:
+                    type: integer
+                  event_comments_map:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        comment_event_id:
+                          type: integer
+                          x-stoplight:
+                            id: uwulgr5zw647r
+                        comment_id:
+                          type: integer
+                          x-stoplight:
+                            id: texvs3htn4r95
+                      required:
+                        - comment_event_id
+                        - comment_id
+                  parent_event_id:
+                    type: integer
+                    x-stoplight:
+                      id: 4ll8d4iukbdsg
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  event_tags: tag
+                  case_id: 1
+                  event_in_summary: true
+                  modification_history:
+                    '1704815238.257724':
+                      user: administrator
+                      action: created
+                      user_id: 1
+                  event_date: '2023-03-08T03:02:00.000000'
+                  event_title: An event
+                  custom_attributes: {}
+                  user_id: 1
+                  event_color: '#1572E899'
+                  event_added: '2024-01-09T15:47:18.257680'
+                  event_in_graph: true
+                  event_tz: '+00:00'
+                  event_content: My description
+                  event_source: My source
+                  event_uuid: eedceb90-def7-4707-a478-5c5a218f0116
+                  event_is_flagged: false
+                  event_raw: My event raw data
+                  event_date_wtz: '2023-03-08T03:02:00.000000'
+                  event_id: 664
+                  event_assets: []
+                  event_iocs: []
+                  event_category_id: 5
+                  event_comments_map: []
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Invalid event ID for this case
+                status: error
+          examples:
+            Invalid event ID:
+              value:
+                data: []
+                message: Invalid event ID for this case
+                status: error
+  operationId: get-case-timeline-get-event
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: integer
+    name: event_id
+    in: path
+    required: true

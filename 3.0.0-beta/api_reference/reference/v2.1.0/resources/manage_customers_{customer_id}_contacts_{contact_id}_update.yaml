@@ -1,0 +1,132 @@
+post:
+  summary: Add a customer contact
+  tags:
+    - Customers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  client_id:
+                    type: integer
+                  contact_email:
+                    type: string
+                  contact_mobile_phone:
+                    type: string
+                  contact_name:
+                    type: string
+                  contact_note:
+                    type: string
+                  contact_role:
+                    type: string
+                  contact_uuid:
+                    type: string
+                  contact_work_phone:
+                    type: string
+                  custom_attributes:
+                    type: 'null'
+                  id:
+                    type: integer
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  client_id: 1
+                  contact_email: contact@iris.local
+                  contact_mobile_phone: '2222222'
+                  contact_name: New contact
+                  contact_note: Notes on the contact
+                  contact_role: Manager
+                  contact_uuid: 950337e3-938f-485b-b1c7-1d44c7bfc252
+                  contact_work_phone: '1111111'
+                  custom_attributes: null
+                  id: 2
+                message: Added successfully
+                status: success
+          examples:
+            'Customer deleted ':
+              value:
+                data:
+                  client_id: 1
+                  contact_email: contact@iris.local
+                  contact_mobile_phone: '2222222'
+                  contact_name: New contact
+                  contact_note: Notes on the contact
+                  contact_role: Manager
+                  contact_uuid: 950337e3-938f-485b-b1c7-1d44c7bfc252
+                  contact_work_phone: '1111111'
+                  custom_attributes: null
+                  id: 2
+                message: Added successfully
+                status: success
+  operationId: get-customer-update-customer-contact
+  description: 'Update a customer contact. '
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBhm5g.JKK0wZlJTMvXEu4aoRonpIVE-X4
+              contact_name: New contact
+              contact_role: Manager
+              contact_email: contact@iris.local
+              contact_work_phone: '1111111'
+              contact_mobile_phone: '2222222'
+              contact_note: Notes on the customer
+          properties:
+            contact_name:
+              type: string
+            contact_role:
+              type: string
+            contact_email:
+              type: string
+            contact_work_phone:
+              type: string
+            contact_mobile_phone:
+              type: string
+            contact_note:
+              type: string
+        examples:
+          Example 1:
+            value:
+              contact_name: New contact
+              contact_role: Manager
+              contact_email: contact@iris.local
+              contact_work_phone: '1111111'
+              contact_mobile_phone: '2222222'
+              contact_note: Notes on the contact
+    description: ''
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: customer_id
+    in: path
+    required: true
+    description: ID of the customer
+  - schema:
+      type: string
+    name: contact_id
+    in: path
+    required: true
+    description: ID of the contact

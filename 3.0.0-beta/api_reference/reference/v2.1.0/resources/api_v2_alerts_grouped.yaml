@@ -1,0 +1,111 @@
+get:
+  operationId: api_v2_alerts_grouped_get
+  tags:
+    - Alerts
+    - Beta
+  summary: List alerts with clustered alerts collapsed into their cluster
+  description: >-
+    The triage queue. Same filters and envelope as `GET /api/v2/alerts`, but
+    `data` holds queue *units* rather than alerts: a clustered alert appears
+    only inside its cluster's row, never on its own. `total` and `last_page`
+    therefore count units, so one large cluster can no longer swallow a page.
+    Each cluster row carries a bounded preview of its alerts —
+    `alerts_truncated` says whether `alerts` is the whole set, and
+    `alerts_total` how many there really are.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page number (default 1)
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page size (default 10)
+    - name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Column to sort by: event_time, creation_time, title, severity, status, customer_name,
+        owner (default ''event_time'')'
+    - name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Sort direction: ''asc'' or ''desc'' (default ''asc'')'
+    - name: query
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Lucene-style search expression, ANDed with every other filter. Fields are friendly
+        aliases resolved server-side — `status:Closed`, `severity:>=High`, `owner:me`, `asset:*.corp.local`,
+        `created:>now-24h`, `context.rule_name:"brute force"`, `is:open`. Supports AND / OR / NOT (or
+        `-`), parentheses, quoted phrases, ranges `[a TO b]` / `{a TO b}` and `*` / `?` wildcards. A bare
+        term searches title, description, source, reference, tags and note. GET /alerts/search-schema
+        lists every alias. A malformed expression returns 400 with the character offset in `data.position`.
+  responses:
+    '200':
+      description: Queue successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                description: Number of queue units matching the filters.
+                type: integer
+              total_alerts:
+                description: >-
+                  Number of individual alerts behind those units, clustered ones
+                  included.
+                type: integer
+              data:
+                type: array
+                items:
+                  oneOf:
+                    - type: object
+                      title: Cluster unit
+                      properties:
+                        kind:
+                          type: string
+                          const: cluster
+                        cluster:
+                          $ref: ../schemas/AlertCluster.yaml
+                        alerts:
+                          description: >-
+                            Preview of the cluster's alerts, capped server-side.
+                          type: array
+                          items:
+                            $ref: ../schemas/Alert.yaml
+                        alerts_total:
+                          description: Alerts in the cluster, before the cap.
+                          type: integer
+                        alerts_truncated:
+                          description: True when `alerts` is a partial view.
+                          type: boolean
+                    - type: object
+                      title: Alert unit
+                      properties:
+                        kind:
+                          type: string
+                          const: alert
+                        alert:
+                          $ref: ../schemas/Alert.yaml
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

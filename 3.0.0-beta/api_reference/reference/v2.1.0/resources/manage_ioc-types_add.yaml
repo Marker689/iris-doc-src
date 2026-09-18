@@ -1,0 +1,135 @@
+parameters: []
+post:
+  summary: Add an IOC type
+  operationId: post-manage-ioc_type-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  registry:
+                    type: 'null'
+                  type_description:
+                    type: string
+                  type_id:
+                    type: integer
+                  type_name:
+                    type: string
+                  type_taxonomy:
+                    type: string
+                  type_validation_expect:
+                    type: string
+                  type_validation_regex:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  registry: null
+                  type_description: Associated campaign ID
+                  type_id: 161
+                  type_name: campaign-aaid
+                  type_taxonomy: dsa
+                  type_validation_expect: Explanation
+                  type_validation_regex: '*.'
+                message: Added successfully
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  registry: null
+                  type_description: Associated campaign ID
+                  type_id: 161
+                  type_name: campaign-aaid
+                  type_taxonomy: dsa
+                  type_validation_expect: Explanation
+                  type_validation_regex: '*.'
+                message: Added successfully
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  asset_name:
+                    - Asset type name already exists
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  type_name:
+                    - IOC type name already exists
+                message: Data error
+                status: error
+  description: 'Administrator role required. '
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              csrf_token: >-
+                IjYyYzcxZWM0ZDk2OWIxZWNmYzNmYTQzZTI2NTViYzNjNTVhYzRjNTki.ZBglqQ.qb35aXmJaG_2pRHfvXSblB8MtLo
+              type_name: campaign-id
+              type_description: Associated campaign ID
+              type_taxonomy: dsa
+              type_validation_regex: dsa
+              type_validation_expect: dsa
+          properties:
+            type_name:
+              type: string
+            type_description:
+              type: string
+            type_taxonomy:
+              type: string
+            type_validation_regex:
+              type: string
+            type_validation_expect:
+              type: string
+          required:
+            - type_name
+            - type_description
+            - type_taxonomy
+            - type_validation_regex
+            - type_validation_expect
+        examples:
+          example-1:
+            value:
+              type_name: campaign-id
+              type_description: Associated campaign ID
+              type_taxonomy: dsa
+              type_validation_regex: '*.'
+              type_validation_expect: Explanation
+  tags:
+    - Manage IOC Types

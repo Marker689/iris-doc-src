@@ -1,0 +1,23 @@
+type: object
+properties:
+  user_login:
+    type: string
+  user_name:
+    type: string
+  user_email:
+    type: string
+  has_deletion_confirmation:
+    type: boolean
+  has_mini_sidebar:
+    type: boolean
+  in_dark_mode:
+    type: boolean
+  ctx_case:
+    type: integer
+  user_password:
+    type: string
+example:
+  user_name: new_user
+  user_login: new_user_login
+  user_email: new_user_email
+

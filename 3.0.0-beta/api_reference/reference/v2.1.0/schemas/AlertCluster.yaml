@@ -1,0 +1,119 @@
+type: object
+description: |
+  A group of alerts stacked together by a cluster rule (or created by hand).
+  Shape as emitted by `AlertClusterSchema`, which auto-derives from the
+  `alert_clusters` table and adds the nested `status`/`severity`/`customer`/
+  `owner` objects plus three computed fields (`alert_ids`,
+  `investigation_flow`, `source_rule`).
+properties:
+  cluster_id:
+    type: integer
+    format: int64
+  cluster_uuid:
+    type: string
+    format: uuid
+  cluster_title:
+    type: string
+  cluster_description:
+    type:
+      - string
+      - 'null'
+  cluster_status_id:
+    type: integer
+    description: References `alert_cluster_status.status_id`. Values are listed by [GET /api/v2/manage/alert-cluster-statuses](#tag/Alert-cluster-statuses).
+  cluster_severity_id:
+    type:
+      - integer
+      - 'null'
+  cluster_customer_id:
+    type: integer
+  cluster_owner_id:
+    type:
+      - integer
+      - 'null'
+  cluster_creation_time:
+    type: string
+    format: date-time
+  cluster_source_rule_id:
+    description: The cluster rule that opened this cluster, `null` when it was created manually.
+    type:
+      - integer
+      - 'null'
+  cluster_case_id:
+    description: The case this cluster was escalated or merged into, `null` while it is unlinked.
+    type:
+      - integer
+      - 'null'
+  cluster_dedupe_key:
+    description: |
+      Stacking key computed by the rule that opened the cluster. Rows sharing
+      this key inside the rule's time window land on the same open cluster.
+      Free-text, because each rule keys by whatever fields it groups by.
+    type:
+      - string
+      - 'null'
+  cluster_investigation_flow_id:
+    type:
+      - integer
+      - 'null'
+  modification_history:
+    $ref: ../schemas/modification_history.yaml
+  status:
+    description: Resolved `cluster_status_id`. Read-only.
+    type: object
+    properties:
+      status_id:
+        type: integer
+      status_name:
+        type: string
+      status_description:
+        type:
+          - string
+          - 'null'
+  severity:
+    description: Resolved `cluster_severity_id`. Read-only.
+    type:
+      - object
+      - 'null'
+  customer:
+    description: Resolved `cluster_customer_id`. Read-only.
+    $ref: ../schemas/Customer.yaml
+  owner:
+    description: Resolved `cluster_owner_id`. Read-only.
+    type:
+      - object
+      - 'null'
+    properties:
+      id:
+        type: integer
+      user_name:
+        type: string
+      user_login:
+        type: string
+      user_email:
+        type: string
+  alert_ids:
+    description: Identifiers of every alert currently attached to the cluster. Read-only.
+    type: array
+    items:
+      type: integer
+  investigation_flow:
+    description: Summary of the attached investigation flow, `null` when none is attached. Read-only.
+    type:
+      - object
+      - 'null'
+    properties:
+      flow_id:
+        type: integer
+      flow_name:
+        type: string
+  source_rule:
+    description: Summary of the cluster rule that created the cluster, `null` when it was created manually. Read-only.
+    type:
+      - object
+      - 'null'
+    properties:
+      rule_id:
+        type: integer
+      rule_name:
+        type: string

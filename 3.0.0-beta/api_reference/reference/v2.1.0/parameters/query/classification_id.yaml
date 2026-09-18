@@ -1,0 +1,4 @@
+in: query
+name: classification_id
+schema:
+  $ref: ../../schemas/classification_id.yaml

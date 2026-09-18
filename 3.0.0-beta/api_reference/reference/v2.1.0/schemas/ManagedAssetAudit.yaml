@@ -1,0 +1,32 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  audit_id:
+    type: integer
+  managed_asset_id:
+    type:
+      - integer
+      - 'null'
+  asset_name_snapshot:
+    type: string
+  action:
+    type: string
+  changes:
+    type:
+      - object
+      - 'null'
+  user_id:
+    type:
+      - integer
+      - 'null'
+  user_login:
+    type:
+      - string
+      - 'null'
+  source:
+    type: string
+  occurred_at:
+    type: string
+    format: date-time
+description: One entry of the append-only change log.

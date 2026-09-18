@@ -1,0 +1,6 @@
+in: query
+name: case_soc_id
+description: SOC (Security Operations Center) identifier
+schema:
+  type: string
+

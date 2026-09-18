@@ -1,0 +1,165 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-templates_(identifier)_get
+  tags:
+    - Case templates
+    - Beta
+  summary: Get a case template
+  description: Get a single case template by its identifier.
+  responses:
+    '200':
+      description: Case template successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              display_name:
+                type: string
+              description:
+                type: string
+              author:
+                type: string
+              title_prefix:
+                type: string
+              summary:
+                type: string
+              tags:
+                type: string
+              classification:
+                type: string
+              tasks:
+                type: array
+                items:
+                  type: object
+              note_directories:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-templates_(identifier)_put
+  tags:
+    - Case templates
+    - Beta
+  summary: Update a case template
+  description: >-
+    Update an existing case template. Any subset of writable fields can be
+    sent. Bodies are plain JSON — the legacy `{case_template_json:
+    "stringified"}` envelope is still accepted for backwards
+    compatibility.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            display_name:
+              type: string
+            description:
+              type: string
+            author:
+              type: string
+            title_prefix:
+              type: string
+            summary:
+              type: string
+            tags:
+              type: string
+            classification:
+              type: string
+            tasks:
+              type: array
+              items:
+                type: object
+            iocs:
+              type: array
+              items:
+                type: object
+            assets:
+              type: array
+              items:
+                type: object
+            note_groups:
+              type: array
+              items:
+                type: object
+            note_directories:
+              type: array
+              items:
+                type: object
+            classifications:
+              type: array
+              items:
+                type: string
+        example:
+          display_name: Ransomware incident (v2)
+          summary: Updated summary
+  responses:
+    '200':
+      description: Case template successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              display_name:
+                type: string
+              description:
+                type: string
+              author:
+                type: string
+              title_prefix:
+                type: string
+              summary:
+                type: string
+              tags:
+                type: string
+              classification:
+                type: string
+              tasks:
+                type: array
+                items:
+                  type: object
+              note_directories:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-templates_(identifier)_delete
+  tags:
+    - Case templates
+    - Beta
+  summary: Delete a case template
+  description: Delete a case template.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

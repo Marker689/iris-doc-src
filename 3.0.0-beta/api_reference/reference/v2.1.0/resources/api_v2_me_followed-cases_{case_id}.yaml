@@ -1,0 +1,26 @@
+parameters:
+  - schema:
+      type: integer
+    name: case_id
+    in: path
+    required: true
+    description: Case ID
+delete:
+  operationId: api_v2_me_followed-cases_(case_id)_delete
+  tags:
+    - Profile
+    - Beta
+  summary: Unfollow a case
+  description: >-
+    Remove a case from the current user's followed-cases list.
+    Idempotent: unfollowing a case that isn't followed returns 204 so
+    the SPA can fire-and-forget on toggle clicks.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

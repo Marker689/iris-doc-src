@@ -1,0 +1,44 @@
+parameters:
+  - name: case_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_case-chat_cases_(case_id)_conversations_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List the caller's chat conversations for a case
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_case-chat_cases_(case_id)_conversations_post
+  tags:
+    - Case chat
+    - Beta
+  summary: Start a new chat conversation scoped to a case
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

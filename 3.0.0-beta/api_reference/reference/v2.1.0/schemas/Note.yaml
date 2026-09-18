@@ -1,0 +1,49 @@
+type: object
+properties:
+  note_id:
+    type: integer
+  note_uuid:
+    type: string
+  note_title:
+    type:
+      - string
+      - 'null'
+  note_content:
+    type:
+      - string
+      - 'null'
+  directory_id:
+    type: integer
+  directory:
+    $ref: ../schemas/NoteDirectory.yaml
+  note_user:
+    type: integer
+  note_creationdate:
+    $ref: ../schemas/iso_date.yaml
+  note_lastupdate:
+    $ref: ../schemas/iso_date.yaml
+  note_case_id:
+    type: integer
+  modification_history:
+    $ref: ../schemas/modification_history.yaml
+example:
+  note_id: 16
+  note_uuid: ecbbd74e-85fd-4268-a9a4-c069677e6677
+  note_title: Title of the note
+  note_content: Content of the note
+  directory_id: 2
+  directory:
+    id: 2
+    name: A dir
+    parent_id: null
+    case_id: 1
+  note_user: 1
+  note_creationdate: '2024-03-27T18:14:21.245694'
+  note_lastupdate: '2024-03-27T18:14:21.245724'
+  note_case_id: 1
+  modification_history:
+    '1711563261.268616':
+      user: 'administrator'
+      user_id: 1
+      action: 'created note'
+

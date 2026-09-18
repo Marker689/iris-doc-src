@@ -1,0 +1,508 @@
+get:
+  summary: List evidence types
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    creation_date:
+                      type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  - id: 1
+                    name: Unspecified
+                    description: Unspecified
+                    creation_date: '2023-11-29T10:28:30.448583'
+                  - id: 2
+                    name: HDD image - Generic
+                    description: Generic copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.764707'
+                  - id: 3
+                    name: HDD image - DD - Other
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.768152'
+                  - id: 4
+                    name: HDD image - DD - Windows
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.777829'
+                  - id: 5
+                    name: HDD image - DD - Unix
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.785553'
+                  - id: 6
+                    name: HDD image - DD - MacOS
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.794414'
+                  - id: 7
+                    name: HDD image - E01 - Other
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.800029'
+                  - id: 8
+                    name: HDD image - E01 - Windows
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.803284'
+                  - id: 9
+                    name: HDD image - E01 - Unix
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.806221'
+                  - id: 10
+                    name: HDD image - E01 - MacOS
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.809047'
+                  - id: 11
+                    name: HDD image - AFF4 - Other
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.811984'
+                  - id: 12
+                    name: HDD image - AFF4 - Windows
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.814682'
+                  - id: 13
+                    name: HDD image - AFF4 - Unix
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.817469'
+                  - id: 14
+                    name: HDD image - AFF4 - MacOS
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.820104'
+                  - id: 15
+                    name: SSD image - Generic
+                    description: Generic copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.822762'
+                  - id: 16
+                    name: SSD image - DD - Other
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.825339'
+                  - id: 17
+                    name: SSD image - DD - Windows
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.827840'
+                  - id: 18
+                    name: SSD image - DD - Unix
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.830378'
+                  - id: 19
+                    name: SSD image - DD - MacOS
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.832702'
+                  - id: 20
+                    name: SSD image - E01 - Other
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.835493'
+                  - id: 21
+                    name: SSD image - E01 - Windows
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.838210'
+                  - id: 22
+                    name: SSD image - E01 - Unix
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.840994'
+                  - id: 23
+                    name: SSD image - E01 - MacOS
+                    description: EO1 copy of MacOS on a solid state drive
+                    creation_date: '2023-11-29T10:28:30.843876'
+                  - id: 24
+                    name: SSD image - AFF4 - Other
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.846797'
+                  - id: 25
+                    name: SSD image - AFF4 - Windows
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.849600'
+                  - id: 26
+                    name: SSD image - AFF4 - Unix
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.852251'
+                  - id: 27
+                    name: SSD image - AFF4 - MacOS
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.855217'
+                  - id: 28
+                    name: VM image - Generic
+                    description: 'Generic copy of a VM '
+                    creation_date: '2023-11-29T10:28:30.858080'
+                  - id: 29
+                    name: VM image - Linux Server
+                    description: Copy of a Linux Server VM
+                    creation_date: '2023-11-29T10:28:30.861149'
+                  - id: 30
+                    name: VM image - Windows Server
+                    description: Copy of a Windows Server VM
+                    creation_date: '2023-11-29T10:28:30.864715'
+                  - id: 31
+                    name: Phone Image - Android
+                    description: Copy of an Android phone
+                    creation_date: '2023-11-29T10:28:30.868405'
+                  - id: 32
+                    name: Phone Image - iPhone
+                    description: Copy of an iPhone
+                    creation_date: '2023-11-29T10:28:30.873334'
+                  - id: 33
+                    name: Phone backup - Android (adb)
+                    description: adb backup of an Android
+                    creation_date: '2023-11-29T10:28:30.876699'
+                  - id: 34
+                    name: Phone backup - iPhone (iTunes)
+                    description: iTunes backup of an iPhone
+                    creation_date: '2023-11-29T10:28:30.879779'
+                  - id: 35
+                    name: Tablet Image - Android
+                    description: Copy of an Android tablet
+                    creation_date: '2023-11-29T10:28:30.882645'
+                  - id: 36
+                    name: Tablet Image - iPad
+                    description: Copy of an iPad tablet
+                    creation_date: '2023-11-29T10:28:30.885351'
+                  - id: 37
+                    name: Tablet backup - Android (adb)
+                    description: adb backup of an Android tablet
+                    creation_date: '2023-11-29T10:28:30.888168'
+                  - id: 38
+                    name: Tablet backup - iPad (iTunes)
+                    description: iTunes backup of an iPad
+                    creation_date: '2023-11-29T10:28:30.890747'
+                  - id: 39
+                    name: Collection - Velociraptor
+                    description: Velociraptor collection
+                    creation_date: '2023-11-29T10:28:30.893125'
+                  - id: 40
+                    name: Collection - ORC
+                    description: ORC collection
+                    creation_date: '2023-11-29T10:28:30.896533'
+                  - id: 41
+                    name: Collection - KAPE
+                    description: KAPE collection
+                    creation_date: '2023-11-29T10:28:30.899316'
+                  - id: 42
+                    name: Memory acquisition - Physical RAM
+                    description: Physical RAM acquisition
+                    creation_date: '2023-11-29T10:28:30.901923'
+                  - id: 43
+                    name: Memory acquisition - VMEM
+                    description: vmem file
+                    creation_date: '2023-11-29T10:28:30.904445'
+                  - id: 44
+                    name: Logs - Linux
+                    description: Standard Linux logs
+                    creation_date: '2023-11-29T10:28:30.906868'
+                  - id: 45
+                    name: Logs - Windows EVTX
+                    description: Standard Windows EVTX logs
+                    creation_date: '2023-11-29T10:28:30.909559'
+                  - id: 46
+                    name: Logs - Windows EVT
+                    description: Standard Windows EVT logs
+                    creation_date: '2023-11-29T10:28:30.912298'
+                  - id: 47
+                    name: Logs - MacOS
+                    description: Standard MacOS logs
+                    creation_date: '2023-11-29T10:28:30.915390'
+                  - id: 48
+                    name: Logs - Generic
+                    description: Generic logs
+                    creation_date: '2023-11-29T10:28:30.918916'
+                  - id: 49
+                    name: Logs - Firewall
+                    description: Firewall logs
+                    creation_date: '2023-11-29T10:28:30.921878'
+                  - id: 50
+                    name: Logs - Proxy
+                    description: Proxy logs
+                    creation_date: '2023-11-29T10:28:30.924702'
+                  - id: 51
+                    name: Logs - DNS
+                    description: DNS logs
+                    creation_date: '2023-11-29T10:28:30.927599'
+                  - id: 52
+                    name: Logs - Email
+                    description: Email logs
+                    creation_date: '2023-11-29T10:28:30.930438'
+                  - id: 53
+                    name: Executable - Windows (PE)
+                    description: Generic Windows executable
+                    creation_date: '2023-11-29T10:28:30.933774'
+                  - id: 54
+                    name: Executable - Linux (ELF)
+                    description: Generic Linux executable
+                    creation_date: '2023-11-29T10:28:30.936884'
+                  - id: 55
+                    name: Executable - MacOS (Mach-O)
+                    description: Generic MacOS executable
+                    creation_date: '2023-11-29T10:28:30.939526'
+                  - id: 56
+                    name: Executable - Generic
+                    description: Generic executable
+                    creation_date: '2023-11-29T10:28:30.942070'
+                  - id: 57
+                    name: Script - Generic
+                    description: Generic script
+                    creation_date: '2023-11-29T10:28:30.944690'
+                  - id: 58
+                    name: Generic - Data blob
+                    description: Generic blob of data
+                    creation_date: '2023-11-29T10:28:30.947365'
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - id: 1
+                    name: Unspecified
+                    description: Unspecified
+                    creation_date: '2023-11-29T10:28:30.448583'
+                  - id: 2
+                    name: HDD image - Generic
+                    description: Generic copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.764707'
+                  - id: 3
+                    name: HDD image - DD - Other
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.768152'
+                  - id: 4
+                    name: HDD image - DD - Windows
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.777829'
+                  - id: 5
+                    name: HDD image - DD - Unix
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.785553'
+                  - id: 6
+                    name: HDD image - DD - MacOS
+                    description: DD copy of an hard drive
+                    creation_date: '2023-11-29T10:28:30.794414'
+                  - id: 7
+                    name: HDD image - E01 - Other
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.800029'
+                  - id: 8
+                    name: HDD image - E01 - Windows
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.803284'
+                  - id: 9
+                    name: HDD image - E01 - Unix
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.806221'
+                  - id: 10
+                    name: HDD image - E01 - MacOS
+                    description: E01 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.809047'
+                  - id: 11
+                    name: HDD image - AFF4 - Other
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.811984'
+                  - id: 12
+                    name: HDD image - AFF4 - Windows
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.814682'
+                  - id: 13
+                    name: HDD image - AFF4 - Unix
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.817469'
+                  - id: 14
+                    name: HDD image - AFF4 - MacOS
+                    description: AFF4 acquisition of an hard drive
+                    creation_date: '2023-11-29T10:28:30.820104'
+                  - id: 15
+                    name: SSD image - Generic
+                    description: Generic copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.822762'
+                  - id: 16
+                    name: SSD image - DD - Other
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.825339'
+                  - id: 17
+                    name: SSD image - DD - Windows
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.827840'
+                  - id: 18
+                    name: SSD image - DD - Unix
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.830378'
+                  - id: 19
+                    name: SSD image - DD - MacOS
+                    description: DD copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.832702'
+                  - id: 20
+                    name: SSD image - E01 - Other
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.835493'
+                  - id: 21
+                    name: SSD image - E01 - Windows
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.838210'
+                  - id: 22
+                    name: SSD image - E01 - Unix
+                    description: EO1 copy of a solid state drive
+                    creation_date: '2023-11-29T10:28:30.840994'
+                  - id: 23
+                    name: SSD image - E01 - MacOS
+                    description: EO1 copy of MacOS on a solid state drive
+                    creation_date: '2023-11-29T10:28:30.843876'
+                  - id: 24
+                    name: SSD image - AFF4 - Other
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.846797'
+                  - id: 25
+                    name: SSD image - AFF4 - Windows
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.849600'
+                  - id: 26
+                    name: SSD image - AFF4 - Unix
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.852251'
+                  - id: 27
+                    name: SSD image - AFF4 - MacOS
+                    description: AFF4 copy of an solid state drive
+                    creation_date: '2023-11-29T10:28:30.855217'
+                  - id: 28
+                    name: VM image - Generic
+                    description: 'Generic copy of a VM '
+                    creation_date: '2023-11-29T10:28:30.858080'
+                  - id: 29
+                    name: VM image - Linux Server
+                    description: Copy of a Linux Server VM
+                    creation_date: '2023-11-29T10:28:30.861149'
+                  - id: 30
+                    name: VM image - Windows Server
+                    description: Copy of a Windows Server VM
+                    creation_date: '2023-11-29T10:28:30.864715'
+                  - id: 31
+                    name: Phone Image - Android
+                    description: Copy of an Android phone
+                    creation_date: '2023-11-29T10:28:30.868405'
+                  - id: 32
+                    name: Phone Image - iPhone
+                    description: Copy of an iPhone
+                    creation_date: '2023-11-29T10:28:30.873334'
+                  - id: 33
+                    name: Phone backup - Android (adb)
+                    description: adb backup of an Android
+                    creation_date: '2023-11-29T10:28:30.876699'
+                  - id: 34
+                    name: Phone backup - iPhone (iTunes)
+                    description: iTunes backup of an iPhone
+                    creation_date: '2023-11-29T10:28:30.879779'
+                  - id: 35
+                    name: Tablet Image - Android
+                    description: Copy of an Android tablet
+                    creation_date: '2023-11-29T10:28:30.882645'
+                  - id: 36
+                    name: Tablet Image - iPad
+                    description: Copy of an iPad tablet
+                    creation_date: '2023-11-29T10:28:30.885351'
+                  - id: 37
+                    name: Tablet backup - Android (adb)
+                    description: adb backup of an Android tablet
+                    creation_date: '2023-11-29T10:28:30.888168'
+                  - id: 38
+                    name: Tablet backup - iPad (iTunes)
+                    description: iTunes backup of an iPad
+                    creation_date: '2023-11-29T10:28:30.890747'
+                  - id: 39
+                    name: Collection - Velociraptor
+                    description: Velociraptor collection
+                    creation_date: '2023-11-29T10:28:30.893125'
+                  - id: 40
+                    name: Collection - ORC
+                    description: ORC collection
+                    creation_date: '2023-11-29T10:28:30.896533'
+                  - id: 41
+                    name: Collection - KAPE
+                    description: KAPE collection
+                    creation_date: '2023-11-29T10:28:30.899316'
+                  - id: 42
+                    name: Memory acquisition - Physical RAM
+                    description: Physical RAM acquisition
+                    creation_date: '2023-11-29T10:28:30.901923'
+                  - id: 43
+                    name: Memory acquisition - VMEM
+                    description: vmem file
+                    creation_date: '2023-11-29T10:28:30.904445'
+                  - id: 44
+                    name: Logs - Linux
+                    description: Standard Linux logs
+                    creation_date: '2023-11-29T10:28:30.906868'
+                  - id: 45
+                    name: Logs - Windows EVTX
+                    description: Standard Windows EVTX logs
+                    creation_date: '2023-11-29T10:28:30.909559'
+                  - id: 46
+                    name: Logs - Windows EVT
+                    description: Standard Windows EVT logs
+                    creation_date: '2023-11-29T10:28:30.912298'
+                  - id: 47
+                    name: Logs - MacOS
+                    description: Standard MacOS logs
+                    creation_date: '2023-11-29T10:28:30.915390'
+                  - id: 48
+                    name: Logs - Generic
+                    description: Generic logs
+                    creation_date: '2023-11-29T10:28:30.918916'
+                  - id: 49
+                    name: Logs - Firewall
+                    description: Firewall logs
+                    creation_date: '2023-11-29T10:28:30.921878'
+                  - id: 50
+                    name: Logs - Proxy
+                    description: Proxy logs
+                    creation_date: '2023-11-29T10:28:30.924702'
+                  - id: 51
+                    name: Logs - DNS
+                    description: DNS logs
+                    creation_date: '2023-11-29T10:28:30.927599'
+                  - id: 52
+                    name: Logs - Email
+                    description: Email logs
+                    creation_date: '2023-11-29T10:28:30.930438'
+                  - id: 53
+                    name: Executable - Windows (PE)
+                    description: Generic Windows executable
+                    creation_date: '2023-11-29T10:28:30.933774'
+                  - id: 54
+                    name: Executable - Linux (ELF)
+                    description: Generic Linux executable
+                    creation_date: '2023-11-29T10:28:30.936884'
+                  - id: 55
+                    name: Executable - MacOS (Mach-O)
+                    description: Generic MacOS executable
+                    creation_date: '2023-11-29T10:28:30.939526'
+                  - id: 56
+                    name: Executable - Generic
+                    description: Generic executable
+                    creation_date: '2023-11-29T10:28:30.942070'
+                  - id: 57
+                    name: Script - Generic
+                    description: Generic script
+                    creation_date: '2023-11-29T10:28:30.944690'
+                  - id: 58
+                    name: Generic - Data blob
+                    description: Generic blob of data
+                    creation_date: '2023-11-29T10:28:30.947365'
+  operationId: get-evidence-types-list
+  description: 'List the evidence types. '
+  tags:
+    - Manage evidence types
+parameters: []

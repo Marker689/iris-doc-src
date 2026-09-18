@@ -1,0 +1,5 @@
+in: query
+name: severity_id
+schema:
+  $ref: ../../schemas/severity_id.yaml
+

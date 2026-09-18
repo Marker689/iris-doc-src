@@ -1,0 +1,53 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_users_(identifier)_api-keys_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: List a user's named API keys (admin)
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/UserApiKey.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_manage_users_(identifier)_api-keys_post
+  tags:
+    - Manage Users
+    - Beta
+  summary: Mint a named, scope-restricted API key for a user (admin)
+  description: 'Response body includes the plaintext `api_key` once — the admin
+
+    should hand it off through a secure channel; it isn''t retrievable
+
+    afterwards. `scope_mask` optional: integer bitmask of `Permissions`
+
+    values AND-ed with the target user''s effective mask on every
+
+    request authenticated with the key.'
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/UserApiKey.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

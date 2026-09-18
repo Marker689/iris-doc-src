@@ -1,0 +1,35 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_users_(identifier)_api-key_renew_post
+  tags:
+    - Manage Users
+    - Beta
+  summary: Renew a user's API key
+  description: Rotate the user's API key. The new key is returned in the response body only once — it is not surfaced again on subsequent reads. The request body is ignored.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    '200':
+      description: API key successfully renewed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              user:
+                type: string
+              api_key:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

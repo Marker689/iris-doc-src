@@ -1,0 +1,34 @@
+get:
+  operationId: api_v2_case-chat_global_conversations_get
+  tags:
+    - Case chat
+    - Beta
+  summary: List the caller's global (no-case-scope) chat conversations
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_case-chat_global_conversations_post
+  tags:
+    - Case chat
+    - Beta
+  summary: Start a new global (no-case-scope) chat conversation
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/CaseChatConversation.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

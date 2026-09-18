@@ -1,0 +1,37 @@
+get:
+  operationId: api_v2_dashboard_kpis_get
+  tags:
+    - Dashboard
+    - Beta
+  summary: Get dashboard KPIs
+  description: Returns the compact KPI block used by the home page tile (assigned alerts, open cases, cases closed in the last 30 days). The full Statistics page is served by the seeded custom dashboard, not by this endpoint.
+  responses:
+    '200':
+      description: Dashboard KPI block
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              assigned_alerts:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  filter:
+                    type: object
+                    properties:
+                      alert_owner_id:
+                        type: integer
+                      alert_status_id:
+                        type: array
+                        items:
+                          type: integer
+              open_cases_count:
+                type: integer
+              cases_closed_last_30d:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

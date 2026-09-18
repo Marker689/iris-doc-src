@@ -1,0 +1,18 @@
+post:
+  operationId: api_v2_auth_logout_post
+  tags:
+    - Authentication
+    - Beta
+  summary: Log the current user out
+  description: >-
+    Invalidate the current session (and, when OIDC is enabled, redirect to
+    the IdP's end-session endpoint). The associated JWT refresh token
+    should be discarded client-side; access tokens naturally expire at
+    their configured lifetime.
+  responses:
+    '204':
+      description: Logout successful — no content
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

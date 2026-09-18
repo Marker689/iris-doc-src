@@ -1,0 +1,81 @@
+parameters: []
+post:
+  summary: Add a new notes group
+  operationId: post-case-notes-addgroup
+  tags:
+    - Notes
+  responses:
+    '200':
+      description: Upon success, returns the new added group information
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  group_lastupdate:
+                    type: string
+                  group_uuid:
+                    type: string
+                  group_title:
+                    type: string
+                  group_creationdate:
+                    type: string
+                  group_id:
+                    type: integer
+            x-examples:
+              Example 1:
+                status: success
+                message: Notes group added
+                data:
+                  group_lastupdate: '2024-01-09T15:16:19.352384'
+                  group_uuid: f337d1cb-216b-4d21-8051-cbcead9bcb4c
+                  group_title: Test
+                  group_creationdate: '2024-01-09T15:16:19.352384'
+                  group_id: 1692
+          examples:
+            Example:
+              value:
+                status: success
+                message: Notes group added
+                data:
+                  group_lastupdate: '2024-01-09T15:16:19.352384'
+                  group_uuid: f337d1cb-216b-4d21-8051-cbcead9bcb4c
+                  group_title: Test
+                  group_creationdate: '2024-01-09T15:16:19.352384'
+                  group_id: 1692
+  description: This endpoint is deprecated. Use [POST /cases/notes/directories/add](#tag/Notes/operation/post-case-notes-add-directory) instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              group_title: Test
+              cid: 5
+          properties:
+            group_title:
+              type: string
+              minLength: 1
+        examples:
+          Add test group:
+            value:
+              group_title: Test
+    description: If the group title isn't set, a default group name is set by the server.

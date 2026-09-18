@@ -1,0 +1,26 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: key_id
+    in: path
+    required: true
+    schema:
+      type: integer
+delete:
+  operationId: api_v2_manage_users_(identifier)_api-keys_(key_id)_delete
+  tags:
+    - Manage Users
+    - Beta
+  summary: Revoke a user's named API key (admin, idempotent)
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

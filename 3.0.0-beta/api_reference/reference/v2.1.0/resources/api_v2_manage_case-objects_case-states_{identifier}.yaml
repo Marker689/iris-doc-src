@@ -1,0 +1,88 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-objects_case-states_(identifier)_get
+  tags:
+    - Case objects
+    - Beta
+  summary: Get a case state
+  description: Get a single case state by its identifier.
+  responses:
+    '200':
+      description: Case state successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              state_id:
+                type: integer
+              state_name:
+                type: string
+              state_description:
+                type: string
+              protected:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-objects_case-states_(identifier)_put
+  tags:
+    - Case objects
+    - Beta
+  summary: Update a case state
+  description: Update an existing case state. Any subset of writable fields can be sent.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            state_name:
+              type: string
+            state_description:
+              type: string
+        example:
+          state_name: Waiting for feedback
+  responses:
+    '200':
+      description: Case state successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              state_id:
+                type: integer
+              state_name:
+                type: string
+              state_description:
+                type: string
+              protected:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-objects_case-states_(identifier)_delete
+  tags:
+    - Case objects
+    - Beta
+  summary: Delete a case state
+  description: Delete a case state. Fails with 400 for protected (seeded) states and for states still referenced by any case.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

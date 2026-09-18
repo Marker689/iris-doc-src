@@ -1,0 +1,70 @@
+parameters:
+  - in: path
+    name: key
+    required: true
+    description: The preference key. Must match `^[a-z][a-z0-9_-]{0,63}$`.
+    schema:
+      type: string
+get:
+  operationId: api_v2_manage_users_me_preferences_(key)_get
+  tags:
+    - Manage Users
+    - Beta
+  summary: Get a preference
+  description: Return the value of a single top-level key in the current user's preferences bag. Returns `null` when the key is unset.
+  responses:
+    '200':
+      description: Preference successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              key:
+                type: string
+              value: {}
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_users_me_preferences_(key)_put
+  tags:
+    - Manage Users
+    - Beta
+  summary: Set a preference
+  description: Set the value of a single top-level key in the current user's preferences bag. Passing `null` as the value removes the key from the bag. Values are stored verbatim.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - value
+          properties:
+            value: {}
+        example:
+          value:
+            layout: compact
+            columns:
+              - name
+              - status
+  responses:
+    '200':
+      description: Preference successfully saved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              key:
+                type: string
+              value: {}
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

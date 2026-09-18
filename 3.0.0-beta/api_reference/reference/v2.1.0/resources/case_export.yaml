@@ -1,0 +1,1620 @@
+get:
+  summary: Export a case as JSON
+  operationId: get-case-export
+  description: >-
+    Export a case in JSON format including all the information such as assets,
+    iocs, etc. This request can take a very long time depending on the size of
+    the case and is DB intensive.  
+
+    The datastore is not part of the response and needs to be requested
+    manually.     
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: ID Of the case to export
+      required: true
+  tags:
+    - Cases
+  responses:
+    '200':
+      description: 'OK: returns a full export of the case without the files in the datastore'
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  case:
+                    client:
+                      customer_name: irisinitialclient300
+                      customer_description: null
+                      customer_sla: null
+                      customer_id: 1
+                      client_uuid: be6bb7a3-ba21-4946-8992-45213de680ad
+                      creation_date: '2024-03-18T08:34:33.855919'
+                      last_update_date: '2024-03-18T08:34:33.855919'
+                      custom_attributes: null
+                    owner:
+                      id: 1
+                      user_name: administrator
+                      user_login: administrator
+                      user_email: administrator@localhost
+                    classification:
+                      name: other:other
+                      name_expanded: 'Other: other'
+                      description: >-
+                        All incidents that do not fit in one of the given
+                        categories should be put into this class. If the number
+                        of incidents in this category increases, it is an
+                        indicator that the classification scheme must be
+                        revised.
+                      id: 36
+                      creation_date: '2024-03-18T08:34:32.675030'
+                    state:
+                      state_name: Open
+                      state_description: Case is open
+                      state_id: 3
+                      protected: true
+                    tags:
+                      - tag_title: tag1
+                        id: 5
+                      - tag_title: tag2
+                        id: 6
+                    user:
+                      id: 1
+                      user_name: administrator
+                      user_login: administrator
+                      user_email: administrator@localhost
+                    reviewer: null
+                    review_status: null
+                    severity: null
+                    status_name: unknown
+                    protagonists: []
+                    alerts:
+                      - 22
+                      - 20
+                      - 46
+                      - 142
+                      - 118
+                      - 140
+                      - 68
+                      - 94
+                      - 116
+                      - 70
+                      - 92
+                      - 44
+                    case_id: 1
+                    soc_id: soc_id_demo
+                    client_id: 1
+                    name: '#1 - Dummy name'
+                    description: Dummy description
+                    open_date: '2024-03-18'
+                    close_date: null
+                    initial_date: '2024-03-18T08:34:33.862920'
+                    closing_note: null
+                    user_id: 1
+                    owner_id: 1
+                    status_id: 0
+                    state_id: 3
+                    custom_attributes: null
+                    case_uuid: 932fe26f-50e0-472b-a4d6-e576578f9a18
+                    classification_id: 36
+                    reviewer_id: null
+                    review_status_id: null
+                    severity_id: null
+                    modification_history: {}
+                    note_directories:
+                      - 1
+                      - 4
+                      - 2
+                      - 3
+                      - 5
+                      - 7
+                  evidences:
+                    - filename: dummy file
+                      date_added: '2024-03-21T09:24:00.945016'
+                      file_hash: >-
+                        C417B856459BC5D82E4E6C35F8DCC0C01A20CCF1A1F9AB8240A2870204B9A966
+                      added_by: administrator
+                      custom_attributes: null
+                      file_uuid: 1954f7ac-1946-4255-a5a2-9f55e3f4935f
+                      id: 1
+                      file_size: 77143
+                    - filename: dummy file
+                      date_added: '2024-03-23T09:34:30.198322'
+                      file_hash: >-
+                        88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+                      added_by: administrator
+                      custom_attributes: null
+                      file_uuid: eae4e269-9e46-42f3-8626-b1bbebb23785
+                      id: 34
+                      file_size: 77108
+                  timeline:
+                    - event_id: 88
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 96730e40-0de9-4bb4-97df-954e2e5f079f
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 16
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: a9025fba-354f-4865-8890-932f73fa0a41
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 53
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: ecd0f42d-53a6-43ed-87da-1bc731a695be
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 70
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 0d36e81b-1fbe-464c-968c-f6019e7e920c
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 105
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 548ad69f-7f82-4a88-9415-32b974fe9b96
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 87
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 44dc9b10-2d30-43bd-bb5f-7aec439c844a
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 35
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 274cd72b-e133-4d3f-999c-839321f649d6
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 106
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: fd2232bc-6188-429b-992d-f3fde7a1bae2
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 17
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: bdb78e95-d6bf-4075-ac38-7d843a92f8d4
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 89
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: a912ac40-6d72-4e37-9d13-35da374e8ec1
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 33
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 29073f55-cb89-4939-83b9-f08cc2a1fe84
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 34
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: c502b95a-0413-485b-8e80-6f3e101de7c3
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 71
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 82565abe-7584-4475-977e-62c92cc8cf8c
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 15
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 47e3f07b-1569-45e2-bc69-daa2bff418ff
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 107
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: f14ce7fc-7919-4b77-81e4-99ea18178407
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 52
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 24af1c39-8995-4f72-bda4-24a484ed9d36
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 51
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: f92f599d-105a-4f2c-a7b2-0a6cc7078341
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 69
+                      event_title: '[ALERT] Super alert 5'
+                      event_in_summary: true
+                      event_date: '2023-03-26T03:00:30'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2023-03-26T03:00:30'
+                      event_content: This is a test alert
+                      event_tags: defender
+                      event_source: Test Source
+                      event_raw: '{}'
+                      custom_attributes: null
+                      category: null
+                      last_edited_by: administrator
+                      event_uuid: 969551ea-7910-439a-8110-2da7a36c8944
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 1
+                      event_title: dsaasd
+                      event_in_summary: false
+                      event_date: '2024-03-06T03:33:00'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-06T03:33:00'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 1b1185f6-7c30-4c63-b22b-20c94d95ac7f
+                      event_in_graph: true
+                      event_color: null
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 3
+                      event_title: dummy event
+                      event_in_summary: false
+                      event_date: '2024-03-21T09:12:59.776385'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-21T09:12:59.776385'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 2dd3d539-921d-427f-b285-c0141aaaaefd
+                      event_in_graph: true
+                      event_color: ''
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 5
+                      event_title: dummy event
+                      event_in_summary: false
+                      event_date: '2024-03-21T09:15:00.411243'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-21T09:15:00.411243'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 432e4ec4-39a5-4cce-b568-93941fc45674
+                      event_in_graph: true
+                      event_color: ''
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 7
+                      event_title: dummy event
+                      event_in_summary: false
+                      event_date: '2024-03-21T09:19:38.409298'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-21T09:19:38.409298'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 79b777a9-2644-4b3d-9846-6b8023c1ab50
+                      event_in_graph: true
+                      event_color: ''
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 9
+                      event_title: dummy event
+                      event_in_summary: false
+                      event_date: '2024-03-21T09:20:31.274028'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-21T09:20:31.274028'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 4577fb9f-da3d-4e9b-a446-04934674d1b4
+                      event_in_graph: true
+                      event_color: ''
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                    - event_id: 11
+                      event_title: dummy event
+                      event_in_summary: false
+                      event_date: '2024-03-21T09:21:43.551325'
+                      event_tz: '+00:00'
+                      event_date_wtz: '2024-03-21T09:21:43.551325'
+                      event_content: ''
+                      event_tags: ''
+                      event_source: ''
+                      event_raw: ''
+                      custom_attributes: {}
+                      category: Unspecified
+                      last_edited_by: administrator
+                      event_uuid: 16fbb9e4-65da-4dfc-a398-7b4ae7b0f6f8
+                      event_in_graph: true
+                      event_color: ''
+                      event_is_flagged: false
+                      assets: []
+                      iocs: []
+                  iocs:
+                    - ioc_value: dsaasdas
+                      type_name: authentihash
+                      ioc_tags: dsa
+                      ioc_description: dasdas
+                      custom_attributes: {}
+                      ioc_id: 3
+                      ioc_uuid: d1536920-7358-4d92-b061-336d73405aeb
+                      tlp_name: amber
+                      added_by: administrator
+                    - ioc_value: test
+                      type_name: authentihash
+                      ioc_tags: ''
+                      ioc_description: ''
+                      custom_attributes: {}
+                      ioc_id: 4
+                      ioc_uuid: c06b29e9-95de-421c-afd9-0c8cdfe4fd46
+                      tlp_name: amber
+                      added_by: administrator
+                    - ioc_value: >-
+                        C417B856459BC5D82E4E6C35F8DCC0C01A20CCF1A1F9AB8240A2870204B9A966
+                      type_name: sha256
+                      ioc_tags: datastore
+                      ioc_description: SHA256 of dummy file. Imported from datastore.
+                      custom_attributes: null
+                      ioc_id: 53
+                      ioc_uuid: df8cb1fb-5f4a-402b-abd5-931fee4a407b
+                      tlp_name: amber
+                      added_by: administrator
+                    - ioc_value: >-
+                        88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+                      type_name: sha256
+                      ioc_tags: datastore
+                      ioc_description: SHA256 of dummy file. Imported from datastore.
+                      custom_attributes: null
+                      ioc_id: 286
+                      ioc_uuid: 7c726e26-eb07-49a4-b802-e15466a4b73e
+                      tlp_name: amber
+                      added_by: administrator
+                  assets:
+                    - asset_id: 1
+                      asset_uuid: 842b6a91-384f-440e-90e9-8b047b968335
+                      asset_name: myasset
+                      asset_description: ''
+                      asset_compromise_status_id: 1
+                      type: Linux - Computer
+                      analysis_status: Started
+                      date_added: '2024-03-18T08:35:53.550141'
+                      asset_domain: ''
+                      asset_ip: 1.1.1.1
+                      asset_info: ''
+                      asset_tags: dsd
+                      custom_attributes: {}
+                      light_asset_description: ''
+                      asset_ioc: []
+                      asset_compromise_status: Compromised
+                  tasks:
+                    - task_title: dasas
+                      task_status: In progress
+                      task_tags: ''
+                      task_open_date: '2024-03-18T09:36:19.705123'
+                      task_close_date: null
+                      task_last_update: '2024-03-18T09:36:19.705123'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: dfa4e1ca-e24b-4376-b85b-f1d53e0d0981
+                      id: 1
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dsa
+                      task_status: On hold
+                      task_tags: ''
+                      task_open_date: '2024-03-18T09:36:34.063779'
+                      task_close_date: null
+                      task_last_update: '2024-03-18T09:36:34.063779'
+                      task_description: dsa
+                      custom_attributes: {}
+                      task_uuid: a84eb035-8b58-44d8-875c-4f30a49416c3
+                      id: 2
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:24:02.175803'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:01:56.856654'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 9fe2bc97-0e24-490e-a37d-b86fc7c13289
+                      id: 3
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-23T09:34:31.372107'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:00.859224'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 2060eab6-9d27-4317-83e4-579cf46391b6
+                      id: 51
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:32:23.685183'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:06.656190'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: eda52a99-7756-4539-b514-a73b64ad2684
+                      id: 33
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:24:10.826955'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:10.697594'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 067f4e22-4ce5-40ba-bd06-12d314b5123f
+                      id: 9
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-23T09:34:38.574508'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:14.722574'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 0f43bee5-0f6c-4110-a833-1830fc9b345c
+                      id: 57
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:26:36.787134'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:18.461499'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: e9c28320-fd71-4b68-a766-6e0cbe6e83fd
+                      id: 15
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-24T08:49:19.031395'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:22.316850'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 1262a44d-6d56-41b0-9ed0-be2be1858e74
+                      id: 63
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:33:13.617062'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:02:27.214159'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 46d96290-0930-436c-ac3d-f7851aa1471f
+                      id: 39
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:26:44.062844'
+                      task_close_date: null
+                      task_last_update: '2024-03-21T09:26:44.062844'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 47afad53-d01e-455a-b3ce-af17f05d0147
+                      id: 21
+                      task_assignees: []
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:32:16.531544'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:49:22.861647'
+                      task_description: |-
+                        ygi uyguyg ohb jhbiuhbo hb ouhbo uhb oiubhohubo uyh
+                        uyg oihpi u
+                        ouyf oiyg
+                        uyg uhg
+                        uyfg iuygu
+                        ugoi ughoi
+                      custom_attributes: {}
+                      task_uuid: bd03e8a9-b208-48d9-81ae-6dbdfb9816f0
+                      id: 27
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-21T09:33:20.792768'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:01:45.022397'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 9dfe50ea-8c5e-4deb-a670-6b705e59ee3c
+                      id: 45
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: dummy title
+                      task_status: To do
+                      task_tags: ''
+                      task_open_date: '2024-03-24T08:49:26.103349'
+                      task_close_date: null
+                      task_last_update: '2024-03-26T06:01:49.231280'
+                      task_description: ''
+                      custom_attributes: {}
+                      task_uuid: 619ceac1-c42c-4ac8-af1b-5497e66580c5
+                      id: 69
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                  comments: []
+                  notes:
+                    - directory:
+                        id: 5
+                        name: Dummy title
+                        parent_id: null
+                        case_id: 1
+                      note_id: 1
+                      note_uuid: b8391125-f446-40ec-b4cf-f610fefd0029
+                      note_title: New note
+                      note_content: |-
+                        Super note
+
+                        # hey hey
+                      note_user: 1
+                      note_creationdate: '2024-03-18T08:35:22.999299'
+                      note_lastupdate: '2024-03-18T08:35:22.999313'
+                      note_case_id: 1
+                      custom_attributes: null
+                      directory_id: 5
+                      modification_history: {}
+                      comments: []
+                  export_date: '2024-03-27T17:37:26.516383'
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - case
+                  - evidences
+                  - timeline
+                  - iocs
+                  - assets
+                  - tasks
+                  - comments
+                  - notes
+                  - export_date
+                properties:
+                  case:
+                    type: object
+                    required:
+                      - client
+                      - owner
+                      - classification
+                      - state
+                      - tags
+                      - user
+                      - reviewer
+                      - review_status
+                      - severity
+                      - status_name
+                      - protagonists
+                      - alerts
+                      - case_id
+                      - soc_id
+                      - client_id
+                      - name
+                      - description
+                      - open_date
+                      - close_date
+                      - initial_date
+                      - closing_note
+                      - user_id
+                      - owner_id
+                      - status_id
+                      - state_id
+                      - custom_attributes
+                      - case_uuid
+                      - classification_id
+                      - reviewer_id
+                      - review_status_id
+                      - severity_id
+                      - modification_history
+                      - note_directories
+                    properties:
+                      client:
+                        type: object
+                        required:
+                          - customer_name
+                          - customer_description
+                          - customer_sla
+                          - customer_id
+                          - client_uuid
+                          - creation_date
+                          - last_update_date
+                          - custom_attributes
+                        properties:
+                          customer_name:
+                            type: string
+                          customer_description:
+                            type: 'null'
+                          customer_sla:
+                            type: 'null'
+                          customer_id:
+                            type: integer
+                          client_uuid:
+                            type: string
+                          creation_date:
+                            type: string
+                          last_update_date:
+                            type: string
+                          custom_attributes:
+                            type: 'null'
+                      owner:
+                        type: object
+                        required:
+                          - id
+                          - user_name
+                          - user_login
+                          - user_email
+                        properties:
+                          id:
+                            type: integer
+                          user_name:
+                            type: string
+                          user_login:
+                            type: string
+                          user_email:
+                            type: string
+                      classification:
+                        type: object
+                        required:
+                          - name
+                          - name_expanded
+                          - description
+                          - id
+                          - creation_date
+                        properties:
+                          name:
+                            type: string
+                          name_expanded:
+                            type: string
+                          description:
+                            type: string
+                          id:
+                            type: integer
+                          creation_date:
+                            type: string
+                      state:
+                        type: object
+                        required:
+                          - state_name
+                          - state_description
+                          - state_id
+                          - protected
+                        properties:
+                          state_name:
+                            type: string
+                          state_description:
+                            type: string
+                          state_id:
+                            type: integer
+                          protected:
+                            type: boolean
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            tag_title:
+                              type: string
+                            id:
+                              type: integer
+                          required:
+                            - tag_title
+                            - id
+                      user:
+                        type: object
+                        required:
+                          - id
+                          - user_name
+                          - user_login
+                          - user_email
+                        properties:
+                          id:
+                            type: integer
+                          user_name:
+                            type: string
+                          user_login:
+                            type: string
+                          user_email:
+                            type: string
+                      reviewer:
+                        type: 'null'
+                      review_status:
+                        type: 'null'
+                      severity:
+                        type: 'null'
+                      status_name:
+                        type: string
+                      protagonists:
+                        type: array
+                        items:
+                          type: object
+                      alerts:
+                        type: array
+                        items:
+                          type: integer
+                      case_id:
+                        type: integer
+                      soc_id:
+                        type: string
+                      client_id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      open_date:
+                        type: string
+                      close_date:
+                        type: 'null'
+                      initial_date:
+                        type: string
+                      closing_note:
+                        type: 'null'
+                      user_id:
+                        type: integer
+                      owner_id:
+                        type: integer
+                      status_id:
+                        type: integer
+                      state_id:
+                        type: integer
+                      custom_attributes:
+                        type: 'null'
+                      case_uuid:
+                        type: string
+                      classification_id:
+                        type: integer
+                      reviewer_id:
+                        type: 'null'
+                      review_status_id:
+                        type: 'null'
+                      severity_id:
+                        type: 'null'
+                      modification_history:
+                        type: object
+                      note_directories:
+                        type: array
+                        items:
+                          type: integer
+                  evidences:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        filename:
+                          type: string
+                        date_added:
+                          type: string
+                        file_hash:
+                          type: string
+                        added_by:
+                          type: string
+                        custom_attributes:
+                          type: 'null'
+                        file_uuid:
+                          type: string
+                        id:
+                          type: integer
+                        file_size:
+                          type: integer
+                      required:
+                        - filename
+                        - date_added
+                        - file_hash
+                        - added_by
+                        - custom_attributes
+                        - file_uuid
+                        - id
+                        - file_size
+                  timeline:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        event_id:
+                          type: integer
+                        event_title:
+                          type: string
+                        event_in_summary:
+                          type: boolean
+                        event_date:
+                          type: string
+                        event_tz:
+                          type: string
+                        event_date_wtz:
+                          type: string
+                        event_content:
+                          type: string
+                        event_tags:
+                          type: string
+                        event_source:
+                          type: string
+                        event_raw:
+                          type: string
+                        custom_attributes:
+                          type: 'null'
+                        category:
+                          type:
+                            - 'null'
+                            - string
+                        last_edited_by:
+                          type: string
+                        event_uuid:
+                          type: string
+                        event_in_graph:
+                          type: boolean
+                        event_color:
+                          type:
+                            - 'null'
+                            - string
+                        event_is_flagged:
+                          type: boolean
+                        assets:
+                          type: array
+                          items:
+                            type: object
+                        iocs:
+                          type: array
+                          items:
+                            type: object
+                      required:
+                        - event_id
+                        - event_title
+                        - event_in_summary
+                        - event_date
+                        - event_tz
+                        - event_date_wtz
+                        - event_content
+                        - event_tags
+                        - event_source
+                        - event_raw
+                        - custom_attributes
+                        - category
+                        - last_edited_by
+                        - event_uuid
+                        - event_in_graph
+                        - event_color
+                        - event_is_flagged
+                        - assets
+                        - iocs
+                  iocs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ioc_value:
+                          type: string
+                        type_name:
+                          type: string
+                        ioc_tags:
+                          type: string
+                        ioc_description:
+                          type: string
+                        custom_attributes:
+                          type:
+                            - 'null'
+                            - object
+                        ioc_id:
+                          type: integer
+                        ioc_uuid:
+                          type: string
+                        tlp_name:
+                          type: string
+                        added_by:
+                          type: string
+                      required:
+                        - ioc_value
+                        - type_name
+                        - ioc_tags
+                        - ioc_description
+                        - custom_attributes
+                        - ioc_id
+                        - ioc_uuid
+                        - tlp_name
+                        - added_by
+                  assets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset_id:
+                          type: integer
+                        asset_uuid:
+                          type: string
+                        asset_name:
+                          type: string
+                        asset_description:
+                          type: string
+                        asset_compromise_status_id:
+                          type: integer
+                        type:
+                          type: string
+                        analysis_status:
+                          type: string
+                        date_added:
+                          type: string
+                        asset_domain:
+                          type: string
+                        asset_ip:
+                          type: string
+                        asset_info:
+                          type: string
+                        asset_tags:
+                          type: string
+                        custom_attributes:
+                          type: object
+                        light_asset_description:
+                          type: string
+                        asset_ioc:
+                          type: array
+                          items:
+                            type: object
+                        asset_compromise_status:
+                          type: string
+                      required:
+                        - asset_id
+                        - asset_uuid
+                        - asset_name
+                        - asset_description
+                        - asset_compromise_status_id
+                        - type
+                        - analysis_status
+                        - date_added
+                        - asset_domain
+                        - asset_ip
+                        - asset_info
+                        - asset_tags
+                        - custom_attributes
+                        - light_asset_description
+                        - asset_ioc
+                        - asset_compromise_status
+                  tasks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        task_title:
+                          type: string
+                        task_status:
+                          type: string
+                        task_tags:
+                          type: string
+                        task_open_date:
+                          type: string
+                        task_close_date:
+                          type: 'null'
+                        task_last_update:
+                          type: string
+                        task_description:
+                          type: string
+                        custom_attributes:
+                          type: object
+                        task_uuid:
+                          type: string
+                        id:
+                          type: integer
+                        task_assignees:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              user:
+                                type: string
+                              name:
+                                type: string
+                              id:
+                                type: integer
+                            required:
+                              - user
+                              - name
+                              - id
+                      required:
+                        - task_title
+                        - task_status
+                        - task_tags
+                        - task_open_date
+                        - task_close_date
+                        - task_last_update
+                        - task_description
+                        - custom_attributes
+                        - task_uuid
+                        - id
+                        - task_assignees
+                  comments:
+                    type: array
+                    items:
+                      type: object
+                  notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        directory:
+                          type: object
+                          required:
+                            - id
+                            - name
+                            - parent_id
+                            - case_id
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            parent_id:
+                              type: 'null'
+                            case_id:
+                              type: integer
+                        note_id:
+                          type: integer
+                        note_uuid:
+                          type: string
+                        note_title:
+                          type: string
+                        note_content:
+                          type: string
+                        note_user:
+                          type: integer
+                        note_creationdate:
+                          type: string
+                        note_lastupdate:
+                          type: string
+                        note_case_id:
+                          type: integer
+                        custom_attributes:
+                          type: 'null'
+                        directory_id:
+                          type: integer
+                        modification_history:
+                          type: object
+                        comments:
+                          type: array
+                          items:
+                            type: object
+                      required:
+                        - directory
+                        - note_id
+                        - note_uuid
+                        - note_title
+                        - note_content
+                        - note_user
+                        - note_creationdate
+                        - note_lastupdate
+                        - note_case_id
+                        - custom_attributes
+                        - directory_id
+                        - modification_history
+                        - comments
+                  export_date:
+                    type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  case:
+                    name: '#1 - Initial Demo'
+                    open_date: '2023-11-29'
+                    description: Dummy description
+                    soc_id: soc_id_demo
+                    opened_by: administrator
+                    for_customer: IrisInitialClient
+                    close_date: null
+                    custom_attributes: null
+                    case_id: 1
+                    case_uuid: da80a133-d3c2-40bd-a0ba-8966ef7679a3
+                    status_id: 0
+                    status_name: unknown
+                  evidences:
+                    - filename: A super evidence
+                      date_added: '2023-11-29T15:52:11.216704'
+                      file_hash: dhjajhdkadqw
+                      added_by: administrator
+                      custom_attributes: {}
+                      file_uuid: 6287ebbc-4332-4f37-b8d8-c9e70e238c08
+                      id: 1
+                      file_size: 0
+                  timeline:
+                    - event_id: 2
+                      event_title: A second event
+                      event_in_summary: true
+                      event_date: '2023-11-03T23:03:00.003000'
+                      event_tz: '+01:00'
+                      event_date_wtz: '2023-11-04T00:03:00.003000'
+                      event_content: Super event
+                      event_tags: logs
+                      event_source: MySource
+                      event_raw: Raw event log
+                      custom_attributes: {}
+                      category: Command and Control
+                      last_edited_by: administrator
+                      event_uuid: 7c8a624f-6017-4ccd-a93f-7ef702cc24dd
+                      event_in_graph: true
+                      event_color: '#F2596199'
+                      event_is_flagged: false
+                      assets:
+                        - LinuxServer (Linux - Server)
+                        - main_router (Router)
+                      iocs:
+                        - ioc_id: 1
+                          ioc_value: root
+                          ioc_description: ''
+                          tlp_name: amber
+                          type: account
+                    - event_id: 3
+                      event_title: 'A third event '
+                      event_in_summary: true
+                      event_date: '2023-11-03T23:03:00.003000'
+                      event_tz: '+01:00'
+                      event_date_wtz: '2023-11-04T00:03:00.003000'
+                      event_content: Super event
+                      event_tags: logs
+                      event_source: MySource
+                      event_raw: Raw event log
+                      custom_attributes: {}
+                      category: Command and Control
+                      last_edited_by: administrator
+                      event_uuid: 7c8a624f-6017-4ccd-a93f-7ef702cc24dd
+                      event_in_graph: true
+                      event_color: '#F2596199'
+                      event_is_flagged: false
+                      assets:
+                        - LinuxServer (Linux - Server)
+                        - main_router (Router)
+                      iocs:
+                        - ioc_id: 1
+                          ioc_value: root
+                          ioc_description: ''
+                          tlp_name: amber
+                          type: account
+                    - event_id: 1
+                      event_title: 'An event '
+                      event_in_summary: true
+                      event_date: '2023-11-09T23:03:00.003000'
+                      event_tz: '+01:00'
+                      event_date_wtz: '2023-11-10T00:03:00.003000'
+                      event_content: Super event
+                      event_tags: logs
+                      event_source: MySource
+                      event_raw: Raw event log
+                      custom_attributes: {}
+                      category: Command and Control
+                      last_edited_by: administrator
+                      event_uuid: 7c8a624f-6017-4ccd-a93f-7ef702cc24dd
+                      event_in_graph: true
+                      event_color: '#48ABF799'
+                      event_is_flagged: false
+                      assets:
+                        - LinuxServer (Linux - Server)
+                        - main_router (Router)
+                      iocs:
+                        - ioc_id: 1
+                          ioc_value: root
+                          ioc_description: ''
+                          tlp_name: amber
+                          type: account
+                  iocs:
+                    - ioc_value: root
+                      type_name: account
+                      ioc_tags: router
+                      ioc_description: ''
+                      custom_attributes: {}
+                      ioc_id: 1
+                      ioc_uuid: 94188da2-ca10-4299-ad73-0689719a61c3
+                      tlp_name: amber
+                      added_by: administrator
+                  assets:
+                    - asset_id: 1
+                      asset_uuid: 4c8211fb-676e-4d84-9164-2c62d2c82558
+                      asset_name: LinuxServer
+                      asset_description: 'The super service   '
+                      asset_compromise_status_id: 2
+                      type: Linux - Server
+                      analysis_status: Canceled
+                      date_added: '2023-11-29T15:40:13.759084'
+                      asset_domain: local.local
+                      asset_ip: 127.0.0.1
+                      asset_info: ''
+                      asset_tags: test
+                      custom_attributes: {}
+                      light_asset_description: 'The super service   '
+                      asset_ioc:
+                        - ioc_value: root
+                          type_name: account
+                          ioc_description: ''
+                      asset_compromise_status: Not Compromised
+                    - asset_id: 2
+                      asset_uuid: 7371f6fd-17dc-42d7-b21b-43824b71abb3
+                      asset_name: main_router
+                      asset_description: ''
+                      asset_compromise_status_id: 1
+                      type: Router
+                      analysis_status: To be done
+                      date_added: '2023-11-29T15:40:41.128370'
+                      asset_domain: local.local
+                      asset_ip: 192.168.1.3
+                      asset_info: ''
+                      asset_tags: router
+                      custom_attributes: {}
+                      light_asset_description: ''
+                      asset_ioc:
+                        - ioc_value: root
+                          type_name: account
+                          ioc_description: ''
+                      asset_compromise_status: Compromised
+                  tasks:
+                    - task_title: A task
+                      task_status: In progress
+                      task_tags: task1
+                      task_open_date: '2023-11-29T15:48:49.811798'
+                      task_close_date: null
+                      task_last_update: '2023-11-29T15:48:49.811798'
+                      task_description: 'Task description    '
+                      custom_attributes: {}
+                      task_uuid: 0693c71b-b4f7-41cd-a12a-0dcd24519e7f
+                      id: 1
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                    - task_title: Another task
+                      task_status: To do
+                      task_tags: tas
+                      task_open_date: '2023-11-29T15:49:09.053863'
+                      task_close_date: null
+                      task_last_update: '2023-11-29T15:49:09.053863'
+                      task_description: Another task description
+                      custom_attributes: {}
+                      task_uuid: 6d27e7f2-3310-454e-aebf-00432ebbfb2d
+                      id: 2
+                      task_assignees:
+                        - user: administrator
+                          name: administrator
+                          id: 1
+                  comments: []
+                  notes:
+                    - note_title: Something else
+                      note_content: A nother note content
+                      note_creationdate: '2023-11-29T15:39:02.056124'
+                      note_lastupdate: '2023-11-29T15:39:30.039339'
+                      custom_attributes: {}
+                      note_id: 1
+                      note_uuid: 71a50086-2b11-4d80-8916-e94bd93ad28b
+                      group_title: A note group A
+                      group_id: 1
+                      group_user: 1
+                    - note_title: And another thing
+                      note_content: A note content
+                      note_creationdate: '2023-11-29T15:39:11.127181'
+                      note_lastupdate: '2023-11-29T15:39:23.065014'
+                      custom_attributes: {}
+                      note_id: 2
+                      note_uuid: 641943a8-767a-4789-a02c-1475243cbb37
+                      group_title: A note group B
+                      group_id: 2
+                      group_user: 1
+                  export_date: '2023-11-29T15:52:18.839881'
+parameters: []

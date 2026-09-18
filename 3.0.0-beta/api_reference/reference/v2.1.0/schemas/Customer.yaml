@@ -1,0 +1,34 @@
+type: object
+properties:
+  customer_name:
+    type: string
+  customer_description:
+    type:
+      - string
+      - 'null'
+  customer_sla:
+    type:
+      - string
+      - 'null'
+  customer_id:
+    type: integer
+  client_uuid:
+    type: string
+  creation_date:
+    $ref: ../schemas/iso_date.yaml
+  last_update_date:
+    $ref: ../schemas/iso_date.yaml
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+example:
+  customer_name: fsd
+  customer_description: fds
+  customer_sla: fds
+  customer_id: 8
+  client_uuid: d274194f-0e74-4ae5-9610-e2bf9735f10c
+  creation_date: '2023-03-20T13:25:57.930469'
+  last_update_date: '2023-03-20T13:25:57.930469'
+  custom_attributes: {}
+

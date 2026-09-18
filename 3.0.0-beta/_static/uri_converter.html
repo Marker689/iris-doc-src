@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IRIS URI Converter — legacy → v3</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --surface-alt: #f7f7f9;
+      --border: #e2e5ea;
+      --text: #1f2328;
+      --text-muted: #656d76;
+      --text-faint: #8b929c;
+      --code-bg: #f2f3f5;
+      --accent: #3f51b5;
+      --accent-hover: #303f9f;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --surface: #171a21;
+        --surface-alt: #1c2029;
+        --border: #2a303a;
+        --text: #e6edf3;
+        --text-muted: #9da7b1;
+        --text-faint: #6a737d;
+        --code-bg: #12151b;
+        --accent: #7986cb;
+        --accent-hover: #9fa8da;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+      font-size: 15px; line-height: 1.55;
+      min-height: 100vh;
+    }
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    header { margin-bottom: 2rem; }
+    header h1 {
+      font-size: 1.8rem; font-weight: 600; margin: 0 0 0.5rem;
+    }
+    header p {
+      color: var(--text-muted); margin: 0.25rem 0;
+    }
+    header p a { color: var(--accent); text-decoration: none; }
+    header p a:hover { text-decoration: underline; }
+
+    .input-block, .output-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .input-block label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+    .input-block textarea {
+      width: 100%;
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem; line-height: 1.55;
+      padding: 0.75rem; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--code-bg); color: var(--text);
+      resize: vertical; min-height: 130px;
+    }
+    .input-block textarea:focus {
+      outline: 2px solid var(--accent); outline-offset: -1px;
+      border-color: var(--accent);
+    }
+    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--surface-alt);
+      color: var(--text); padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500;
+      border-radius: 6px; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn--primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
+
+    .output-block { padding: 0; }
+    .output-block__label {
+      padding: 0.9rem 1.25rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-empty {
+      padding: 1.5rem 1.25rem;
+      color: var(--text-faint); font-style: italic;
+    }
+    .summary {
+      padding: 0.75rem 1.25rem;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    .summary strong { color: var(--text); font-weight: 600; }
+    .summary strong.sep { color: var(--text-faint); margin: 0 0.35rem; font-weight: 400; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) 28px minmax(0, 1fr);
+      gap: 1rem; align-items: center;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      border-left: 4px solid #b4bcc7;
+      transition: background-color 0.1s;
+    }
+    .row:hover { background: var(--surface-alt); }
+    .row:last-child { border-bottom: none; }
+    .row--mapped { border-left-color: #43a047; }
+    .row--removed { border-left-color: #e53935; }
+    .row--unmapped { border-left-color: #fb8c00; }
+    .row--nochange { border-left-color: #1e88e5; }
+
+    .badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 4px; color: #fff; text-align: center; letter-spacing: 0.03em;
+      min-width: 94px; box-sizing: border-box; text-transform: uppercase;
+    }
+    .badge--mapped { background: #43a047; }
+    .badge--removed { background: #e53935; }
+    .badge--unmapped { background: #fb8c00; }
+    .badge--nochange { background: #1e88e5; }
+
+    .uri-cell { min-width: 0; overflow: hidden; }
+    .arrow-cell { text-align: center; color: var(--text-faint); font-size: 1.1rem; }
+
+    .uri {
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem; line-height: 1.4;
+      display: inline-flex; align-items: center; max-width: 100%;
+      overflow: hidden;
+    }
+    .uri--legacy { color: var(--text-muted); }
+    .uri--new { color: var(--text); font-weight: 500; }
+    .uri--empty { color: var(--text-faint); font-style: italic; font-weight: 400; }
+    .uri__path {
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      padding: 2px 6px; border-radius: 3px;
+      background: var(--code-bg);
+    }
+    .uri--new .uri__path { background: transparent; padding-left: 0; }
+
+    .method {
+      display: inline-block; flex-shrink: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.68rem; font-weight: 700; padding: 2px 6px; border-radius: 3px;
+      margin-right: 8px; color: #fff; letter-spacing: 0.03em;
+      background: #607d8b;
+    }
+    .method--GET { background: #1e88e5; }
+    .method--POST { background: #43a047; }
+    .method--PUT { background: #fb8c00; }
+    .method--DELETE { background: #e53935; }
+    .method--PATCH { background: #8e24aa; }
+
+    .note {
+      grid-column: 2 / -1;
+      padding-top: 0.25rem;
+      color: var(--text-muted); font-size: 0.8rem; font-style: italic;
+    }
+
+    footer {
+      margin-top: 2rem; padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted); font-size: 0.85rem;
+    }
+    footer .legend {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin: 0.75rem 0;
+    }
+    footer .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+
+    @media (max-width: 900px) {
+      .row {
+        grid-template-columns: 110px minmax(0, 1fr);
+        row-gap: 0.5rem;
+      }
+      .arrow-cell { display: none; }
+      .uri-cell { grid-column: 2; }
+      .note { grid-column: 2 / -1; }
+      .uri__path { white-space: normal; overflow-wrap: anywhere; }
+    }
+    @media (max-width: 500px) {
+      .page { padding: 1rem 0.75rem 2rem; }
+      .row { grid-template-columns: 1fr; }
+      .uri-cell, .note { grid-column: 1; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>URI Converter — legacy → IRIS v3</h1>
+      <p>Paste one or more legacy IRIS URIs below (one per line). The converter maps each to its <code>/api/v2</code> replacement and flags anything removed in v3 or missing a direct equivalent.</p>
+      <p style="font-size:0.9rem;">See also: <a href="../api_reference/legacy_endpoints/">Legacy endpoints still live in IRIS v3</a> · <a href="../api_reference/reference/">Full API reference</a></p>
+    </header>
+
+    <div class="input-block">
+      <label for="uri-input"><strong>Paste legacy URIs (one per line)</strong></label>
+      <textarea id="uri-input" placeholder="POST /manage/cases/add
+GET /case/tasks/list
+POST /case/summary/update
+POST /alerts/escalate/42
+GET /api/v2/cases/17"></textarea>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" onclick="convertUris()">Convert</button>
+        <button type="button" class="btn" onclick="loadSample()">Load sample</button>
+        <button type="button" class="btn" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+
+    <div class="output-block">
+      <div class="output-block__label">Result</div>
+      <div id="output" class="output-empty">Paste URIs above and click <em>Convert</em>.</div>
+    </div>
+
+    <footer>
+      <strong>Legend</strong>
+      <div class="legend">
+        <div class="legend-item"><span class="badge badge--mapped">Mapped</span> Has a direct <code>/api/v2</code> replacement. The legacy path still works in v3 but the new one is preferred.</div>
+        <div class="legend-item"><span class="badge badge--removed">Removed</span> The endpoint is <strong>gone</strong> in v3 (returns 404). You must switch to the shown replacement.</div>
+        <div class="legend-item"><span class="badge badge--unmapped">No v2 yet</span> Still live in v3 but no <code>/api/v2</code> equivalent yet — keep using the legacy path.</div>
+        <div class="legend-item"><span class="badge badge--nochange">No change</span> Unchanged in v3 (either already <code>/api/v2</code>, or a stable non-versioned URL).</div>
+      </div>
+      <p style="margin-top:1.5rem;">
+        Case-scoped legacy paths took <code>?cid=&lt;id&gt;</code> as a query parameter. In v2, the case ID is a path parameter — substitute <code>{case_identifier}</code> with your case ID when calling the new path.
+      </p>
+    </footer>
+  </div>
+
+<script>
+"use strict";
+
+// Mapping schema — each entry:
+//   { pattern: regex with named captures, to: 'METHOD /new/path' | null,
+//     status: 'mapped'|'removed'|'nochange'|'unmapped', note?: string, removed?: boolean }
+const URI_MAP = [
+  // ---- REMOVED in v3 ----
+  { pattern: /^POST\s+\/case\/summary\/update$/i,
+    to: 'PUT /api/v2/cases/{case_identifier}',
+    status: 'mapped', removed: true,
+    note: 'Removed in v3. Update the case summary via the case update endpoint.' },
+  { pattern: /^POST\s+\/case\/timeline\/advanced-filter$/i,
+    to: 'GET /case/timeline/advanced-filter (query params) or /api/v2 filters',
+    status: 'removed',
+    note: 'The POST form was removed in v3. Use the GET form with query params, or the richer filters on /api/v2/cases and /api/v2/alerts.' },
+  { pattern: /^POST\s+\/manage\/access-control\/recompute-effective-user-ac\/(?<user_id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/users/{identifier}/recompute-access',
+    status: 'mapped', removed: true,
+    note: 'Removed in v3. For all users at once, use POST /api/v2/manage/access-control/recompute-all.' },
+  { pattern: /^GET\s+\/dim\/tasks\/limited-list$/i,
+    to: 'GET /api/v2/dim-tasks',
+    status: 'mapped', removed: true,
+    note: 'Removed in v3.' },
+
+  // ---- CASES (manage/cases) ----
+  { pattern: /^POST\s+\/manage\/cases\/add$/i, to: 'POST /api/v2/cases', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/cases\/list$/i, to: 'GET /api/v2/cases', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/cases\/filter$/i, to: 'GET /api/v2/cases/filter', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/cases\/close\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/cases/{id}/close', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/cases\/reopen\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/cases/{id}/reopen', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/cases\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/cases\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{id}', status: 'mapped' },
+
+  // ---- CASE assets ----
+  { pattern: /^GET\s+\/case\/assets\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/assets', status: 'mapped',
+    note: 'Case ID was implicit (?cid=) — now a path parameter.' },
+  { pattern: /^GET\s+\/case\/assets\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/assets/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/assets\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/assets', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/assets\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/assets/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/assets\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/assets/{id}', status: 'mapped' },
+
+  // ---- CASE IOCs ----
+  { pattern: /^GET\s+\/case\/ioc\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/iocs', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/ioc\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/iocs/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/ioc\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/iocs', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/ioc\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/iocs/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/ioc\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/iocs/{id}', status: 'mapped' },
+
+  // ---- CASE tasks ----
+  { pattern: /^GET\s+\/case\/tasks\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/tasks', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/tasks\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/tasks/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/tasks\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/tasks/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/tasks\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/tasks', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/tasks\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/tasks/{id}', status: 'mapped' },
+
+  // ---- CASE evidences ----
+  { pattern: /^GET\s+\/case\/evidences\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/evidences', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/evidences\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/evidences', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/evidences\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/cases/{case_identifier}/evidences/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/evidences\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{case_identifier}/evidences/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/evidences\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/evidences/{id}', status: 'mapped' },
+
+  // ---- CASE notes ----
+  { pattern: /^POST\s+\/case\/notes\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/notes', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/notes\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/cases/{case_identifier}/notes/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/notes/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{case_identifier}/notes/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/search$/i, to: 'GET /api/v2/cases/{case_identifier}/notes/search', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/notes\/groups\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/notes-directories', status: 'mapped',
+    note: '"Groups" are now "directories" — the tree is unified.' },
+  { pattern: /^GET\s+\/case\/notes\/groups\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/cases/{case_identifier}/notes-directories/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/notes\/directories\/filter$/i, to: 'GET /api/v2/cases/{case_identifier}/notes-directories', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/groups\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/notes-directories', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/directories\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/notes-directories', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/groups\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/notes-directories/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/directories\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/notes-directories/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/groups\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{case_identifier}/notes-directories/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/notes\/directories\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{case_identifier}/notes-directories/{id}', status: 'mapped' },
+
+  // ---- CASE timeline ----
+  { pattern: /^GET\s+\/case\/timeline\/events\/list$/i, to: 'GET /api/v2/cases/{case_identifier}/timelines', status: 'mapped',
+    note: 'v3 has multi-timeline support — each case can have multiple named timelines.' },
+  { pattern: /^GET\s+\/case\/timeline\/events\/list\/filter\/(?<asset_id>[^\/\s]+)$/i,
+    to: 'GET /api/v2/cases/{case_identifier}/timelines (filter by asset_ids query param)',
+    status: 'mapped' },
+  { pattern: /^GET\s+\/case\/timeline\/state$/i, to: null, status: 'unmapped',
+    note: 'No direct /api/v2 replacement yet — event/state polling is being redesigned.' },
+  { pattern: /^POST\s+\/case\/timeline\/events\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/events', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/timeline\/events\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/cases/{case_identifier}/events/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/timeline\/events\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/cases/{case_identifier}/events/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/timeline\/events\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/cases/{case_identifier}/events/{id}', status: 'mapped' },
+
+  // ---- CASE misc ----
+  { pattern: /^POST\s+\/case\/tasklog\/add$/i, to: null, status: 'unmapped',
+    note: 'No /api/v2 replacement yet — case activity log is still legacy-only.' },
+  { pattern: /^GET\s+\/case\/export$/i, to: null, status: 'unmapped',
+    note: 'No /api/v2 case export yet — for exportable reports use POST /api/v2/manage/report-templates/{identifier}/render.' },
+
+  // ---- CASE comments (generic /{object_name}/{object_id}/comments) ----
+  { pattern: /^POST\s+\/case\/(?<obj>[^\/\s]+)\/(?<oid>[^\/\s]+)\/comments\/add$/i,
+    to: 'POST /api/v2/{obj}/{oid}/comments', status: 'mapped',
+    note: 'obj must be a v2 object type: assets, iocs, notes, tasks, events, evidences, alerts.' },
+  { pattern: /^GET\s+\/case\/(?<obj>[^\/\s]+)\/(?<oid>[^\/\s]+)\/comments\/list$/i,
+    to: 'GET /api/v2/{obj}/{oid}/comments', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/(?<obj>[^\/\s]+)\/(?<oid>[^\/\s]+)\/comments\/(?<cid>[^\/\s]+)\/delete$/i,
+    to: 'DELETE /api/v2/{obj}/{oid}/comments/{cid}', status: 'mapped' },
+  { pattern: /^POST\s+\/case\/(?<obj>[^\/\s]+)\/(?<oid>[^\/\s]+)\/comments\/(?<cid>[^\/\s]+)\/edit$/i,
+    to: 'PUT /api/v2/{obj}/{oid}/comments/{cid}', status: 'mapped' },
+
+  // ---- ALERTS ----
+  { pattern: /^GET\s+\/alerts\/filter$/i, to: 'GET /api/v2/alerts (with query filters)', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/add$/i, to: 'POST /api/v2/alerts', status: 'mapped' },
+  { pattern: /^GET\s+\/alerts\/similarities\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/alerts/{id}/related-alerts', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/batch\/update$/i, to: 'PUT /api/v2/alerts/{id} (repeat per alert)', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/batch\/delete$/i, to: 'DELETE /api/v2/alerts/{id} (repeat per alert)', status: 'mapped' },
+  // Per-alert escalate/merge/unmerge migrate to the /api/v2/alerts/* namespace.
+  // Alert clusters (/api/v2/alert-clusters/*) are a separate concept, not a replacement.
+  { pattern: /^POST\s+\/alerts\/escalate\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/alerts/escalate/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/merge\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/alerts/merge/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/unmerge\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/alerts/unmerge/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/batch\/escalate$/i, to: 'POST /api/v2/alerts/batch/escalate', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/batch\/merge$/i, to: 'POST /api/v2/alerts/batch/merge', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/alerts/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/alerts\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/alerts/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/alerts\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/alerts/{id}', status: 'mapped' },
+
+  // ---- ALERTS saved-filters (moved from /api/v2/alerts-filters to /api/v2/alerts/filters) ----
+  { pattern: /^GET\s+\/api\/v2\/alerts-filters$/i, to: 'GET /api/v2/alerts/filters', status: 'mapped' },
+  { pattern: /^POST\s+\/api\/v2\/alerts-filters$/i, to: 'POST /api/v2/alerts/filters', status: 'mapped' },
+  { pattern: /^GET\s+\/api\/v2\/alerts-filters\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/alerts/filters/{id}', status: 'mapped' },
+  { pattern: /^PUT\s+\/api\/v2\/alerts-filters\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/alerts/filters/{id}', status: 'mapped' },
+  { pattern: /^DELETE\s+\/api\/v2\/alerts-filters\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/alerts/filters/{id}', status: 'mapped' },
+
+  // ---- DATASTORE (case-scoped in v3) ----
+  { pattern: /^GET\s+\/datastore\/list\/tree$/i, to: 'GET /api/v2/cases/{case_identifier}/datastore/tree', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/file\/add\/(?<parent>[^\/\s]+)$/i,
+    to: 'POST /api/v2/cases/{case_identifier}/datastore/folders/{parent}/files', status: 'mapped' },
+  { pattern: /^GET\s+\/datastore\/file\/info\/(?<id>[^\/\s]+)$/i,
+    to: 'GET /api/v2/cases/{case_identifier}/datastore/files/{id}/info', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/file\/update\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/cases/{case_identifier}/datastore/files/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/file\/delete\/(?<id>[^\/\s]+)$/i,
+    to: 'DELETE /api/v2/cases/{case_identifier}/datastore/files/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/datastore\/file\/view\/(?<id>[^\/\s]+)$/i,
+    to: 'GET /api/v2/cases/{case_identifier}/datastore/files/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/file\/move\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/cases/{case_identifier}/datastore/files/{id}/move', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/folder\/add$/i, to: 'POST /api/v2/cases/{case_identifier}/datastore/folders', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/folder\/delete\/(?<id>[^\/\s]+)$/i,
+    to: 'DELETE /api/v2/cases/{case_identifier}/datastore/folders/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/folder\/rename\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/cases/{case_identifier}/datastore/folders/{id}/rename', status: 'mapped' },
+  { pattern: /^POST\s+\/datastore\/folder\/move\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/cases/{case_identifier}/datastore/folders/{id}/move', status: 'mapped' },
+
+  // ---- DIM ----
+  { pattern: /^GET\s+\/dim\/tasks\/list\/(?<n>[^\/\s]+)$/i, to: 'GET /api/v2/dim-tasks (use per_page={n})', status: 'mapped' },
+  { pattern: /^GET\s+\/dim\/hooks\/options\/(?<t>[^\/\s]+)\/list$/i, to: 'GET /api/v2/manage/modules/hooks', status: 'mapped',
+    note: 'Hooks are now surfaced through the modules subsystem — filter client-side by object type.' },
+  { pattern: /^POST\s+\/dim\/hooks\/call$/i, to: null, status: 'unmapped',
+    note: 'No /api/v2 replacement yet — hook invocation stays on the legacy endpoint.' },
+
+  // ---- GLOBAL tasks ----
+  { pattern: /^GET\s+\/global\/tasks\/list$/i, to: 'GET /api/v2/global-tasks', status: 'mapped' },
+  { pattern: /^POST\s+\/global\/tasks\/add$/i, to: 'POST /api/v2/global-tasks', status: 'mapped' },
+  { pattern: /^POST\s+\/global\/tasks\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/global-tasks/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/global\/tasks\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/global-tasks/{id}', status: 'mapped' },
+
+  // ---- MANAGE customers ----
+  { pattern: /^GET\s+\/manage\/customers\/list$/i, to: 'GET /api/v2/manage/customers', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/customers\/add$/i, to: 'POST /api/v2/manage/customers', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/customers\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/customers/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/customers\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/customers/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/customers\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/customers/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/customers\/(?<id>[^\/\s]+)\/contacts\/add$/i,
+    to: 'POST /api/v2/manage/customers/{id}/contacts', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/customers\/(?<id>[^\/\s]+)\/contacts\/(?<cid>[^\/\s]+)\/update$/i,
+    to: 'PUT /api/v2/manage/customers/{id}/contacts/{cid}', status: 'mapped' },
+
+  // ---- MANAGE users ----
+  { pattern: /^GET\s+\/manage\/users\/list$/i, to: 'GET /api/v2/manage/users', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/add$/i, to: 'POST /api/v2/manage/users', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/users\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/users/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/users/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/users/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/(?<id>[^\/\s]+)\/groups\/update$/i,
+    to: 'PUT /api/v2/manage/users/{id}/groups', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/(?<id>[^\/\s]+)\/cases-access\/update$/i,
+    to: 'POST /api/v2/manage/users/{id}/cases-access', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/users\/(?<id>[^\/\s]+)\/cases-access\/delete$/i,
+    to: 'DELETE /api/v2/manage/users/{id}/cases-access', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/users\/activate\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/users/{id}/activate', status: 'mapped',
+    note: 'Method changed from GET to POST.' },
+  { pattern: /^GET\s+\/manage\/users\/deactivate\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/users/{id}/deactivate', status: 'mapped',
+    note: 'Method changed from GET to POST.' },
+  { pattern: /^POST\s+\/manage\/users\/renew-api-key\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/users/{id}/api-key/renew', status: 'mapped' },
+
+  // ---- MANAGE groups ----
+  { pattern: /^GET\s+\/manage\/groups\/list$/i, to: 'GET /api/v2/manage/groups', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/add$/i, to: 'POST /api/v2/manage/groups', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/groups/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/groups/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/(?<id>[^\/\s]+)\/members\/update$/i,
+    to: 'PUT /api/v2/manage/groups/{id}/members', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/(?<id>[^\/\s]+)\/members\/delete\/(?<uid>[^\/\s]+)$/i,
+    to: 'DELETE /api/v2/manage/groups/{id}/members/{uid}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/(?<id>[^\/\s]+)\/cases-access\/update$/i,
+    to: 'POST /api/v2/manage/groups/{id}/cases-access', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/groups\/(?<id>[^\/\s]+)\/cases-access\/delete$/i,
+    to: 'DELETE /api/v2/manage/groups/{id}/cases-access', status: 'mapped' },
+
+  // ---- MANAGE taxonomies / object types ----
+  { pattern: /^GET\s+\/manage\/asset-type\/list$/i, to: 'GET /api/v2/manage/case-objects/asset-types', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/asset-type\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/case-objects/asset-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/asset-type\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-objects/asset-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/asset-type\/add$/i, to: 'POST /api/v2/manage/case-objects/asset-types', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/asset-type\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-objects/asset-types/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/task-status\/list$/i, to: 'GET /api/v2/manage/task-statuses', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/task-status\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/task-statuses (filter client-side)', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/analysis-status\/list$/i, to: 'GET /api/v2/manage/analysis-statuses', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/analysis-status\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/analysis-statuses (filter client-side)', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/ioc-types\/list$/i, to: 'GET /api/v2/manage/case-objects/ioc-types', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/ioc-types\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/case-objects/ioc-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/ioc-types\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-objects/ioc-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/ioc-types\/add$/i, to: 'POST /api/v2/manage/case-objects/ioc-types', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/ioc-types\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-objects/ioc-types/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/tlp\/list$/i, to: 'GET /api/v2/manage/tlp', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-templates\/add$/i, to: 'POST /api/v2/manage/case-templates', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-templates\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-templates/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-templates\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-templates/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/case-classifications\/list$/i, to: 'GET /api/v2/manage/case-objects/case-classifications', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/case-classifications\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/case-objects/case-classifications/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-classifications\/add$/i, to: 'POST /api/v2/manage/case-objects/case-classifications', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-classifications\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-objects/case-classifications/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-classifications\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-objects/case-classifications/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/case-states\/list$/i, to: 'GET /api/v2/manage/case-objects/case-states', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/case-states\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/case-objects/case-states/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-states\/add$/i, to: 'POST /api/v2/manage/case-objects/case-states', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-states\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-objects/case-states/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/case-states\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-objects/case-states/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/compromise-status\/list$/i, to: null, status: 'unmapped',
+    note: 'No /api/v2 replacement — asset compromise status is driven via the asset_compromise_status_id field on assets.' },
+  { pattern: /^GET\s+\/manage\/severities\/list$/i, to: 'GET /api/v2/manage/severities', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/evidence-types\/list$/i, to: 'GET /api/v2/manage/case-objects/evidence-types', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/evidence-types\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/case-objects/evidence-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/evidence-types\/add$/i, to: 'POST /api/v2/manage/case-objects/evidence-types', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/evidence-types\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/case-objects/evidence-types/{id}', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/evidence-types\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/case-objects/evidence-types/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/event-categories\/list$/i, to: 'GET /api/v2/manage/event-categories', status: 'mapped' },
+
+  // ---- MANAGE settings + attributes + templates + modules ----
+  { pattern: /^POST\s+\/manage\/settings\/update$/i, to: 'PUT /api/v2/manage/server/settings', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/server\/backups\/make-db$/i, to: 'POST /api/v2/manage/server/backups/db', status: 'mapped',
+    note: 'Method changed from GET to POST.' },
+  { pattern: /^GET\s+\/manage\/attributes\/list$/i, to: 'GET /api/v2/manage/custom-attributes', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/attributes\/update\/(?<id>[^\/\s]+)$/i, to: 'PUT /api/v2/manage/custom-attributes/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/templates\/list$/i, to: 'GET /api/v2/manage/report-templates', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/templates\/add$/i, to: 'POST /api/v2/manage/report-templates', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/templates\/download\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/report-templates/{id}/download', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/templates\/delete\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/report-templates/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/modules\/list$/i, to: 'GET /api/v2/manage/modules', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/modules\/add$/i, to: 'POST /api/v2/manage/modules', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/modules\/set-parameter\/(?<p>[^\/\s]+)$/i,
+    to: 'PUT /api/v2/manage/modules/{module_id}/parameters/{p}', status: 'mapped',
+    note: 'v3 scopes parameters under the module ID — you must know the module ID.' },
+  { pattern: /^POST\s+\/manage\/modules\/enable\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/manage/modules/{id}/enable', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/modules\/disable\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/manage/modules/{id}/disable', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/modules\/remove\/(?<id>[^\/\s]+)$/i, to: 'DELETE /api/v2/manage/modules/{id}', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/modules\/export-config\/(?<id>[^\/\s]+)$/i, to: 'GET /api/v2/manage/modules/{id}/export-config', status: 'mapped' },
+  { pattern: /^POST\s+\/manage\/modules\/import-config\/(?<id>[^\/\s]+)$/i, to: 'POST /api/v2/manage/modules/{id}/import-config', status: 'mapped' },
+  { pattern: /^GET\s+\/manage\/modules\/hooks\/list$/i, to: 'GET /api/v2/manage/modules/hooks', status: 'mapped' },
+
+  // ---- USER / PROFILE ----
+  { pattern: /^GET\s+\/user\/whoami$/i, to: 'GET /api/v2/auth/whoami', status: 'mapped' },
+  { pattern: /^GET\s+\/user\/is-admin$/i, to: 'GET /api/v2/auth/whoami (read is_admin from payload)', status: 'mapped' },
+  { pattern: /^GET\s+\/user\/token\/renew$/i, to: 'POST /api/v2/me/api-key/renew', status: 'mapped',
+    note: 'Method changed from GET to POST.' },
+  { pattern: /^POST\s+\/user\/has-permission$/i, to: null, status: 'unmapped',
+    note: 'Permissions are surfaced through GET /api/v2/auth/whoami; there is no separate check endpoint.' },
+  { pattern: /^POST\s+\/user\/update$/i, to: 'PUT /api/v2/me', status: 'mapped' },
+  { pattern: /^GET\s+\/user\/theme\/set\/(?<v>[^\/\s]+)$/i, to: 'PUT /api/v2/me/preferences (body: {theme: "{v}"})', status: 'mapped',
+    note: 'Method changed and preferences are now a single PUT.' },
+  { pattern: /^GET\s+\/user\/deletion-prompt\/set\/(?<v>[^\/\s]+)$/i, to: 'PUT /api/v2/me/preferences (body: {deletion_prompt: {v}})', status: 'mapped' },
+  { pattern: /^GET\s+\/user\/mini-sidebar\/set\/(?<v>[^\/\s]+)$/i, to: 'PUT /api/v2/me/preferences (body: {mini_sidebar: {v}})', status: 'mapped' },
+  { pattern: /^GET\s+\/user\/refresh-permissions$/i, to: 'POST /api/v2/me/permissions/refresh', status: 'mapped' },
+
+  // ---- REPORTS + SEARCH ----
+  { pattern: /^GET\s+\/case\/report\/generate-activities\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/report-templates/{template_id}/render', status: 'mapped' },
+  { pattern: /^GET\s+\/case\/report\/generate-investigation\/(?<id>[^\/\s]+)$/i,
+    to: 'POST /api/v2/manage/report-templates/{template_id}/render', status: 'mapped' },
+  { pattern: /^POST\s+\/search$/i, to: 'GET /api/v2/search', status: 'mapped',
+    note: 'Method changed from POST to GET.' },
+
+  // ---- PING / VERSIONS (no change) ----
+  { pattern: /^GET\s+\/api\/ping$/i, to: 'GET /api/ping', status: 'nochange' },
+  { pattern: /^GET\s+\/api\/versions$/i, to: 'GET /api/versions', status: 'nochange' },
+
+  // ---- Anything already /api/v2 ----
+  { pattern: /^(?<method>GET|POST|PUT|DELETE|PATCH)\s+\/api\/v2\/.+$/i, to: '(no change — already /api/v2)', status: 'nochange' },
+];
+
+function normalise(line) {
+  let s = line.trim().replace(/\s+/g, ' ');
+  const m = s.match(/^(GET|POST|PUT|DELETE|PATCH)\s+(.+)$/i);
+  if (m) return m[1].toUpperCase() + ' ' + m[2];
+  if (s.startsWith('/')) return 'GET ' + s;
+  return s;
+}
+
+function findMatch(uri) {
+  for (const entry of URI_MAP) {
+    const m = uri.match(entry.pattern);
+    if (m) {
+      let to = entry.to;
+      if (to && m.groups) {
+        for (const [k, v] of Object.entries(m.groups)) {
+          if (v !== undefined) to = to.replaceAll('{' + k + '}', v);
+        }
+      }
+      let status = entry.status;
+      if (entry.removed) status = 'removed';
+      return { ...entry, to, status };
+    }
+  }
+  return null;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderUri(s, kind) {
+  const m = String(s).match(/^(GET|POST|PUT|DELETE|PATCH)\s+(.+)$/i);
+  if (!m) return `<span class="uri uri--${kind}"><span class="uri__path">${escapeHtml(s)}</span></span>`;
+  const method = m[1].toUpperCase();
+  const path = m[2];
+  return `<span class="uri uri--${kind}"><span class="method method--${method}">${method}</span><span class="uri__path">${escapeHtml(path)}</span></span>`;
+}
+
+function buildRow({ status, badge, legacy, newTarget, note, showLegacy = true, showNew = true }) {
+  const legacyCell = showLegacy
+    ? `<div class="uri-cell" title="${escapeHtml(legacy)}">${renderUri(legacy, 'legacy')}</div>`
+    : `<div class="uri-cell"></div>`;
+  const newCell = showNew
+    ? (newTarget
+        ? `<div class="uri-cell" title="${escapeHtml(newTarget)}">${renderUri(newTarget, 'new')}</div>`
+        : `<div class="uri-cell"><span class="uri uri--empty"><span class="uri__path">(no replacement)</span></span></div>`)
+    : `<div class="uri-cell"></div>`;
+  const arrow = (showLegacy && showNew) ? '→' : '';
+  return `<div class="row row--${status}">
+    <div><span class="badge badge--${status}">${badge}</span></div>
+    ${legacyCell}
+    <div class="arrow-cell">${arrow}</div>
+    ${newCell}
+    ${note ? `<div class="note">${escapeHtml(note)}</div>` : ''}
+  </div>`;
+}
+
+function convertUris() {
+  const out = document.getElementById('output');
+  const raw = document.getElementById('uri-input').value;
+  const lines = raw.split(/\r?\n/).filter(l => l.trim() !== '');
+  if (!lines.length) {
+    out.className = 'output-empty';
+    out.innerHTML = 'Paste at least one URI to convert.';
+    return;
+  }
+  const counts = { mapped: 0, removed: 0, unmapped: 0, nochange: 0, unknown: 0 };
+  const rows = lines.map(line => {
+    const uri = normalise(line);
+    const match = findMatch(uri);
+    if (!match) {
+      counts.unknown++;
+      return buildRow({
+        status: 'unmapped', badge: 'Unknown',
+        legacy: uri, newTarget: null, showNew: false,
+        note: 'Not recognised. If this is an internal UI helper it was intentionally omitted from the mapping — see the legacy endpoint migration map for the full survivor list.',
+      });
+    }
+    if (match.status === 'removed') {
+      counts.removed++;
+      return buildRow({
+        status: 'removed', badge: 'Removed',
+        legacy: uri, newTarget: match.to, note: match.note,
+      });
+    }
+    if (match.status === 'nochange') {
+      counts.nochange++;
+      return buildRow({
+        status: 'nochange', badge: 'No change',
+        legacy: uri, newTarget: uri, showLegacy: false, note: match.note,
+      });
+    }
+    if (match.status === 'unmapped') {
+      counts.unmapped++;
+      return buildRow({
+        status: 'unmapped', badge: 'No v2 yet',
+        legacy: uri, newTarget: null, showNew: false,
+        note: match.note || 'No /api/v2 equivalent yet — keep using the legacy endpoint.',
+      });
+    }
+    counts.mapped++;
+    return buildRow({
+      status: 'mapped', badge: 'Mapped',
+      legacy: uri, newTarget: match.to, note: match.note,
+    });
+  });
+  const parts = [];
+  if (counts.mapped) parts.push(`<strong>${counts.mapped}</strong> mapped`);
+  if (counts.removed) parts.push(`<strong>${counts.removed}</strong> removed`);
+  if (counts.unmapped) parts.push(`<strong>${counts.unmapped}</strong> no v2 yet`);
+  if (counts.nochange) parts.push(`<strong>${counts.nochange}</strong> unchanged`);
+  if (counts.unknown) parts.push(`<strong>${counts.unknown}</strong> unknown`);
+  const sep = '<strong class="sep">·</strong>';
+  const summary = `<div class="summary">${lines.length} URI${lines.length === 1 ? '' : 's'} — ${parts.join(sep)}</div>`;
+  out.className = '';
+  out.innerHTML = summary + rows.join('');
+}
+
+function loadSample() {
+  document.getElementById('uri-input').value = [
+    'POST /manage/cases/add',
+    'GET /case/tasks/list',
+    'POST /case/summary/update',
+    'POST /alerts/escalate/42',
+    'POST /alerts/update/42',
+    'GET /manage/asset-type/list',
+    'POST /user/update',
+    'GET /api/v2/cases/17',
+  ].join('\n');
+  convertUris();
+}
+
+function clearAll() {
+  document.getElementById('uri-input').value = '';
+  const out = document.getElementById('output');
+  out.className = 'output-empty';
+  out.innerHTML = 'Paste URIs above and click <em>Convert</em>.';
+}
+
+// Ctrl/Cmd+Enter shortcut in textarea
+document.getElementById('uri-input').addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    e.preventDefault();
+    convertUris();
+  }
+});
+</script>
+</body>
+</html>

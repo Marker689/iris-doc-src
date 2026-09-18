@@ -1,0 +1,288 @@
+get:
+  summary: Fetch an asset
+  tags:
+    - Assets
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: ''
+                data:
+                  asset_enrichment:
+                    Another enrichment provider:
+                      Another key: Another value
+                  asset_type:
+                    asset_icon_not_compromised: firewall.png
+                    asset_icon_compromised: ioc_firewall.png
+                    asset_description: WAF
+                    asset_id: 15
+                    asset_name: WAF
+                  asset_type_id: 15
+                  case_id: 1
+                  asset_description: Asset description
+                  asset_id: 2548
+                  analysis_status_id: 1
+                  custom_attributes:
+                    Analysis:
+                      Has been analyzed:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                      Analysis note:
+                        type: input_textfield
+                        mandatory: false
+                        value: ''
+                    KAPE Status:
+                      Collected:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                      Analyzed:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                  asset_info: ''
+                  user_id: 4
+                  date_added: '2024-01-04T13:20:43.522581'
+                  date_update: '2024-01-04T13:20:43.522598'
+                  asset_name: WAF-301
+                  asset_ip: 1.1.1.1
+                  asset_tags: tag1,tag2
+                  asset_compromise_status_id: 2
+                  asset_uuid: 9d188714-5251-41f3-817b-3b1c8515de06
+                  asset_domain: ''
+                  linked_ioc:
+                    - ioc_id: 1135
+                      ioc_value: aunnrzg.co.uk
+                      ioc_tags: tag1,tag2
+                      ioc_type_id: 22
+                      type_name: email
+                      ioc_description: description_hey
+                      ioc_tlp_id: 2
+                    - ioc_id: 349
+                      ioc_value: ufrsmrdxlqq.org
+                      ioc_tags: tag1,tag2
+                      ioc_type_id: 22
+                      type_name: email
+                      ioc_description: description_hey
+                      ioc_tlp_id: 2
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - asset_enrichment
+                  - asset_type
+                  - asset_type_id
+                  - case_id
+                  - asset_description
+                  - asset_id
+                  - analysis_status_id
+                  - custom_attributes
+                  - asset_info
+                  - user_id
+                  - date_added
+                  - date_update
+                  - asset_name
+                  - asset_ip
+                  - asset_tags
+                  - asset_compromise_status_id
+                  - asset_uuid
+                  - asset_domain
+                  - linked_ioc
+                properties:
+                  asset_enrichment:
+                    type: object
+                  asset_type:
+                    type: object
+                    required:
+                      - asset_icon_not_compromised
+                      - asset_icon_compromised
+                      - asset_description
+                      - asset_id
+                      - asset_name
+                    properties:
+                      asset_icon_not_compromised:
+                        type: string
+                      asset_icon_compromised:
+                        type: string
+                      asset_description:
+                        type: string
+                      asset_id:
+                        type: integer
+                      asset_name:
+                        type: string
+                  asset_type_id:
+                    type: integer
+                  case_id:
+                    type: integer
+                  asset_description:
+                    type: string
+                  asset_id:
+                    type: integer
+                  analysis_status_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  asset_info:
+                    type: string
+                  user_id:
+                    type: integer
+                  date_added:
+                    type: string
+                  date_update:
+                    type: string
+                  asset_name:
+                    type: string
+                  asset_ip:
+                    type: string
+                  asset_tags:
+                    type: string
+                  asset_compromise_status_id:
+                    type: integer
+                  asset_uuid:
+                    type: string
+                  asset_domain:
+                    type: string
+                  linked_ioc:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ioc_id:
+                          type: integer
+                        ioc_value:
+                          type: string
+                        ioc_tags:
+                          type: string
+                        ioc_type_id:
+                          type: integer
+                        type_name:
+                          type: string
+                        ioc_description:
+                          type: string
+                        ioc_tlp_id:
+                          type: integer
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  asset_enrichment:
+                    Another enrichment provider:
+                      Another key: Another value
+                  asset_type:
+                    asset_icon_not_compromised: firewall.png
+                    asset_icon_compromised: ioc_firewall.png
+                    asset_description: WAF
+                    asset_id: 15
+                    asset_name: WAF
+                  asset_type_id: 15
+                  case_id: 1
+                  asset_description: Asset description
+                  asset_id: 2548
+                  analysis_status_id: 1
+                  custom_attributes:
+                    Analysis:
+                      Has been analyzed:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                      Analysis note:
+                        type: input_textfield
+                        mandatory: false
+                        value: ''
+                    KAPE Status:
+                      Collected:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                      Analyzed:
+                        type: input_checkbox
+                        mandatory: false
+                        value: false
+                  asset_info: ''
+                  user_id: 4
+                  date_added: '2024-01-04T13:20:43.522581'
+                  date_update: '2024-01-04T13:20:43.522598'
+                  asset_name: WAF-301
+                  asset_ip: 1.1.1.1
+                  asset_tags: tag1,tag2
+                  asset_compromise_status_id: 2
+                  asset_uuid: 9d188714-5251-41f3-817b-3b1c8515de06
+                  asset_domain: ''
+                  linked_ioc:
+                    - ioc_id: 1135
+                      ioc_value: aunnrzg.co.uk
+                      ioc_tags: tag1,tag2
+                      ioc_type_id: 22
+                      type_name: email
+                      ioc_description: description_hey
+                      ioc_tlp_id: 2
+                    - ioc_id: 349
+                      ioc_value: ufrsmrdxlqq.org
+                      ioc_tags: tag1,tag2
+                      ioc_type_id: 22
+                      type_name: email
+                      ioc_description: description_hey
+                      ioc_tlp_id: 2
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data: []
+                message: Invalid asset ID for this case
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type:
+                    - object
+                    - 'null'
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            Example 1:
+              value:
+                data: []
+                message: Invalid asset ID for this case
+                status: error
+  operationId: get-case-asset
+  description: This endpoint is deprecated. Use [GET /api/v2/assets/{identifier}](#tag/Assets/operation/api_v2_assets_(identifier)_get) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+parameters:
+  - schema:
+      type: integer
+    name: asset_id
+    in: path
+    required: true

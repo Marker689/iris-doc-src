@@ -1,0 +1,70 @@
+parameters:
+  - name: case_identifier
+    in: path
+    required: true
+    description: Identifier of the case
+    schema:
+      type: integer
+  - name: identifier
+    in: path
+    required: true
+    description: Identifier of the note
+    schema:
+      type: integer
+  - name: revision_number
+    in: path
+    required: true
+    description: Sequential revision number of the note (1 = first stored revision)
+    schema:
+      type: integer
+get:
+  operationId: api_v2_cases_(case_identifier)_notes_(identifier)_revisions_(revision_number)_get
+  tags:
+    - Notes
+    - Beta
+  summary: Get a note revision
+  description: Returns the stored content of a specific revision of a note.
+  responses:
+    '200':
+      description: Revision content
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              revision_id:
+                type: integer
+              note_id:
+                type: integer
+              revision_number:
+                type: integer
+              revision_title:
+                type: string
+              revision_content:
+                type: string
+              revision_timestamp:
+                type: string
+              user_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_notes_(identifier)_revisions_(revision_number)_delete
+  tags:
+    - Notes
+    - Beta
+  summary: Delete a note revision
+  description: Delete a single stored revision of a note. Requires full access to the case.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

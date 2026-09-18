@@ -1,0 +1,52 @@
+post:
+  operationId: api_v2_alerts_batch_merge_post
+  summary: Merge multiple alerts into an existing case
+  description: >-
+    Batch variant of `POST /api/v2/alerts/merge/{identifier}`. Merges every
+    listed alert into the target case.
+  tags:
+    - Alerts
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - target_case_id
+            - alert_ids
+          properties:
+            target_case_id:
+              type: integer
+            alert_ids:
+              type: string
+              description: Comma-separated list of alert identifiers.
+              example: "12,13,14"
+            iocs_import_list:
+              type: array
+              items:
+                type: string
+            assets_import_list:
+              type: array
+              items:
+                type: string
+            note:
+              type: string
+            import_as_event:
+              type: boolean
+            case_tags:
+              type: string
+  responses:
+    '200':
+      description: Alerts merged into the target case.
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Case.yaml
+    '400':
+      description: Missing alert_ids/target_case_id or invalid identifier list.
+    '403':
+      description: User not entitled to merge for the case or one of the listed alerts.
+    '404':
+      description: Target case not found.

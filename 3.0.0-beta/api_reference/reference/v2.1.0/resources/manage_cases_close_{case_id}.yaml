@@ -1,0 +1,240 @@
+get:
+  summary: Close a case
+  operationId: get-manage-cases-close
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  case_customer:
+                    type: number
+                  case_description:
+                    type: string
+                    minLength: 1
+                  case_id:
+                    type: number
+                  case_name:
+                    type: string
+                    minLength: 1
+                  case_soc_id:
+                    type: string
+                    minLength: 1
+                  close_date:
+                    type: string
+                    minLength: 1
+                  open_date:
+                    type: string
+                    minLength: 1
+                  user_id:
+                    type: number
+                required:
+                  - case_customer
+                  - case_description
+                  - case_id
+                  - case_name
+                  - case_soc_id
+                  - close_date
+                  - open_date
+                  - user_id
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data:
+                  case_customer: 59
+                  case_description: Testing case number 4
+                  case_id: 5
+                  case_name: Test 4
+                  case_soc_id: SOC4
+                  close_date: '2021-10-30'
+                  open_date: '2021-10-26'
+                  user_id: 110
+                message: Case closed successfully
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  case_customer: 105
+                  case_description: A super description
+                  case_id: 42
+                  case_name: '#42 - My case'
+                  case_soc_id: SOC_142
+                  close_date: '2022-01-20'
+                  open_date: '2022-01-20'
+                  user_id: 1
+                message: Case closed successfully
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data: []
+                message: Tried to close an non-existing case
+                status: error
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Tried to close an non-existing case
+                status: error
+  description: This endpoint is deprecated. Use the [POST /manage/cases/close/{case_id}](#tag/Cases/operation/post-manage-cases-close-case_id) instead.
+  deprecated: true
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Cases
+  parameters: []
+parameters:
+  - schema:
+      type: integer
+    name: case_id
+    in: path
+    description: Case ID
+    required: true
+post:
+  summary: Close a case
+  operationId: post-manage-cases-close-case_id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Case closed successfully
+                data:
+                  case_uuid: 507a5fab-358a-4946-82d0-625ef8a9fa0d
+                  case_id: 1
+                  case_name: '#1 - Initial Demo'
+                  closing_note: null
+                  user_id: 1
+                  owner_id: 1
+                  case_customer: 1
+                  status_id: 0
+                  case_soc_id: soc_id_demo
+                  open_date: '2023-05-11'
+                  modification_history:
+                    '1683900741.546554':
+                      user: administrator
+                      user_id: 1
+                      action: case closed
+                  custom_attributes: null
+                  close_date: '2023-05-12'
+                  case_description: This is a demonstration.
+                  state_id: 9
+                  classification_id: null
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  case_uuid:
+                    type: string
+                  case_id:
+                    type: integer
+                  case_name:
+                    type: string
+                  closing_note:
+                    type:
+                      - string
+                      - 'null'
+                  user_id:
+                    type: integer
+                  owner_id:
+                    type: integer
+                  case_customer:
+                    type: integer
+                  status_id:
+                    type: integer
+                  case_soc_id:
+                    type: string
+                  open_date:
+                    type: string
+                  modification_history:
+                    type: object
+                  custom_attributes:
+                    type:
+                      - object
+                      - 'null'
+                  close_date:
+                    type: string
+                  case_description:
+                    type: string
+                  state_id:
+                    type: integer
+                  classification_id:
+                    type:
+                      - integer
+                      - 'null'
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: Case closed successfully
+                data:
+                  case_uuid: 507a5fab-358a-4946-82d0-625ef8a9fa0d
+                  case_id: 1
+                  case_name: '#1 - Initial Demo'
+                  closing_note: null
+                  user_id: 1
+                  owner_id: 1
+                  case_customer: 1
+                  status_id: 0
+                  case_soc_id: soc_id_demo
+                  open_date: '2023-05-11'
+                  modification_history:
+                    '1683900741.546554':
+                      user: administrator
+                      user_id: 1
+                      action: case closed
+                  custom_attributes: null
+                  close_date: '2023-05-12'
+                  case_description: This is a demonstration.
+                  state_id: 9
+                  classification_id: null
+  tags:
+    - Cases
+  description: >-
+    The case will be listed under closed case. That's the only difference with
+    an open case. It will stay editable and searchable. 

@@ -1,0 +1,106 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_get
+  tags:
+    - War room chat
+    - Beta
+  summary: List chat messages
+  description: >-
+    Return the chat stream for a war room. Cursor-paginated via the
+    `before` query parameter so the SPA can scroll back without offsets
+    that shift when a new message lands.
+  parameters:
+    - name: before
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Return messages posted before this message id.
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Maximum number of messages to return.
+    - name: kinds
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of message kinds to include.
+    - name: case_ids
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of case ids to filter references by.
+    - name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Full-text quick-filter applied to the message body.
+  responses:
+    '200':
+      description: Chat messages successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Post a chat message
+  description: >-
+    Post a new message to the war-room chat stream. When the body starts
+    with a slash command (for example `/note`, `/pin`, `/decision`,
+    `/attach`, `/task`, `/assign`, `/sitrep`, `/state`, `/priority`,
+    `/thread`, `/summary`, `/help`), the command is resolved and the
+    resulting structured row is recorded in the same transaction.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - body
+          properties:
+            body:
+              type: string
+              description: >-
+                Message body. Prefix with `/` to invoke a slash command.
+        example:
+          body: All hands — pivoting to containment now.
+  responses:
+    '201':
+      description: Message successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id:
+                type: integer
+              kind:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

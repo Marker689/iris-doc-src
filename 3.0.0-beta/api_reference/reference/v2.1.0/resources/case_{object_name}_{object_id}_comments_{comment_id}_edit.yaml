@@ -1,0 +1,88 @@
+parameters:
+  - schema:
+      type: string
+    name: object_name
+    in: path
+    required: true
+    description: Name of the case object to comment
+  - schema:
+      type: integer
+    name: object_id
+    in: path
+    required: true
+    description: ID of the object to comment
+  - schema:
+      type: integer
+    name: comment_id
+    in: path
+    required: true
+    description: ID of the comment to update
+post:
+  summary: Edit a comment
+  tags:
+    - Comments
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  comment_case_id:
+                    type: integer
+                  comment_date:
+                    type: string
+                  comment_id:
+                    type: integer
+                  comment_text:
+                    type: string
+                  comment_update_date:
+                    type: string
+                  comment_user_id:
+                    type: integer
+                  comment_uuid:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  comment_case_id: 153
+                  comment_date: '2023-03-20T16:18:27.752242'
+                  comment_id: 57
+                  comment_text: dsadasada
+                  comment_update_date: '2023-03-20T16:21:06.358208'
+                  comment_user_id: 11
+                  comment_uuid: ff14db70-b328-4f0e-9f60-bc6eb4157a8f
+                message: Comment edited
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  comment_case_id: 153
+                  comment_date: '2023-03-20T16:18:27.752242'
+                  comment_id: 57
+                  comment_text: dsadasada
+                  comment_update_date: '2023-03-20T16:21:06.358208'
+                  comment_user_id: 11
+                  comment_uuid: ff14db70-b328-4f0e-9f60-bc6eb4157a8f
+                message: Comment edited
+                status: success
+  operationId: post-case-object_name-object_id-comments-comment_id-edit
+  description: This endpoint is deprecated. Use [PUT /api/v2/{objects}/{object_identifier}](#tag/Comments/operation/api_v2_(objects)_(object_identifier)_comments_(identifier)_put) instead.
+  deprecated: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            comment_text:
+              type: string

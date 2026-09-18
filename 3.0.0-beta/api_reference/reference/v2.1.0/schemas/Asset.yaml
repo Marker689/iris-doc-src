@@ -1,0 +1,82 @@
+type: object
+properties:
+  asset_id:
+    type: integer
+  asset_uuid:
+    type: string
+  asset_name:
+    type: string
+  asset_type:
+    type: object
+    properties:
+      asset_name:
+        type: string
+      asset_description:
+        type: string
+      asset_icon_compromised:
+        type: string
+      asset_icon_not_compromised:
+        type: string
+  asset_description:
+    type:
+      - string
+      - 'null'
+  asset_domain:
+    type:
+      - string
+      - 'null'
+  asset_compromise_status_id:
+    anyOf:
+      - $ref: ../schemas/asset_compromise_status_id.yaml
+      - type: 'null'
+  asset_ip:
+    type:
+      - string
+      - 'null'
+  asset_type_id:
+    type: integer
+  analysis_status:
+    type:
+      - object
+      - 'null'
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+  analysis_status_id:
+    anyOf:
+      - $ref: ../schemas/analysis_status_id.yaml
+      - type: 'null'
+  asset_tags:
+    type:
+      - string
+      - 'null'
+  modification_history:
+    anyOf:
+      - $ref: ../schemas/modification_history.yaml
+      - type: 'null'
+example:
+  asset_id: 57
+  asset_uuid: c6598fd0-836a-4fc4-87c1-6f03348eadeb
+  asset_name: FILESERVER1231
+  asset_type: Windows - Server
+  asset_icon_compromised: ioc_windows_server.png
+  asset_icon_not_compromised: windows_server.png
+  asset_description: ''
+  asset_domain: ''
+  asset_compromise_status_id: 0
+  asset_ip: ''
+  asset_type_id: 10
+  analysis_status: Unspecified
+  analysis_status_id: 1
+  asset_tags: ''
+  modification_history:
+    '1742544212.874':
+      'user': 'administrator'
+      'user_id': 1
+      'action': 'created'
+    '1742544212.892766':
+      'user': 'administrator'
+      'user_id': 1
+      'action': 'updated'

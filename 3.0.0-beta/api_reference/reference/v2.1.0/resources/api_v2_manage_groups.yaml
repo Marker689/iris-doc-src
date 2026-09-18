@@ -1,0 +1,122 @@
+post:
+  operationId: api_v2_manage_groups_post
+  summary: Add a new group
+  description: Requires administrative rights.
+  tags:
+    - Manage Groups
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            group_name:
+              type: string
+            group_description:
+              type: string
+            group_permissions:
+              type: integer
+          required:
+            - group_name
+            - group_description
+        example:
+          group_name: New group
+          group_description: New description
+          group_permissions: 1
+  responses:
+    '201':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Group.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+
+get:
+  operationId: api_v2_manage_groups_get
+  tags:
+    - Manage Groups
+    - Beta
+  summary: List groups
+  description: >-
+    Paginated group list, oldest first. `search` matches either the name or the
+    description.
+
+
+    Each row is hydrated with its members and its expanded permission list, so
+    the access-control page can render the whole table without a follow-up call
+    per group. Requires administrative rights.
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+    - name: per_page
+      in: query
+      required: false
+      description: Clamped to 1–200.
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 200
+    - name: search
+      in: query
+      required: false
+      description: >-
+        Case-insensitive substring, matched against name OR description.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Groups successfully listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                description: Matching groups across all pages, not just this one.
+                type: integer
+              data:
+                type: array
+                items:
+                  allOf:
+                    - $ref: ../schemas/Group.yaml
+                    - type: object
+                      properties:
+                        group_members:
+                          type:
+                            - array
+                            - 'null'
+                          items:
+                            type: object
+                        group_permissions_list:
+                          description: >-
+                            The `group_permissions` bitmask expanded into named
+                            permissions.
+                          type:
+                            - array
+                            - 'null'
+                          items:
+                            type: object
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                description: Null on the last page.
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

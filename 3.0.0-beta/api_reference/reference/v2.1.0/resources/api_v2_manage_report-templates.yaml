@@ -1,0 +1,154 @@
+get:
+  operationId: api_v2_manage_report-templates_get
+  tags:
+    - Report templates
+    - Beta
+  summary: List report templates
+  description: Return a paginated list of report templates. The optional `search` query parameter runs an ILIKE match against `name`, `description`, and `naming_format`.
+  parameters:
+    - in: query
+      name: page
+      required: false
+      description: 1-indexed page number
+      schema:
+        type: integer
+        default: 1
+    - in: query
+      name: per_page
+      required: false
+      description: Page size
+      schema:
+        type: integer
+        default: 25
+    - in: query
+      name: search
+      required: false
+      description: ILIKE substring filter across name, description, and naming format
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Report templates successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    naming_format:
+                      type: string
+                    internal_reference:
+                      type: string
+                    date_created:
+                      type: string
+                      format: date-time
+                    created_by_user_id:
+                      type: integer
+                    created_by:
+                      type: string
+                    language_id:
+                      type: integer
+                    language_code:
+                      type: string
+                    language_name:
+                      type: string
+                    report_type_id:
+                      type: integer
+                    report_type_name:
+                      type: string
+              last_page:
+                type: integer
+              current_page:
+                type: integer
+              next_page:
+                type:
+                  - integer
+                  - 'null'
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+post:
+  operationId: api_v2_manage_report-templates_post
+  tags:
+    - Report templates
+    - Beta
+  summary: Create a report template
+  description: 'Create a new report template. The endpoint takes a multipart form: metadata fields plus the underlying template file under the `file` key. Allowed file extensions are `md`, `html`, `doc`, `docx`.'
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - file
+            - name
+            - language_id
+            - report_type_id
+          properties:
+            file:
+              type: string
+              format: binary
+              description: Template file to upload
+            name:
+              type: string
+            description:
+              type: string
+            naming_format:
+              type: string
+              description: 'Supports tags: %date%, %customer%, %case_name%, %code_name%.'
+            language_id:
+              type: integer
+            report_type_id:
+              type: integer
+  responses:
+    '201':
+      description: Report template successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              naming_format:
+                type: string
+              internal_reference:
+                type: string
+              date_created:
+                type: string
+                format: date-time
+              created_by_user_id:
+                type: integer
+              created_by:
+                type: string
+              language_id:
+                type: integer
+              language_code:
+                type: string
+              language_name:
+                type: string
+              report_type_id:
+                type: integer
+              report_type_name:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

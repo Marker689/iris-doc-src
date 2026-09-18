@@ -1,0 +1,40 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_trace-log_get
+  tags:
+    - War room chat
+    - Beta
+  summary: Get the chat trace log
+  description: >-
+    Return every decision, pin, and note recorded in the war room,
+    including entries posted inside threads. This feeds the
+    "Decisions & Pins" sidebar so the operator has a complete
+    time-ordered "who decided what and when" view without paging the
+    entire stream by hand.
+  parameters:
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Maximum number of trace-log rows to return.
+  responses:
+    '200':
+      description: Trace log successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

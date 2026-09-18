@@ -1,0 +1,33 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+put:
+  operationId: api_v2_manage_report-templates_(identifier)_file_put
+  tags:
+    - Report templates
+    - Beta
+  summary: Replace a report template file
+  description: Replace the underlying template file. The new file is staged under a fresh random name and the metadata row is flipped atomically; if the upload or database update fails, the original file is left in place. Allowed extensions are `md`, `html`, `doc`, `docx`.
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - file
+          properties:
+            file:
+              type: string
+              format: binary
+  responses:
+    '200':
+      description: Template file successfully replaced
+      content:
+        application/json:
+          schema:
+            type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

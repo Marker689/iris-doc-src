@@ -1,0 +1,107 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_get
+  tags:
+    - Cases
+    - Beta
+  summary: Get a case
+  description: 'Get a case by its identifier'
+  responses:
+    '201':
+      description: Case successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Case.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_cases_(case_identifier)_put
+  tags:
+    - Cases
+    - Beta
+  summary: Update a case
+  description: 'Update informations of a case'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            case_name:
+              type: string
+            case_soc_id:
+              type: string
+            classification_id:
+              type: integer
+            owner_id:
+              type: integer
+            state_id:
+              type: integer
+            severity_id:
+              $ref: ../schemas/severity_id.yaml
+            status_id:
+              $ref: ../schemas/case_status_id.yaml
+            case_customer:
+              type: integer
+            reviewer_id:
+              type: integer
+            protagonists:
+              type: array
+              items:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  name:
+                    type: string
+                  contact:
+                    type: string
+            case_tags:
+              type: string
+            custom_attributes:
+              type: object
+        examples:
+          Example 1:
+            value:
+              case_name: 'A new case name'
+              case_soc_id: soc_id_demo
+              classification_id: 2
+              owner_id: 2
+              state_id: 3
+              severity_id: 4
+              status_id: 1
+              case_customer: 1
+              reviewer_id: 2
+              protagonists:
+                - role: Lead
+                  name: administrator
+                  contact: administrator@iris.local
+              case_tags: tag1,tag2
+              custom_attributes: {}
+  responses:
+    '200':
+      description: Case successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Case.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+delete:
+  operationId: api_v2_cases_(case_identifier)_delete
+  tags:
+    - Cases
+    - Beta
+  summary: Delete a case
+  description: This implies the deletion of everything linked to the case.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

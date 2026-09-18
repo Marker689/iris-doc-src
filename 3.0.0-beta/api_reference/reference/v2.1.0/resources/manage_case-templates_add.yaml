@@ -1,0 +1,179 @@
+parameters: []
+post:
+  summary: Add a case template
+  operationId: post-manage-case_template-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  registry:
+                    type: 'null'
+                  type_description:
+                    type: string
+                  type_id:
+                    type: integer
+                  type_name:
+                    type: string
+                  type_taxonomy:
+                    type: string
+                  type_validation_expect:
+                    type: string
+                  type_validation_regex:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  registry: null
+                  type_description: Associated campaign ID
+                  type_id: 7
+                  type_name: campaign-iad
+                  type_taxonomy: dsa
+                  type_validation_expect: Explanation
+                  type_validation_regex: '*.'
+                message: IOC type updated
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  registry: null
+                  type_description: Associated campaign ID
+                  type_id: 7
+                  type_name: campaign-id
+                  type_taxonomy: dsa
+                  type_validation_expect: Explanation
+                  type_validation_regex: '*.'
+                message: IOC type updated
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  asset_name:
+                    - Asset type name already exists
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data: []
+                message: Invalid ioc type ID 1700
+                status: error
+  description: 'Add a new case template. '
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              case_template_json: |-
+                {
+                    "name": "Template name",
+                    "display_name": "Template Display Name",
+                    "description": "Template description",
+                    "author": "YOUR NAME",
+                    "classification": "known-template-classification",
+                    "title_prefix": "[PREFIX]",
+                    "summary": "Summary to be set",
+                    "tags": [
+                        "ransomware",
+                        "malware"
+                    ],
+                    "tasks": [
+                        {
+                            "title": "Task 1",
+                            "description": "Task 1 description",
+                            "tags": [
+                                "tag1",
+                                "tag2"
+                            ]
+                        }
+                    ],
+                    "note_groups": [
+                        {
+                            "title": "Note group 1",
+                            "notes": [
+                                {
+                                    "title": "Note 1",
+                                    "content": "Note 1 content"
+                                }
+                            ]
+                        }
+                    ]
+                }
+              csrf_token: >-
+                IjA3ZmU4YjRkZDIzN2FlMjFiZjY4OWJlZWE5MWFkN2I3YmViNTM1MWYi.ZFJnPQ.dOnmdrJmPP2lOsOrF-nKDvPxYQY
+          properties:
+            case_template_json:
+              type: string
+        examples:
+          example-1:
+            value:
+              case_template_json: |-
+                {
+                    "name": "Template name",
+                    "display_name": "Template Display Name",
+                    "description": "Template description",
+                    "author": "YOUR NAME",
+                    "classification": "known-template-classification",
+                    "title_prefix": "[PREFIX]",
+                    "summary": "Summary to be set",
+                    "tags": [
+                        "ransomware",
+                        "malware"
+                    ],
+                    "tasks": [
+                        {
+                            "title": "Task 1",
+                            "description": "Task 1 description",
+                            "tags": [
+                                "tag1",
+                                "tag2"
+                            ]
+                        }
+                    ],
+                    "note_groups": [
+                        {
+                            "title": "Note group 1",
+                            "notes": [
+                                {
+                                    "title": "Note 1",
+                                    "content": "Note 1 content"
+                                }
+                            ]
+                        }
+                    ]
+                }
+  tags:
+    - Manage Cases Templates

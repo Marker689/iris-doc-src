@@ -1,0 +1,23 @@
+get:
+  operationId: api_v2_manage_server_authentication-settings_get
+  tags:
+    - Server admin
+    - Beta
+  summary: Get authentication settings
+  description: Returns a summary of the server's authentication configuration. Used by the login page to decide whether to show the OIDC button, the local login form and the MFA prompt.
+  responses:
+    '200':
+      description: Authentication settings summary
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              oidc_enabled:
+                type: boolean
+                description: True when `AUTHENTICATION_TYPE` is set to `oidc`.
+              mfa_enabled:
+                type: boolean
+                description: True when the server has multi-factor authentication enabled.
+    '400':
+      $ref: ../responses/GenericError.yaml

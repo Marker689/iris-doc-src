@@ -1,0 +1,201 @@
+parameters:
+  - schema:
+      type: integer
+    name: user_id
+    in: path
+    required: true
+    description: User ID
+post:
+  summary: Delete user cases access
+  operationId: post-manage-users-cases-access-delete
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user_active:
+                    type: boolean
+                  user_cases_access:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  user_email:
+                    type: string
+                  user_groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        group_id:
+                          type: integer
+                        group_name:
+                          type: string
+                        group_uuid:
+                          type: string
+                  user_id:
+                    type: integer
+                  user_login:
+                    type: string
+                  user_name:
+                    type: string
+                  user_organisations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        is_primary_org:
+                          type: boolean
+                        org_id:
+                          type: integer
+                        org_name:
+                          type: string
+                        org_uuid:
+                          type: string
+                  user_permissions:
+                    type: object
+                    properties:
+                      '1':
+                        type: object
+                        properties:
+                          inherited_from:
+                            type: array
+                            items:
+                              type: string
+                          name:
+                            type: string
+                          value:
+                            type: integer
+                      '2':
+                        type: object
+                        properties:
+                          inherited_from:
+                            type: array
+                            items:
+                              type: string
+                          name:
+                            type: string
+                          value:
+                            type: integer
+                  user_primary_organisation_id:
+                    type: integer
+                  user_uuid:
+                    type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  user_active: true
+                  user_cases_access: []
+                  user_email: administrator@iris.local
+                  user_groups:
+                    - group_id: 1
+                      group_name: Administrators
+                      group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                    - group_id: 5
+                      group_name: Test
+                      group_uuid: bc3e93c5-1755-4411-acf0-0a5f4f47dfb7
+                  user_id: 1
+                  user_login: administrator
+                  user_name: administrator
+                  user_organisations:
+                    - is_primary_org: true
+                      org_id: 1
+                      org_name: Default Org
+                      org_uuid: f0b6364d-bab8-48ac-8de3-8be04f409aa7
+                  user_permissions:
+                    '1':
+                      inherited_from:
+                        - Administrators
+                        - Test
+                      name: standard_user
+                      value: 1
+                    '2':
+                      inherited_from:
+                        - Administrators
+                      name: server_administrator
+                      value: 2
+                  user_primary_organisation_id: 1
+                  user_uuid: 87d6cfcd-6871-43ea-85ab-eea705c08845
+                message: User case access updated
+                status: success
+          examples:
+            example-1:
+              value:
+                data:
+                  user_active: true
+                  user_cases_access: []
+                  user_email: administrator@iris.local
+                  user_groups:
+                    - group_id: 1
+                      group_name: Administrators
+                      group_uuid: 17511de3-99f5-482a-a541-22bb77e62a9f
+                    - group_id: 5
+                      group_name: Test
+                      group_uuid: bc3e93c5-1755-4411-acf0-0a5f4f47dfb7
+                  user_id: 1
+                  user_login: administrator
+                  user_name: administrator
+                  user_organisations:
+                    - is_primary_org: true
+                      org_id: 1
+                      org_name: Default Org
+                      org_uuid: f0b6364d-bab8-48ac-8de3-8be04f409aa7
+                  user_permissions:
+                    '1':
+                      inherited_from:
+                        - Administrators
+                        - Test
+                      name: standard_user
+                      value: 1
+                    '2':
+                      inherited_from:
+                        - Administrators
+                      name: server_administrator
+                      value: 2
+                  user_primary_organisation_id: 1
+                  user_uuid: 87d6cfcd-6871-43ea-85ab-eea705c08845
+                message: User case access updated
+                status: success
+  description: 'Administrator role required. Remove cases access from a user. '
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              groups_membership:
+                - '1'
+                - '5'
+          properties:
+            cases:
+              type: integer
+          required:
+            - cases
+        examples:
+          Example 1:
+            value:
+              cases:
+                - 1
+                - 2
+  security:
+    - Bearer <bearer>: []
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  tags:
+    - Manage Users

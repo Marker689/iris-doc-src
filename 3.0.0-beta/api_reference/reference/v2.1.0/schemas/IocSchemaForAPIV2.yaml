@@ -1,0 +1,62 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  ioc_value:
+    type:
+      - string
+      - 'null'
+  ioc_enrichment:
+    type:
+      - object
+      - 'null'
+  ioc_type:
+    $ref: ../schemas/IocType.yaml
+  tlp:
+    $ref: ../schemas/Tlp.yaml
+  link: {}
+  ioc_id:
+    type: integer
+    format: int64
+  ioc_uuid:
+    type: string
+    format: uuid
+  ioc_type_id:
+    type:
+      - integer
+      - 'null'
+  ioc_description:
+    type:
+      - string
+      - 'null'
+  ioc_tags:
+    type:
+      - string
+      - 'null'
+  user_id:
+    type:
+      - integer
+      - 'null'
+  ioc_misp:
+    type:
+      - string
+      - 'null'
+  ioc_tlp_id:
+    type:
+      - integer
+      - 'null'
+  custom_attributes:
+    type:
+      - object
+      - 'null'
+  modification_history:
+    type:
+      - object
+      - 'null'
+  case_id:
+    type:
+      - integer
+      - 'null'
+required:
+  - ioc_value
+description: Schema for serializing and deserializing IOC objects.

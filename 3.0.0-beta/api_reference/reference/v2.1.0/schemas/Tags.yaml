@@ -1,0 +1,20 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  tag_title:
+    type:
+      - string
+      - 'null'
+  tag_creation_date:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  tag_namespace:
+    type:
+      - string
+      - 'null'

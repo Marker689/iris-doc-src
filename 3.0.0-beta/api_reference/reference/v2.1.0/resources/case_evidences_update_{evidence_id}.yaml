@@ -1,0 +1,213 @@
+post:
+  summary: Update an evidence
+  operationId: post-case-evidences-update
+  description: This endpoint is deprecated. Use [PUT /api/v2/cases/{case_identifier}/evidences/{identifier}](#tag/Evidences/operation/api_v2_cases_(case_identifier)_evidences_(identifier)_put) instead.
+  deprecated: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Evidence string updated
+                data:
+                  chain_of_custody: null
+                  case_id: 1
+                  type_id: null
+                  id: 117
+                  file_hash: string
+                  filename: string
+                  start_date: null
+                  type: null
+                  acquisition_date: null
+                  case: 1
+                  file_uuid: 88a4dd55-132a-4acf-9daf-f05303782131
+                  user_id: 1
+                  custom_attributes: {}
+                  date_added: '2024-01-09T16:19:38.620717'
+                  user:
+                    id: 1
+                    user_name: administrator
+                    user_login: administrator
+                    user_email: administrator@iris.local
+                  file_size: 0
+                  end_date: null
+                  file_description: string
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - chain_of_custody
+                  - case_id
+                  - type_id
+                  - id
+                  - file_hash
+                  - filename
+                  - start_date
+                  - type
+                  - acquisition_date
+                  - case
+                  - file_uuid
+                  - user_id
+                  - custom_attributes
+                  - date_added
+                  - user
+                  - file_size
+                  - end_date
+                  - file_description
+                properties:
+                  chain_of_custody:
+                    type: 'null'
+                  case_id:
+                    type: integer
+                  type_id:
+                    type: 'null'
+                  id:
+                    type: integer
+                  file_hash:
+                    type: string
+                  filename:
+                    type: string
+                  start_date:
+                    type: 'null'
+                  type:
+                    type: 'null'
+                  acquisition_date:
+                    type: 'null'
+                  case:
+                    type: integer
+                  file_uuid:
+                    type: string
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                  date_added:
+                    type: string
+                  user:
+                    type: object
+                    required:
+                      - id
+                      - user_name
+                      - user_login
+                      - user_email
+                    properties:
+                      id:
+                        type: integer
+                      user_name:
+                        type: string
+                      user_login:
+                        type: string
+                      user_email:
+                        type: string
+                  file_size:
+                    type: integer
+                  end_date:
+                    type: 'null'
+                  file_description:
+                    type: string
+            required:
+              - status
+              - message
+              - data
+          examples:
+            example-1:
+              value:
+                status: success
+                message: Evidence string updated
+                data:
+                  chain_of_custody: null
+                  case_id: 1
+                  type_id: null
+                  id: 117
+                  file_hash: string
+                  filename: string
+                  start_date: null
+                  type: null
+                  acquisition_date: null
+                  case: 1
+                  file_uuid: 88a4dd55-132a-4acf-9daf-f05303782131
+                  user_id: 1
+                  custom_attributes: {}
+                  date_added: '2024-01-09T16:19:38.620717'
+                  user:
+                    id: 1
+                    user_name: administrator
+                    user_login: administrator
+                    user_email: administrator@iris.local
+                  file_size: 0
+                  end_date: null
+                  file_description: string
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              filename: dummy file
+              file_size: '77108'
+              file_hash: 88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+              csrf_token: >-
+                IjAzZTc1OTRiNTg0NTkwZWIzMzRmMzk3OGE0Yzg1NzNkMDBhNWNlMDgi.ZgqYbA.x5ixUW6bQFaRaSULIx8UP7wQAtg
+              type_id: '2'
+              start_date: '2024-04-13T03:02:00.000'
+              end_date: '2024-04-04T00:00:00.000'
+              custom_attributes: {}
+              file_description: Dummy description
+          properties:
+            filename:
+              type: string
+            file_size:
+              type: integer
+            file_hash:
+              type: string
+            type_id:
+              $ref: ../schemas/evidence_type_id.yaml
+            start_date:
+              type: string
+            end_date:
+              type: string
+            custom_attributes:
+              type: object
+            file_description:
+              type: string
+          required:
+            - filename
+        examples:
+          example-1:
+            value:
+              filename: dummy file
+              file_size: 77108
+              file_hash: 88BC9EF6F07F0FAE922AB25EB226906542F8BA0DC1A221F3EA7273CBCB5DB0D4
+              type_id: 2
+              start_date: '2024-04-13T03:02:00.000'
+              end_date: '2024-04-04T00:00:00.000'
+              custom_attributes: {}
+              file_description: Dummy description
+  tags:
+    - Evidences
+parameters:
+  - schema:
+      type: integer
+    name: evidence_id
+    in: path
+    required: true
+    description: Evidence ID

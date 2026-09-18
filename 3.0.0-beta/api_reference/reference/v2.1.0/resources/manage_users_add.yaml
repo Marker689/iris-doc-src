@@ -1,0 +1,158 @@
+parameters: []
+post:
+  summary: Add a user
+  operationId: post-manage-users-add
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  user_is_service_account:
+                    type: boolean
+                  user_name:
+                    type: string
+                  has_deletion_confirmation:
+                    type: boolean
+                  uuid:
+                    type: string
+                  active:
+                    type: boolean
+                  user_login:
+                    type: string
+                  user_email:
+                    type: string
+                  id:
+                    type: integer
+                  in_dark_mode:
+                    type: 'null'
+                  external_id:
+                    type: 'null'
+                  has_mini_sidebar:
+                    type: boolean
+                  user_api_key:
+                    type: string
+            x-examples:
+              Example 1:
+                status: success
+                message: user created
+                data:
+                  user_is_service_account: true
+                  user_name: strsinsg
+                  has_deletion_confirmation: false
+                  uuid: bb807755-62fa-412b-b242-fd930a24be13
+                  active: true
+                  user_login: strsing
+                  user_email: stringa
+                  id: 4
+                  in_dark_mode: null
+                  external_id: null
+                  has_mini_sidebar: false
+                  user_api_key: >-
+                    ViYIIkN_LL062yNOcq2kJA3ZMscOAoHmLy8GEh_JYKBWwspLB_E65jhYLg9CsR0J-kP8DmmM3RO31_xixrG8rw
+          examples:
+            example-1:
+              value:
+                status: success
+                message: user created
+                data:
+                  user_is_service_account: true
+                  user_name: strsinsg
+                  has_deletion_confirmation: false
+                  uuid: bb807755-62fa-412b-b242-fd930a24be13
+                  active: true
+                  user_login: strsing
+                  user_email: stringa
+                  id: 4
+                  in_dark_mode: null
+                  external_id: null
+                  has_mini_sidebar: false
+                  user_api_key: >-
+                    ViYIIkN_LL062yNOcq2kJA3ZMscOAoHmLy8GEh_JYKBWwspLB_E65jhYLg9CsR0J-kP8DmmM3RO31_xixrG8rw
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  user_password:
+                    - Password must contain 1 capital letter and 1 number
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            example-1:
+              value:
+                data:
+                  user_password:
+                    - Password must contain 1 capital letter and 1 number
+                message: Data error
+                status: error
+  description: This endpoint is deprecated. Use [POST /api/v2/manage/users](#tag/Users/operation/api_v2_manage_users_post) instead.
+  deprecated: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            example-1:
+              csrf_token: >-
+                ImQzZjhlMDlhOTA1ZjI5ZGFlOWQ5MWNiOTJkMzMyNTlhODNjNDgxZTQi.YXmOBA.dgEYkYvG6SJVcKJYTeoOYU9MHfA
+              user_name: Test
+              user_login: login_3
+              user_email: login_3
+              user_password: P@ssword1234
+          properties:
+            user_name:
+              type: string
+              minLength: 1
+            user_login:
+              type: string
+              minLength: 1
+              description: Has to be unique
+            user_email:
+              type: string
+              minLength: 1
+              description: Has to be unique
+            user_password:
+              type: string
+              minLength: 1
+              description: Must satisfy policy of 12chars, 1 uppercase, 1 number
+            user_is_service_account:
+              type: boolean
+          required:
+            - user_name
+            - user_login
+            - user_email
+    description: ''
+  security:
+    - Bearer <bearer>: []
+  parameters: []
+  tags:
+    - Manage Users

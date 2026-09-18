@@ -1,0 +1,87 @@
+type: object
+properties:
+  user:
+    type: integer
+  filter_id:
+    type: integer
+  created_by:
+    type: integer
+  filter_is_private: 
+    type: boolean
+  filter_type:
+    type: string
+  filter_name:
+    type: string
+  filter_description:
+    type: string
+  filter_data:
+    type: array
+    items:
+      type: object
+      properties:
+        alert_title: 
+          type: string
+        alert_description:
+          type: string
+        alert_source: 
+          type: string
+        alert_tags:
+          type: string
+        alert_severity_id:
+          type: integer
+        alert_start_date:
+          type: string
+        source_start_date:
+          type: string
+        source_end_date:
+          type: string
+        creation_end_date:
+          type: string
+        creation_start_date:
+          type: string
+        alert_iocs:
+          type: array
+          items:
+            type: object
+            properties:
+              ioc_value:
+                type: string
+              ioc_description:
+                type: string
+              ioc_tlp_id:
+                type: integer
+              ioc_type_id:
+                type: integer
+              ioc_tags:
+                type: string
+              ioc_enrichment:
+                type: object
+        alert_assets:
+          type: array
+          items:
+            type: object
+            properties:
+              asset_name:
+                type: string
+              asset_description:
+                type: string
+              asset_type_id:
+                type: integer
+              asset_ip:
+                type: string
+              asset_domain:
+                type: string
+              asset_tags:
+                type: string
+              asset_enrichment:
+                type: object
+        alert_ids:
+          type: array
+          items:
+            type: integer
+        source_reference:
+          type: string
+        case_id:
+          type: integer
+        custom_conditions:
+          type: string

@@ -1,0 +1,36 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    schema:
+      type: integer
+  - name: topic_id
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_war-rooms_(war_room_id)_chat_topics_(topic_id)_archive_post
+  tags:
+    - War room chat
+    - Beta
+  summary: Archive a chat topic
+  description: >-
+    Soft-archive the topic by stamping `archived_at`; its messages are kept and
+    the topic can be brought back with `/unarchive`. Idempotent — archiving an
+    already-archived topic leaves the original timestamp alone. The Main topic
+    cannot be archived and answers 400. Takes no body. Requires write access to
+    the war room.
+  responses:
+    '200':
+      description: Topic successfully archived
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoomChatTopic.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

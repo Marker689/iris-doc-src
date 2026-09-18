@@ -1,0 +1,60 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_linked-case-timelines_events_get
+  tags:
+    - War room timelines
+    - Beta
+  summary: List linked-case timeline events
+  description: Return the case timeline events belonging to the specified linked case timelines, shaped like native war-room events. `case_timeline_ids` is a CSV of case timeline ids — matches the shape used by `/timelines/events?timeline_ids=` so both endpoints can share the same URL construction on the frontend. When no ids are supplied the response is an empty list.
+  parameters:
+    - name: case_timeline_ids
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of case timeline ids to project into the war-room view.
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page number, starting at 1.
+    - name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Number of events per page.
+    - name: since
+      in: query
+      required: false
+      schema:
+        type: string
+      description: ISO timestamp lower bound (inclusive) on `event_date`.
+    - name: until
+      in: query
+      required: false
+      schema:
+        type: string
+      description: ISO timestamp upper bound (inclusive) on `event_date`.
+  responses:
+    '200':
+      description: Linked case events successfully returned
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

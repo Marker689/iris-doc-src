@@ -1,0 +1,90 @@
+parameters:
+  - in: path
+    name: war_room_id
+    required: true
+    schema:
+      type: integer
+    description: Identifier of the war room.
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_get
+  tags:
+    - War rooms
+    - Beta
+  summary: Get a war room
+  description: Returns a single war room by identifier.
+  responses:
+    '200':
+      description: War room successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+patch:
+  operationId: api_v2_war-rooms_(war_room_id)_patch
+  tags:
+    - War rooms
+    - Beta
+  summary: Update a war room
+  description: Updates an existing war room. Only fields present in the request body are modified.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Short, human-readable name of the war room.
+            description:
+              type: string
+              description: Longer description of the war room's purpose.
+            state:
+              type: string
+              description: Operational state (for example `open`, `active`, `standby`, `closed`). State transitions are logged in the activity panel.
+            severity_id:
+              type: integer
+              description: Severity identifier associated with the war room.
+            color:
+              type: string
+              description: UI color tag for the war room (hex or named token).
+            custom_attributes:
+              type: object
+              description: Free-form custom attributes.
+        example:
+          state: closed
+          description: Post-incident review complete
+  responses:
+    '200':
+      description: War room successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/WarRoom.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_delete
+  tags:
+    - War rooms
+    - Beta
+  summary: Delete a war room
+  description: Hard-deletes a war room and all of its child rows. Only the creator or an administrator can perform this action.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

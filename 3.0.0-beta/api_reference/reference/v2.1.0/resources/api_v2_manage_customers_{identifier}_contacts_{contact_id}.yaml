@@ -1,0 +1,118 @@
+parameters:
+  - in: path
+    name: identifier
+    required: true
+    description: Identifier of the parent customer
+    schema:
+      type: integer
+  - in: path
+    name: contact_id
+    required: true
+    description: Identifier of the customer contact
+    schema:
+      type: integer
+get:
+  operationId: api_v2_manage_customers_(identifier)_contacts_(contact_id)_get
+  tags:
+    - Customers
+    - Beta
+  summary: Get a customer contact
+  description: Return a single contact belonging to the given customer. Returns 404 when the contact does not belong to that customer.
+  responses:
+    '200':
+      description: Contact successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              contact_name:
+                type: string
+              contact_email:
+                type: string
+              contact_role:
+                type: string
+              contact_phone:
+                type: string
+              contact_note:
+                type: string
+              client_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_customers_(identifier)_contacts_(contact_id)_put
+  tags:
+    - Customers
+    - Beta
+  summary: Update a customer contact
+  description: Partially update a contact. Any field omitted from the body is left unchanged.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            contact_name:
+              type: string
+            contact_email:
+              type: string
+            contact_role:
+              type: string
+            contact_phone:
+              type: string
+            contact_note:
+              type: string
+        example:
+          contact_email: jane.doe@example.com
+          contact_role: Deputy IR Lead
+  responses:
+    '200':
+      description: Contact successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              contact_name:
+                type: string
+              contact_email:
+                type: string
+              contact_role:
+                type: string
+              contact_phone:
+                type: string
+              contact_note:
+                type: string
+              client_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_customers_(identifier)_contacts_(contact_id)_delete
+  tags:
+    - Customers
+    - Beta
+  summary: Delete a customer contact
+  description: Delete a contact that belongs to the given customer.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

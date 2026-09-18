@@ -1,0 +1,52 @@
+get:
+  summary: List IOC TLP values
+  description: IOC TPL ([Traffic Light Protocol](https://www.first.org/tlp)) values
+  tags:
+    - Manage ioc tlp
+  operationId: get-tlp-list
+  responses:
+    '200':
+      description: OK
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tlp_name:
+                      type: string
+                    tlp_bscolor:
+                      type: string
+                    tlp_id:
+                      type: integer
+          examples:
+            example-1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - tlp_name: danger
+                    tlp_bscolor: red
+                    tlp_id: 1
+                  - tlp_name: amber
+                    tlp_bscolor: warning
+                    tlp_id: 2
+                  - tlp_name: success
+                    tlp_bscolor: green
+                    tlp_id: 3
+                  - tlp_name: clear
+                    tlp_bscolor: black
+                    tlp_id: 4
+                  - tlp_name: amber+strict
+                    tlp_bscolor: warning
+                    tlp_id: 5
+

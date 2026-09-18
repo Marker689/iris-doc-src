@@ -1,0 +1,83 @@
+parameters:
+  - schema:
+      type: integer
+    name: folder_id
+    in: path
+    required: true
+    description: Folder ID
+post:
+  summary: Move a datastore folder
+  tags:
+    - Datastore
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  case:
+                    type: 'null'
+                  path_case_id:
+                    type: integer
+                  path_id:
+                    type: integer
+                  path_is_root:
+                    type: boolean
+                  path_name:
+                    type: string
+                  path_parent_id:
+                    type: integer
+                  path_uuid:
+                    type: string
+                  registry:
+                    type: 'null'
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 53
+                  path_is_root: false
+                  path_name: New folder name
+                  path_parent_id: 49
+                  path_uuid: 61af71c7-4c7b-4d29-a4c5-825f415b3e06
+                  registry: null
+                message: Folder "New folder name" successfully moved to "Evidences"
+                status: success
+          examples:
+            Example 1:
+              value:
+                data:
+                  case: null
+                  path_case_id: 1
+                  path_id: 53
+                  path_is_root: false
+                  path_name: New folder name
+                  path_parent_id: 49
+                  path_uuid: 61af71c7-4c7b-4d29-a4c5-825f415b3e06
+                  registry: null
+                message: Folder "New folder name" successfully moved to "Evidences"
+                status: success
+  operationId: post-datastore-folder-move-folder_id
+  description: 'Move a folder to a new folder. '
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            destination-node:
+              type: integer
+        examples:
+          Example 1:
+            value:
+              destination-node: 49

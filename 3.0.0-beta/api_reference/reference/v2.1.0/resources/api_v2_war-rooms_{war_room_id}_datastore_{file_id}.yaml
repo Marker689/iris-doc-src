@@ -1,0 +1,70 @@
+parameters:
+  - name: war_room_id
+    in: path
+    required: true
+    description: Identifier of the war room
+    schema:
+      type: integer
+  - name: file_id
+    in: path
+    required: true
+    description: Identifier of the datastore file
+    schema:
+      type: integer
+get:
+  operationId: api_v2_war-rooms_(war_room_id)_datastore_(file_id)_get
+  tags:
+    - War room datastore
+    - Beta
+  summary: Get datastore file metadata
+  description: Return the metadata row for a single datastore file. Use the companion `/content` endpoint to download the file bytes.
+  responses:
+    '200':
+      description: File metadata successfully returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_id:
+                type: integer
+              war_room_id:
+                type: integer
+              filename:
+                type: string
+              description:
+                type: string
+              size_bytes:
+                type: integer
+              mime_type:
+                type: string
+              sha256:
+                type: string
+              uploaded_at:
+                type: string
+              uploaded_by_id:
+                type: integer
+              tags:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_war-rooms_(war_room_id)_datastore_(file_id)_delete
+  tags:
+    - War room datastore
+    - Beta
+  summary: Delete a datastore file
+  description: Remove a file from the war-room datastore. The stored blob is also purged.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

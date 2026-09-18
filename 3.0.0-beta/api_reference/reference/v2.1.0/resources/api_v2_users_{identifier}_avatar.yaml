@@ -1,0 +1,33 @@
+parameters:
+  - schema:
+      type: integer
+    name: identifier
+    in: path
+    required: true
+    description: User ID
+get:
+  operationId: api_v2_users_(identifier)_avatar_get
+  tags:
+    - Avatars
+    - Beta
+  summary: Get a user's avatar
+  description: >-
+    Return the target user's avatar as an image blob. Any authenticated
+    user can fetch any other user's avatar so the bytes can be rendered
+    in mention chips, contributor lists and comment bubbles. The
+    response carries an ETag and `Cache-Control: private,
+    must-revalidate` so clients revalidate cheaply.
+  responses:
+    '200':
+      description: Avatar successfully returned
+      content:
+        image/*:
+          schema:
+            type: string
+            format: binary
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml

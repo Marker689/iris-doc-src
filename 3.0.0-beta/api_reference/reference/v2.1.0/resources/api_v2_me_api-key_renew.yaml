@@ -1,0 +1,24 @@
+post:
+  operationId: api_v2_me_api-key_renew_post
+  tags:
+    - Profile
+    - Beta
+  summary: Renew API key
+  description: >-
+    Rotate the current user's API key. The previous key is invalidated
+    immediately; the freshly generated key is returned in the response
+    body and will never be shown again.
+  responses:
+    '200':
+      description: API key successfully renewed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              api_key:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

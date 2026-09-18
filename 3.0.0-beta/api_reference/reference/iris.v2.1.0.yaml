@@ -1,0 +1,1250 @@
+openapi: 3.1.0
+info:
+  title: IRIS
+  version: 2.1.0
+  description: |
+    ## IRIS API
+    To use these API endpoint, an API key is needed and can be found in every user profile under `My settings` > `API Key`.
+    API `v2.1` is the API version shipped with IRIS v3. The supported API version can be checked in `Advanced` > `Server settings` > `Server versions` on IRIS.
+    The API port is the same as the one used for the web interface, so `443` by default.
+
+    ## Changes
+    ### Changes in IRIS v3 (API v2.1)
+    IRIS v3 substantially expands the `/api/v2` surface without introducing a new API version. Every legacy endpoint that already had a `/api/v2` equivalent in earlier IRIS releases remains deprecated; several new subsystems (war rooms, alert clusters, cluster rules, investigation flows, custom dashboards, mail rules, notifications, access control, session auth) are now exposed under `/api/v2` and are the recommended surface for all new integrations.
+
+    See the "Migrating to IRIS v3" and "URI Converter" pages for a full mapping from legacy endpoints to their v2.1 equivalents.
+
+    **Added in IRIS v3 (new `/api/v2` endpoints)**
+    * Authentication: `POST /api/v2/auth/login`, `POST /api/v2/auth/oidc-exchange`, `POST /api/v2/auth/mfa-setup`, `POST /api/v2/auth/mfa-verify`, `GET /api/v2/auth/whoami`, `POST /api/v2/auth/logout`, `POST /api/v2/auth/refresh-token`
+    * Activities feed: `GET /api/v2/activities`, `GET /api/v2/cases/{identifier}/activities`
+    * Cases lifecycle: `GET /api/v2/cases/filter`, `POST /api/v2/cases/{identifier}/close`, `POST /api/v2/cases/{identifier}/reopen`, `GET /api/v2/cases/{identifier}/access/users`, `GET /api/v2/cases/{identifier}/access/me`, `GET /api/v2/cases/{identifier}/followers`, `GET /api/v2/cases/{identifier}/source-alert-cluster`, `DELETE /api/v2/cases/{identifier}/source-alert-cluster`, `DELETE /api/v2/cases/{identifier}/alerts/{alert_id}`, `GET /api/v2/cases/{identifier}/war-rooms`
+    * Cases filters: `GET/POST/PUT/DELETE /api/v2/cases-filters[/{identifier}]`
+    * Alert clusters: full CRUD on `/api/v2/alert-clusters[/{identifier}]` plus `/alerts`, `/escalate`, `/merge`, `/case`, `/graph`, `/comments`, `/investigation-progress`
+    * Alerts extras: `POST /api/v2/alerts/{identifier}/investigation-progress/{step_id}` (and DELETE), `GET /api/v2/alerts/{identifier}/investigation-progress`
+    * Cluster rules: `GET/POST/PUT/DELETE /api/v2/cluster-rules[/{identifier}]`, `/test`, `/backfill`
+    * Investigation flows: `GET/POST/PUT/DELETE /api/v2/investigation-flows[/{identifier}]`, `/steps[/{step_id}]`, `/deploy`
+    * Custom dashboards: `GET/POST/PUT/DELETE /api/v2/custom-dashboards[/{dashboard_uuid}]`, `/schema`, `/presets`, `/render`
+    * Dashboard aggregates: `/api/v2/dashboard/cases/list`, `/dashboard/tasks/list`, `/dashboard/activities/recent`, `/dashboard/activities/cases/major`, `/dashboard/reviews/list`, `/dashboard/kpis`
+    * Dim tasks: `GET /api/v2/dim-tasks[/{task_id}]`
+    * Case timelines: `GET/POST/PUT/DELETE /api/v2/cases/{case_identifier}/timelines[/{timeline_id}]`
+    * Case datastore: `/api/v2/cases/{case_identifier}/datastore/{tree,files,folders,...}` (full folder + file CRUD, move, interactive upload)
+    * Case objects extras: `GET /api/v2/cases/{case_identifier}/assets/{identifier}/links`, `GET /api/v2/cases/{case_identifier}/iocs/{identifier}/links`, `GET /api/v2/cases/{case_identifier}/notes` (list), `GET /api/v2/cases/{case_identifier}/notes/search`, `/notes/{identifier}/revisions[/{revision_number}]` including `restore`
+    * War rooms: full subtree — `/api/v2/war-rooms[/{war_room_id}]` root, `/archive`, `/members`, `/people`, `/cases`, chat + threads + polls, datastore, notes + revisions, notes-folders, sitreps + exports (md/html/pdf), tasks, timelines + events, linked-case-timelines
+    * Notifications: `/api/v2/notifications`, `/unread-count`, `/mark-read`, `/clear`, `/settings`, `/manage/notification-settings`
+    * Search & tags: `GET /api/v2/search`, `GET /api/v2/tags`
+    * Avatars: `GET /api/v2/users/{identifier}/avatar`, `GET /api/v2/users/mentionable`, `POST/DELETE /api/v2/me/avatar`, `POST/DELETE /api/v2/manage/users/{identifier}/avatar`
+    * Profile extras: `POST /api/v2/me/api-key/renew`, `POST /api/v2/me/permissions/refresh`, `GET /api/v2/me/context`, `PUT /api/v2/me/preferences`, `GET/POST /api/v2/me/followed-cases[/{case_id}]`
+    * Mail rules & ingest: `/api/v2/manage/mail/rules[/{rule_id}]`, `/ingest-log`, `/poll-now`
+    * Access control: `GET /api/v2/manage/access-control/schema`, `/accessible-cases`, `POST /api/v2/manage/access-control/recompute-all`
+    * Case objects taxonomies (unified): `/api/v2/manage/case-objects/{asset-types|ioc-types|case-classifications|case-states|evidence-types}[/{identifier}]` plus asset-type icon upload
+    * Case templates: `/api/v2/manage/case-templates[/{identifier}]`, `/schema`
+    * Custom attributes: `GET /api/v2/manage/custom-attributes[/{identifier}]`, `PUT /api/v2/manage/custom-attributes/{identifier}`
+    * Customers contacts: `/api/v2/manage/customers/{identifier}/contacts[/{contact_id}]`
+    * Groups extras: `/api/v2/manage/groups/{identifier}/{members,cases-access}`
+    * Users extras: `/api/v2/manage/users/{identifier}/{groups,customers,cases-access,activate,deactivate,api-key/renew,mfa/reset,recompute-access,audit}`, `/api/v2/manage/users/me/preferences/{key}`
+    * Modules: `/api/v2/manage/modules[/{identifier}]`, `/enable`, `/disable`, `/parameters/{param_name}`, `/export-config`, `/import-config`, `/hooks`
+    * Report templates: `/api/v2/manage/report-templates[/{identifier}]`, `/file`, `/download`, `/render`, `/accessible-cases`, `/schema`
+    * Server admin: `/api/v2/manage/server/authentication-settings`, `/settings`, `/backups/db`, `/mail/test-send`
+    * Taxonomies (read-only): `/api/v2/manage/{severities,tlp,alert-statuses,alert-resolutions,alert-cluster-statuses,analysis-statuses,event-categories,task-statuses}`
+
+    **Legacy endpoints still live in IRIS v3** — every deprecated `/case/*`, `/alerts/*`, `/datastore/*`, `/dim/*`, `/global/*` and `/manage/*` (non-v2) endpoint listed under "Deprecated" below remains live in the IRIS v3 backend, with the following exceptions removed in v3:
+
+    * Removed `POST /case/summary/update` (case summary is now updated via `PUT /api/v2/cases/{case_identifier}`)
+    * Removed `POST /case/timeline/advanced-filter` (superseded by `GET /case/timeline/advanced-filter` and by richer `/api/v2` filters)
+    * Removed `POST /manage/access-control/recompute-effective-user-ac/{user_id}` (superseded by `POST /api/v2/manage/users/{identifier}/recompute-access` and `POST /api/v2/manage/access-control/recompute-all`)
+    * Removed `GET /dim/tasks/limited-list` (superseded by `GET /api/v2/dim-tasks`)
+
+    ### Changes in v2.1.0
+    * Added POST /api/v2/cases
+    * Added GET /api/v2/cases
+    * Added GET /api/v2/cases/{case_identifier}
+    * Added PUT /api/v2/cases/{case_identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}
+    * Added POST /api/v2/cases/{case_identifier}/iocs
+    * Added GET /api/v2/cases/{case_identifier}/iocs
+    * Added GET /api/v2/cases/{case_identifier}/iocs/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/iocs/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/iocs/{identifier}
+    * Added GET /api/v2/iocs/{identifier}
+    * Added PUT /api/v2/iocs/{identifier}
+    * Added DELETE /api/v2/iocs/{identifier}
+    * Added POST /api/v2/cases/{case_identifier}/tasks
+    * Added GET /api/v2/cases/{case_identifier}/tasks
+    * Added GET /api/v2/cases/{case_identifier}/tasks/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/tasks/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/tasks/{identifier}
+    * Added GET /api/v2/tasks/{identifier}
+    * Added DELETE /api/v2/tasks/{identifier}
+    * Added POST /api/v2/cases/{case_identifier}/assets
+    * Added GET /api/v2/cases/{case_identifier}/assets
+    * Added GET /api/v2/cases/{case_identifier}/assets/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/assets/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/assets/{identifier}
+    * Added GET /api/v2/assets/{identifier}
+    * Added DELETE /api/v2/assets/{identifier}
+    * Added POST /api/v2/cases/{case_identifier}/notes
+    * Added GET /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Added POST /api/v2/cases/{case_identifier}/notes-directories
+    * Added GET /api/v2/cases/{case_identifier}/notes-directories/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/notes-directories/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/notes-directories/{identifier}
+    * Added GET /api/v2/cases/{case_identifier}/notes-directories
+    * Added POST /api/v2/cases/{case_identifier}/evidences
+    * Added GET /api/v2/cases/{case_identifier}/evidences
+    * Added GET /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Added POST /api/v2/cases/{case_identifier}/events
+    * Added GET /api/v2/cases/{case_identifier}/events/{identifier}
+    * Added PUT /api/v2/cases/{case_identifier}/events/{identifier}
+    * Added DELETE /api/v2/cases/{case_identifier}/events/{identifier}
+    * Added POST /api/v2/alerts
+    * Added GET /api/v2/alerts/{identifier}
+    * Added PUT /api/v2/alerts/{identifier}
+    * Added DELETE /api/v2/alerts/{identifier}
+    * Added GET /api/v2/alerts/{identifier}/related-alerts
+    * Added POST /api/v2/manage/groups
+    * Added GET /api/v2/manage/groups/{identifier}
+    * Added PUT /api/v2/manage/groups/{identifier}
+    * Added DELETE /api/v2/manage/groups/{identifier}
+    * Added POST /api/v2/manage/users
+    * Added GET /api/v2/manage/users/{identifier}
+    * Added PUT /api/v2/manage/users/{identifier}
+    * Added DELETE /api/v2/manage/users/{identifier}
+    * Added GET /api/v2/me
+    * Added PUT /api/v2/me
+    * Added GET /api/v2/{objects}/{object_identifier}/comments
+    * Added POST /api/v2/{objects}/{object_identifier}/comments
+    * Added GET /api/v2/{objects}/{object_identifier}/comments/{identifier}
+    * Added PUT /api/v2/{objects}/{object_identifier}/comments/{identifier}
+    * Added DELETE /api/v2/{objects}/{object_identifier}/comments/{identifier}
+    * Added GET /api/v2/manage/customers
+    * Added POST /api/v2/manage/customers
+    * Added GET /api/v2/manage/customers/{identifier}
+    * Added PUT /api/v2/manage/customers/{identifier}
+    * Added DELETE /api/v2/manage/customers/{identifier}
+    * Added POST /api/v2/alerts/filters
+    * Added GET /api/v2/alerts/filters/{identifier}
+    * Added PUT /api/v2/alerts/filters/{identifier}
+    * Added DELETE /api/v2/alerts/filters/{identifier}
+    * Added POST /api/v2/alerts/escalate/{identifier} (moved from /alerts/escalate/{alert_id})
+    * Added POST /api/v2/alerts/merge/{identifier} (moved from /alerts/merge/{alert_id})
+    * Added POST /api/v2/alerts/unmerge/{identifier} (moved from /alerts/unmerge/{alert_id})
+    * Added POST /api/v2/alerts/batch/escalate (moved from /alerts/batch/escalate)
+    * Added POST /api/v2/alerts/batch/merge (moved from /alerts/batch/merge)
+    * Added GET /api/v2/global-tasks
+    * Added POST /api/v2/global-tasks
+    * Added GET /api/v2/global-tasks/{identifier}
+    * Added PUT /api/v2/global-tasks/{identifier}
+    * Added DELETE /api/v2/global-tasks/{identifier}
+    * Deprecated POST /manage/cases/add in favor of POST /api/v2/cases
+    * Deprecated POST /manage/cases/update in favor of PUT /api/v2/cases/{case_identifier}
+    * Deprecated POST /manage/cases/delete/{case_id} in favor of DELETE /api/v2/cases/{case_identifier}
+    * Deprecated POST /case/ioc/add in favor of POST /api/v2/cases/{case_identifier}/iocs
+    * Deprecated GET /case/ioc/{ioc_id}  in favor of GET /api/v2/iocs/{identifier}
+    * Deprecated DELETE /case/ioc/delete/{ioc_id} in favor of DELETE /api/v2/iocs/{identifier}
+    * Deprecated GET /case/tasks/list in favor of GET /api/v2/cases/{case_identifier}/tasks
+    * Deprecated POST /case/tasks/add in favor of POST /api/v2/cases/{case_identifier}/tasks
+    * Deprecated POST /case/tasks/update/{task_id} in favor of PUT /api/v2/cases/{case_identifier}/tasks/{identifier}
+    * Deprecated GET /case/tasks/{task_id} in favor of GET /api/v2/tasks/{identifier}
+    * Deprecated DELETE /case/tasks/delete/{task_id} in favor of DELETE /api/v2/tasks/{identifier}
+    * Deprecated POST /case/assets/add in favor of POST /api/v2/cases/{case_identifier}/assets
+    * Deprecated POST /case/assets/update/{cur_id} in favor of PUT /api/v2/cases/{case_identifier}/assets/{identifier}
+    * Deprecated GET /case/assets/{asset_id} in favor of GET /api/v2/assets/{identifier}
+    * Deprecated DELETE /case/assets/delete/{asset_id} in favor of DELETE /api/v2/assets/{identifier}
+    * Deprecated POST /case/notes/add in favor of POST /api/v2/cases/{case_identifier}/notes
+    * Deprecated GET /case/notes/{identifier} in favor of GET /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Deprecated POST /case/notes/update/{node_id} in favor of PUT /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Deprecated POST /case/notes/delete/{node_id} in favor of DELETE /api/v2/cases/{case_identifier}/notes/{identifier}
+    * Deprecated POST /case/notes/directories/add in favor of POST /api/v2/cases/{case_identifier}/notes-directories
+    * Deprecated GET /case/notes/directories/filter in favor of GET /api/v2/cases/{case_identifier}/notes-directories
+    * Deprecated POST /case/evidences/add in favor of POST /api/v2/cases/{case_identifier}/evidences
+    * Deprecated GET /case/evidences/list in favor of GET /api/v2/cases/{case_identifier}/evidences
+    * Deprecated GET /case/evidences/{evidence_id} in favor of GET /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Deprecated POST /case/evidences/udpate/{evidence_id} in favor of PUT /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Deprecated POST /case/evidences/delete/{evidence_id} in favor of DELETE /api/v2/cases/{case_identifier}/evidences/{identifier}
+    * Deprecated POST /case/timeline/events/add in favor of POST /api/v2/cases/{case_identifier}/events
+    * Deprecated GET /case/timeline/events/{event_id} in favor of GET /api/v2/cases/{case_identifier}/events/{identifier}
+    * Deprecated POST /case/timeline/events/update/{event_id} in favor of PUT /api/v2/cases/{case_identifier}/events/{identifier}
+    * Deprecated POST /case/timeline/events/delete/{event_id} in favor of DELETE /api/v2/cases/{case_identifier}/events/{identifier}
+    * Deprecated POST /alerts/add in favor of POST /api/v2/alerts
+    * Deprecated GET /alerts/{alert_id} in favor of GET /api/v2/alerts/{identifier}
+    * Deprecated POST /alert/update/{alert_id} in favor of PUT /api/v2/alerts/{identifier}
+    * Deprecated POST /alerts/delete/{alert_id} in favor of DELETE /api/v2/alerts/{identifier}
+    * Deprecated POST /manage/groups/add in favor of POST /api/v2/manage/groups
+    * Deprecated POST /manage/groups/update/{group_id} in favor of PUT /api/v2/manage/groups/{identifier}
+    * Deprecated POST /manage/groups/delete/{group_id} in favor of DELETE /api/v2/manage/groups/{identifier}
+    * Deprecated POST /manage/users/add in favor of POST /api/v2/manage/users
+    * Deprecated POST /case/notes/directories/update/{directory_id}
+    * Deprecated POST /case/notes/directories/delete/{directory_id}
+    * Deprecated GET /manage/users/{user_id} in favor of GET /api/v2/manage/users/{identifier}
+    * Deprecated POST /manage/users/update/{user_id} in favor of  PUT /api/v2/manage/users/{identifier}
+    * Deprecated POST /manage/users/delete/{user_id} in favor of  DELETE /api/v2/manage/users/{identifier}
+    * Deprecated GET /alerts/similarities/{alert_id}
+    * Deprecated GET /case/{object_name}/{object_id}/comments/list
+    * Deprecated POST /case/{object_name}/{object_id}/comments/add
+    * Deprecated POST /case/{object_name}/{object_id}/comments/{comment_id}/edit
+    * Deprecated POST /case/{object_name}/{object_id}/comments/{comment_id}/delete
+    * Deprecated GET /manage/customers/list
+    * Deprecated POST /manage/customers/add
+    * Deprecated GET /manage/customers/{customer_id}
+    * Deprecated POST /manage/customers/update/{customer_id}
+    * Deprecated POST /manage/customers/delete/{customer_id}
+    * Deprecated POST /global/tasks/add
+    * Deprecated GET /global/tasks/list
+    * Deprecated POST /global/tasks/update/{task_id}
+    * Deprecated POST /global/tasks/delete/{task_id}
+    * Added documentation of missing GET /manage/severities/list
+    * Added documentation of missing GET /manage/tlp/list
+    * Added documentation of missing GET /manage/event-categories/list
+    * Added documentation of missing GET /manage/compromise-status/list
+    * Fixed: removed documentation of unimplemented endpoint GET /case/evidences/delete/{evidence_id}
+
+    ### Changes in v2.0.0
+    This version introduces access control. Every request now needs to have the `cid=x` parameter in the URI.  
+    Deletion endpoints have been migrated from `GET` to `POST`. Deletion GET endpoints have been marqued as `deprecated` and are not available anymore.  
+
+    ### Changes in v1.4.5
+    v1.4.5 introduced the concept of custom attributes. These JSON objects that are stored into almost all case objects such as Assets, IOCs, etc. They are defined by administrators or modules and can vary from one objet to another despite being of the same type.  Because of this, no definitive structure can be expected from these fields. They are all named ``custom_attributes``. 
+  contact:
+    name: DFIR-IRIS
+    email: contact@dfir-iris.org
+    url: 'https://docs.dfir-iris.org/contact/'
+  license:
+    name: LGPLv3
+    url: https://www.gnu.org/licenses/lgpl-3.0.txt
+servers:
+  - url: 'https://v200.beta.dfir-iris.org'
+    description: Demo instance
+  - url: 'https://127.0.0.1'
+    description: Local instance
+  - url: 'http://127.0.0.1:8000'
+    description: Local debug
+paths:
+  /api/v2/cases:
+    $ref: v2.1.0/resources/api_v2_cases.yaml
+  /api/v2/cases/{case_identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}.yaml
+  /api/v2/cases/{case_identifier}/iocs:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_iocs.yaml
+  /api/v2/cases/{case_identifier}/iocs/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_iocs_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/assets:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_assets.yaml
+  /api/v2/cases/{case_identifier}/assets/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_assets_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/notes:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes.yaml
+  /api/v2/cases/{case_identifier}/notes/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/notes-directories:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes-directories.yaml
+  /api/v2/cases/{case_identifier}/notes-directories/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes-directories_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/tasks:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_tasks.yaml
+  /api/v2/cases/{case_identifier}/tasks/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_tasks_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/evidences:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_evidences.yaml
+  /api/v2/cases/{case_identifier}/evidences/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_evidences_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/events:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_events.yaml
+  /api/v2/cases/{case_identifier}/events/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_events_{identifier}.yaml
+  /api/v2/{objects}/{object_identifier}/comments:
+    $ref: v2.1.0/resources/api_v2_{objects}_{object_identifier}_comments.yaml
+  /api/v2/{objects}/{object_identifier}/comments/{identifier}:
+    $ref: v2.1.0/resources/api_v2_{objects}_{object_identifier}_comments_{identifier}.yaml
+  /api/v2/alerts:
+    $ref: v2.1.0/resources/api_v2_alerts.yaml
+  /api/v2/alerts/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_{identifier}.yaml
+  /api/v2/alerts/{identifier}/related-alerts:
+    $ref: v2.1.0/resources/api_v2_alerts_{identifier}_related_alerts.yaml
+  /api/v2/alerts/filters:
+    $ref: v2.1.0/resources/api_v2_alerts_filters.yaml
+  /api/v2/alerts/filters/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_filters_{identifier}.yaml
+  /api/v2/alerts/escalate/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_escalate_{identifier}.yaml
+  /api/v2/alerts/merge/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_merge_{identifier}.yaml
+  /api/v2/alerts/unmerge/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_unmerge_{identifier}.yaml
+  /api/v2/alerts/batch/escalate:
+    $ref: v2.1.0/resources/api_v2_alerts_batch_escalate.yaml
+  /api/v2/alerts/batch/merge:
+    $ref: v2.1.0/resources/api_v2_alerts_batch_merge.yaml
+  /api/v2/manage/groups:
+    $ref: v2.1.0/resources/api_v2_manage_groups.yaml
+  /api/v2/manage/groups/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_groups_{identifier}.yaml
+  /api/v2/manage/users:
+    $ref: v2.1.0/resources/api_v2_manage_users.yaml
+  /api/v2/manage/users/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}.yaml
+  /api/v2/manage/customers:
+    $ref: v2.1.0/resources/api_v2_manage_customers.yaml
+  /api/v2/manage/customers/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_customers_{identifier}.yaml
+  /api/v2/iocs/{identifier}:
+    $ref: v2.1.0/resources/api_v2_iocs_{identifier}.yaml
+  /api/v2/tasks/{identifier}:
+    $ref: v2.1.0/resources/api_v2_tasks_{identifier}.yaml
+  /api/v2/assets/{identifier}:
+    $ref: v2.1.0/resources/api_v2_assets_{identifier}.yaml
+  /api/v2/me:
+    $ref: v2.1.0/resources/api_v2_me.yaml
+  /api/v2/global-tasks:
+    $ref: v2.1.0/resources/api_v2_global-tasks.yaml
+  /api/v2/global-tasks/{identifier}:
+    $ref: v2.1.0/resources/api_v2_global-tasks_{identifier}.yaml
+  # ---- v3 additions ----
+  /api/v2/auth/login:
+    $ref: v2.1.0/resources/api_v2_auth_login.yaml
+  /api/v2/auth/oidc-exchange:
+    $ref: v2.1.0/resources/api_v2_auth_oidc-exchange.yaml
+  /api/v2/auth/mfa-setup:
+    $ref: v2.1.0/resources/api_v2_auth_mfa-setup.yaml
+  /api/v2/auth/mfa-verify:
+    $ref: v2.1.0/resources/api_v2_auth_mfa-verify.yaml
+  /api/v2/auth/whoami:
+    $ref: v2.1.0/resources/api_v2_auth_whoami.yaml
+  /api/v2/auth/logout:
+    $ref: v2.1.0/resources/api_v2_auth_logout.yaml
+  /api/v2/auth/refresh-token:
+    $ref: v2.1.0/resources/api_v2_auth_refresh-token.yaml
+  /api/v2/activities:
+    $ref: v2.1.0/resources/api_v2_activities.yaml
+  /api/v2/cases/filter:
+    $ref: v2.1.0/resources/api_v2_cases_filter.yaml
+  /api/v2/cases/{identifier}/close:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_close.yaml
+  /api/v2/cases/{identifier}/reopen:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_reopen.yaml
+  /api/v2/cases/{identifier}/access/users:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_access_users.yaml
+  /api/v2/cases/{identifier}/access/me:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_access_me.yaml
+  /api/v2/cases/{identifier}/followers:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_followers.yaml
+  /api/v2/cases/{identifier}/source-alert-cluster:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_source-alert-cluster.yaml
+  /api/v2/cases/{identifier}/alerts/{alert_id}:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_alerts_{alert_id}.yaml
+  /api/v2/cases/{identifier}/war-rooms:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_war-rooms.yaml
+  /api/v2/cases/{identifier}/activities:
+    $ref: v2.1.0/resources/api_v2_cases_{identifier}_activities.yaml
+  /api/v2/cases-filters:
+    $ref: v2.1.0/resources/api_v2_cases-filters.yaml
+  /api/v2/cases-filters/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases-filters_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/assets/{identifier}/links:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_assets_{identifier}_links.yaml
+  /api/v2/cases/{case_identifier}/iocs/{identifier}/links:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_iocs_{identifier}_links.yaml
+  /api/v2/cases/{case_identifier}/notes/search:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes_search.yaml
+  /api/v2/cases/{case_identifier}/notes/{identifier}/revisions:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes_{identifier}_revisions.yaml
+  /api/v2/cases/{case_identifier}/notes/{identifier}/revisions/{revision_number}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes_{identifier}_revisions_{revision_number}.yaml
+  /api/v2/cases/{case_identifier}/notes/{identifier}/revisions/{revision_number}/restore:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_notes_{identifier}_revisions_{revision_number}_restore.yaml
+  /api/v2/cases/{case_identifier}/timelines:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_timelines.yaml
+  /api/v2/cases/{case_identifier}/timelines/{timeline_id}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_timelines_{timeline_id}.yaml
+  /api/v2/cases/{case_identifier}/datastore/tree:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_tree.yaml
+  /api/v2/cases/{case_identifier}/datastore/files:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_files.yaml
+  /api/v2/cases/{case_identifier}/datastore/files/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_files_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/datastore/files/{identifier}/info:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_files_{identifier}_info.yaml
+  /api/v2/cases/{case_identifier}/datastore/files/{identifier}/move:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_files_{identifier}_move.yaml
+  /api/v2/cases/{case_identifier}/datastore/files/interactive:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_files_interactive.yaml
+  /api/v2/cases/{case_identifier}/datastore/folders:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_folders.yaml
+  /api/v2/cases/{case_identifier}/datastore/folders/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_folders_{identifier}.yaml
+  /api/v2/cases/{case_identifier}/datastore/folders/{identifier}/rename:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_folders_{identifier}_rename.yaml
+  /api/v2/cases/{case_identifier}/datastore/folders/{identifier}/move:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_folders_{identifier}_move.yaml
+  /api/v2/cases/{case_identifier}/datastore/folders/{folder_identifier}/files:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_datastore_folders_{folder_identifier}_files.yaml
+  /api/v2/alert-clusters:
+    $ref: v2.1.0/resources/api_v2_alert-clusters.yaml
+  /api/v2/alert-clusters/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}.yaml
+  /api/v2/alert-clusters/{identifier}/alerts:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_alerts.yaml
+  /api/v2/alert-clusters/{identifier}/alerts/{alert_id}:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_alerts_{alert_id}.yaml
+  /api/v2/alert-clusters/{identifier}/escalate:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_escalate.yaml
+  /api/v2/alert-clusters/{identifier}/merge:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_merge.yaml
+  /api/v2/alert-clusters/{identifier}/case:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_case.yaml
+  /api/v2/alert-clusters/{identifier}/graph:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_graph.yaml
+  /api/v2/alert-clusters/{cluster_identifier}/comments:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{cluster_identifier}_comments.yaml
+  /api/v2/alert-clusters/{cluster_identifier}/comments/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{cluster_identifier}_comments_{identifier}.yaml
+  /api/v2/alert-clusters/{identifier}/investigation-progress:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_investigation-progress.yaml
+  /api/v2/alert-clusters/{identifier}/investigation-progress/{step_id}:
+    $ref: v2.1.0/resources/api_v2_alert-clusters_{identifier}_investigation-progress_{step_id}.yaml
+  /api/v2/alerts/{identifier}/investigation-progress:
+    $ref: v2.1.0/resources/api_v2_alerts_{identifier}_investigation-progress.yaml
+  /api/v2/alerts/{identifier}/investigation-progress/{step_id}:
+    $ref: v2.1.0/resources/api_v2_alerts_{identifier}_investigation-progress_{step_id}.yaml
+  /api/v2/cluster-rules:
+    $ref: v2.1.0/resources/api_v2_cluster-rules.yaml
+  /api/v2/cluster-rules/{identifier}:
+    $ref: v2.1.0/resources/api_v2_cluster-rules_{identifier}.yaml
+  /api/v2/cluster-rules/{identifier}/test:
+    $ref: v2.1.0/resources/api_v2_cluster-rules_{identifier}_test.yaml
+  /api/v2/cluster-rules/{identifier}/backfill:
+    $ref: v2.1.0/resources/api_v2_cluster-rules_{identifier}_backfill.yaml
+  /api/v2/investigation-flows:
+    $ref: v2.1.0/resources/api_v2_investigation-flows.yaml
+  /api/v2/investigation-flows/{identifier}:
+    $ref: v2.1.0/resources/api_v2_investigation-flows_{identifier}.yaml
+  /api/v2/investigation-flows/{identifier}/steps:
+    $ref: v2.1.0/resources/api_v2_investigation-flows_{identifier}_steps.yaml
+  /api/v2/investigation-flows/{flow_id}/steps/{step_id}:
+    $ref: v2.1.0/resources/api_v2_investigation-flows_{flow_id}_steps_{step_id}.yaml
+  /api/v2/investigation-flows/{identifier}/deploy:
+    $ref: v2.1.0/resources/api_v2_investigation-flows_{identifier}_deploy.yaml
+  /api/v2/custom-dashboards:
+    $ref: v2.1.0/resources/api_v2_custom-dashboards.yaml
+  /api/v2/custom-dashboards/schema:
+    $ref: v2.1.0/resources/api_v2_custom-dashboards_schema.yaml
+  /api/v2/custom-dashboards/presets:
+    $ref: v2.1.0/resources/api_v2_custom-dashboards_presets.yaml
+  /api/v2/custom-dashboards/{dashboard_uuid}:
+    $ref: v2.1.0/resources/api_v2_custom-dashboards_{dashboard_uuid}.yaml
+  /api/v2/custom-dashboards/{dashboard_uuid}/render:
+    $ref: v2.1.0/resources/api_v2_custom-dashboards_{dashboard_uuid}_render.yaml
+  /api/v2/dashboard/cases/list:
+    $ref: v2.1.0/resources/api_v2_dashboard_cases_list.yaml
+  /api/v2/dashboard/tasks/list:
+    $ref: v2.1.0/resources/api_v2_dashboard_tasks_list.yaml
+  /api/v2/dashboard/activities/recent:
+    $ref: v2.1.0/resources/api_v2_dashboard_activities_recent.yaml
+  /api/v2/dashboard/activities/cases/major:
+    $ref: v2.1.0/resources/api_v2_dashboard_activities_cases_major.yaml
+  /api/v2/dashboard/reviews/list:
+    $ref: v2.1.0/resources/api_v2_dashboard_reviews_list.yaml
+  /api/v2/dashboard/kpis:
+    $ref: v2.1.0/resources/api_v2_dashboard_kpis.yaml
+  /api/v2/dim-tasks:
+    $ref: v2.1.0/resources/api_v2_dim-tasks.yaml
+  /api/v2/dim-tasks/{task_id}:
+    $ref: v2.1.0/resources/api_v2_dim-tasks_{task_id}.yaml
+  /api/v2/notifications:
+    $ref: v2.1.0/resources/api_v2_notifications.yaml
+  /api/v2/notifications/unread-count:
+    $ref: v2.1.0/resources/api_v2_notifications_unread-count.yaml
+  /api/v2/notifications/mark-read:
+    $ref: v2.1.0/resources/api_v2_notifications_mark-read.yaml
+  /api/v2/notifications/clear:
+    $ref: v2.1.0/resources/api_v2_notifications_clear.yaml
+  /api/v2/notifications/settings:
+    $ref: v2.1.0/resources/api_v2_notifications_settings.yaml
+  /api/v2/manage/notification-settings:
+    $ref: v2.1.0/resources/api_v2_manage_notification-settings.yaml
+  /api/v2/search:
+    $ref: v2.1.0/resources/api_v2_search.yaml
+  /api/v2/tags:
+    $ref: v2.1.0/resources/api_v2_tags.yaml
+  /api/v2/users/mentionable:
+    $ref: v2.1.0/resources/api_v2_users_mentionable.yaml
+  /api/v2/users/{identifier}/avatar:
+    $ref: v2.1.0/resources/api_v2_users_{identifier}_avatar.yaml
+  /api/v2/me/avatar:
+    $ref: v2.1.0/resources/api_v2_me_avatar.yaml
+  /api/v2/me/api-key/renew:
+    $ref: v2.1.0/resources/api_v2_me_api-key_renew.yaml
+  /api/v2/me/permissions/refresh:
+    $ref: v2.1.0/resources/api_v2_me_permissions_refresh.yaml
+  /api/v2/me/context:
+    $ref: v2.1.0/resources/api_v2_me_context.yaml
+  /api/v2/me/preferences:
+    $ref: v2.1.0/resources/api_v2_me_preferences.yaml
+  /api/v2/me/followed-cases:
+    $ref: v2.1.0/resources/api_v2_me_followed-cases.yaml
+  /api/v2/me/followed-cases/{case_id}:
+    $ref: v2.1.0/resources/api_v2_me_followed-cases_{case_id}.yaml
+  /api/v2/manage/mail/rules:
+    $ref: v2.1.0/resources/api_v2_manage_mail_rules.yaml
+  /api/v2/manage/mail/rules/{rule_id}:
+    $ref: v2.1.0/resources/api_v2_manage_mail_rules_{rule_id}.yaml
+  /api/v2/manage/mail/ingest-log:
+    $ref: v2.1.0/resources/api_v2_manage_mail_ingest-log.yaml
+  /api/v2/manage/mail/poll-now:
+    $ref: v2.1.0/resources/api_v2_manage_mail_poll-now.yaml
+  /api/v2/manage/access-control/schema:
+    $ref: v2.1.0/resources/api_v2_manage_access-control_schema.yaml
+  /api/v2/manage/access-control/accessible-cases:
+    $ref: v2.1.0/resources/api_v2_manage_access-control_accessible-cases.yaml
+  /api/v2/manage/access-control/recompute-all:
+    $ref: v2.1.0/resources/api_v2_manage_access-control_recompute-all.yaml
+  /api/v2/manage/case-objects/asset-types:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_asset-types.yaml
+  /api/v2/manage/case-objects/asset-types/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_asset-types_{identifier}.yaml
+  /api/v2/manage/case-objects/asset-types/{identifier}/icon/{field}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_asset-types_{identifier}_icon_{field}.yaml
+  /api/v2/manage/case-objects/ioc-types:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_ioc-types.yaml
+  /api/v2/manage/case-objects/ioc-types/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_ioc-types_{identifier}.yaml
+  /api/v2/manage/case-objects/case-classifications:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_case-classifications.yaml
+  /api/v2/manage/case-objects/case-classifications/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_case-classifications_{identifier}.yaml
+  /api/v2/manage/case-objects/case-states:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_case-states.yaml
+  /api/v2/manage/case-objects/case-states/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_case-states_{identifier}.yaml
+  /api/v2/manage/case-objects/evidence-types:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_evidence-types.yaml
+  /api/v2/manage/case-objects/evidence-types/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-objects_evidence-types_{identifier}.yaml
+  /api/v2/manage/case-templates:
+    $ref: v2.1.0/resources/api_v2_manage_case-templates.yaml
+  /api/v2/manage/case-templates/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_case-templates_{identifier}.yaml
+  /api/v2/manage/case-templates/schema:
+    $ref: v2.1.0/resources/api_v2_manage_case-templates_schema.yaml
+  /api/v2/manage/custom-attributes:
+    $ref: v2.1.0/resources/api_v2_manage_custom-attributes.yaml
+  /api/v2/manage/custom-attributes/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_custom-attributes_{identifier}.yaml
+  /api/v2/manage/customers/{identifier}/contacts:
+    $ref: v2.1.0/resources/api_v2_manage_customers_{identifier}_contacts.yaml
+  /api/v2/manage/customers/{identifier}/contacts/{contact_id}:
+    $ref: v2.1.0/resources/api_v2_manage_customers_{identifier}_contacts_{contact_id}.yaml
+  /api/v2/manage/groups/{identifier}/members:
+    $ref: v2.1.0/resources/api_v2_manage_groups_{identifier}_members.yaml
+  /api/v2/manage/groups/{identifier}/members/{user_id}:
+    $ref: v2.1.0/resources/api_v2_manage_groups_{identifier}_members_{user_id}.yaml
+  /api/v2/manage/groups/{identifier}/cases-access:
+    $ref: v2.1.0/resources/api_v2_manage_groups_{identifier}_cases-access.yaml
+  /api/v2/manage/users/{identifier}/avatar:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_avatar.yaml
+  /api/v2/manage/users/{identifier}/groups:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_groups.yaml
+  /api/v2/manage/users/{identifier}/customers:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_customers.yaml
+  /api/v2/manage/users/{identifier}/cases-access:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_cases-access.yaml
+  /api/v2/manage/users/{identifier}/activate:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_activate.yaml
+  /api/v2/manage/users/{identifier}/deactivate:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_deactivate.yaml
+  /api/v2/manage/users/{identifier}/api-key/renew:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_api-key_renew.yaml
+  /api/v2/manage/users/{identifier}/mfa/reset:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_mfa_reset.yaml
+  /api/v2/manage/users/{identifier}/recompute-access:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_recompute-access.yaml
+  /api/v2/manage/users/{identifier}/audit:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_audit.yaml
+  /api/v2/manage/users/me/preferences/{key}:
+    $ref: v2.1.0/resources/api_v2_manage_users_me_preferences_{key}.yaml
+  /api/v2/manage/modules:
+    $ref: v2.1.0/resources/api_v2_manage_modules.yaml
+  /api/v2/manage/modules/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}.yaml
+  /api/v2/manage/modules/{identifier}/enable:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}_enable.yaml
+  /api/v2/manage/modules/{identifier}/disable:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}_disable.yaml
+  /api/v2/manage/modules/{identifier}/parameters/{param_name}:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}_parameters_{param_name}.yaml
+  /api/v2/manage/modules/{identifier}/export-config:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}_export-config.yaml
+  /api/v2/manage/modules/{identifier}/import-config:
+    $ref: v2.1.0/resources/api_v2_manage_modules_{identifier}_import-config.yaml
+  /api/v2/manage/modules/hooks:
+    $ref: v2.1.0/resources/api_v2_manage_modules_hooks.yaml
+  /api/v2/manage/report-templates:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates.yaml
+  /api/v2/manage/report-templates/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_{identifier}.yaml
+  /api/v2/manage/report-templates/{identifier}/file:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_{identifier}_file.yaml
+  /api/v2/manage/report-templates/{identifier}/download:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_{identifier}_download.yaml
+  /api/v2/manage/report-templates/{identifier}/render:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_{identifier}_render.yaml
+  /api/v2/manage/report-templates/accessible-cases:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_accessible-cases.yaml
+  /api/v2/manage/report-templates/schema:
+    $ref: v2.1.0/resources/api_v2_manage_report-templates_schema.yaml
+  /api/v2/manage/server/authentication-settings:
+    $ref: v2.1.0/resources/api_v2_manage_server_authentication-settings.yaml
+  /api/v2/manage/server/settings:
+    $ref: v2.1.0/resources/api_v2_manage_server_settings.yaml
+  /api/v2/manage/server/backups/db:
+    $ref: v2.1.0/resources/api_v2_manage_server_backups_db.yaml
+  /api/v2/manage/server/mail/test-send:
+    $ref: v2.1.0/resources/api_v2_manage_server_mail_test-send.yaml
+  /api/v2/manage/severities:
+    $ref: v2.1.0/resources/api_v2_manage_severities.yaml
+  /api/v2/manage/tlp:
+    $ref: v2.1.0/resources/api_v2_manage_tlp.yaml
+  /api/v2/manage/alert-statuses:
+    $ref: v2.1.0/resources/api_v2_manage_alert-statuses.yaml
+  /api/v2/manage/alert-resolutions:
+    $ref: v2.1.0/resources/api_v2_manage_alert-resolutions.yaml
+  /api/v2/manage/alert-cluster-statuses:
+    $ref: v2.1.0/resources/api_v2_manage_alert-cluster-statuses.yaml
+  /api/v2/manage/analysis-statuses:
+    $ref: v2.1.0/resources/api_v2_manage_analysis-statuses.yaml
+  /api/v2/manage/event-categories:
+    $ref: v2.1.0/resources/api_v2_manage_event-categories.yaml
+  /api/v2/manage/task-statuses:
+    $ref: v2.1.0/resources/api_v2_manage_task-statuses.yaml
+  /api/v2/war-rooms:
+    $ref: v2.1.0/resources/api_v2_war-rooms.yaml
+  /api/v2/war-rooms/{war_room_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/archive:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_archive.yaml
+  /api/v2/war-rooms/{war_room_id}/members:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_members.yaml
+  /api/v2/war-rooms/{war_room_id}/members/{user_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_members_{user_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/people:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_people.yaml
+  /api/v2/war-rooms/{war_room_id}/cases:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_cases.yaml
+  /api/v2/war-rooms/{war_room_id}/cases/{case_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_cases_{case_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/chat:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}/pin:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}_pin.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/threads:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_threads.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/trace-log:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_trace-log.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}/replies:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}_replies.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}/thread-title:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}_thread-title.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}/follow:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}_follow.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/{message_id}/reactions:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_{message_id}_reactions.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/polls:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_polls.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/polls/{poll_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_polls_{poll_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/polls/{poll_id}/vote:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_polls_{poll_id}_vote.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/polls/{poll_id}/close:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_polls_{poll_id}_close.yaml
+  /api/v2/war-rooms/{war_room_id}/datastore:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_datastore.yaml
+  /api/v2/war-rooms/{war_room_id}/datastore/{file_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_datastore_{file_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/datastore/{file_id}/content:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_datastore_{file_id}_content.yaml
+  /api/v2/war-rooms/{war_room_id}/linked-case-timelines:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_linked-case-timelines.yaml
+  /api/v2/war-rooms/{war_room_id}/linked-case-timelines/events:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_linked-case-timelines_events.yaml
+  /api/v2/war-rooms/{war_room_id}/notes:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes.yaml
+  /api/v2/war-rooms/{war_room_id}/notes/{note_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes_{note_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/notes/{note_id}/revisions:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes_{note_id}_revisions.yaml
+  /api/v2/war-rooms/{war_room_id}/notes/{note_id}/revisions/{revision_number}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes_{note_id}_revisions_{revision_number}.yaml
+  /api/v2/war-rooms/{war_room_id}/notes/{note_id}/revisions/{revision_number}/restore:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes_{note_id}_revisions_{revision_number}_restore.yaml
+  /api/v2/war-rooms/{war_room_id}/notes-folders:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes-folders.yaml
+  /api/v2/war-rooms/{war_room_id}/notes-folders/{folder_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_notes-folders_{folder_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps/{sitrep_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps_{sitrep_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps/{sitrep_id}/publish:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps_{sitrep_id}_publish.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps/{sitrep_id}/export.md:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps_{sitrep_id}_export_md.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps/{sitrep_id}/export.html:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps_{sitrep_id}_export_html.yaml
+  /api/v2/war-rooms/{war_room_id}/sitreps/{sitrep_id}/export.pdf:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_sitreps_{sitrep_id}_export_pdf.yaml
+  /api/v2/war-rooms/{war_room_id}/tasks:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_tasks.yaml
+  /api/v2/war-rooms/{war_room_id}/tasks/{task_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_tasks_{task_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/tasks/{task_id}/close:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_tasks_{task_id}_close.yaml
+  /api/v2/war-rooms/{war_room_id}/tasks/{task_id}/reopen:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_tasks_{task_id}_reopen.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/{timeline_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_{timeline_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/{timeline_id}/events:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_{timeline_id}_events.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events/{event_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events_{event_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events/{event_id}/flag:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events_{event_id}_flag.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events/{event_id}/duplicate:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events_{event_id}_duplicate.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events/{event_id}/assets:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events_{event_id}_assets.yaml
+  /api/v2/war-rooms/{war_room_id}/timelines/events/{event_id}/iocs:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_timelines_events_{event_id}_iocs.yaml
+  /api/v2/alerts/dim-hooks/invoke:
+    $ref: v2.1.0/resources/api_v2_alerts_dim-hooks_invoke.yaml
+  /api/v2/alerts/grouped:
+    $ref: v2.1.0/resources/api_v2_alerts_grouped.yaml
+  /api/v2/alerts/search-schema:
+    $ref: v2.1.0/resources/api_v2_alerts_search-schema.yaml
+  /api/v2/alerts/{alert_identifier}/assets/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_{alert_identifier}_assets_{identifier}.yaml
+  /api/v2/alerts/{alert_identifier}/iocs/{identifier}:
+    $ref: v2.1.0/resources/api_v2_alerts_{alert_identifier}_iocs_{identifier}.yaml
+  /api/v2/bug-reports:
+    $ref: v2.1.0/resources/api_v2_bug-reports.yaml
+  /api/v2/case-chat/cases/{case_id}/conversations:
+    $ref: v2.1.0/resources/api_v2_case-chat_cases_{case_id}_conversations.yaml
+  /api/v2/case-chat/conversations/{conversation_id}:
+    $ref: v2.1.0/resources/api_v2_case-chat_conversations_{conversation_id}.yaml
+  /api/v2/case-chat/global/conversations:
+    $ref: v2.1.0/resources/api_v2_case-chat_global_conversations.yaml
+  /api/v2/case-chat/health:
+    $ref: v2.1.0/resources/api_v2_case-chat_health.yaml
+  /api/v2/case-chat/war-rooms/{war_room_id}/conversations:
+    $ref: v2.1.0/resources/api_v2_case-chat_war-rooms_{war_room_id}_conversations.yaml
+  /api/v2/cases/import:
+    $ref: v2.1.0/resources/api_v2_cases_import.yaml
+  /api/v2/cases/import/inspect:
+    $ref: v2.1.0/resources/api_v2_cases_import_inspect.yaml
+  /api/v2/cases/import/{token}:
+    $ref: v2.1.0/resources/api_v2_cases_import_{token}.yaml
+  /api/v2/cases/{case_identifier}/dim-hooks/invoke:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_dim-hooks_invoke.yaml
+  /api/v2/cases/{case_identifier}/export:
+    $ref: v2.1.0/resources/api_v2_cases_{case_identifier}_export.yaml
+  /api/v2/dim-hooks:
+    $ref: v2.1.0/resources/api_v2_dim-hooks.yaml
+  /api/v2/docs:
+    $ref: v2.1.0/resources/api_v2_docs.yaml
+  /api/v2/manage/banners:
+    $ref: v2.1.0/resources/api_v2_manage_banners.yaml
+  /api/v2/manage/banners/active:
+    $ref: v2.1.0/resources/api_v2_manage_banners_active.yaml
+  /api/v2/manage/banners/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_banners_{identifier}.yaml
+  /api/v2/manage/case-chat/customers/{customer_id}/policy:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_customers_{customer_id}_policy.yaml
+  /api/v2/manage/case-chat/dpo/erase:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_dpo_erase.yaml
+  /api/v2/manage/case-chat/dpo/export:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_dpo_export.yaml
+  /api/v2/manage/case-chat/egress-audit:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_egress-audit.yaml
+  /api/v2/manage/case-chat/policies:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_policies.yaml
+  /api/v2/manage/case-chat/policies/{policy_id}:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_policies_{policy_id}.yaml
+  /api/v2/manage/case-chat/retention/run:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_retention_run.yaml
+  /api/v2/manage/case-chat/sessions:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_sessions.yaml
+  /api/v2/manage/case-chat/sessions/{conversation_id}:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_sessions_{conversation_id}.yaml
+  /api/v2/manage/case-chat/sessions/{conversation_id}/turns:
+    $ref: v2.1.0/resources/api_v2_manage_case-chat_sessions_{conversation_id}_turns.yaml
+  /api/v2/manage/custom-attributes/validate:
+    $ref: v2.1.0/resources/api_v2_manage_custom-attributes_validate.yaml
+  /api/v2/manage/managed-assets:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets.yaml
+  /api/v2/manage/managed-assets/audit:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_audit.yaml
+  /api/v2/manage/managed-assets/export:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_export.yaml
+  /api/v2/manage/managed-assets/import:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_import.yaml
+  /api/v2/manage/managed-assets/import/inspect:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_import_inspect.yaml
+  /api/v2/manage/managed-assets/import/{token}:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_import_{token}.yaml
+  /api/v2/manage/managed-assets/reconcile:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_reconcile.yaml
+  /api/v2/manage/managed-assets/{identifier}:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_{identifier}.yaml
+  /api/v2/manage/managed-assets/{identifier}/audit:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_{identifier}_audit.yaml
+  /api/v2/manage/managed-assets/{identifier}/sightings:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_{identifier}_sightings.yaml
+  /api/v2/manage/managed-assets/{identifier}/timeline:
+    $ref: v2.1.0/resources/api_v2_manage_managed-assets_{identifier}_timeline.yaml
+  /api/v2/manage/users/{identifier}/api-keys:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_api-keys.yaml
+  /api/v2/manage/users/{identifier}/api-keys/{key_id}:
+    $ref: v2.1.0/resources/api_v2_manage_users_{identifier}_api-keys_{key_id}.yaml
+  /api/v2/me/api-keys:
+    $ref: v2.1.0/resources/api_v2_me_api-keys.yaml
+  /api/v2/me/api-keys/{key_id}:
+    $ref: v2.1.0/resources/api_v2_me_api-keys_{key_id}.yaml
+  /api/v2/openapi.yaml:
+    $ref: v2.1.0/resources/api_v2_openapi_yaml.yaml
+  /api/v2/ping:
+    $ref: v2.1.0/resources/api_v2_ping.yaml
+  /api/v2/runtime-config:
+    $ref: v2.1.0/resources/api_v2_runtime-config.yaml
+  /api/v2/versions:
+    $ref: v2.1.0/resources/api_v2_versions.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/topics:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_topics.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/topics/{topic_id}/archive:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_topics_{topic_id}_archive.yaml
+  /api/v2/war-rooms/{war_room_id}/chat/topics/{topic_id}/unarchive:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_chat_topics_{topic_id}_unarchive.yaml
+  /api/v2/war-rooms/{war_room_id}/tasks/tags:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_tasks_tags.yaml
+  /api/v2/war-rooms/{war_room_id}/teams:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_teams.yaml
+  /api/v2/war-rooms/{war_room_id}/teams/{team_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_teams_{team_id}.yaml
+  /api/v2/war-rooms/{war_room_id}/teams/{team_id}/members:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_teams_{team_id}_members.yaml
+  /api/v2/war-rooms/{war_room_id}/teams/{team_id}/members/{user_id}:
+    $ref: v2.1.0/resources/api_v2_war-rooms_{war_room_id}_teams_{team_id}_members_{user_id}.yaml
+  # ---- end v3 additions ----
+  /manage/cases/update/{case_id}:
+    $ref: v2.1.0/resources/manage_cases_update_{case_id}.yaml
+  /case/tasklog/add:
+    $ref: v2.1.0/resources/case_tasklog_add.yaml
+  /case/export:
+    $ref: v2.1.0/resources/case_export.yaml
+  /case/assets/list:
+    $ref: v2.1.0/resources/case_assets_list.yaml
+  /case/assets/{asset_id}:
+    $ref: v2.1.0/resources/case_assets_{asset_id}.yaml
+  /case/assets/add:
+    $ref: v2.1.0/resources/case_assets_add.yaml
+  /case/assets/update/{asset_id}:
+    $ref: v2.1.0/resources/case_assets_update_{asset_id}.yaml
+  /case/assets/delete/{asset_id}:
+    $ref: v2.1.0/resources/case_assets_delete_{asset_id}.yaml
+  /case/notes/groups/list:
+    $ref: v2.1.0/resources/case_notes_groups_list.yaml
+  /case/notes/groups/{group_id}:
+    $ref: v2.1.0/resources/case_notes_groups_{group_id}.yaml
+  /case/notes/directories/filter:
+    $ref: v2.1.0/resources/case_notes_directories_filter.yaml
+  /case/notes/groups/add:
+    $ref: v2.1.0/resources/case_notes_groups_add.yaml
+  /case/notes/directories/add:
+    $ref: v2.1.0/resources/case_notes_directories_add.yaml
+  /case/notes/groups/update/{group_id}:
+    $ref: v2.1.0/resources/case_notes_groups_update_{group_id}.yaml
+  /case/notes/directories/update/{directory_id}:
+    $ref: v2.1.0/resources/case_notes_directories_update_{directory_id}.yaml
+  /case/notes/groups/delete/{group_id}:
+    $ref: v2.1.0/resources/case_notes_groups_delete_{group_id}.yaml
+  /case/notes/directories/delete/{directory_id}:
+    $ref: v2.1.0/resources/case_notes_directories_delete_{directory_id}.yaml
+  /case/notes/add:
+    $ref: v2.1.0/resources/case_notes_add.yaml
+  /case/notes/{note_id}:
+    $ref: v2.1.0/resources/case_notes_{note_id}.yaml
+  /case/notes/update/{note_id}:
+    $ref: v2.1.0/resources/case_notes_update_{note_id}.yaml
+  /case/notes/delete/{note_id}:
+    $ref: v2.1.0/resources/case_notes_delete_{note_id}.yaml
+  /case/notes/search:
+    $ref: v2.1.0/resources/case_notes_search.yaml
+  /case/ioc/list:
+    $ref: v2.1.0/resources/case_ioc_list.yaml
+  /case/ioc/{ioc_id}:
+    $ref: v2.1.0/resources/case_ioc_{ioc_id}.yaml
+  /case/ioc/add:
+    $ref: v2.1.0/resources/case_ioc_add.yaml
+  /case/ioc/delete/{ioc_id}:
+    $ref: v2.1.0/resources/case_ioc_delete_{ioc_id}.yaml
+  /case/ioc/update/{ioc_id}:
+    $ref: v2.1.0/resources/case_ioc_update_{ioc_id}.yaml
+  /case/timeline/events/list/filter/{asset_id}:
+    $ref: v2.1.0/resources/case_timeline_events_list_filter_{asset_id}.yaml
+  /case/timeline/events/list:
+    $ref: v2.1.0/resources/case_timeline_events_list.yaml
+  /case/timeline/state:
+    $ref: v2.1.0/resources/case_timeline_state.yaml
+  /case/timeline/events/add:
+    $ref: v2.1.0/resources/case_timeline_events_add.yaml
+  /case/timeline/events/{event_id}:
+    $ref: v2.1.0/resources/case_timeline_events_{event_id}.yaml
+  /case/timeline/events/update/{event_id}:
+    $ref: v2.1.0/resources/case_timeline_events_update_{event_id}.yaml
+  /case/timeline/events/delete/{event_id}:
+    $ref: v2.1.0/resources/case_timeline_events_delete_{event_id}.yaml
+  /case/tasks/list:
+    $ref: v2.1.0/resources/case_tasks_list.yaml
+  /case/tasks/{task_id}:
+    $ref: v2.1.0/resources/case_tasks_{task_id}.yaml
+  /case/tasks/delete/{task_id}:
+    $ref: v2.1.0/resources/case_tasks_delete_{task_id}.yaml
+  /case/tasks/add:
+    $ref: v2.1.0/resources/case_tasks_add.yaml
+  /case/tasks/update/{task_id}:
+    $ref: v2.1.0/resources/case_tasks_update_{task_id}.yaml
+  /case/evidences/list:
+    $ref: v2.1.0/resources/case_evidences_list.yaml
+  /case/evidences/add:
+    $ref: v2.1.0/resources/case_evidences_add.yaml
+  /case/evidences/{evidence_id}:
+    $ref: v2.1.0/resources/case_evidences_{evidence_id}.yaml
+  /case/evidences/delete/{evidence_id}:
+    $ref: v2.1.0/resources/case_evidences_delete_{evidence_id}.yaml
+  /case/evidences/update/{evidence_id}:
+    $ref: v2.1.0/resources/case_evidences_update_{evidence_id}.yaml
+  /alerts/{alert_id}:
+    $ref: v2.1.0/resources/alerts_{alert_id}.yaml
+  /alerts/filter:
+    $ref: v2.1.0/resources/alerts_filter.yaml
+  /alerts/add:
+    $ref: v2.1.0/resources/alerts_add.yaml
+  /alerts/update/{alert_id}:
+    $ref: v2.1.0/resources/alerts_update_{alert_id}.yaml
+  /alerts/batch/update:
+    $ref: v2.1.0/resources/alerts_batch_update.yaml
+  /alerts/delete/{alert_id}:
+    $ref: v2.1.0/resources/alerts_delete_{alert_id}.yaml
+  /alerts/batch/delete:
+    $ref: v2.1.0/resources/alerts_batch_delete.yaml
+  /alerts/escalate/{alert_id}:
+    $ref: v2.1.0/resources/alerts_escalate_{alert_id}.yaml
+  /alerts/merge/{alert_id}:
+    $ref: v2.1.0/resources/alerts_merge_{alert_id}.yaml
+  /alerts/unmerge/{alert_id}:
+    $ref: v2.1.0/resources/alerts_unmerge_{alert_id}.yaml
+  /datastore/list/tree:
+    $ref: v2.1.0/resources/datastore_list_tree.yaml
+  /datastore/file/add/{parent_id}:
+    $ref: v2.1.0/resources/datastore_file_add_{parent_id}.yaml
+  /datastore/file/info/{file_id}:
+    $ref: v2.1.0/resources/datastore_file_info_{file_id}.yaml
+  /datastore/file/update/{file_id}:
+    $ref: v2.1.0/resources/datastore_file_update_{file_id}.yaml
+  /datastore/file/delete/{file_id}:
+    $ref: v2.1.0/resources/datastore_file_delete_{file_id}.yaml
+  /datastore/file/view/{file_id}:
+    $ref: v2.1.0/resources/datastore_file_view_{file_id}.yaml
+  /datastore/file/move/{file_id}:
+    $ref: v2.1.0/resources/datastore_file_move_{file_id}.yaml
+  /datastore/folder/add:
+    $ref: v2.1.0/resources/datastore_folder_add.yaml
+  /datastore/folder/delete/{folder_id}:
+    $ref: v2.1.0/resources/datastore_folder_delete_{folder_id}.yaml
+  /datastore/folder/rename/{folder_id}:
+    $ref: v2.1.0/resources/datastore_folder_rename_{folder_id}.yaml
+  /datastore/folder/move/{folder_id}:
+    $ref: v2.1.0/resources/datastore_folder_move_{folder_id}.yaml
+  /case/{object_name}/{object_id}/comments/add:
+    $ref: v2.1.0/resources/case_{object_name}_{object_id}_comments_add.yaml
+  /case/{object_name}/{object_id}/comments/list:
+    $ref: v2.1.0/resources/case_{object_name}_{object_id}_comments_list.yaml
+  /case/{object_name}/{object_id}/comments/{comment_id}/delete:
+    $ref: v2.1.0/resources/case_{object_name}_{object_id}_comments_{comment_id}_delete.yaml
+  /case/{object_name}/{object_id}/comments/{comment_id}/edit:
+    $ref: v2.1.0/resources/case_{object_name}_{object_id}_comments_{comment_id}_edit.yaml
+  /dim/tasks/list/{rows_count}:
+    $ref: v2.1.0/resources/dim_tasks_list_{rows_count}.yaml
+  /dim/hooks/options/{object_type}/list:
+    $ref: v2.1.0/resources/dim_hooks_options_{object_type}_list.yaml
+  /dim/hooks/call:
+    $ref: v2.1.0/resources/dim_hooks_call.yaml
+  /global/tasks/list:
+    $ref: v2.1.0/resources/global_tasks_list.yaml
+  /global/tasks/add:
+    $ref: v2.1.0/resources/global_tasks_add.yaml
+  /global/tasks/update/{task_id}:
+    $ref: v2.1.0/resources/global_tasks_update_{task_id}.yaml
+  /global/tasks/delete/{task_id}:
+    $ref: v2.1.0/resources/global_tasks_delete_{task_id}.yaml
+  /manage/cases/add:
+    $ref: v2.1.0/resources/manage_cases_add.yaml
+  /manage/cases/list:
+    $ref: v2.1.0/resources/manage_cases_list.yaml
+  /manage/cases/close/{case_id}:
+    $ref: v2.1.0/resources/manage_cases_close_{case_id}.yaml
+  /manage/cases/reopen/{case_id}:
+    $ref: v2.1.0/resources/manage_cases_reopen_{case_id}.yaml
+  /manage/cases/delete/{case_id}:
+    $ref: v2.1.0/resources/manage_cases_delete_{case_id}.yaml
+  /manage/customers/list:
+    $ref: v2.1.0/resources/manage_customers_list.yaml
+  /manage/customers/{customer_id}:
+    $ref: v2.1.0/resources/manage_customers_{customer_id}.yaml
+  /manage/customers/add:
+    $ref: v2.1.0/resources/manage_customers_add.yaml
+  /manage/customers/update/{customer_id}:
+    $ref: v2.1.0/resources/manage_customers_update_{customer_id}.yaml
+  /manage/customers/delete/{customer_id}:
+    $ref: v2.1.0/resources/manage_customers_delete_{customer_id}.yaml
+  /manage/customers/{customer_id}/contacts/add:
+    $ref: v2.1.0/resources/manage_customers_{customer_id}_contacts_add.yaml
+  /manage/customers/{customer_id}/contacts/{contact_id}/update:
+    $ref: v2.1.0/resources/manage_customers_{customer_id}_contacts_{contact_id}_update.yaml
+  /manage/users/delete/{user_id}:
+    $ref: v2.1.0/resources/manage_users_delete_{user_id}.yaml
+  /manage/users/update/{user_id}:
+    $ref: v2.1.0/resources/manage_users_update_{user_id}.yaml
+  /manage/users/add:
+    $ref: v2.1.0/resources/manage_users_add.yaml
+  /manage/users/{user_id}/groups/update:
+    $ref: v2.1.0/resources/manage_users_{user_id}_groups_update.yaml
+  /manage/users/{user_id}/cases-access/update:
+    $ref: v2.1.0/resources/manage_users_{user_id}_cases-access_update.yaml
+  /manage/users/{user_id}/cases-access/delete:
+    $ref: v2.1.0/resources/manage_users_{user_id}_cases-access_delete.yaml
+  /manage/users/list:
+    $ref: v2.1.0/resources/manage_users_list.yaml
+  /manage/users/{user_id}:
+    $ref: v2.1.0/resources/manage_users_{user_id}.yaml
+  /manage/groups/add:
+    $ref: v2.1.0/resources/manage_groups_add.yaml
+  /manage/groups/update/{group_id}:
+    $ref: v2.1.0/resources/manage_groups_update_{group_id}.yaml
+  /manage/groups/{group_id}/members/update:
+    $ref: v2.1.0/resources/manage_groups_{group_id}_members_update.yaml
+  /manage/groups/delete/{group_id}:
+    $ref: v2.1.0/resources/manage_groups_delete_{group_id}.yaml
+  /manage/groups/{group_id}/members/delete/{user_id}:
+    $ref: v2.1.0/resources/manage_groups_{group_id}_members_delete_{user_id}.yaml
+  /manage/groups/{group_id}/cases-access/update:
+    $ref: v2.1.0/resources/manage_groups_{group_id}_cases-access_update.yaml
+  /manage/groups/{group_id}/cases-access/delete:
+    $ref: v2.1.0/resources/manage_groups_{group_id}_cases-access_delete.yaml
+  /manage/groups/list:
+    $ref: v2.1.0/resources/manage_groups_list.yaml
+  /manage/asset-type/list:
+    $ref: v2.1.0/resources/manage_asset-type_list.yaml
+  /manage/asset-type/{asset_type_id}:
+    $ref: v2.1.0/resources/manage_asset-type_{asset_type_id}.yaml
+  /manage/asset-type/delete/{asset_type_id}:
+    $ref: v2.1.0/resources/manage_asset-type_delete_{asset_type_id}.yaml
+  /manage/asset-type/add:
+    $ref: v2.1.0/resources/manage_asset-type_add.yaml
+  /manage/asset-type/update/{asset_type_id}:
+    $ref: v2.1.0/resources/manage_asset-type_update_{asset_type_id}.yaml
+  /manage/task-status/list:
+    $ref: v2.1.0/resources/manage_task-status_list.yaml
+  /manage/task-status/{task_status_id}:
+    $ref: v2.1.0/resources/manage_task-status_{task_status_id}.yaml
+  /manage/analysis-status/list:
+    $ref: v2.1.0/resources/manage_analysis-status_list.yaml
+  /manage/analysis-status/{analysis_status_id}:
+    $ref: v2.1.0/resources/manage_analysis-status_{analysis_status_id}.yaml
+  /manage/ioc-types/list:
+    $ref: v2.1.0/resources/manage_ioc-types_list.yaml
+  /manage/ioc-types/{ioc_type_id}:
+    $ref: v2.1.0/resources/manage_ioc-types_{ioc_type_id}.yaml
+  /manage/ioc-types/delete/{ioc_type_id}:
+    $ref: v2.1.0/resources/manage_ioc-types_delete_{ioc_type_id}.yaml
+  /manage/ioc-types/add:
+    $ref: v2.1.0/resources/manage_ioc-types_add.yaml
+  /manage/ioc-types/update/{ioc_type_id}:
+    $ref: v2.1.0/resources/manage_ioc-types_update_{ioc_type_id}.yaml
+  /manage/tlp/list:
+    $ref: v2.1.0/resources/manage_tlp_list.yaml
+  /manage/case-templates/add:
+    $ref: v2.1.0/resources/manage_case-templates_add.yaml
+  /manage/case-templates/update/{template_id}:
+    $ref: v2.1.0/resources/manage_case-templates_update_{template_id}.yaml
+  /manage/case-templates/delete/{template_id}:
+    $ref: v2.1.0/resources/manage_case-templates_delete_{template_id}.yaml
+  /manage/case-classifications/list:
+    $ref: v2.1.0/resources/manage_case-classifications_list.yaml
+  /manage/case-classifications/{classification_id}:
+    $ref: v2.1.0/resources/manage_case-classifications_{classification_id}.yaml
+  /manage/case-classifications/add:
+    $ref: v2.1.0/resources/manage_case-classifications_add.yaml
+  /manage/case-classifications/update/{classification_id}:
+    $ref: v2.1.0/resources/manage_case-classifications_update_{classification_id}.yaml
+  /manage/case-classifications/delete/{classification_id}:
+    $ref: v2.1.0/resources/manage_case-classifications_delete_{classification_id}.yaml
+  /manage/case-states/list:
+    $ref: v2.1.0/resources/manage_case-states_list.yaml
+  /manage/case-states/{state_id}:
+    $ref: v2.1.0/resources/manage_case-states_{state_id}.yaml
+  /manage/case-states/add:
+    $ref: v2.1.0/resources/manage_case-states_add.yaml
+  /manage/case-states/update/{state_id}:
+    $ref: v2.1.0/resources/manage_case-states_update_{state_id}.yaml
+  /manage/case-states/delete/{state_id}:
+    $ref: v2.1.0/resources/manage_case-states_delete_{state_id}.yaml
+  /manage/compromise-status/list:
+    $ref: v2.1.0/resources/manage_compromise-status_list.yaml
+  /manage/severities/list:
+    $ref: v2.1.0/resources/manage_severities_list.yaml
+  /manage/evidence-types/list:
+    $ref: v2.1.0/resources/manage_evidence-types_list.yaml
+  /manage/evidence-types/{type_id}:
+    $ref: v2.1.0/resources/manage_evidence-types_{type_id}.yaml
+  /manage/evidence-types/add:
+    $ref: v2.1.0/resources/manage_evidence-types_add.yaml
+  /manage/evidence-types/update/{type_id}:
+    $ref: v2.1.0/resources/manage_evidence-types_update_{type_id}.yaml
+  /manage/evidence-types/delete/{state_id}:
+    $ref: v2.1.0/resources/manage_evidence-types_delete_{state_id}.yaml
+  /manage/event-categories/list:
+    $ref: v2.1.0/resources/manage_event-categories_list.yaml
+  /api/versions:
+    $ref: v2.1.0/resources/api_versions.yaml
+  /api/ping:
+    $ref: v2.1.0/resources/api_ping.yaml
+  /manage/cases/filter:
+    $ref: v2.1.0/resources/manage_cases_filter.yaml
+components:
+  securitySchemes:
+    Bearer <bearer>:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  - Bearer <bearer>: []
+tags:
+  - name: Cases
+    description: Endpoints to interact with cases
+  - name: Notes
+    description: Endpoints to interact with notes
+  - name: Assets
+    description: Endpoints to interact with assets
+  - name: IOCs
+    description: Endpoints to interact with IoCs
+  - name: Timeline
+    description: Endpoints to interact with events
+  - name: Tasks
+    description: Endpoints to interact with tasks
+  - name: Evidences
+    description: Endpoints to interact with evidences
+  - name: Global tasks
+    description: Endpoints to interact with global tasks
+  - name: Alerts
+    description: Endpoints to interact with alerts
+  - name: Customers
+    description: Endpoints to interact with customers
+  - name: Comments
+    description: Endpoints to interact with comments
+  - name: Manage Users
+    description: Endpoints to interact with users
+  - name: Manage Groups
+    description: Endpoints to interact with groups
+  - name: Modules
+    description: Endpoints to interact with modules
+  - name: API
+    description: General API endpoints
+  - name: Authentication
+    description: Session, MFA and OIDC authentication endpoints
+  - name: Activities
+    description: Global and case-scoped user activity feeds
+  - name: Alert clusters
+    description: Grouping of related alerts, including graph, comments and investigation progress
+  - name: Cluster rules
+    description: Rules that group incoming alerts into clusters
+  - name: Cases filters
+    description: Saved filters over the cases index
+  - name: Custom dashboards
+    description: User-defined dashboards and their widgets
+  - name: Dashboard
+    description: Landing-page dashboard endpoints (own cases, tasks, activities, KPIs)
+  - name: Dim tasks
+    description: Long-running background tasks queued by IRIS
+  - name: Investigation flows
+    description: Investigation playbooks that can be deployed to alerts and cases
+  - name: Case Timelines
+    description: Timelines and events within a case
+  - name: Case Datastore
+    description: Files and folders attached to a case
+  - name: Notifications
+    description: End-user notifications and delivery settings
+  - name: Search
+    description: Cross-case full-text search
+  - name: Tags
+    description: Tag catalog used across cases and alerts
+  - name: Avatars
+    description: User avatar upload and retrieval
+  - name: Profile
+    description: Current user profile, preferences and followed cases
+  - name: Mail rules
+    description: Mail ingestion rules and diagnostics
+  - name: Access control
+    description: Access-control schema, effective access and recompute jobs
+  - name: Case objects
+    description: Taxonomies for asset types, IoC types, evidence types, case classifications and case states
+  - name: Case templates
+    description: Case templates and their generation schemas
+  - name: Custom attributes
+    description: Custom attribute definitions attached to case objects
+  - name: Report templates
+    description: Report generation templates and rendering
+  - name: Server admin
+    description: Server-wide settings, backups and mail test
+  - name: Taxonomies
+    description: Read-only taxonomies (severities, TLP, statuses, resolutions, categories)
+  - name: War rooms
+    description: Cross-case collaboration spaces
+  - name: War room chat
+    description: Messages, threads, reactions and polls inside a war room
+  - name: War room datastore
+    description: Files attached to a war room
+  - name: War room notes
+    description: Notes and revisions inside a war room
+  - name: War room sitreps
+    description: Situation reports and their exports
+  - name: War room tasks
+    description: Tasks tracked in a war room
+  - name: War room timelines
+    description: Timelines and events tracked in a war room
+  - name: Banners
+    description: Server-wide announcement banners
+  - name: Bug reports
+    description: User-submitted bug reports
+  - name: Case chat
+    description: Assistant conversations scoped to a case, war room or the whole server
+  - name: Case transfer
+    description: Export a case to an archive and import it back, here or on another server
+  - name: Dim hooks
+    description: Module hooks that can be invoked on objects
+  - name: Managed assets
+    description: The asset inventory maintained outside of any case
+  - name: Runtime config
+    description: Server settings the frontend reads at boot
+  - name: War room teams
+    description: Sub-teams a war room's responders are organised into
+  - name: Beta
+    description: These are all the endpoints which are still in beta. Their signature may evolve. Any feedback is welcome!

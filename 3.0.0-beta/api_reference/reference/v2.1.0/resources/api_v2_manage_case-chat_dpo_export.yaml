@@ -1,0 +1,152 @@
+get:
+  operationId: api_v2_manage_case-chat_dpo_export_get
+  tags:
+    - Case chat
+    - Beta
+  summary: Export every chat record for one user (DSAR)
+  description: >-
+    Everything the instance holds about one user's chatbot use — conversations,
+    their messages, and the egress audit rows — as a single JSON document for a
+    data-subject access request. Archived conversations are included
+    deliberately: "everything we hold" is what the subject is entitled to.
+    Requires server administrator.
+  parameters:
+    - schema:
+        type: integer
+      name: user_id
+      in: query
+      required: true
+      description: Subject of the request. Missing or non-integer is a 400.
+  responses:
+    '200':
+      description: Records successfully exported
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              exported_at:
+                description: When this export was produced, UTC.
+                type: string
+                format: date-time
+              conversations:
+                description: Oldest first.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    case_id:
+                      type:
+                        - integer
+                        - 'null'
+                    war_room_id:
+                      type:
+                        - integer
+                        - 'null'
+                    model:
+                      type:
+                        - string
+                        - 'null'
+                    title:
+                      type:
+                        - string
+                        - 'null'
+                    created_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+                    updated_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+                    archived_at:
+                      type:
+                        - string
+                        - 'null'
+                      format: date-time
+                    messages:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          role:
+                            type: string
+                          content:
+                            type:
+                              - string
+                              - 'null'
+                          tool_use_id:
+                            type:
+                              - string
+                              - 'null'
+                          created_at:
+                            type:
+                              - string
+                              - 'null'
+                            format: date-time
+                    egress:
+                      description: >-
+                        One row per call made to the LLM provider on this
+                        conversation's behalf. Oldest first.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          provider:
+                            type:
+                              - string
+                              - 'null'
+                          model:
+                            type:
+                              - string
+                              - 'null'
+                          request_bytes:
+                            type:
+                              - integer
+                              - 'null'
+                          response_bytes:
+                            type:
+                              - integer
+                              - 'null'
+                          prompt_tokens:
+                            type:
+                              - integer
+                              - 'null'
+                          completion_tokens:
+                            type:
+                              - integer
+                              - 'null'
+                          cache_read_tokens:
+                            type:
+                              - integer
+                              - 'null'
+                          cache_creation_tokens:
+                            type:
+                              - integer
+                              - 'null'
+                          redacted:
+                            description: >-
+                              Whether the outbound payload was redacted before
+                              it left the instance.
+                            type:
+                              - boolean
+                              - 'null'
+                          created_at:
+                            type:
+                              - string
+                              - 'null'
+                            format: date-time
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml

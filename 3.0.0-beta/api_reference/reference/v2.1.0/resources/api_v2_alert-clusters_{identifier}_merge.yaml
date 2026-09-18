@@ -1,0 +1,51 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_alert-clusters_(identifier)_merge_post
+  tags:
+    - Alert clusters
+    - Beta
+  summary: Merge a cluster into an existing case
+  description: Merge every member alert of this cluster into an existing case. The caller must have full access to the target case.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - target_case_id
+          properties:
+            target_case_id:
+              type: integer
+              description: Identifier of the destination case. Must be an integer; anything else is rejected with `400`.
+            note:
+              type: string
+              description: Free-text note recorded on the merge
+            import_as_event:
+              type: boolean
+              description: If true, imports each alert as a timeline event on the target case
+            case_tags:
+              type: string
+              description: Comma-separated tags applied to the target case
+  responses:
+    '200':
+      description: Cluster successfully merged into the target case
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              cluster_id:
+                type: integer
+              case_id:
+                type: integer
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

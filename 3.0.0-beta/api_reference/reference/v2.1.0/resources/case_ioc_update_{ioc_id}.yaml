@@ -1,0 +1,193 @@
+parameters:
+  - schema:
+      type: integer
+    name: ioc_id
+    in: path
+    required: true
+post:
+  summary: Update an IOC
+  operationId: post-case-ioc-update
+  responses:
+    '200':
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  ioc_description:
+                    type: string
+                  ioc_value:
+                    type: string
+                  ioc_type:
+                    type: object
+                    properties:
+                      type_taxonomy:
+                        type: 'null'
+                      type_name:
+                        type: string
+                      type_validation_regex:
+                        type: 'null'
+                      type_description:
+                        type: string
+                      type_id:
+                        type: integer
+                      type_validation_expect:
+                        type: 'null'
+                  ioc_tags:
+                    type: string
+                  ioc_uuid:
+                    type: string
+                  ioc_enrichment:
+                    type: 'null'
+                  ioc_id:
+                    type: integer
+                  ioc_tlp_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  custom_attributes:
+                    type: object
+                    properties: {}
+                  ioc_type_id:
+                    type: integer
+                  ioc_misp:
+                    type: 'null'
+            x-examples:
+              Example 1:
+                status: success
+                message: Updated ioc "evil"
+                data:
+                  ioc_description: IOC description
+                  ioc_value: evil
+                  ioc_type:
+                    type_taxonomy: null
+                    type_name: AS
+                    type_validation_regex: null
+                    type_description: Autonomous system
+                    type_id: 1
+                    type_validation_expect: null
+                  ioc_tags: tag1,tag2
+                  ioc_uuid: ec70eb70-487c-414f-bc8f-7f55752c3150
+                  ioc_enrichment: null
+                  ioc_id: 3719
+                  ioc_tlp_id: 2
+                  user_id: 1
+                  custom_attributes: {}
+                  ioc_type_id: 1
+                  ioc_misp: null
+          examples:
+            example-1:
+              value:
+                status: success
+                message: Updated ioc "evil"
+                data:
+                  ioc_description: IOC description
+                  ioc_value: evil
+                  ioc_type:
+                    type_taxonomy: null
+                    type_name: AS
+                    type_validation_regex: null
+                    type_description: Autonomous system
+                    type_id: 1
+                    type_validation_expect: null
+                  ioc_tags: tag1,tag2
+                  ioc_uuid: ec70eb70-487c-414f-bc8f-7f55752c3150
+                  ioc_enrichment: null
+                  ioc_id: 3719
+                  ioc_tlp_id: 2
+                  user_id: 1
+                  custom_attributes: {}
+                  ioc_type_id: 1
+                  ioc_misp: null
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  ioc_type_id:
+                    - Invalid ioc type ID
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Invalid IOC type ID:
+              value:
+                data:
+                  ioc_type_id:
+                    - Invalid ioc type ID
+                message: Data error
+                status: error
+  description: ''
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          x-examples:
+            Example 1:
+              ioc_value: new dummy ioc
+              ioc_tlp_id: 2
+              ioc_type_id: 1
+              ioc_description: new dummy description
+              ioc_tags: tag1,tag2
+              custom_attributes: {}
+              cid: 1
+          properties:
+            ioc_value:
+              type: string
+            ioc_tlp_id:
+              type: integer
+            ioc_type_id:
+              type: integer
+            ioc_description:
+              type: string
+            ioc_tags:
+              type: string
+            custom_attributes:
+              type: object
+        examples:
+          Example:
+            value:
+              ioc_type_id: 1
+              ioc_tlp_id: 2
+              ioc_value: evil
+              ioc_description: IOC description
+              ioc_tags: tag1,tag2
+              custom_attributes: {}
+    description: ''
+  tags:
+    - IOCs

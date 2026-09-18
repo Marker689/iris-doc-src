@@ -1,0 +1,95 @@
+get:
+  summary: Get user list
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data:
+                  - user_active: true
+                    user_email: administrator@iris.local
+                    user_id: 1
+                    user_login: administrator
+                    user_name: administrator
+                    user_uuid: 87d6cfcd-6871-43ea-85ab-eea705c08845
+                  - user_active: true
+                    user_email: string
+                    user_id: 2
+                    user_login: string
+                    user_name: string
+                    user_uuid: bfb2c85d-72d6-4c97-9823-8b29ceb2fc7e
+                message: ''
+                status: success
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_active:
+                      type: boolean
+                    user_email:
+                      type: string
+                    user_id:
+                      type: integer
+                    user_login:
+                      type: string
+                    user_name:
+                      type: string
+                    user_uuid:
+                      type: string
+                    user_is_service_account:
+                      type: boolean
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            Example 1:
+              value:
+                status: success
+                message: ''
+                data:
+                  - user_id: 1
+                    user_uuid: 815be41e-9a7d-4a2e-9e69-db2ceeba6ad2
+                    user_name: administrator
+                    user_login: administrator
+                    user_email: administrator@iris.local
+                    user_active: true
+                    user_is_service_account: false
+                  - user_id: 2
+                    user_uuid: 17e16ccd-a461-4fb0-b219-07f13231d6ce
+                    user_name: automation
+                    user_login: automation
+                    user_email: automation@automation
+                    user_active: true
+                    user_is_service_account: true
+                  - user_id: 3
+                    user_uuid: 06e9d803-d8fc-401f-9487-d76e83072b2b
+                    user_name: string
+                    user_login: string
+                    user_email: string
+                    user_active: true
+                    user_is_service_account: true
+                  - user_id: 4
+                    user_uuid: bb807755-62fa-412b-b242-fd930a24be13
+                    user_name: strsinsg
+                    user_login: strsing
+                    user_email: stringa
+                    user_active: true
+                    user_is_service_account: true
+  operationId: get-manage-users-list
+  description: Return a list of available users.
+  tags:
+    - Manage Users
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+parameters: []

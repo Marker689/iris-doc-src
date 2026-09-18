@@ -1,0 +1,93 @@
+post:
+  operationId: api_v2_cases_post
+  summary: Create a case
+  description: 'Creates a new case.'
+  tags:
+    - Cases
+    - Beta
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            case_name:
+              type: string
+              minLength: 2
+              description: 'A short name for the case. The case number will be prepend. '
+            case_description:
+              type: string
+              minLength: 2
+              description: A short description of the case. This will be the summary of the case.
+            case_customer:
+              type: integer
+              description: 'The customer ID linked to the case. '
+            case_soc_id:
+              type: string
+              description: 'A SOC ticket reference '
+            custom_attributes:
+              type: object
+            case_template_id:
+              type: integer
+            classification_id:
+              type:
+                - 'null'
+                - integer
+          required:
+            - case_name
+            - case_description
+            - case_customer
+            - case_soc_id
+        examples:
+          Valid request:
+            value:
+              case_soc_id: SOC_154
+              case_customer: 1
+              case_name: My Case API
+              case_description: A super nice description
+  responses:
+    '201':
+      description: Case successfully created
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Case.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+get:
+  operationId: api_v2_cases_get
+  summary: Get a paginated list of cases
+  description: Returns a paginated list of cases. Accepts filters and sort query parameters.
+  parameters:
+    - $ref: ../parameters/query/page.yaml
+    - $ref: ../parameters/query/per_page.yaml
+    - $ref: ../parameters/query/order_by.yaml
+    - $ref: ../parameters/query/sort_dir.yaml
+    - $ref: ../parameters/query/case_ids.yaml
+    - $ref: ../parameters/query/case_customer_id.yaml
+    - $ref: ../parameters/query/case_name.yaml
+    - $ref: ../parameters/query/case_description.yaml
+    - $ref: ../parameters/query/classification_id.yaml
+    - $ref: ../parameters/query/case_owner_id.yaml
+    - $ref: ../parameters/query/case_opening_user_id.yaml
+    - $ref: ../parameters/query/severity_id.yaml
+    - $ref: ../parameters/query/case_state_id.yaml
+    - $ref: ../parameters/query/case_soc_id.yaml
+    - $ref: ../parameters/query/start_open_date.yaml
+    - $ref: ../parameters/query/end_open_date.yaml
+    - $ref: ../parameters/query/is_open.yaml
+  responses:
+    '200':
+      description: Paginated list of cases
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Cases.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+  tags:
+    - Cases
+    - Beta
+

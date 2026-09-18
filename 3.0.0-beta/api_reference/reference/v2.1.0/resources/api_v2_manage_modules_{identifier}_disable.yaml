@@ -1,0 +1,35 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+post:
+  operationId: api_v2_manage_modules_(identifier)_disable_post
+  tags:
+    - Modules
+    - Beta
+  summary: Disable a module
+  description: Mark the module as inactive so its hooks no longer fire. The request body is ignored.
+  requestBody:
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    '200':
+      description: Module successfully disabled
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              module_name:
+                type: string
+              is_active:
+                type: boolean
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

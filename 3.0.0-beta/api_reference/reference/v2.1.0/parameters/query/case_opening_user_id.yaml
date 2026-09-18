@@ -1,0 +1,6 @@
+in: query
+name: case_opening_user_id
+description: Identifier of the user who opened the case
+schema:
+  type: integer
+

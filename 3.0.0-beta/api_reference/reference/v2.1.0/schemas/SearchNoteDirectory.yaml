@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  note_count:
+    type: 
+      - integer
+      - 'null'
+  subdirectories:
+    type: array
+  notes:
+    type: array
+example:
+  id: 34
+  name: Test
+  note_count: 0
+  subdirectories: []
+  notes: []
+

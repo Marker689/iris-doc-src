@@ -1,0 +1,65 @@
+parameters:
+  - $ref: ../parameters/path/case_identifier.yaml
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_cases_(case_identifier)_notes-directories_(identifier)_get
+  tags:
+    - Notes
+    - Beta
+  summary: Get a notes directory
+  description: Return information of a notes directory
+  responses:
+    '201':
+      description: notes directory successfully found
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/NoteDirectory.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+
+put:
+  operationId: api_v2_cases_(case_identifier)_notes-directories_(identifier)_put
+  tags:
+    - Notes
+    - Beta
+  summary: Update a notes directory
+  description: Update a notes directory
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/requestBodies/NoteDirectory.yaml
+  responses:
+    '200':
+      description: Notes directory successfully updated
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/NoteDirectory.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+
+delete:
+  operationId: api_v2_cases_(case_identifier)_notes-directories_(identifier)_delete
+  tags:
+    - Notes
+    - Beta
+  summary: Delete a note directory
+  description: Delete a note directory
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+

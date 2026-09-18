@@ -1,0 +1,51 @@
+post:
+  summary: Delete a case evidence
+  operationId: post-case-evidences-delete
+  description: This endpoint is deprecated. Use [DELETE /api/v2/cases/{case_identifier}/evidences/{identifier}](#tag/Evidences/operation/api_v2_cases_(case_identifier)_evidences_(identifier)_delete) instead.
+  deprecated: true
+  tags:
+    - Evidences
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  properties: {}
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+            x-examples:
+              example-1:
+                data: []
+                message: Evidence deleted
+                status: success
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+parameters:
+  - schema:
+      type: integer
+    name: evidence_id
+    in: path
+    required: true
+    description: Evidence ID

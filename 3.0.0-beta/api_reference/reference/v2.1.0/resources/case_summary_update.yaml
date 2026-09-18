@@ -1,0 +1,64 @@
+parameters: []
+post:
+  summary: Update case summary
+  operationId: post-case-summary-update
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                data: 3837413706
+                message: Summary updated
+                status: success
+            properties:
+              data:
+                type: integer
+                description: CRC32 of the summary
+              message:
+                type: string
+              status:
+                type: string
+          examples:
+            Success:
+              value:
+                data: 3837413706
+                message: Summary updated
+                status: success
+  description: >-
+    Update the summary of a case. Carefull: this will trigger an overwrite of
+    the summary. Summaries are shared interactively between users. If an update
+    summary is issued, every user will receive the change and their locale
+    changes will be lost.  
+
+    The summary is a markdown-compatible text. 
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            case_description:
+              type: string
+              description: The updated summary
+          required:
+            - case_description
+        examples:
+          example-1:
+            value:
+              case_description: Dummy description
+              cid: 1
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Case general

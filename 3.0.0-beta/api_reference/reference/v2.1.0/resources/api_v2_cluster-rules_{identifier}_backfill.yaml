@@ -1,0 +1,47 @@
+parameters:
+  - name: identifier
+    in: path
+    required: true
+    schema:
+      type: integer
+post:
+  operationId: api_v2_cluster-rules_(identifier)_backfill_post
+  tags:
+    - Cluster rules
+    - Beta
+  summary: Backfill a cluster rule
+  description: Apply this rule's action to historical alerts. Alerts already grouped into a cluster are skipped so an analyst's manual grouping is preserved. Idempotent thanks to dedupe / time-window logic.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            sample_days:
+              type: integer
+              description: Look-back window in days (default 30)
+            since:
+              type: string
+              format: date-time
+              description: Optional ISO date, backfill from this timestamp
+            dry_run:
+              type: boolean
+              description: If true, count matches without applying the rule
+  responses:
+    '200':
+      description: Backfill job scheduled
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rule_id:
+                type: integer
+              job_id:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

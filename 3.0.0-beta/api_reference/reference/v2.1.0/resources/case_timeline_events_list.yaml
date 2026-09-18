@@ -1,0 +1,167 @@
+get:
+  summary: Fetch the timeline
+  tags:
+    - Timeline
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  state:
+                    type: object
+                    properties:
+                      object_last_update:
+                        type: string
+                      object_state:
+                        type: integer
+                  timeline:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        category_name:
+                          type: string
+                        event_category_id:
+                          type: integer
+                        event_color:
+                          type: 'null'
+                        event_content:
+                          type: string
+                        event_date:
+                          type: string
+                        event_date_wtz:
+                          type: string
+                        event_id:
+                          type: integer
+                        event_in_graph:
+                          type: boolean
+                        event_in_summary:
+                          type: boolean
+                        event_tags:
+                          type: string
+                        event_title:
+                          type: string
+                        event_tz:
+                          type: string
+                        event_uuid:
+                          type: string
+                        iocs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              event_id:
+                                type: integer
+                              ioc_id:
+                                type: integer
+                              ioc_value:
+                                type: string
+              message:
+                type: string
+              status:
+                type: string
+            x-examples:
+              Example 1:
+                data:
+                  state:
+                    object_last_update: Mon, 06 Mar 2023 14:17:42 GMT
+                    object_state: 75
+                  timeline:
+                    - category_name: Unspecified
+                      event_category_id: 1
+                      event_color: null
+                      event_content: ''
+                      event_date: '2023-03-01T00:00:00.000000'
+                      event_date_wtz: '2023-03-01T00:00:00.000000'
+                      event_id: 31
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: dsada
+                      event_tz: '+00:00'
+                      event_uuid: 63e75a14-fe3f-49bb-b983-69c6a337e7f1
+                      iocs:
+                        - event_id: 31
+                          ioc_id: 33
+                          ioc_value: evil
+                    - category_name: Unspecified
+                      event_category_id: 1
+                      event_color: null
+                      event_content: ''
+                      event_date: '2023-03-01T00:00:00.000000'
+                      event_date_wtz: '2023-03-01T00:00:00.000000'
+                      event_id: 32
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: '[DUPLICATED] - dsada'
+                      event_tz: '+00:00'
+                      event_uuid: 63e75a14-fe3f-49bb-b983-69c6a337e7f1
+                      iocs:
+                        - event_id: 32
+                          ioc_id: 33
+                          ioc_value: evil
+                    - category_name: Unspecified
+                      event_category_id: 1
+                      event_color: null
+                      event_content: ''
+                      event_date: '2023-03-01T00:00:00.000000'
+                      event_date_wtz: '2023-03-01T00:00:00.000000'
+                      event_id: 33
+                      event_in_graph: true
+                      event_in_summary: false
+                      event_tags: ''
+                      event_title: '[DUPLICATED] - dsada'
+                      event_tz: '+00:00'
+                      event_uuid: 63e75a14-fe3f-49bb-b983-69c6a337e7f1
+                      iocs:
+                        - event_id: 33
+                          ioc_id: 33
+                          ioc_value: evil
+                message: ''
+                status: success
+          examples:
+            Success filtering on asset 900:
+              value:
+                data:
+                  - assets:
+                      - compromised: false
+                        description: My asset 10
+                        ip: ''
+                        name: asset_11 (Linux - Server)
+                      - compromised: true
+                        description: My asset 10
+                        ip: ''
+                        name: asset_4 (Windows Account - Local)
+                    category_name: ''
+                    event_color: ''
+                    event_content: My event content @44
+                    event_date: Tue, 19 Oct 2021 16:19:09 GMT
+                    event_id: 2021
+                    event_tags: ''
+                    event_title: My event title @44
+                    event_tz: '+00:00'
+                    event_date_wtz: Tue, 19 Oct 2021 16:19:09 GMT
+                    event_in_summary: true
+                    event_in_graph: true
+                message: ''
+                status: success
+  operationId: get-case-timeline-get-filter
+  description: The endpoint is deprecated. Use `/case/timeline/advanced-filter` instead.
+  deprecated: true
+  parameters:
+    - schema:
+        type: integer
+      in: query
+      name: cid
+      description: Case ID
+      required: true
+  security:
+    - Bearer <bearer>: []
+parameters: []

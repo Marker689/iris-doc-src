@@ -1,0 +1,158 @@
+parameters: []
+post:
+  summary: Add task log
+  operationId: post-case-add-tasklog
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            x-examples:
+              Example 1:
+                status: success
+                message: Log saved
+                data:
+                  activity_date: null
+                  activity_desc: A test
+                  case: null
+                  case_id: 1
+                  display_in_ui: true
+                  id: 2135
+                  is_from_api: true
+                  registry: null
+                  user: null
+                  user_id: 1
+                  user_input: true
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                required:
+                  - activity_date
+                  - activity_desc
+                  - case
+                  - case_id
+                  - display_in_ui
+                  - id
+                  - is_from_api
+                  - registry
+                  - user
+                  - user_id
+                  - user_input
+                properties:
+                  activity_date:
+                    type: 'null'
+                  activity_desc:
+                    type: string
+                  case:
+                    type: 'null'
+                  case_id:
+                    type: integer
+                  display_in_ui:
+                    type: boolean
+                  id:
+                    type: integer
+                  is_from_api:
+                    type: boolean
+                  registry:
+                    type: 'null'
+                  user:
+                    type: 'null'
+                  user_id:
+                    type: integer
+                  user_input:
+                    type: boolean
+            required:
+              - status
+              - message
+              - data
+          examples:
+            Success:
+              value:
+                data:
+                  activity_date: Fri, 21 Jan 2022 17:33:48 GMT
+                  activity_desc: A test
+                  case: null
+                  case_id: 1
+                  id: 21632
+                  user: null
+                  user_id: 1
+                  user_input: true
+                message: Log saved
+                status: success
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  log_cotent:
+                    - Unknown field.
+                message: Data error
+                status: error
+            properties:
+              data:
+                type: object
+              message:
+                type: string
+                minLength: 1
+              status:
+                type: string
+                minLength: 1
+            required:
+              - data
+              - message
+              - status
+          examples:
+            Unknown field:
+              value:
+                data:
+                  log_cotent:
+                    - Unknown field.
+                message: Data error
+                status: error
+            Empty log:
+              value:
+                data:
+                  log_content:
+                    - Shorter than minimum length 1.
+                message: Data error
+                status: error
+  description: >-
+    Add a task log to the case. The task log is registered under Activities and
+    is be availble in reports templating. 
+
+    If CID is omitted, the default case of the calling user is used. 
+  parameters:
+    - schema:
+        type: string
+      in: query
+      name: cid
+      description: Case ID
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            log_content:
+              type: string
+          required:
+            - log_content
+        examples:
+          'Example 1 ':
+            value:
+              log_content: A test
+  security:
+    - Bearer <bearer>: []
+  tags:
+    - Case general

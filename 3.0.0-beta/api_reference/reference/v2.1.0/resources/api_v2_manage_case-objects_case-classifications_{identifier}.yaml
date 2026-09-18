@@ -1,0 +1,90 @@
+parameters:
+  - $ref: ../parameters/path/identifier.yaml
+get:
+  operationId: api_v2_manage_case-objects_case-classifications_(identifier)_get
+  tags:
+    - Case objects
+    - Beta
+  summary: Get a case classification
+  description: Get a single case classification by its identifier.
+  responses:
+    '200':
+      description: Case classification successfully found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              name_expanded:
+                type: string
+              description:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+put:
+  operationId: api_v2_manage_case-objects_case-classifications_(identifier)_put
+  tags:
+    - Case objects
+    - Beta
+  summary: Update a case classification
+  description: Update an existing case classification. Any subset of writable fields can be sent.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            name_expanded:
+              type: string
+            description:
+              type: string
+        example:
+          name_expanded: Abusive content - Spam
+  responses:
+    '200':
+      description: Case classification successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              name_expanded:
+                type: string
+              description:
+                type: string
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml
+delete:
+  operationId: api_v2_manage_case-objects_case-classifications_(identifier)_delete
+  tags:
+    - Case objects
+    - Beta
+  summary: Delete a case classification
+  description: Delete a case classification. Fails with 400 if any case still references it.
+  responses:
+    '204':
+      $ref: ../responses/Deleted.yaml
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

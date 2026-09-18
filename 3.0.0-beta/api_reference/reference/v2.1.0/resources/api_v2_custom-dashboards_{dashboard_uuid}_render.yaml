@@ -1,0 +1,66 @@
+parameters:
+  - name: dashboard_uuid
+    in: path
+    required: true
+    description: UUID identifier of the custom dashboard to render.
+    schema:
+      type: string
+      format: uuid
+post:
+  operationId: api_v2_custom-dashboards_(dashboard_uuid)_render_post
+  tags:
+    - Custom dashboards
+    - Beta
+  summary: Render a custom dashboard
+  description: Executes every widget of the dashboard against the supplied filters and timeframe and returns the resolved data ready to be plotted.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            filters:
+              type: object
+              description: Optional filter block applied to every widget (customer_id, severity_id, case_status_id, window).
+            timeframe:
+              type: object
+              description: Optional start / end ISO-8601 timestamps used for time-bounded widgets.
+              properties:
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+            definition:
+              type: object
+              description: Optional dashboard definition override, used by the editor to preview unsaved changes. Falls back to the stored definition when omitted.
+        example:
+          filters:
+            customer_id: 1
+            window: 30d
+          timeframe:
+            start: '2026-06-01T00:00:00Z'
+            end: '2026-06-30T23:59:59Z'
+  responses:
+    '200':
+      description: Rendered dashboard widgets
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              widgets:
+                type: array
+                items:
+                  type: object
+              sections:
+                type: array
+                items:
+                  type: object
+    '400':
+      $ref: ../responses/GenericError.yaml
+    '403':
+      $ref: ../responses/Forbidden.yaml
+    '404':
+      $ref: ../responses/NotFound.yaml

@@ -1,0 +1,5 @@
+# Derived from the backend's generated OpenAPI document; the shape
+# follows the marshmallow schema of the same name.
+type: object
+properties: {}
+description: A registry row plus the derived facts the caller is allowed to see.
