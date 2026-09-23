@@ -2,206 +2,206 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/changelog/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/contact/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/credits/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/getting_started/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/resources/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/roadmap/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/security-advisories/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/support/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/support_us/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/zqa/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/api_reference/legacy_endpoints/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/api_reference/uri_converter/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/api_reference/reference/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/code-tips/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/db-migration/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/db_debug/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/environment/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/hooks/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/structure/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/ui/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/modules/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/development/modules/quick_start/processor/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/alerts/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/api/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/case_templates/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/configuration/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/custom_attributes/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/datastore/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/logging/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/reports/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/server_settings/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/tutorials/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/access_control/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/access_control/authentication/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/access_control/groups/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/access_control/users/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/cases/case_operations/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/cases/iocs/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/cases/notes/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/cases/tasks/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/mod_management/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/natives/IrisMISP/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/natives/IrisSeika/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/natives/IrisVT/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/modules/natives/IrisWebHooks/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/upgrades/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/operations/upgrades/migrate_to_v3/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://dfir-iris.org/3.0.0-beta/python_client/</loc>
-         <lastmod>2026-09-18</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
 </urlset>
