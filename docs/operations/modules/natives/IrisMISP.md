@@ -39,6 +39,8 @@ The feature is enabled by default and can be disabled with the **Populate native
 
 Enrichment is additive: data written by other modules is preserved and only the MISP source is replaced. A MISP match is not by itself a malicious verdict, so the MISP enrichment does not set a ``verdict``; the MISP threat level and tags are reported instead, and the verdict is left to modules that can classify the IOC.
 
+The enrichment payload stays bounded: the raw events view is capped to 25 events, while the complete raw MISP results remain in the report attribute. For ``domain|ip`` IOCs the domain and IP results are merged into a single enrichment source.
+
 ## Configuration 
 The behavior of the module can be configured as needed. Head to the `Advanced` > `Modules` > `IrisMISP` to change it.   
 
