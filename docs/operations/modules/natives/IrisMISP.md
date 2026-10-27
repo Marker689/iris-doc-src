@@ -31,11 +31,20 @@ The insight request on an IOC not handled is simply ignored.
 
 The insights take the form of attributes added to the IOC. They are based on configurable templates.  
 
+## Native IOC enrichment (IRIS 3)
+
+Starting with module version ``1.5.0``, IrisMISP also populates the native IOC enrichment panel displayed in the IOC details view of IRIS 3. The panel reads the ``ioc.ioc_enrichment`` field and gives a concise summary of the MISP results: match status, number of matching events, highest MISP threat level, tags, classifications, event identifiers and links to the matching events.
+
+The feature is enabled by default and can be disabled with the **Populate native IOC enrichment** module setting. The attributes generated from the report templates, including the full raw MISP results, remain available.
+
+Enrichment is additive: data written by other modules is preserved and only the MISP source is replaced. A MISP match is not by itself a malicious verdict, so the MISP enrichment does not set a ``verdict``; the MISP threat level and tags are reported instead, and the verdict is left to modules that can classify the IOC.
+
 ## Configuration 
 The behavior of the module can be configured as needed. Head to the `Advanced` > `Modules` > `IrisMISP` to change it.   
 
 - **MISP configuration** : A JSON describing the MISP access. See below for the structure.  
 - **Add MISP report as new IOC attribute** : If set to true, the module adds a new attribute with the MISP insight. 
+- **Populate native IOC enrichment** : If set to true (default), the module also writes a summary of the MISP results to the native IOC enrichment panel of IRIS 3. The MISP Report attribute is still written. 
 - **Domain report template** : Provides a right-click menu option on IOCs to trigger the MISP module on selected elements. 
 - **Triggers automatically on IOC create**: If set to true, the module runs each time an IOC is created. Disabled by default. 
 - **Triggers automatically on IOC update**: If set to true, the module runs each time an IOC is updated. Disabled by default. 
