@@ -52,6 +52,9 @@ The behavior of the module can be configured as needed. Head to the `Advanced` >
 - **IP report template**: Jinja2 report template for IP IOCs. Refers to the raw report to assess which fields are available. 
 - **Hash report template**: Jinja2 report template for hash IOCs. Refers to the raw report to assess which fields are available. 
 
+!!! info "Upgraded deployments"
+    IRIS stores the module configuration when the module is registered. On a deployment upgraded from an older module version, the stored configuration may not contain the **Populate native IOC enrichment** setting yet. The module then keeps the enabled default, so the native enrichment works without reconfiguration. The setting is exposed in the administration interface when IrisMISP is registered with this version.
+
 ### MISP configuration 
 At the time, only one MISP can be added. Future version might handled more than one MISP.    
 The expected structure is the following :  
